@@ -56,13 +56,30 @@ app/page.tsx                   Preview page with gap list and watermark
 
 ## Next action
 
-**S4 continued — extract Wave 1 templates.** The engine works; the rest is extraction, in
-descending order of page count:
+**Issue Procedure is in progress** — `lib/document/sections/issue-procedure.ts`.
 
-1. **Issue Procedure** (~36pp, ~95% invariant) — biggest single win, budget a full day
-2. **Main Provisions of AoA** (~38pp) — per-issuer extraction from the uploaded AoA
-3. **Definitions and Abbreviations** (~17pp) — sector-varied
-4. **Other Regulatory and Statutory Disclosures** (~17pp)
+Done: **Book Building Procedure** subsection, extracted by diffing Om Galaxy (BSE) against
+Maxwell (NSE), then verified against Century Business Media as a held-out document —
+13 of 16 invariant phrases matched verbatim.
+
+**Held-out verification earned its keep on the first run.** Century cites **Reg 229(1)** where both
+extraction sources cite **229(2)**, because its post-issue capital is under Rs 10 crore. The
+template had it hardcoded. Now derived from post-issue capital in `derivedTerms()`, with tests
+covering both bands and the Rs 10 crore boundary. **Never hardcode a regulation reference that
+depends on issuer facts.**
+
+Remaining Issue Procedure subsections, in document order: phased UPI implementation, availability
+of the RHP and forms, maximum and minimum application size, method of bidding, bids at different
+price levels, **bids by 12 investor categories** (the bulk, and highly invariant), terms of payment,
+electronic registration, build of the book, withdrawal of bids, price discovery and allocation,
+underwriting agreement and RoC filing, pre-issue advertisement, general instructions, grounds for
+technical rejection, basis of allotment, impersonation, undertakings, utilisation of proceeds.
+
+Then, in descending order of page count:
+
+1. **Main Provisions of AoA** (~38pp) — per-issuer extraction from the uploaded AoA
+2. **Definitions and Abbreviations** (~17pp) — sector-varied
+3. **Other Regulatory and Statutory Disclosures** (~17pp)
 
 Use the `template-extraction` skill. Diff the same subsection across 5 corpus documents; identical
 text becomes literal, differing values become `{{ variables }}`, present-in-some becomes conditional.

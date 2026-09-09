@@ -283,6 +283,36 @@ The 200 figure is solid; **the consequence timeline is not.** Do not encode 4 da
 - **notes:** Only bites where the objects include a **project**. An issuer funding entirely from net proceeds plus internal accruals is exempt — S2 states exactly that exemption. `appliesTo` must check for a project object.
 - **checked:** 2026-09-09
 
+### R-023 — Minimum issue size as a proportion of post-issue capital
+
+- **threshold:** The issue must be for **at least 25% of the post-issue paid-up equity share capital**
+- **clause:** **Rule 19(2)(b) of the Securities Contracts (Regulation) Rules, 1957**, read with ICDR **Reg 252**
+- **verbatim (S2):** "In terms of Rule 19(2)(b) of the Securities Contracts (Regulation) Rules, 1957, as amended (the "SCRR") read with Regulation 252 of SEBI ICDR Regulations, 2018, the Issue is being made for at least 25% of the post-Issue Paid-up Equity Share capital of our Company."
+- **corroboration (S5):** same sentence, "at least 25% of the post-Offer Paid-up Equity Share capital"
+- **confidence:** `AS-APPLIED` — identical wording on both exchanges
+- **checked:** 2026-09-09
+
+### R-024 — Allocation split in a book-built SME issue
+
+- **threshold:**
+
+  | Category | Allocation |
+  |---|---|
+  | QIBs | **not more than 50%** of the net issue, proportionate |
+  | Anchor Investors (out of the QIB portion) | **up to 60%** of the QIB portion, discretionary |
+  | — of the anchor portion, domestic mutual funds | **33.33%** reserved |
+  | — of the anchor portion, life insurance and pension funds | **6.67%** reserved |
+  | Mutual Funds (of the net QIB portion, excluding anchor) | **5%**, proportionate |
+  | Non-Institutional Investors | **not less than 15%** of the net issue |
+  | — NII sub-category, application above two lots and up to Rs 10 lakh | **one-third** |
+  | — NII sub-category, application above Rs 10 lakh | **two-thirds** |
+  | Individual Investors | **not less than 35%** of the net issue |
+
+- **clause:** ICDR **Reg 229(2)**, Chapter IX, read with the SEBI ICDR allocation provisions
+- **confidence:** `AS-APPLIED` — S2 and S5 state the same figures on both exchanges
+- **notes:** Under-subscription in any category **except the QIB portion** may be met by spill-over from another category, at the discretion of the company in consultation with the BRLM and the designated stock exchange. Under-subscription in the QIB portion may **not** be met by spill-over. Under-subscription in the anchor portion returns to the QIB portion. Under-subscription in the life-insurance and pension reservation may go to domestic mutual funds.
+- **checked:** 2026-09-09
+
 ---
 
 ## Reg 230(1) — the complete general conditions list

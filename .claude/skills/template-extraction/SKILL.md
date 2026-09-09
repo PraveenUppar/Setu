@@ -9,13 +9,16 @@ Turns ~110 pages of near-identical boilerplate into parameterised templates. Thi
 
 ## Prerequisite
 
-The S0 corpus must exist: 20+ **fixed-price** SME prospectuses, tagged by sector. Without it you are writing plausible-looking legal text from memory, which is exactly the failure this project exists to avoid.
+The S0 corpus must exist: **book-built** SME prospectuses (D15 — the corpus is 7:1 book-built), tagged by sector. Without it you are writing plausible-looking legal text from memory, which is exactly the failure this project exists to avoid.
+
+**Exclude pre-amendment vintage documents.** Shakti Polytarp states 50 allottees rather than 200, so its Issue Procedure carries superseded figures throughout. See D16.
 
 ## The method
 
 ```
 1. Take 5 prospectuses, same section
-   → prefer 5 different sectors, same exchange, recent
+   → prefer different sectors; include BOTH exchanges so
+     exchange-specific text shows up as a difference
 
 2. Align paragraph by paragraph
 
@@ -103,7 +106,8 @@ Per section, before marking it done:
 |---|---|
 | Write boilerplate from memory | It will look right and be wrong. This is the highest-risk thing in the project. |
 | Extract from a single prospectus | You cannot tell invariant text from that issuer's specifics with n=1 |
-| Extract from book-built documents | Different procedures; we target fixed price |
+| Extract from a pre-amendment document | Superseded figures (50 allottees, Rs 1 lakh application) will be baked into the template. Check the vintage first. |
+| Extract from fixed-price documents | Different procedures; D15 targets book-built. Only Quanto is fixed price, and that branch waits for 5+ such documents. |
 | Skip step 5 | An unverified template is a guess |
 | Separate template files per branch | They drift. Use conditional blocks. |
 | Leave a `{{variable}}` untraced | It will render as literal `{{...}}` in a 280-page export |

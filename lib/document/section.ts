@@ -1,3 +1,4 @@
+import Decimal from 'decimal.js';
 import type { FactPath, ProvenanceMap } from '../facts/provenance';
 import type { FactBase } from '../facts/schema';
 import type { DocumentNode } from './nodes';
@@ -62,7 +63,7 @@ export interface SectionSpec {
   externalNote?: string;
 }
 
-/** Words that vary by document stage and house style, injected into every template. */
+/** Words and figures that vary by issuer, injected into every template as `terms`. */
 export function derivedTerms(facts: FactBase) {
   const documentName = {
     DRHP: 'Draft Red Herring Prospectus',
@@ -71,6 +72,33 @@ export function derivedTerms(facts: FactBase) {
   }[facts.offer.documentStage];
 
   const issueWord = facts.offer.terminology === 'ISSUE' ? 'Issue' : 'Offer';
+
+  const offeredShares =
+    facts.offer.freshIssueShares +
+    facts.offer.sellingShareholders.reduce((sum, s) => sum + s.sharesOffered, 0);
+  const postIssueShares = facts.capital.paidUpShares + facts.offer.freshIssueShares;
+
+  /**
+   * Rule 19(2)(b) SCRR read with Reg 252 requires the issue to be at least 25%
+   * of post-issue paid-up capital (R-023). Corpus documents leave this blank as
+   * "[dot]%" because it is only fixed at pricing — we can compute it from the
+   * intended issue, which is more useful to the issuer than a blank.
+   */
+  const issuePercent = new Decimal(offeredShares).dividedBy(postIssueShares).times(100);
+
+  /**
+   * R-001: which limb of Reg 229 the issuer qualifies under depends on
+   * post-issue paid-up capital. 229(1) up to Rs 10 crore, 229(2) above that and
+   * up to Rs 25 crore. Held-out verification against Century Business Media
+   * caught this — it cites 229(1) where Om Galaxy and Maxwell cite 229(2), and
+   * a hardcoded template would have stated the wrong regulation for any issuer
+   * under Rs 10 crore.
+   */
+  const postIssueCapital = new Decimal(facts.capital.faceValue).times(postIssueShares);
+  const TEN_CRORE = new Decimal(100000000);
+  const eligibilityRegulation = postIssueCapital.greaterThan(TEN_CRORE)
+    ? 'Regulation 229(2)'
+    : 'Regulation 229(1)';
 
   return {
     documentName,
@@ -81,6 +109,18 @@ export function derivedTerms(facts: FactBase) {
       facts.offer.exchange === 'BSE_SME'
         ? 'the SME Platform of BSE Limited'
         : 'the Emerge Platform of National Stock Exchange of India Limited',
+    designatedStockExchange:
+      facts.offer.exchange === 'BSE_SME'
+        ? 'BSE Limited'
+        : 'National Stock Exchange of India Limited',
+    depositoryShort: facts.offer.exchange === 'BSE_SME' ? 'BSE' : 'NSE',
+
+    offeredShares,
+    postIssueShares,
+    postIssueCapital: postIssueCapital.toFixed(),
+    issuePercentOfPostIssueCapital: issuePercent.toFixed(2),
+    meetsMinimumIssuePercent: issuePercent.greaterThanOrEqualTo(25),
+    eligibilityRegulation,
   };
 }
 

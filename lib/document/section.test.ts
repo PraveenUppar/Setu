@@ -1,0 +1,163 @@
+import { describe, it, expect } from 'vitest';
+import { derivedTerms, renderSection, renderDocument } from './section';
+import { issueProcedure } from './sections/issue-procedure';
+import { sectionRegistry } from './sections';
+import { collectPlaceholders } from './nodes';
+import { vardhman } from '../seed/vardhman';
+import { money } from '../facts/money';
+import type { FactBase } from '../facts/schema';
+
+/** Vardhman with targeted overrides, for exercising conditional branches. */
+function variant(overrides: {
+  paidUpShares?: number;
+  freshIssueShares?: number;
+  exchange?: FactBase['offer']['exchange'];
+  terminology?: FactBase['offer']['terminology'];
+  documentStage?: FactBase['offer']['documentStage'];
+  withOFS?: boolean;
+}): FactBase {
+  return {
+    ...vardhman,
+    capital: {
+      ...vardhman.capital,
+      paidUpShares: overrides.paidUpShares ?? vardhman.capital.paidUpShares,
+    },
+    offer: {
+      ...vardhman.offer,
+      freshIssueShares: overrides.freshIssueShares ?? vardhman.offer.freshIssueShares,
+      exchange: overrides.exchange ?? vardhman.offer.exchange,
+      terminology: overrides.terminology ?? vardhman.offer.terminology,
+      documentStage: overrides.documentStage ?? vardhman.offer.documentStage,
+      sellingShareholders: overrides.withOFS
+        ? [
+            {
+              name: 'Anil Vardhman',
+              type: 'PROMOTER_GROUP' as const,
+              sharesOffered: 400000,
+              preIssueShares: 1200000,
+              weightedAverageCostOfAcquisition: money('12'),
+            },
+          ]
+        : [],
+    },
+  };
+}
+
+const plain = (facts: FactBase) =>
+  renderSection(issueProcedure, { facts })
+    .map((n) => (n.type === 'paragraph' ? n.runs.map((r) => r.text).join('') : n.type === 'heading' ? n.text : ''))
+    .join('\n');
+
+describe('derived terms', () => {
+  it('picks Regulation 229(2) above Rs 10 crore post-issue capital', () => {
+    // Vardhman: 1,20,00,000 + 45,00,000 shares at Rs 10 = Rs 16.5 crore
+    const terms = derivedTerms(vardhman);
+    expect(terms.postIssueCapital).toBe(money('16.5', 'crores'));
+    expect(terms.eligibilityRegulation).toBe('Regulation 229(2)');
+  });
+
+  it('picks Regulation 229(1) at or below Rs 10 crore', () => {
+    // The bug held-out verification caught: Century Business Media cites
+    // 229(1) because its post-issue capital is under Rs 10 crore.
+    const small = variant({ paidUpShares: 6000000, freshIssueShares: 2312000 });
+    const terms = derivedTerms(small);
+    expect(terms.postIssueCapital).toBe(money('8.312', 'crores'));
+    expect(terms.eligibilityRegulation).toBe('Regulation 229(1)');
+  });
+
+  it('treats exactly Rs 10 crore as 229(1)', () => {
+    const boundary = variant({ paidUpShares: 9000000, freshIssueShares: 1000000 });
+    expect(derivedTerms(boundary).postIssueCapital).toBe(money('10', 'crores'));
+    expect(derivedTerms(boundary).eligibilityRegulation).toBe('Regulation 229(1)');
+  });
+
+  it('computes the issue as a percentage of post-issue capital (R-023)', () => {
+    const terms = derivedTerms(vardhman);
+    expect(terms.issuePercentOfPostIssueCapital).toBe('27.27');
+    expect(terms.meetsMinimumIssuePercent).toBe(true);
+  });
+
+  it('flags an issue below the 25% floor', () => {
+    const tooSmall = variant({ paidUpShares: 12000000, freshIssueShares: 1000000 });
+    const terms = derivedTerms(tooSmall);
+    expect(terms.meetsMinimumIssuePercent).toBe(false);
+  });
+
+  it('counts OFS shares toward the offered total', () => {
+    const terms = derivedTerms(variant({ withOFS: true }));
+    expect(terms.offeredShares).toBe(4900000);
+    // OFS shares are already issued, so post-issue capital is unchanged
+    expect(terms.postIssueShares).toBe(16500000);
+  });
+
+  it('switches the designated stock exchange', () => {
+    expect(derivedTerms(vardhman).designatedStockExchange).toBe('BSE Limited');
+    expect(derivedTerms(variant({ exchange: 'NSE_EMERGE' })).designatedStockExchange).toBe(
+      'National Stock Exchange of India Limited',
+    );
+  });
+});
+
+describe('Issue Procedure section', () => {
+  it('renders the correct regulation for each capital band', () => {
+    expect(plain(vardhman)).toContain('under Regulation 229(2) of');
+    expect(plain(variant({ paidUpShares: 6000000, freshIssueShares: 2312000 }))).toContain(
+      'under Regulation 229(1) of',
+    );
+  });
+
+  it('names the selling shareholders only when there is an OFS', () => {
+    expect(plain(vardhman)).not.toContain('and the Selling Shareholders');
+    expect(plain(variant({ withOFS: true }))).toContain(
+      'our Company and the Selling Shareholders may',
+    );
+  });
+
+  it('follows the issuer house style for Issue vs Offer', () => {
+    expect(plain(vardhman)).toContain('the Issue is being made for at least 25%');
+    expect(plain(variant({ terminology: 'OFFER' }))).toContain(
+      'the Offer is being made for at least 25%',
+    );
+  });
+
+  it('does not apply to a fixed-price issue', () => {
+    const fixedPrice: FactBase = {
+      ...vardhman,
+      offer: { ...vardhman.offer, issueType: 'FIXED_PRICE' },
+    };
+    expect(renderSection(issueProcedure, { facts: fixedPrice })).toHaveLength(0);
+  });
+
+  it('states the allocation split from R-024', () => {
+    const out = plain(vardhman);
+    expect(out).toContain('not more than 50% of the Net Issue');
+    expect(out).toContain('up to 60% of the QIB Portion to Anchor Investors');
+    expect(out).toContain('33.33%');
+    expect(out).toContain('6.67%');
+    expect(out).toContain('not less than 15% of the Net Issue');
+    // Sentence-initial in our phrasing, so capitalised
+    expect(out).toContain('Not less than 35% of the Net Issue');
+  });
+
+  it('leaves no unresolved template syntax', () => {
+    expect(plain(vardhman)).not.toMatch(/\{\{|\}\}/);
+  });
+});
+
+describe('document assembly', () => {
+  it('renders every registered section without throwing', () => {
+    expect(() => renderDocument(sectionRegistry, { facts: vardhman })).not.toThrow();
+  });
+
+  it('orders sections by their order field', () => {
+    const nodes = renderDocument(sectionRegistry, { facts: vardhman });
+    const headings = nodes.filter((n) => n.type === 'heading' && n.level === 2);
+    expect((headings[0] as { text: string }).text).toBe('Forward Looking Statements');
+    expect((headings[1] as { text: string }).text).toBe('Issue Procedure');
+  });
+
+  it('surfaces gaps from across the whole document', () => {
+    const gaps = collectPlaceholders(renderDocument(sectionRegistry, { facts: vardhman }));
+    expect(gaps.map((g) => g.factPath)).toContain('riskFactors.summaryOfMaterialFactors');
+  });
+});
