@@ -24,6 +24,13 @@
 .DS_Store
 *.pem
 
+# corpus PDFs — ~88MB of public prospectuses, rebuildable.
+# See corpus/README.md for the full list and where to get them.
+corpus/**/*.pdf
+
+# extraction fixtures may hold large snapshots
+fixtures/**/*.pdf
+
 # debug
 npm-debug.log*
 yarn-debug.log*

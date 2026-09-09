@@ -1,0 +1,81 @@
+import { z } from 'zod';
+import { zDate, zExchange, zIssueType, zMoney, zPercent, zShares } from './shared';
+
+/**
+ * Module M9 — The Offer.
+ *
+ * Note: SME documents say "Issue", not "Offer" — 4 of 5 corpus documents use
+ * it (07-section-map.md, Finding 2). The code says `offer` because that is
+ * the domain concept; the RENDERED text uses whichever term the issuer's
+ * house style selects, via `terminology`.
+ */
+
+export const zObjectOfIssue = z.object({
+  description: z.string().describe('What the proceeds will be applied to'),
+  amount: zMoney.describe('Amount in rupees'),
+  /**
+   * General Corporate Purposes is capped at 15% of gross proceeds or
+   * Rs 10 crore, whichever is lower (R-010). Issue expenses are NOT part of
+   * GCP and must not be counted toward that cap.
+   */
+  isGeneralCorporatePurposes: z.boolean().default(false),
+  /** Reg 230(1)(e): capex objects need firm finance for 75% of stated means. */
+  isProject: z.boolean().default(false),
+  /** Reg 230(1)(h): a hard blocker if true. */
+  involvesPromoterLoanRepayment: z.boolean().default(false),
+});
+
+export const zSellingShareholder = z.object({
+  name: z.string(),
+  type: z.enum(['PROMOTER', 'PROMOTER_GROUP', 'OTHER']),
+  sharesOffered: zShares,
+  /** Reg 230(1)(g): may not exceed 50% of their pre-issue holding, fully diluted. */
+  preIssueShares: zShares,
+  weightedAverageCostOfAcquisition: zMoney,
+});
+
+export const zOffer = z.object({
+  issueType: zIssueType.describe('D15: book-built is the current target'),
+  exchange: zExchange.describe('Selects the eligibility rule set and the boilerplate'),
+
+  /** Which word the rendered document uses. 4 of 5 corpus documents say "Issue". */
+  terminology: z.enum(['ISSUE', 'OFFER']).default('ISSUE'),
+
+  freshIssueShares: zShares.describe('Shares being freshly issued; 0 for a pure OFS'),
+
+  /**
+   * Reg 230(1)(f): total OFS may not exceed 20% of total issue size.
+   * Leave empty for a pure fresh issue.
+   */
+  sellingShareholders: z.array(zSellingShareholder).default([]),
+
+  /** Book-built: floor and cap. Fixed price: both equal to the issue price. */
+  floorPrice: zMoney.nullable().describe('Null until the price band is determined'),
+  capPrice: zMoney.nullable(),
+
+  lotSize: zShares.describe('Shares per lot; minimum application is two lots above Rs 2,00,000'),
+
+  objects: z.array(zObjectOfIssue).describe('Objects of the issue with amounts'),
+  issueExpenses: zMoney.describe('Estimated issue expenses, excluded from GCP'),
+
+  /** Reg 260: 100% underwritten, BRLM underwrites at least 15% on own account. */
+  underwritingPercent: zPercent.default(100),
+  brlmUnderwritingPercent: zPercent.describe('Must be at least 15'),
+
+  /** Reg 261(1): compulsory market making for a minimum of 3 years. */
+  marketMakerName: z.string().optional(),
+  marketMakingYears: z.number().int().default(3),
+
+  bookRunningLeadManager: z.string().optional(),
+  registrarToIssue: z.string().optional(),
+
+  /**
+   * D17: the tool serves issuers preparing now, so current rules always apply.
+   * Retained for the record and for future effective-date handling.
+   */
+  intendedFilingDate: zDate.optional(),
+});
+
+export type Offer = z.infer<typeof zOffer>;
+export type ObjectOfIssue = z.infer<typeof zObjectOfIssue>;
+export type SellingShareholder = z.infer<typeof zSellingShareholder>;
