@@ -38,6 +38,16 @@ export const zOffer = z.object({
   issueType: zIssueType.describe('D15: book-built is the current target'),
   exchange: zExchange.describe('Selects the eligibility rule set and the boilerplate'),
 
+  /**
+   * Which document is being produced. Book-built runs DRHP -> RHP -> Prospectus;
+   * fixed price runs Draft Prospectus -> Prospectus. The name appears dozens of
+   * times in the boilerplate, so it is a template variable.
+   */
+  documentStage: z
+    .enum(['DRHP', 'RHP', 'PROSPECTUS'])
+    .default('DRHP')
+    .describe('Which stage of the offer document is being drafted'),
+
   /** Which word the rendered document uses. 4 of 5 corpus documents say "Issue". */
   terminology: z.enum(['ISSUE', 'OFFER']).default('ISSUE'),
 

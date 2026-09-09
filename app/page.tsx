@@ -1,68 +1,77 @@
-import Image from "next/image";
+import { DocumentView } from '@/components/document-view';
+import { renderDocument, derivedTerms } from '@/lib/document/section';
+import { sectionRegistry } from '@/lib/document/sections';
+import { collectPlaceholders, estimatePages } from '@/lib/document/nodes';
+import { vardhman } from '@/lib/seed/vardhman';
 
 export default function Home() {
+  const facts = vardhman;
+  const terms = derivedTerms(facts);
+  const nodes = renderDocument(sectionRegistry, { facts });
+
+  const gaps = collectPlaceholders(nodes);
+  const pages = estimatePages(nodes);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="min-h-full bg-zinc-100 dark:bg-zinc-950">
+      <header className="border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+        <div className="mx-auto max-w-4xl px-8 py-6">
+          <p className="text-xs font-medium uppercase tracking-widest text-zinc-500">
+            {terms.documentName}
           </p>
+          <h1 className="mt-1 text-2xl font-semibold tracking-tight">{facts.company.name}</h1>
+          <p className="mt-1 text-sm text-zinc-500">
+            {terms.exchangeName} &middot; {facts.offer.issueType === 'BOOK_BUILT' ? 'Book Built' : 'Fixed Price'} {terms.issueWord}
+          </p>
+
+          <dl className="mt-5 flex gap-8 text-sm">
+            <div>
+              <dt className="text-zinc-500">Sections</dt>
+              <dd className="mt-0.5 text-lg font-semibold tabular-nums">
+                {sectionRegistry.length}
+                <span className="ml-1 text-sm font-normal text-zinc-400">of 37</span>
+              </dd>
+            </div>
+            <div>
+              <dt className="text-zinc-500">Pages</dt>
+              <dd className="mt-0.5 text-lg font-semibold tabular-nums">{pages}</dd>
+            </div>
+            <div>
+              <dt className="text-zinc-500">Open gaps</dt>
+              <dd className="mt-0.5 text-lg font-semibold tabular-nums text-amber-600 dark:text-amber-500">
+                {gaps.length}
+              </dd>
+            </div>
+          </dl>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </header>
+
+      <main className="mx-auto max-w-4xl px-8 py-10">
+        <div className="rounded-lg border border-zinc-200 bg-white px-12 py-10 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+          <DocumentView nodes={nodes} />
         </div>
+
+        {gaps.length > 0 && (
+          <section className="mt-8 rounded-lg border border-amber-200 bg-amber-50 p-6 dark:border-amber-900 dark:bg-amber-950/40">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-amber-900 dark:text-amber-300">
+              Gaps in this draft
+            </h2>
+            <ul className="mt-3 space-y-2 text-sm">
+              {gaps.map((gap, i) => (
+                <li key={i} className="flex gap-3">
+                  <code className="shrink-0 text-xs text-amber-700 dark:text-amber-500">
+                    {gap.factPath}
+                  </code>
+                  <span className="text-zinc-700 dark:text-zinc-300">{gap.ask}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <p className="mt-8 text-center text-xs uppercase tracking-widest text-zinc-400">
+          Unsigned draft &mdash; not for filing
+        </p>
       </main>
     </div>
   );
