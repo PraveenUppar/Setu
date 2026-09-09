@@ -12,7 +12,8 @@ Takes an SME issuer from zero to a substantially complete, structurally correct 
 
 ## Current state
 
-> **Stage: S1 — Skeleton (in progress).** S0 research complete.
+> **Stage: S4 — Document engine.** Engine proven end to end; 1 of 37 sections written.
+> S0 research, S1 skeleton and S2 fact base are done. 61 tests passing.
 > Read `.claude/context/04-session-handoff.md` at the start of every session for live status.
 
 ---

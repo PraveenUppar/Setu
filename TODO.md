@@ -4,7 +4,17 @@ Each stage ends with something demoable and a manual test gate. **Do not advance
 
 `🔴 core` (MVP dies without it) · `🟡 demo` (needed for the pitch) · `🟢 extended`
 
-**Progress:** S0 ▢ · S1 ▢ · S2 ▢ · S3 ▢ · S4 ▢ · S5 ▢ · S6 ▢ · S7 ▢ · S8 ▢ · S9 ▢ · S10 ▢ · S11 ▢ · S12 ▢ · S13 ▢
+**Progress** (`[x]` done, `[~]` partial, `[ ]` not started) — updated 2026-09-09
+
+| S0 | S1 | S2 | S3 | S4 | S5 | S6 | S7 | S8 | S9 | S10 | S11 | S12 | S13 |
+|----|----|----|----|----|----|----|----|----|----|-----|-----|-----|-----|
+| [~] | [x] | [x] | [ ] | [~] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+
+**61 tests passing, tsc clean, dev server runs.** Two commits pushed.
+
+- **S0 partial:** research and section map done; 2 of 20 rules still `PROPOSAL-ONLY`; corpus is 8 of 25 documents.
+- **S4 partial:** engine complete and proven end to end; **1 of 37 sections** written.
+- **S3 deliberately deferred** until after S4 — Wave 1 templates need only seed facts, so the document is visible before any form exists.
 
 ---
 

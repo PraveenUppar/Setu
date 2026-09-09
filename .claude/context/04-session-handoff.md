@@ -5,75 +5,90 @@
 ---
 
 **Last updated:** 2026-09-09
-**Current stage:** S0 — Corpus & research
-**Status:** S0 complete enough to build on. **S1 done, S2 substantially done.** 24 tests passing, tsc clean.
-**Scope:** FULL BUILD, S0 through S13 (~24 working days). No deadline pressure — user confirmed 2026-09-09. Do not apply the thin-slice or 10-day compression in `TODO.md`; they remain documented only as fallbacks if circumstances change.
+**Current stage:** S4 — Document engine
+**Status:** Engine proven end to end. **61 tests passing, tsc clean, dev server runs.** Two commits pushed to `origin/main`.
+**Scope:** FULL BUILD, S0 through S13 (~24 working days). No deadline pressure — user confirmed 2026-09-09. Do not apply the thin-slice or 10-day compression in `TODO.md`.
 
 ---
 
 ## Done
 
-- Full plan, architecture, and staged TODO written
-- Domain primer, decision log (D1–D14), architecture doc created
-- Stack settled: Next.js + TS, Supabase, Anthropic SDK, `docx`, Vitest, Vercel
-- Scope settled: fixed-price SME issues first
+### S0 — Research (mostly complete)
 
-**Corpus acquired (partial):** 8 prospectuses + 4 SME annual reports in `corpus/`, renamed to
-`<issuetype>__<sector>__<company>__<exchange>__<date>__<doctype>.pdf`. All text-layer, no OCR needed.
-7 of 8 prospectuses are book-built; only Quanto Agroworld is fixed price. **This reversed D1 -> D15.**
+- **Corpus:** 8 prospectuses + 4 SME annual reports in `corpus/`, renamed to
+  `<issuetype>__<sector>__<company>__<exchange>__<date>__<doctype>.pdf`. All text-layer, no OCR.
+  PDFs are gitignored; `corpus/README.md` records the full inventory and sources.
+- **7 of 8 prospectuses are book-built** — this reversed D1 to D15.
+- **Section map** (`07-section-map.md`) from 5 real ToCs. 37 subsections, measured page ranges,
+  producer classes. Boilerplate measured at **140pp (32%)**, higher than the 110pp estimated.
+- **Rule sources** (`05-rule-sources.md`): 18 regulations plus 18 BSE SME and 11 NSE Emerge criteria.
+  **SEBI's own board memo was wrong on 5 of 6 figures** versus what was notified.
 
-**Section map built** (`07-section-map.md`) from 5 real ToCs. 37 subsections, measured page ranges,
-producer classification. Supersedes the primer's from-memory table.
+### S1 — Skeleton (done)
 
-**No code yet. Repo is not initialised. No API credits — user is finding a workaround.**
+Next.js 16.3.4, React 19.2.8, Tailwind 4, Zod 4.5.4, vitest 5. Dev server runs on :3000.
+**Not deployed** — no Vercel account yet.
 
----
-
-## Built so far
+### S2 — Fact base (done)
 
 ```
 lib/facts/
-  money.ts          Money as decimal strings in rupees; Indian unit conversion
-                    and 2,22,10,824-style formatting. Never floats.
-  provenance.ts     Provenance beside facts (D18). getFact/setFact/listPaths
-                    over dotted paths with array indices. isUsable() gate.
-  facts.test.ts     18 tests
-  schema.test.ts    6 tests — MM3, one schema drives validation + extraction
-  schema/
-    shared.ts       zMoney, zDate, zShares, zCIN, zPAN, zDIN, zExchange,
-                    zIssueType, zSector
-    company.ts      M1
-    capital.ts      M2 — allotments, shareholders, promoter holdings
-    financials.ts   M6 — per-FY figures the eligibility rules need
-    offer.ts        M9 — issue, objects, selling shareholders
-    index.ts        zFactBase composite + extractionSchemaFor()
+  money.ts          Decimal strings in rupees; Indian units and 2,22,10,824 grouping
+  provenance.ts     Provenance beside facts (D18); getFact/setFact/listPaths; isUsable()
+  schema/           shared, company, capital, financials, offer, index (zFactBase)
+lib/seed/
+  vardhman.ts       Complete synthetic BSE SME issuer whose arithmetic ties
 ```
 
-**Stack notes:** Next.js **16.3.4**, React **19.2.8**, Tailwind **4**, Zod **4.5.4**, vitest 5.
-`@types/node` was bumped ^20 -> ^22 to match the installed Node and satisfy vitest.
-`zod-to-json-schema` uninstalled — Zod 4 has native `z.toJSONSchema()` (D19).
+### S4 — Document engine (core done)
 
-**Read `node_modules/next/dist/docs/` before writing Next.js code** — v16 differs from training data.
-Not needed yet; nothing built so far touches Next.js APIs.
+```
+lib/document/
+  nodes.ts          The AST both renderers consume; placeholders are inline runs
+  template.ts       {{ fact }}, filters, {{#if}}/{{#unless}}; missing fact -> gap
+  section.ts        SectionSpec; subsection is the atomic unit
+  sections/general.ts   Forward Looking Statements — the first extracted template
+components/document-view.tsx   HTML renderer
+app/page.tsx                   Preview page with gap list and watermark
+```
 
 ---
 
 ## Next action
 
-Finish **S2**, then **S4** (the visible document — highest morale payoff):
+**S4 continued — extract Wave 1 templates.** The engine works; the rest is extraction, in
+descending order of page count:
 
-1. Domains M3/M4/M5/M7/M8/M10 in `schema/index.ts` are shaped but minimal. Expand at S8, not now.
-2. **Seed the Vardhman fixture** — a complete, realistic `FactBase`. S2's remaining gate item.
-3. Persistence: local JSON files under `data/`. Supabase deferred to S7 when uploads need storage.
-4. Then S4: `DocumentNode` AST, `renderHtml()`, template engine, Wave 1 templates.
+1. **Issue Procedure** (~36pp, ~95% invariant) — biggest single win, budget a full day
+2. **Main Provisions of AoA** (~38pp) — per-issuer extraction from the uploaded AoA
+3. **Definitions and Abbreviations** (~17pp) — sector-varied
+4. **Other Regulatory and Statutory Disclosures** (~17pp)
 
-**Skip S3 (module engine UI) until after S4.** Wave 1 templates need only M1 facts, which the seed
-provides, so the document can be visible before any form exists.
+Use the `template-extraction` skill. Diff the same subsection across 5 corpus documents; identical
+text becomes literal, differing values become `{{ variables }}`, present-in-some becomes conditional.
+**Verify by rendering against a held-out prospectus's facts.**
 
-## Corpus gaps (deferred by user — working the downloaded files first)
+Then **S6** (rule engine + eligibility + gap dashboard), which is fully unblocked — the rule sources
+support it and no API credits are needed.
 
-17 more prospectuses; missing sectors (IT/services, trading, textiles, chemicals, pharma); only 1 OFS
-example (Photonics); 5+ fixed-price documents needed before that branch can be built.
+**S3 (module engine UI) stays deferred** until Wave 1 is substantially done.
+
+---
+
+## Gotchas discovered
+
+- **`create-next-app` overwrites `CLAUDE.md`** with a stub pointing at its own `AGENTS.md`. Restored;
+  the `@AGENTS.md` import is kept at the top so both load.
+- **Directory name `Setu` has a capital letter**, which npm rejects as a package name. Scaffolded in a
+  temp directory and moved the files in.
+- **`@types/node` shipped as ^20** while Node is v22 — vitest would not install. Bumped to ^22.
+- **Zod 4 `io: 'input'` omits `additionalProperties: false`**, which Claude strict tool use requires.
+  `extractionSchemaFor()` adds it back on every object node. Covered by a test (D19).
+- **The `s` regex flag** needs an es2018 target; use `[\s\S]` instead.
+- **ToC page numbers are not physical PDF pages** — there is a cover-page offset. Find sections by
+  searching text, not by the ToC number.
+- **`pdftotext` beats WebFetch for SEBI PDFs.** Download to disk, extract locally. WebFetch returned
+  only navigation chrome for the regulations page and could not parse the board-memo PDF.
 
 ---
 
@@ -81,23 +96,20 @@ example (Photonics); 5+ fixed-price documents needed before that branch can be b
 
 | # | Question | Blocks |
 |---|---|---|
-| Q1 | How deep does M2 go? Full allotment history since incorporation is the most laborious module and produces the most tables. May deserve a dedicated import format (PAS-3 parsing?). | S5 |
-| Q2 | Who sets the issue price — promoter or MB? Basis for Offer Price needs a valuation, which is realistically the MB's work. M9 may be MB-authored, not promoter-authored. | S8 |
-| Q3 | Do we attempt Industry Overview at all? Normally a purchased CRISIL/CARE/D&B report. Current plan: generate a draft marked "to be replaced by commissioned report." | S9 |
-| Q4 | Can a real merchant-banker Due Diligence Questionnaire be obtained? It is effectively the intake wizard's spec, already written by practitioners. | S3, S8 |
-
----
-
-## Gotchas discovered
-
-*(Nothing yet — record anything surprising here as it comes up, especially extraction failures, DOCX rendering quirks, and rate-limit behaviour.)*
+| Q1 | How deep does M2 go? Full allotment history is the most laborious module. May deserve a PAS-3 import path. | S5 |
+| Q2 | Who sets the issue price — promoter or merchant banker? Basis for Issue Price needs a valuation, realistically the MB's work. | S8 |
+| Q3 | Do we attempt Industry Overview at all? Normally a commissioned CRISIL/CARE/D&B report. | S9 |
+| Q4 | Can a real merchant-banker Due Diligence Questionnaire be obtained? It is effectively the intake wizard's spec. | S3, S8 |
+| O-2 | 2 rules still `PROPOSAL-ONLY` — minimum issue size, migration compliance. Both peripheral. | 2 rules |
+| O-5 | Part A of Schedule VI full text — the disclosure spec the section registry must satisfy. | Completeness rules |
 
 ---
 
 ## Environment notes
 
-- Anthropic API credits: **not yet purchased.** Start with $20–30. Claude Pro/Max does **not** cover API usage — separate billing.
-- Check whether the hackathon has sponsor API credits — often available and unclaimed.
-- Check console.anthropic.com → Settings → Limits for tier RPM/ITPM before building the extraction queue.
-- Supabase project: not created
-- Vercel project: not created
+- **No Anthropic API credits.** Not blocking: S3, S4, S5, S6, S11 need none. Only S7 (extraction),
+  S9 (narrative) and S10 (risk narrative) do.
+- Supabase: not created. Deferred to S7 when uploads need storage; local JSON until then.
+- Vercel: not created.
+- Corpus gaps: 17 more prospectuses; missing sectors (IT/services, trading, textiles, chemicals,
+  pharma); only 1 OFS example; 5+ fixed-price documents needed before that branch.
