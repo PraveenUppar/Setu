@@ -29,11 +29,21 @@ export default function Home() {
 
           <dl className="mt-5 flex flex-wrap gap-8 text-sm">
             <div>
-              <dt className="text-zinc-500">Sections</dt>
+              {/*
+                Count the numbered SUBSECTIONS from the section map, not the
+                registry entries. Issue Procedure is one of the 37 and sixteen
+                entries in the registry, so counting entries against 37 would
+                report roughly four times the real progress.
+              */}
+              <dt className="text-zinc-500">Subsections</dt>
               <dd className="mt-0.5 text-lg font-semibold tabular-nums">
-                {sections.length}
+                {new Set(sections.map((s) => s.partOf)).size}
                 <span className="ml-1 text-sm font-normal text-zinc-400">of 37</span>
               </dd>
+            </div>
+            <div>
+              <dt className="text-zinc-500">Drafted parts</dt>
+              <dd className="mt-0.5 text-lg font-semibold tabular-nums">{sections.length}</dd>
             </div>
             <div>
               <dt className="text-zinc-500">Pages</dt>

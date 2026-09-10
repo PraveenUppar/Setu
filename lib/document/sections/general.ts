@@ -22,6 +22,7 @@ import type { SectionSpec } from '../section';
  */
 export const forwardLookingStatements: SectionSpec = {
   id: 'general.forwardLookingStatements',
+  partOf: '3. Forward Looking Statements',
   title: 'Forward Looking Statements',
   producer: 'template',
   order: 300,

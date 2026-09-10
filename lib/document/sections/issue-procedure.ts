@@ -42,6 +42,7 @@ import { renderTemplate } from '../template';
  */
 export const issueProcedure: SectionSpec = {
   id: 'issueRelated.issueProcedure',
+  partOf: '33. Issue Procedure',
   title: 'Issue Procedure',
   producer: 'template',
   order: 3100,
@@ -151,6 +152,7 @@ The Book Running Lead Manager to the {{ terms.issueWord }} is
  */
 export const issueProcedureBidsByCategory: SectionSpec = {
   id: 'issueRelated.issueProcedure.bidsByCategory',
+  partOf: '33. Issue Procedure',
   title: 'Bids by Investor Category',
   producer: 'template',
   order: 3110,
@@ -340,6 +342,7 @@ reject any Bid in whole or in part, in either case without assigning any reason 
  */
 export const issueProcedureApplicationSize: SectionSpec = {
   id: 'issueRelated.issueProcedure.applicationSize',
+  partOf: '33. Issue Procedure',
   title: 'Maximum and Minimum Application Size',
   producer: 'template',
   order: 3105,
@@ -439,6 +442,7 @@ accept Bids from Bidders during the Bid/{{ terms.issueWord }} Period.
  */
 export const issueProcedureUndertakings: SectionSpec = {
   id: 'issueRelated.issueProcedure.undertakings',
+  partOf: '33. Issue Procedure',
   title: 'Impersonation, Undertakings and Utilisation of Proceeds',
   producer: 'template',
   order: 3190,
@@ -518,6 +522,7 @@ Our Board of Directors certifies that:
  */
 export const issueProcedureTechnicalRejection: SectionSpec = {
   id: 'issueRelated.issueProcedure.technicalRejection',
+  partOf: '33. Issue Procedure',
   title: 'Grounds for Technical Rejection',
   producer: 'template',
   order: 3160,
@@ -603,6 +608,7 @@ in a fair and proper manner in accordance with the procedure specified in the SE
  */
 export const issueProcedureBasisOfAllotment: SectionSpec = {
   id: 'issueRelated.issueProcedure.basisOfAllotment',
+  partOf: '33. Issue Procedure',
   title: 'Allotment Procedure and Basis of Allotment',
   producer: 'template',
   order: 3170,
@@ -686,6 +692,7 @@ thereafter.
  */
 export const issueProcedureUpi: SectionSpec = {
   id: 'issueRelated.issueProcedure.upi',
+  partOf: '33. Issue Procedure',
   title: 'Phased Implementation of the Unified Payments Interface',
   producer: 'template',
   order: 3102,
@@ -749,6 +756,7 @@ Running Lead Manager.
  */
 export const issueProcedureAvailability: SectionSpec = {
   id: 'issueRelated.issueProcedure.availability',
+  partOf: '33. Issue Procedure',
   title: 'Availability of the Offer Document and Application Forms',
   producer: 'template',
   order: 3103,
@@ -812,6 +820,7 @@ the application is liable to be rejected.
  */
 export const issueProcedurePriceLevels: SectionSpec = {
   id: 'issueRelated.issueProcedure.priceLevels',
+  partOf: '33. Issue Procedure',
   title: 'Bids at Different Price Levels and Participation by Associates',
   producer: 'template',
   order: 3115,
@@ -874,6 +883,7 @@ sponsored by entities related to the Book Running Lead Manager, may apply in the
  */
 export const issueProcedureTermsOfPayment: SectionSpec = {
   id: 'issueRelated.issueProcedure.termsOfPayment',
+  partOf: '33. Issue Procedure',
   title: 'Terms of Payment and Payment Mechanism',
   producer: 'template',
   order: 3120,
@@ -956,6 +966,7 @@ the Registrar to the {{ terms.issueWord }} to facilitate collections from Anchor
  */
 export const issueProcedureElectronicRegistration: SectionSpec = {
   id: 'issueRelated.issueProcedure.electronicRegistration',
+  partOf: '33. Issue Procedure',
   title: 'Electronic Registration of Applications',
   producer: 'template',
   order: 3130,
@@ -1078,6 +1089,7 @@ on those details.
  */
 export const issueProcedureGeneralInstructions: SectionSpec = {
   id: 'issueRelated.issueProcedure.generalInstructions',
+  partOf: '33. Issue Procedure',
   title: 'General Instructions',
   producer: 'template',
   order: 3155,
@@ -1182,6 +1194,7 @@ our Company.
  */
 export const issueProcedureInformationForBidders: SectionSpec = {
   id: 'issueRelated.issueProcedure.informationForBidders',
+  partOf: '33. Issue Procedure',
   title: 'Information for the Bidders and Submission of Bids',
   producer: 'template',
   order: 3106,
@@ -1231,6 +1244,7 @@ those held in the depository's records, the application is liable to be rejected
  */
 export const issueProcedureAnchorInvestors: SectionSpec = {
   id: 'issueRelated.issueProcedure.anchorInvestors',
+  partOf: '33. Issue Procedure',
   title: 'Bids by Anchor Investors',
   producer: 'template',
   order: 3112,
@@ -1318,6 +1332,7 @@ offered to other applicants.
  */
 export const issueProcedureBookBuilding: SectionSpec = {
   id: 'issueRelated.issueProcedure.bookBuilding',
+  partOf: '33. Issue Procedure',
   title: 'Build of the Book, Withdrawal and Price Discovery',
   producer: 'computed',
   order: 3150,
@@ -1429,6 +1444,7 @@ allocation in the respective categories.
  */
 export const issueProcedureWithdrawalAndAdvertisement: SectionSpec = {
   id: 'issueRelated.issueProcedure.withdrawalAndAdvertisement',
+  partOf: '33. Issue Procedure',
   title: 'Withdrawal of the Issue, Underwriting and Advertisements',
   producer: 'template',
   order: 3180,

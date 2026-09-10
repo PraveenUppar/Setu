@@ -41,6 +41,18 @@ export interface SectionSpec {
   group: string;
 
   /**
+   * The numbered subsection from 07-section-map.md that this spec is part of.
+   *
+   * The registry's atomic unit is finer than the map's: Issue Procedure is ONE
+   * of the 37 numbered subsections and sixteen entries here. Counting registry
+   * entries against 37 therefore overstates progress roughly fourfold, which
+   * is why the progress indicator counts distinct values of this field
+   * instead. Same reasoning as the readiness score in D22 — a number the
+   * reader trusts must not flatter.
+   */
+  partOf: string;
+
+  /**
    * Book-built vs fixed price, exchange, sector. Keep branch points even where
    * only one branch is built, so the other can be added without restructuring.
    */
@@ -279,6 +291,8 @@ export interface SectionRef {
   id: string;
   title: string;
   group: string;
+  /** The numbered subsection from the section map this belongs to. */
+  partOf: string;
   /** DOM id now, DOCX bookmark later. */
   anchor: string;
 }
@@ -296,6 +310,7 @@ export function renderSections(specs: SectionSpec[], ctx: RenderContext): Render
       id: spec.id,
       title: spec.title,
       group: spec.group,
+      partOf: spec.partOf,
       anchor: sectionAnchor(spec.id),
       nodes: renderSection(spec, ctx),
     }))
@@ -337,6 +352,7 @@ export function collectGaps(sections: RenderedSection[]): Gap[] {
       id: section.id,
       title: section.title,
       group: section.group,
+      partOf: section.partOf,
       anchor: section.anchor,
     };
     for (const placeholder of collectPlaceholders(section.nodes)) {

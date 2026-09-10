@@ -6,7 +6,9 @@
 
 **Last updated:** 2026-09-10
 **Current stage:** S0 and S6 CLOSED. **S4 Wave 1 in progress.**
-**Status:** **326 tests passing, tsc clean, dev server runs.** Document renders **25 sections, 39 estimated pages, 4 tables**. **Issue Procedure is COMPLETE**, and the glossary is at **130 definitions plus 129 abbreviations**.
+**Status:** **328 tests passing, tsc clean, dev server runs.** Document renders **6 of the 37 numbered subsections**, drafted as **25 registry sections**, **39 estimated pages** of a measured ~280. **Issue Procedure is COMPLETE**, and the glossary is at **130 definitions plus 129 abbreviations**.
+
+**The progress indicator said "25 of 37" until 2026-09-10 and was wrong** — it counted registry entries against numbered subsections, and Issue Procedure alone is one subsection and sixteen entries. Every spec now carries `partOf`, the header counts distinct values, and a test holds it. Same principle as the readiness score: a number the reader trusts must not flatter.
 **Rules: 55** — 43 eligibility, 12 consistency. The pre-check runs 26; no issuer sees 26 questions, since the criteria diverge by exchange.
 **No rule hedges any more** — the four disputes are settled (D25) and every finding gives a firm pass or fail with a clause.
 **Scope:** FULL BUILD, S0 through S13. No deadline pressure.

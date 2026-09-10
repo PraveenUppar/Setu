@@ -166,6 +166,7 @@ function computeIssueStructure({ facts }: RenderContext): DocumentNode[] {
 
 export const issueStructure: SectionSpec = {
   id: 'issueRelated.issueStructure',
+  partOf: '32. Issue Structure',
   title: 'Issue Structure',
   producer: 'computed',
   order: 3050,

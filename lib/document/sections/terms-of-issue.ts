@@ -22,6 +22,7 @@ import type { SectionSpec } from '../section';
  */
 export const termsOfIssue: SectionSpec = {
   id: 'issueRelated.termsOfIssue',
+  partOf: '31. Terms of the Issue',
   title: 'Terms of the Issue',
   producer: 'template',
   order: 3000,

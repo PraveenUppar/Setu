@@ -1082,6 +1082,7 @@ function computeDefinitions(ctx: RenderContext): DocumentNode[] {
 
 export const definitions: SectionSpec = {
   id: 'general.definitions',
+  partOf: '1. Definitions and Abbreviations',
   title: 'Definitions and Abbreviations',
   producer: 'computed',
   order: 100,

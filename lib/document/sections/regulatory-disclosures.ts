@@ -33,6 +33,7 @@ import type { SectionSpec } from '../section';
  */
 export const regulatoryDisclaimers: SectionSpec = {
   id: 'regulatory.disclaimers',
+  partOf: '30. Other Regulatory and Statutory Disclosures',
   title: 'Disclaimer Clauses and Listing',
   producer: 'template',
   order: 2900,
@@ -170,6 +171,7 @@ and commencement of trading at the Stock Exchange are taken within three Working
  */
 export const regulatoryAuthority: SectionSpec = {
   id: 'regulatory.authority',
+  partOf: '30. Other Regulatory and Statutory Disclosures',
   title: 'Authority for the Issue and Confirmations',
   producer: 'template',
   order: 2850,
@@ -280,6 +282,7 @@ Our Company is not ineligible in terms of Regulation 228 of the SEBI ICDR Regula
  */
 export const regulatoryConsents: SectionSpec = {
   id: 'regulatory.consents',
+  partOf: '30. Other Regulatory and Statutory Disclosures',
   title: 'Consents and Investor Grievances',
   producer: 'template',
   order: 2950,
@@ -369,6 +372,7 @@ Our Company Secretary and Compliance Officer may be contacted at
  */
 export const regulatoryJurisdiction: SectionSpec = {
   id: 'regulatory.jurisdiction',
+  partOf: '30. Other Regulatory and Statutory Disclosures',
   title: 'Jurisdiction and Experts',
   producer: 'template',
   order: 2960,
@@ -449,6 +453,7 @@ meaning under the U.S. Securities Act.
  */
 export const regulatoryStatutoryStatements: SectionSpec = {
   id: 'regulatory.statutoryStatements',
+  partOf: '30. Other Regulatory and Statutory Disclosures',
   title: 'Fees, Previous Issues and Other Statutory Statements',
   producer: 'template',
   order: 2970,

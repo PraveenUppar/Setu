@@ -1648,6 +1648,7 @@ describe('section anchors', () => {
       producer: 'template',
       order: 9000,
       group: 'SECTION I - GENERAL',
+      partOf: '3. Forward Looking Statements',
       appliesIf: () => false,
       template: '## Never rendered',
     };
@@ -1671,6 +1672,7 @@ describe('gap collection across sections', () => {
     id,
     title,
     group: 'SECTION I - GENERAL',
+    partOf: '1. Definitions and Abbreviations',
     anchor: `sec-${id}`,
     nodes: [
       {
@@ -1712,6 +1714,7 @@ describe('gap collection across sections', () => {
       id: 'c',
       title: 'Consents',
       group: 'SECTION I - GENERAL',
+      partOf: '1. Definitions and Abbreviations',
       anchor: 'sec-c',
       nodes: [
         {
@@ -1751,5 +1754,32 @@ describe('gap collection across sections', () => {
     const paths = [...keys.values()];
     expect(new Set(paths).size).toBe(paths.length);
     expect(paths).toContain('riskFactors.summaryOfMaterialFactors');
+  });
+});
+
+describe('progress counting', () => {
+  it('counts numbered subsections, not registry entries', () => {
+    // Issue Procedure is ONE of the 37 subsections in the section map and
+    // sixteen entries in the registry. Counting entries against 37 reported
+    // roughly four times the real progress until 2026-09-10.
+    const sections = renderSections(sectionRegistry, { facts: vardhman });
+    const subsections = new Set(sections.map((s) => s.partOf));
+
+    expect(sections.length).toBeGreaterThan(subsections.size * 3);
+    expect(subsections.size).toBeLessThanOrEqual(37);
+    expect([...subsections].sort()).toEqual([
+      '1. Definitions and Abbreviations',
+      '3. Forward Looking Statements',
+      '30. Other Regulatory and Statutory Disclosures',
+      '31. Terms of the Issue',
+      '32. Issue Structure',
+      '33. Issue Procedure',
+    ]);
+  });
+
+  it('gives every registered section a numbered subsection', () => {
+    for (const spec of sectionRegistry) {
+      expect(spec.partOf, spec.id).toMatch(/^\d+\. /);
+    }
   });
 });
