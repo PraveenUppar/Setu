@@ -321,7 +321,92 @@ reject any Bid in whole or in part, in either case without assigning any reason 
 `.trim(),
 };
 
+/**
+ * Application size and bidding mechanics.
+ *
+ * Extraction notes, 2026-09-10:
+ *   Om Galaxy RHP (BSE SME) pp.429-431 and Maxwell DRHP (NSE Emerge) pp.329-331.
+ *   Substance identical. Every difference is a variable: Om Galaxy states its
+ *   lot size (1,600) and names its newspapers, while Maxwell leaves both as
+ *   "[dot]" because a DRHP predates those decisions. The Rs 2,00,000 minimum
+ *   (R-006, Reg 267) and the three-to-ten working day bid period are invariant.
+ *
+ *   Surfaced two missing fact fields, now added: the three newspapers, and the
+ *   regional language, which is derived from the registered office state.
+ */
+export const issueProcedureApplicationSize: SectionSpec = {
+  id: 'issueRelated.issueProcedure.applicationSize',
+  title: 'Maximum and Minimum Application Size',
+  producer: 'template',
+  order: 3105,
+  group: 'SECTION - ISSUE RELATED INFORMATION',
+  appliesIf: (facts) => facts.offer.issueType === 'BOOK_BUILT',
+  clause: 'R-006',
+  requiredFacts: ['offer.lotSize', 'offer.englishNewspaper', 'offer.hindiNewspaper', 'offer.regionalNewspaper'],
+  asks: {
+    'offer.englishNewspaper': 'English national daily for the issue advertisements',
+    'offer.hindiNewspaper': 'Hindi national daily for the issue advertisements',
+    'offer.regionalNewspaper': 'Regional daily for the issue advertisements',
+    'offer.lotSize': 'Bid lot size, in number of equity shares',
+  },
+  extractedFrom: [
+    'bookbuilt__manufacturing__om-galaxy__bse-sme__2026-09__rhp.pdf pp.429-431',
+    'bookbuilt__engineering__maxwell-engineering__nse-emerge__2026-08__drhp.pdf pp.329-331',
+  ],
+  template: `
+### Maximum and Minimum Application Size
+
+**For Individual Bidders.** The Bid must be for a minimum of two lots, being
+{{ offer.lotSize | number }} Equity Shares per lot, and in multiples of
+{{ offer.lotSize | number }} Equity Shares thereafter, so that the Bid Amount exceeds
+Rs 2,00,000. Individual Bidders may only revise their Bids upwards and are not permitted to cancel
+or withdraw their Bids.
+
+**For Bidders other than Individual Bidders, being Non-Institutional Investors and QIBs.** The Bid
+must be for such number of Equity Shares that the Bid Amount exceeds Rs 2,00,000 and is for more
+than two lots, and in multiples of {{ offer.lotSize | number }} Equity Shares thereafter. A Bid
+cannot be submitted for more than the Net {{ terms.issueWord }} size. The maximum Bid by a QIB must
+not exceed the investment limits prescribed for it by applicable law. Under the SEBI ICDR
+Regulations, QIBs and Non-Institutional Investors cannot withdraw their Bids after the
+Bid/{{ terms.issueWord }} Closing Date and are required to pay 100% of the Bid Amount upon
+submission of the Bid. In the case of revision, Non-Institutional Investors and QIBs may not revise
+their Bids downwards.
+
+In the case of an upward revision, Non-Institutional Investors who are individuals must ensure that
+the Bid Amount is greater than Rs 2,00,000 and is for more than two lots, in order to be considered
+for allocation in the Non-Institutional Portion.
+
+Bidders are advised to ensure that any single Bid from them does not exceed the investment limits or
+the maximum number of Equity Shares that can be held by them under applicable law or regulation, or
+as specified in this {{ terms.documentName }}.
+
+The above information is given for the benefit of the Bidders. Our Company and the Book Running Lead
+Manager are not liable for any amendment, modification or change in applicable law or regulation
+which may occur after the date of this {{ terms.documentName }}. Bidders are advised to make their
+own independent investigations and to ensure that the number of Equity Shares Bid for does not
+exceed the applicable limits under law or regulation.
+
+### Method of Bidding Process
+
+Our Company, in consultation with the Book Running Lead Manager, has determined the Price Band and
+the minimum Bid lot size for the {{ terms.issueWord }}, which will be advertised in all editions of
+{{ offer.englishNewspaper }}, an English national daily newspaper, all editions of
+{{ offer.hindiNewspaper }}, a Hindi national daily newspaper, and all editions of
+{{ offer.regionalNewspaper }}, a regional daily newspaper{{#unless terms.regionalLanguageIsHindi }}
+({{ terms.regionalLanguage }} being the regional language of {{ terms.registeredOfficeState }},
+where our Registered Office is located){{/unless}}{{#if terms.regionalLanguageIsHindi }} circulated
+in {{ terms.registeredOfficeState }}, where our Registered Office is situated{{/if}}, each with wide
+circulation, at least two Working Days prior to the Bid/{{ terms.issueWord }} Opening Date. The Book Running Lead Manager and the SCSBs shall
+accept Bids from Bidders during the Bid/{{ terms.issueWord }} Period.
+
+- The Bid/{{ terms.issueWord }} Period shall be for a minimum of three Working Days and shall not exceed ten Working Days. It may be extended, if required, by an additional three Working Days, subject to the total Bid/{{ terms.issueWord }} Period not exceeding ten Working Days. Any revision in the Price Band, and the revised Bid/{{ terms.issueWord }} Period if applicable, will be published in the same newspapers and indicated on the website of the Book Running Lead Manager.
+- During the Bid/{{ terms.issueWord }} Period, Bidders should approach the Book Running Lead Manager, their authorised agents, or the Designated Branches, to register their Bids.
+- Each Bid cum Application Form gives the Bidder the choice to Bid for up to three optional prices within the Price Band, specifying the number of Equity Shares Bid for at each option.
+`.trim(),
+};
+
 export const issueRelatedSections: SectionSpec[] = [
   issueProcedure,
+  issueProcedureApplicationSize,
   issueProcedureBidsByCategory,
 ];

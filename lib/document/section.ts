@@ -63,6 +63,38 @@ export interface SectionSpec {
   externalNote?: string;
 }
 
+/**
+ * The regional newspaper must be in the language of the state where the
+ * registered office is situated, and the offer document says so explicitly —
+ * "Marathi being the regional language of Maharashtra, where our Registered
+ * Office is located". Derived rather than asked, since it follows from the
+ * address we already have.
+ */
+const REGIONAL_LANGUAGE: Record<string, string> = {
+  'Andhra Pradesh': 'Telugu',
+  Assam: 'Assamese',
+  Bihar: 'Hindi',
+  Chhattisgarh: 'Hindi',
+  Delhi: 'Hindi',
+  Goa: 'Konkani',
+  Gujarat: 'Gujarati',
+  Haryana: 'Hindi',
+  'Himachal Pradesh': 'Hindi',
+  Jharkhand: 'Hindi',
+  Karnataka: 'Kannada',
+  Kerala: 'Malayalam',
+  'Madhya Pradesh': 'Hindi',
+  Maharashtra: 'Marathi',
+  Odisha: 'Odia',
+  Punjab: 'Punjabi',
+  Rajasthan: 'Hindi',
+  'Tamil Nadu': 'Tamil',
+  Telangana: 'Telugu',
+  'Uttar Pradesh': 'Hindi',
+  Uttarakhand: 'Hindi',
+  'West Bengal': 'Bengali',
+};
+
 /** Words and figures that vary by issuer, injected into every template as `terms`. */
 export function derivedTerms(facts: FactBase) {
   const documentName = {
@@ -100,6 +132,9 @@ export function derivedTerms(facts: FactBase) {
     ? 'Regulation 229(2)'
     : 'Regulation 229(1)';
 
+  const state = facts.company.registeredOffice.state;
+  const regionalLanguage = REGIONAL_LANGUAGE[state] ?? 'the regional language';
+
   return {
     documentName,
     issueWord,
@@ -114,6 +149,17 @@ export function derivedTerms(facts: FactBase) {
         ? 'BSE Limited'
         : 'National Stock Exchange of India Limited',
     depositoryShort: facts.offer.exchange === 'BSE_SME' ? 'BSE' : 'NSE',
+
+    registeredOfficeState: state,
+    regionalLanguage,
+    /**
+     * In Hindi-speaking states the parenthetical "Hindi being the regional
+     * language of Bihar" reads oddly straight after naming a Hindi national
+     * daily, and real documents drop it — Century Business Media (Patna) names
+     * its regional paper without the gloss, where Om Galaxy (Maharashtra) and
+     * Maxwell (Gujarat) both include it.
+     */
+    regionalLanguageIsHindi: regionalLanguage === 'Hindi',
 
     offeredShares,
     postIssueShares,

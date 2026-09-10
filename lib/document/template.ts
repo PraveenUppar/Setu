@@ -129,21 +129,59 @@ function applyConditionals(template: string, ctx: TemplateContext): string {
   return out;
 }
 
-/** Split one block of text into runs, resolving every expression. */
-function toRuns(block: string, ctx: TemplateContext): Run[] {
-  const runs: Run[] = [];
-  const pattern = /\{\{\s*([^}]+?)\s*\}\}/g;
+/**
+ * Split a block on `**bold**` FIRST, before expression substitution. Order
+ * matters: splitting on `{{ }}` first would leave orphaned `**` markers on
+ * either side of a substitution, so `**{{ company.name }}**` would render its
+ * asterisks literally.
+ *
+ * Offer documents use bold for the lead-in to a clause ("For Individual
+ * Bidders.") and for emphasised warnings, and the DOCX renderer needs the
+ * distinction too.
+ */
+function splitBold(block: string): { text: string; bold: boolean }[] {
+  const segments: { text: string; bold: boolean }[] = [];
+  const pattern = /\*\*([\s\S]+?)\*\*/g;
   let cursor = 0;
   let match: RegExpExecArray | null;
 
   while ((match = pattern.exec(block)) !== null) {
     if (match.index > cursor) {
-      runs.push({ text: block.slice(cursor, match.index) });
+      segments.push({ text: block.slice(cursor, match.index), bold: false });
     }
-    runs.push(resolveExpression(match[1], ctx));
+    segments.push({ text: match[1], bold: true });
     cursor = match.index + match[0].length;
   }
-  if (cursor < block.length) runs.push({ text: block.slice(cursor) });
+  if (cursor < block.length) segments.push({ text: block.slice(cursor), bold: false });
+  return segments;
+}
+
+/** Only set the flag when true, so ordinary runs stay a bare { text }. */
+const withBold = (text: string, bold: boolean): Run => (bold ? { text, bold: true } : { text });
+
+/** Split one block of text into runs, resolving every expression. */
+function toRuns(block: string, ctx: TemplateContext): Run[] {
+  const runs: Run[] = [];
+  const pattern = /\{\{\s*([^}]+?)\s*\}\}/g;
+
+  for (const segment of splitBold(block)) {
+    let cursor = 0;
+    let match: RegExpExecArray | null;
+    pattern.lastIndex = 0;
+
+    while ((match = pattern.exec(segment.text)) !== null) {
+      if (match.index > cursor) {
+        runs.push(withBold(segment.text.slice(cursor, match.index), segment.bold));
+      }
+      const resolved = resolveExpression(match[1], ctx);
+      // A placeholder keeps its own styling; a resolved value inherits bold
+      runs.push(resolved.placeholder || !segment.bold ? resolved : { ...resolved, bold: true });
+      cursor = match.index + match[0].length;
+    }
+    if (cursor < segment.text.length) {
+      runs.push(withBold(segment.text.slice(cursor), segment.bold));
+    }
+  }
 
   // Collapse whitespace introduced by line wrapping in the template source,
   // but keep placeholder runs separate so they stay individually addressable.

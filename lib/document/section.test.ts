@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { derivedTerms, renderSection, renderDocument } from './section';
-import { issueProcedure, issueProcedureBidsByCategory } from './sections/issue-procedure';
+import { issueProcedure, issueProcedureApplicationSize, issueProcedureBidsByCategory } from './sections/issue-procedure';
 import { sectionRegistry } from './sections';
 import { collectPlaceholders } from './nodes';
 import { vardhman } from '../seed/vardhman';
@@ -141,6 +141,98 @@ describe('Issue Procedure section', () => {
 
   it('leaves no unresolved template syntax', () => {
     expect(plain(vardhman)).not.toMatch(/\{\{|\}\}/);
+  });
+});
+
+describe('Application size and bidding method', () => {
+  const render = (facts: FactBase) =>
+    renderSection(issueProcedureApplicationSize, { facts })
+      .flatMap((n) =>
+        n.type === 'paragraph'
+          ? [n.runs.map((r) => r.text).join('')]
+          : n.type === 'list'
+            ? n.items.map((i) => i.map((r) => r.text).join(''))
+            : n.type === 'heading'
+              ? [n.text]
+              : [],
+      )
+      .join('\n');
+
+  it('substitutes the lot size everywhere it appears', () => {
+    const out = render(vardhman);
+    expect(out).toContain('being 3,000 Equity Shares per lot');
+    expect(out).toContain('in multiples of 3,000 Equity Shares thereafter');
+  });
+
+  it('states the Rs 2,00,000 minimum from R-006', () => {
+    expect(render(vardhman)).toContain('Bid Amount exceeds Rs 2,00,000');
+  });
+
+  it('derives the regional language from the registered office state', () => {
+    expect(derivedTerms(vardhman).regionalLanguage).toBe('Marathi');
+    expect(render(vardhman)).toContain('Marathi being the regional language of Maharashtra');
+
+    const gujarat: FactBase = {
+      ...vardhman,
+      company: {
+        ...vardhman.company,
+        registeredOffice: { ...vardhman.company.registeredOffice, state: 'Gujarat' },
+      },
+    };
+    expect(derivedTerms(gujarat).regionalLanguage).toBe('Gujarati');
+    expect(render(gujarat)).toContain('Gujarati being the regional language of Gujarat');
+  });
+
+  it('drops the regional-language gloss in Hindi-speaking states', () => {
+    // Century Business Media (Patna, Bihar) names its regional paper without
+    // the gloss, since "Hindi being the regional language of Bihar" reads
+    // oddly right after naming a Hindi national daily.
+    const bihar: FactBase = {
+      ...vardhman,
+      company: {
+        ...vardhman.company,
+        registeredOffice: { ...vardhman.company.registeredOffice, state: 'Bihar' },
+      },
+    };
+    expect(derivedTerms(bihar).regionalLanguageIsHindi).toBe(true);
+    const out = render(bihar);
+    expect(out).not.toContain('being the regional language of');
+    expect(out).toContain('circulated in Bihar, where our Registered Office is situated');
+
+    // and it is kept where the language differs
+    expect(derivedTerms(vardhman).regionalLanguageIsHindi).toBe(false);
+    expect(render(vardhman)).toContain('Marathi being the regional language of Maharashtra');
+  });
+
+  it('falls back safely for an unmapped state', () => {
+    const elsewhere: FactBase = {
+      ...vardhman,
+      company: {
+        ...vardhman.company,
+        registeredOffice: { ...vardhman.company.registeredOffice, state: 'Nagaland' },
+      },
+    };
+    expect(derivedTerms(elsewhere).regionalLanguage).toBe('the regional language');
+  });
+
+  it('names the newspapers, and raises a gap when one is missing', () => {
+    expect(render(vardhman)).toContain('all editions of Business Standard');
+
+    const noPaper: FactBase = {
+      ...vardhman,
+      offer: { ...vardhman.offer, regionalNewspaper: undefined },
+    };
+    const gaps = collectPlaceholders(renderSection(issueProcedureApplicationSize, { facts: noPaper }));
+    expect(gaps.map((g) => g.factPath)).toContain('offer.regionalNewspaper');
+    expect(gaps.find((g) => g.factPath === 'offer.regionalNewspaper')?.ask).toBe(
+      'Regional daily for the issue advertisements',
+    );
+  });
+
+  it('states the three-to-ten working day bid period', () => {
+    const out = render(vardhman);
+    expect(out).toContain('minimum of three Working Days and shall not exceed ten Working Days');
+    expect(out).toContain('additional three Working Days');
   });
 });
 

@@ -80,6 +80,20 @@ export const zOffer = z.object({
   registrarToIssue: z.string().optional(),
 
   /**
+   * Price band, bid period and any revision must be advertised in an English
+   * national daily, a Hindi national daily, and a regional daily in the
+   * language of the state where the registered office is situated — each with
+   * wide circulation, at least two working days before the bid opening date.
+   * Named in the Method of Bidding and Pre-Issue Advertisement subsections.
+   */
+  englishNewspaper: z.string().optional().describe('English national daily with wide circulation'),
+  hindiNewspaper: z.string().optional().describe('Hindi national daily with wide circulation'),
+  regionalNewspaper: z
+    .string()
+    .optional()
+    .describe('Regional daily in the language of the registered office state'),
+
+  /**
    * D17: the tool serves issuers preparing now, so current rules always apply.
    * Retained for the record and for future effective-date handling.
    */

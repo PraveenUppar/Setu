@@ -142,6 +142,30 @@ Second paragraph.{{/if}}`,
   });
 });
 
+describe('bold', () => {
+  it('splits **text** into a bold run', () => {
+    const out = renderTemplate('**For Individual Bidders.** The Bid must be for two lots.', ctx);
+    const runs = (out[0] as any).runs;
+    expect(runs[0]).toEqual({ text: 'For Individual Bidders.', bold: true });
+    expect(runs[1].bold).toBeUndefined();
+    expect(runs[1].text).toContain('The Bid must be');
+  });
+
+  it('keeps bold and substitution independent', () => {
+    const out = renderTemplate('**{{ company.name }}** is the Issuer.', ctx);
+    const runs = (out[0] as any).runs;
+    // The substitution resolves inside the bold markers, so the markers split
+    // around it rather than swallowing it
+    expect(runs.map((r: any) => r.text).join('')).toContain('Vardhman Precision Components Limited');
+    expect(runs.some((r: any) => r.text.includes('**'))).toBe(false);
+  });
+
+  it('leaves unmatched asterisks alone', () => {
+    const out = renderTemplate('A single * is not bold.', ctx);
+    expect(runText(out)).toBe('A single * is not bold.');
+  });
+});
+
 describe('block structure', () => {
   it('parses headings by level', () => {
     const out = renderTemplate('## Terms of the Issue\n\n### Ranking of Equity Shares', ctx);
