@@ -591,3 +591,25 @@ The glossary cites it for Fraudulent Borrower, where three independent documents
 - **No term is defined twice.** 130 entries across six arrays; a term in two of them renders twice in one alphabetical table.
 - **No other issuer's name, auditor registration number or ISIN appears in any description** — the specific strings D21's filter let through.
 - **Book-building terms disappear from a fixed-price issue** while the ASBA machinery stays.
+
+---
+
+## D32 — Wave 1 extraction is finished, and the single-source pattern held to the end
+
+**2026-09-10.** The last four extractable boilerplate subsections are built: Certain Conventions (#2), Dividend Policy (#22), Restrictions on Foreign Ownership (#34) and Declaration (#37). Wave 1 extraction is complete.
+
+**10 of the 37 numbered subsections, 42 rendered pages.** What remains in S4 is not extraction work: computed sections wait on S3/S5/S8, narrative on S9/S10 and API credits, Main Provisions of AoA on S7 upload, and two subsections are external deliverables from the auditor and the CA.
+
+### Three decisions in this batch worth keeping
+
+**Page cross-references are dropped.** The corpus writes 'see "Definitions and Abbreviations" on page 1'. We do not paginate until DOCX export, so any page number written here is invented and wrong in every document. Section names are kept; a test asserts no `on page N` survives.
+
+**No sectoral cap is recited.** Restrictions on Foreign Ownership describes the FDI regime, which is identical for every issuer, but the permitted foreign investment percentage varies by sector. The corpus documents point at the FDI Policy rather than stating a number, and so does this — a cap recited for the wrong sector is worse than silence.
+
+**The Declaration signature block is computed, not typed.** It is the page that carries personal liability under Section 26, signed by every Director plus the Company Secretary and the Chief Financial Officer. Building it from `management.directors` means it cannot silently omit someone; where no board is recorded it raises a gap rather than printing an empty list.
+
+### The fourth single-sourced sentence, in the fourth different section
+
+Dividend Policy carried "all Equity Shareholders whose names appear in the register of members on the record date are entitled to be paid". Om Galaxy alone; Maxwell's only mention of a record date is in an unrelated context.
+
+That is now **four for four** — every single-sourced sentence caught across four separate sections has been Om Galaxy's. At 509 pages it is the longest document in the corpus and the primary BSE extraction source, so it carries more text nobody else carries, and that text sits inside blocks whose other paragraphs match word for word. **Running the per-clause source count is no longer a precaution when extracting from it; it is the method.**

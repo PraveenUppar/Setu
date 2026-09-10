@@ -6,7 +6,7 @@
 
 **Last updated:** 2026-09-10
 **Current stage:** S0 and S6 CLOSED. **S4 Wave 1 in progress.**
-**Status:** **328 tests passing, tsc clean, dev server runs.** Document renders **6 of the 37 numbered subsections**, drafted as **25 registry sections**, **39 estimated pages** of a measured ~280. **Issue Procedure is COMPLETE**, and the glossary is at **130 definitions plus 129 abbreviations**.
+**Status:** **336 tests passing, tsc clean, dev server runs.** Document renders **10 of the 37 numbered subsections**, drafted as **29 registry sections**, **42 estimated pages** of a measured ~280. **Issue Procedure is COMPLETE**, and the glossary is at **130 definitions plus 129 abbreviations**.
 
 **The progress indicator said "25 of 37" until 2026-09-10 and was wrong** — it counted registry entries against numbered subsections, and Issue Procedure alone is one subsection and sixteen entries. Every spec now carries `partOf`, the header counts distinct values, and a test holds it. Same principle as the readiness score: a number the reader trusts must not flatter.
 **Rules: 55** — 43 eligibility, 12 consistency. The pre-check runs 26; no issuer sees 26 questions, since the criteria diverge by exchange.
@@ -70,6 +70,10 @@ Next.js 16.3.4, React 19.2.8, Tailwind 4, Zod 4.5.4, vitest 5. Dev server on :30
 | Issue Procedure — General Instructions, Do's and Don'ts | template | verified subset only; see D29 |
 | Issue Procedure — Information for Bidders and Submission of Bids | template | two single-sourced items dropped |
 | Issue Procedure — Bids by Anchor Investors | template | **closes a carried gap**; 5 sources |
+| Certain Conventions and Presentation of Data | template | page cross-references dropped |
+| Dividend Policy | template | record-date paragraph dropped, single-sourced |
+| Restrictions on Foreign Ownership | template | no sectoral cap recited |
+| Declaration | **computed** | signature block built from the fact base |
 
 ### S6 — Rules, dashboard, pre-check, and the link between them
 
@@ -189,6 +193,12 @@ officers and the Reg 300(1)(c) statement all landed. In descending value:
 3. **Other Regulatory stragglers** — "Fees Payable to Others" is in Maxwell ALONE and was left out
    for that reason; Servicing Behaviour and Status of Investor Complaints are not yet checked for
    two-source support.
+
+**Wave 1 extraction is now finished** except for #16 Key Industry Regulations and Policies, which is
+sector-switched: the generic company law and labour law core is shareable, but the sector-specific
+half is the same problem as the sector glossary and needs the issuer's sector. Everything else left
+in S4 is computed (needs S3/S5/S8), narrative (needs S9/S10 and credits), external (auditor/CA), or
+the AoA (needs S7 upload).
 
 **Main Provisions of AoA (~38pp) is the largest remaining section but is blocked** — extracted per-issuer from the company's own articles, so it needs S7 upload and extraction, not templating.
 

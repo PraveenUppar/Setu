@@ -16,6 +16,7 @@ import { sectionRegistry } from './sections';
 import { issueStructure } from './sections/issue-structure';
 import { termsOfIssue } from './sections/terms-of-issue';
 import { definitions } from './sections/definitions';
+import { conventions, dividendPolicy, foreignOwnership, declaration } from './sections/conventions';
 import { regulatoryDisclaimers, regulatoryAuthority, regulatoryConsents, regulatoryJurisdiction, regulatoryStatutoryStatements } from './sections/regulatory-disclosures';
 import { collectPlaceholders } from './nodes';
 import { vardhman } from '../seed/vardhman';
@@ -1765,21 +1766,97 @@ describe('progress counting', () => {
     const sections = renderSections(sectionRegistry, { facts: vardhman });
     const subsections = new Set(sections.map((s) => s.partOf));
 
-    expect(sections.length).toBeGreaterThan(subsections.size * 3);
+    expect(sections.length).toBeGreaterThan(subsections.size * 2);
     expect(subsections.size).toBeLessThanOrEqual(37);
     expect([...subsections].sort()).toEqual([
       '1. Definitions and Abbreviations',
+      '2. Certain Conventions, Presentation of Financial, Industry and Market Data',
+      '22. Dividend Policy',
       '3. Forward Looking Statements',
       '30. Other Regulatory and Statutory Disclosures',
       '31. Terms of the Issue',
       '32. Issue Structure',
       '33. Issue Procedure',
+      '34. Restrictions on Foreign Ownership of Indian Securities',
+      '37. Declaration',
     ]);
   });
 
   it('gives every registered section a numbered subsection', () => {
     for (const spec of sectionRegistry) {
       expect(spec.partOf, spec.id).toMatch(/^\d+\. /);
+    }
+  });
+});
+
+describe('Conventions, dividend, foreign ownership and declaration', () => {
+  const text = (spec: SectionSpec, facts: FactBase) =>
+    renderSection(spec, { facts })
+      .flatMap((n) =>
+        n.type === 'paragraph'
+          ? [n.runs.map((r) => r.text).join('')]
+          : n.type === 'list'
+            ? n.items.map((i) => i.map((r) => r.text).join(''))
+            : n.type === 'heading'
+              ? [n.text]
+              : [],
+      )
+      .join('\n');
+
+  it('drops page cross-references while keeping the section names', () => {
+    // The corpus writes 'see "Definitions and Abbreviations" on page 1'. We do
+    // not paginate until DOCX export, so a page number here is invented.
+    const out = text(conventions, vardhman);
+    expect(out).toContain('see "Definitions and Abbreviations"');
+    expect(out).not.toMatch(/on page \d+/);
+  });
+
+  it('states the units a reader of Indian financials needs', () => {
+    const out = text(conventions, vardhman);
+    expect(out).toContain('"Lakh" means one hundred thousand');
+    expect(out).toContain('rounded off to the second decimal place');
+    expect(out).toContain('Indian Standard Time');
+  });
+
+  it('omits the single-sourced record-date paragraph from Dividend Policy', () => {
+    // Om Galaxy alone. Fourth such catch, all four in the same document.
+    expect(text(dividendPolicy, vardhman)).not.toContain('register of members');
+  });
+
+  it('keeps the land-border restriction, which the held-out document confirms', () => {
+    expect(text(foreignOwnership, vardhman)).toContain('shares a land border with India');
+  });
+
+  it('does not recite a sectoral cap it cannot know', () => {
+    // The corpus points at the FDI Policy rather than stating a number, and a
+    // number recited for the wrong sector is worse than silence.
+    const out = text(foreignOwnership, vardhman);
+    expect(out).toContain('sectoral cap');
+    expect(out).not.toMatch(/sectoral cap[^.]{0,40}\b\d{1,3}%/);
+  });
+
+  it('builds the declaration signature block from the fact base', () => {
+    const out = text(declaration, vardhman);
+    for (const d of vardhman.management.directors) expect(out).toContain(d.name);
+    expect(out).toContain('Chairman and Managing Director');
+    expect(out).toContain('Place: Pune');
+  });
+
+  it('raises a gap rather than an empty declaration when no board is recorded', () => {
+    const noBoard: FactBase = {
+      ...vardhman,
+      management: { directors: [], keyManagerialPersonnel: [] },
+    };
+    const paths = collectPlaceholders(renderSection(declaration, { facts: noBoard })).map(
+      (g) => g.factPath,
+    );
+    expect(paths).toContain('management.directors');
+  });
+
+  it('leaves no unresolved syntax in any of the four, on either exchange', () => {
+    for (const spec of [conventions, dividendPolicy, foreignOwnership, declaration]) {
+      expect(text(spec, vardhman), spec.id).not.toMatch(/\{\{|\}\}|\*\*/);
+      expect(text(spec, variant({ exchange: 'NSE_EMERGE' })), spec.id).not.toMatch(/\{\{|\}\}|\*\*/);
     }
   });
 });
