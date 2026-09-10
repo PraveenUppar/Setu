@@ -448,6 +448,8 @@ export const vardhman: FactBase = {
         involvesPromoterLoanRepayment: false,
       },
     ],
+    // Firm finance arrangements confirmed for the plant and machinery object
+    firmFinanceConfirmed: true,
     issueExpenses: cr('1.05'),
 
     underwritingPercent: 100,

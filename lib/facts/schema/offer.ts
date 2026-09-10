@@ -80,6 +80,22 @@ export const zOffer = z.object({
   objects: z.array(zObjectOfIssue).describe('Objects of the issue with amounts'),
   issueExpenses: zMoney.describe('Estimated issue expenses, excluded from GCP'),
 
+  /**
+   * Whether firm arrangements of finance are in place through verifiable means
+   * for 75% of the stated means of finance, excluding the issue proceeds and
+   * existing internal accruals (R-022, Reg 230(1)(e)). Only meaningful where
+   * some object is a project.
+   *
+   * This exists so EL-016 has a pass state. Without it the rule fires for every
+   * issuer with a capex object and can never be cleared, which makes it a
+   * notice rather than a check — and a dashboard item that never goes away is
+   * one the reader learns to skip past, taking the real findings with it.
+   */
+  firmFinanceConfirmed: z
+    .boolean()
+    .default(false)
+    .describe('Firm arrangements of finance confirmed for 75% of the stated means of finance'),
+
   /** Reg 260: 100% underwritten, BRLM underwrites at least 15% on own account. */
   underwritingPercent: zPercent.default(100),
   brlmUnderwritingPercent: zPercent.describe('Must be at least 15'),

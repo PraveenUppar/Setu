@@ -5,8 +5,8 @@
 ---
 
 **Last updated:** 2026-09-10
-**Current stage:** S4 — Wave 1 template extraction
-**Status:** **166 tests passing, tsc clean, dev server runs.** Document renders **13 sections, 23 estimated pages, 3 tables, 3 gaps.**
+**Current stage:** S6 — rule engine and gap dashboard (S4 Wave 1 paused, resumable)
+**Status:** **222 tests passing, tsc clean, dev server runs.** Document renders **13 sections, 23 estimated pages, 3 tables**. Dashboard shows **91/100 readiness, 0 blockers, 3 major, 30 checks passed, 3 not applicable.**
 **Scope:** FULL BUILD, S0 through S13. No deadline pressure.
 
 **Standing instruction: do not commit or push unless the user asks.**
@@ -69,20 +69,44 @@ Every section is diffed across two sources then checked against **Century Busine
 
 ## Next action
 
-**Recommendation: stop extracting and build S6.** Wave 1 has proven the engine and produced 23 pages; the remaining template work is more of the same and can resume any time. S6 is the product's differentiator, is fully unblocked, and needs no API credits.
+**S6 is partly built.** `lib/rules/` holds the engine, 21 eligibility rules and 12 consistency rules,
+with a pass and fail fixture for each. `components/gap-dashboard.tsx` renders findings grouped by
+severity with clause, what-it-blocks and where-to-fix.
 
-**S6 — rule engine, eligibility pre-check, gap dashboard.** Everything it needs exists:
-- 25 rule-source entries (R-001..R-025) plus 18 BSE and 11 NSE criteria
-- a seed whose arithmetic ties, so consistency rules have something real to check
-- `collectPlaceholders` already surfaces document gaps; the dashboard groups them by severity with clause citations
-- **D16: add `effectiveFrom` to the `Rule` type at the outset.** Retrofitting means re-auditing every rule.
-- **D20's applicability lesson carries over:** the gap list must separate NOT APPLICABLE from MISSING, as `Definition.appliesIf` now does. A dashboard full of inapplicable items is one nobody reads.
+**The standalone pre-check is built** — `/eligibility`, five steps, no signup. `lib/rules/precheck.ts`
+holds the input type, the fact-base assembly and `runPreCheck`. Verified end to end in the browser:
+Vardhman's figures give "Eligible, 12 of 12, 5 to 8 months"; flagging outstanding convertibles gives
+"Not eligible yet, 11 of 12, 8 to 11 months" with the Reg 228(e) citation.
 
-If continuing Wave 1 instead, in descending value:
+Remaining in S6:
 
-1. **Other Regulatory remainder** — caution, jurisdiction disclaimer, experts opinion (needs M6 auditor facts), stock market data, fees payable, purchase of property, revaluation. ~8 subsections.
-2. **Issue Procedure remainder** — UPI implementation, availability of forms, bids at different price levels, terms of payment, electronic registration, build of the book, withdrawal, price discovery, underwriting agreement and RoC filing, pre-issue advertisement, general instructions.
-3. **Definitions remainder** — ~130 entries, but see D21: each must be READ and authored, not filtered. The sector glossary cannot come from the corpus at all.
+1. **Wire findings to the document.** A finding names the sections it blocks; clicking one should
+   scroll to that section, and a placeholder should link back to its finding.
+2. **More consistency rules** as later modules land — RPT figures agreeing across sections,
+   capitalisation tying to the balance sheet, lock-in reconciling with the build-up.
+3. **Exchange criteria not yet ruled** — E-05 to E-18 and N-05 to N-11 are recorded in
+   `05-rule-sources.md` but have no rules yet: functional website, promoter demat, no name change in
+   a year, no NCLT or BIFR reference, no admitted winding-up petition, the six-month application
+   rules (which differ by exchange — BSE looks at the issuer, NSE at the merchant banker).
+
+Two design points already paid for and worth preserving:
+
+- **Every rule needs a pass state.** EL-016 originally fired for any issuer with a capex object and
+  could never be cleared. That is a notice, not a check, and a dashboard item that never goes away
+  teaches the reader to skip the list. Fixed by adding `offer.firmFinanceConfirmed`.
+- **The score must agree with the findings list.** It first read 100/100 above three outstanding
+  items, because the summary counted rules but not document gaps. The score is the first thing an
+  issuer looks at; it cannot contradict what is directly beneath it.
+
+Wave 1 extraction resumes any time. In descending value:
+
+1. **Other Regulatory remainder** — caution, jurisdiction disclaimer, experts opinion (needs M6
+   auditor facts), stock market data, fees payable, purchase of property, revaluation.
+2. **Issue Procedure remainder** — UPI implementation, availability of forms, bids at different price
+   levels, terms of payment, electronic registration, build of the book, withdrawal, price discovery,
+   underwriting agreement and RoC filing, pre-issue advertisement, general instructions.
+3. **Definitions remainder** — ~130 entries, each READ and authored per D21. The sector glossary
+   cannot come from the corpus at all.
 
 **Main Provisions of AoA (~38pp) is the largest remaining section but is blocked** — extracted per-issuer from the company's own articles, so it needs S7 upload and extraction, not templating.
 
