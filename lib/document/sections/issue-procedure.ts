@@ -481,9 +481,96 @@ Our Board of Directors certifies that:
 `.trim(),
 };
 
+/**
+ * Grounds for technical rejection.
+ *
+ * Extraction notes, 2026-09-10:
+ *   Om Galaxy RHP (BSE SME) pp.447-448 and Maxwell DRHP (NSE Emerge) pp.343-344.
+ *
+ *   The two lists differ in LENGTH rather than substance — Om Galaxy runs to 25+
+ *   grounds, Maxwell to 15, and each carries items the other omits. Both are
+ *   legitimate; the union is used, since a ground omitted from the document is
+ *   a ground the issuer cannot rely on.
+ *
+ *   CONFLICT RESOLVED BY HELD-OUT VERIFICATION. Maxwell lists "Bids at cut-off
+ *   price by any category" as a rejection ground. Om Galaxy lists "Bids at
+ *   Cut-off Price by NIIs and QIBs". Century Business Media settles it —
+ *   "In case of Bidders (excluding NIIs and QIBs) Bidding at cut-off price..."
+ *   confirms Individual Bidders MAY bid at cut-off. Om Galaxy's formulation is
+ *   used; Maxwell's would have wrongly told issuers to reject valid retail bids.
+ */
+export const issueProcedureTechnicalRejection: SectionSpec = {
+  id: 'issueRelated.issueProcedure.technicalRejection',
+  title: 'Grounds for Technical Rejection',
+  producer: 'template',
+  order: 3160,
+  group: 'SECTION - ISSUE RELATED INFORMATION',
+  appliesIf: (facts) => facts.offer.issueType === 'BOOK_BUILT',
+  extractedFrom: [
+    'bookbuilt__manufacturing__om-galaxy__bse-sme__2026-09__rhp.pdf pp.447-448',
+    'bookbuilt__engineering__maxwell-engineering__nse-emerge__2026-08__drhp.pdf pp.343-344',
+  ],
+  template: `
+### Grounds for Technical Rejection
+
+In addition to the grounds for rejection of Bids on technical grounds set out in the General
+Information Document, Bidders should note that Bids are liable to be rejected, inter alia, on the
+following technical grounds:
+
+- The amount blocked does not tally with the amount payable for the Equity Shares Bid for, or there are inadequate funds in the bank account to block the Bid Amount at the time of blocking.
+- Bids submitted without instruction to the SCSBs to block the entire Bid Amount, or where no confirmation is received from the SCSB for blocking of funds.
+- Bids which do not contain details of the Bid Amount and the bank account details in the ASBA Form.
+- Bids submitted on plain paper.
+- The ASBA Form submitted to a Designated Intermediary does not bear the stamp of that Designated Intermediary.
+- PAN not mentioned in the Bid cum Application Form, or a GIR number furnished instead of PAN.
+- Bids by persons for whom PAN details have not been verified and whose beneficiary accounts are "suspended for credit".
+- Where no corresponding record is available with the Depositories matching all three parameters: the names of the Bidders including the order of joint holders, the Depository Participant's identity (DP ID), and the beneficiary's account number.
+- Bids submitted without the signature of the sole or First Bidder, or the ASBA Form not signed by the account holder where the account holder differs from the Bidder.
+- **Bids at Cut-off Price by Non-Institutional Investors and QIBs.**
+- Bids at a price below the Floor Price or above the Cap Price.
+- Bids for a number of Equity Shares lower than the minimum specified for that category of investor, or not in the multiples specified in this {{ terms.documentName }}.
+- Category not ticked.
+- Multiple Bids, as defined in this {{ terms.documentName }}.
+- Bids by Individual Bidders with a Bid Amount exceeding Rs 2,00,000.
+- Bids for amounts greater than the maximum permissible amount prescribed by applicable regulations.
+- Bids by persons not competent to contract under the Indian Contract Act, 1872, including minors and persons of unsound mind.
+- In the case of partnership firms, Equity Shares may be registered in the names of the individual partners; no firm as such shall be entitled to apply.
+- Bids under power of attorney, or by limited companies, corporate bodies or trusts, where the relevant documents are not submitted.
+- Bids by persons who are not eligible to acquire Equity Shares under applicable laws, rules, regulations, guidelines and approvals.
+- Bids by OCBs.
+- Bids by US persons other than in reliance on Regulation S, or by "qualified institutional buyers" as defined in Rule 144A under the Securities Act.
+- Bids accompanied by stock invest, money order, postal order, cash, cheque, demand draft or pay order.
+- Bids submitted by Individual Bidders using the UPI Mechanism through an SCSB or a mobile application or UPI handle not listed on the website of SEBI, or using third party bank accounts or a third party linked bank account UPI ID.
+- Bids not uploaded on the terminals of the Stock Exchange.
+- Bids uploaded by QIBs after 4.00 p.m. and by Non-Institutional Bidders after 4.00 p.m. on the Bid/{{ terms.issueWord }} Closing Date, and Bids by Individual Bidders uploaded after 5.00 p.m. on the Bid/{{ terms.issueWord }} Closing Date, unless extended by the Stock Exchange.
+- Bid cum Application Forms not delivered by the Bidder within the time prescribed in the Bid cum Application Form, the Bid/{{ terms.issueWord }} Opening Date advertisement and this {{ terms.documentName }}.
+
+Bidders should note that in the event the PAN, the DP ID and the Client ID mentioned in the Bid cum
+Application Form, and entered into the electronic application system of the Stock Exchange by the
+Bid collecting intermediaries, do not match with the PAN, DP ID and Client ID available in the
+Depository database, the Bid cum Application Form is liable to be rejected.
+
+In the case of any delay in unblocking of amounts in the ASBA Accounts, including amounts blocked
+through the UPI Mechanism, exceeding two Working Days from the Bid/{{ terms.issueWord }} Closing
+Date, the Bidder shall be compensated at a uniform rate of Rs 100 per day for the entire duration of
+the delay exceeding two Working Days, by the intermediary responsible for causing such delay. The
+Book Running Lead Manager shall, in its sole discretion, identify and fix liability on the
+intermediary or entity responsible for the delay.
+
+In the case of any pre-{{ terms.issueWordLower }} or post-{{ terms.issueWordLower }} issue regarding
+share certificates, demat credit, refund orders or unblocking, investors should contact the Company
+Secretary and Compliance Officer.
+
+The authorised employees of the Designated Stock Exchange, along with the Book Running Lead Manager
+and the Registrar to the {{ terms.issueWord }}, shall ensure that the Basis of Allotment is finalised
+in a fair and proper manner in accordance with the procedure specified in the SEBI ICDR Regulations.
+`.trim(),
+};
+
 export const issueRelatedSections: SectionSpec[] = [
   issueProcedure,
   issueProcedureApplicationSize,
   issueProcedureBidsByCategory,
+  issueProcedureTechnicalRejection,
   issueProcedureUndertakings,
 ];

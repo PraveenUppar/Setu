@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { derivedTerms, renderSection, renderDocument } from './section';
-import { issueProcedure, issueProcedureApplicationSize, issueProcedureBidsByCategory, issueProcedureUndertakings } from './sections/issue-procedure';
+import { issueProcedure, issueProcedureApplicationSize, issueProcedureBidsByCategory, issueProcedureTechnicalRejection, issueProcedureUndertakings } from './sections/issue-procedure';
 import { sectionRegistry } from './sections';
 import { collectPlaceholders } from './nodes';
 import { vardhman } from '../seed/vardhman';
@@ -348,6 +348,55 @@ describe('Impersonation, undertakings and utilisation', () => {
     expect(render(vardhman)).not.toMatch(/\{\{|\}\}|\*\*/);
     expect(collectPlaceholders(renderSection(issueProcedureUndertakings, { facts: vardhman })))
       .toHaveLength(0);
+  });
+});
+
+describe('Grounds for technical rejection', () => {
+  const nodes = renderSection(issueProcedureTechnicalRejection, { facts: vardhman });
+  const out = nodes
+    .flatMap((n) =>
+      n.type === 'paragraph'
+        ? [n.runs.map((r) => r.text).join('')]
+        : n.type === 'list'
+          ? n.items.map((i) => i.map((r) => r.text).join(''))
+          : n.type === 'heading'
+            ? [n.text]
+            : [],
+    )
+    .join('\n');
+
+  it('takes the union of both sources rather than the shorter list', () => {
+    const grounds = (nodes.find((n) => n.type === 'list') as { items: unknown[] }).items;
+    // Om Galaxy runs to 25+, Maxwell to 15; each carries items the other omits
+    expect(grounds.length).toBeGreaterThan(20);
+  });
+
+  it('restricts the cut-off rejection to NIIs and QIBs', () => {
+    // Maxwell says "any category", which would reject valid Individual Bids.
+    // Om Galaxy and Century both confine it to NIIs and QIBs.
+    expect(out).toContain('Bids at Cut-off Price by Non-Institutional Investors and QIBs');
+    expect(out).not.toContain('cut-off price by any category');
+  });
+
+  it('states the Rs 100 per day unblocking compensation', () => {
+    expect(out).toContain('uniform rate of Rs 100 per day');
+    expect(out).toContain('exceeding two Working Days');
+  });
+
+  it('covers the depository three-parameter match', () => {
+    expect(out).toContain('DP ID');
+    expect(out).toContain("beneficiary's account number");
+  });
+
+  it('emphasises the cut-off ground in bold', () => {
+    const list = nodes.find((n) => n.type === 'list') as { items: { text: string; bold?: boolean }[][] };
+    const cutOff = list.items.find((runs) => runs.some((r) => r.text.includes('Cut-off Price')));
+    expect(cutOff?.some((r) => r.bold)).toBe(true);
+  });
+
+  it('leaves no unresolved syntax and raises no gaps', () => {
+    expect(out).not.toMatch(/\{\{|\}\}|\*\*/);
+    expect(collectPlaceholders(nodes)).toHaveLength(0);
   });
 });
 
