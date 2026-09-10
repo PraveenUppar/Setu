@@ -264,4 +264,89 @@ Our Company is not ineligible in terms of Regulation 228 of the SEBI ICDR Regula
 `.trim(),
 };
 
-export const regulatorySections: SectionSpec[] = [regulatoryAuthority, regulatoryDisclaimers];
+/**
+ * Consents and the investor grievance mechanism.
+ *
+ * Extraction notes, 2026-09-10:
+ *   Maxwell DRHP (NSE Emerge) pp.300-306, cross-checked against Om Galaxy.
+ *   Both are near-pure boilerplate carrying SEBI circular references, and the
+ *   only issuer-specific values are the intermediary names we already hold.
+ *
+ * EXPERTS OPINION is deliberately NOT built here. It turns on the statutory
+ * auditor's written consent date, the examination report date on the restated
+ * financials, the tax benefits report date, and any practising company
+ * secretary certificate — all auditor-supplied, none in the fact base. It
+ * belongs with M6 (Financials), not with regulatory boilerplate.
+ */
+export const regulatoryConsents: SectionSpec = {
+  id: 'regulatory.consents',
+  title: 'Consents and Investor Grievances',
+  producer: 'template',
+  order: 2950,
+  group: 'SECTION - OTHER REGULATORY AND STATUTORY DISCLOSURES',
+  requiredFacts: ['offer.registrarToIssue', 'company.companySecretary'],
+  extractedFrom: [
+    'bookbuilt__engineering__maxwell-engineering__nse-emerge__2026-08__drhp.pdf pp.300-306',
+    'bookbuilt__manufacturing__om-galaxy__bse-sme__2026-09__rhp.pdf pp.397-404',
+  ],
+  template: `
+### Consents
+
+Consents in writing of our Directors, our Promoters, the Company Secretary and Compliance Officer,
+the Chief Financial Officer, the Statutory Auditors and Peer Review Auditor, and the Bankers to our
+Company; and of the Book Running Lead Manager, the Registrar to the {{ terms.issueWord }}, the Legal
+Advisor, the Banker to the {{ terms.issueWord }}, the Sponsor Bank, the Syndicate Member, the
+Underwriter and the Market Maker, to act in their respective capacities, have been obtained as
+required under Section 26 of the Companies Act, 2013. These consents will be filed with a copy of
+the Red Herring Prospectus and the Prospectus with the RoC, and will not be withdrawn up to the time
+of delivery of the Red Herring Prospectus and the Prospectus for registration with the RoC.
+
+The consents of the Sponsor Bank, the Syndicate Member, the Underwriter and the Market Maker will be
+obtained at the time of filing the Red Herring Prospectus with the RoC.
+
+### Mechanism for Redressal of Investor Grievances
+
+SEBI has, by way of its Master Circular dated May 7, 2024, identified the need for measures to manage
+investor issues arising out of the UPI Mechanism, including delays in receipt of mandates for
+blocking of funds due to systemic issues at Designated Intermediaries or SCSBs, and failures to
+unblock funds in cases of partial or non-allotment within the prescribed timelines. The measures
+prescribed include:
+
+- identification of a nodal officer by SCSBs for the UPI Mechanism;
+- delivery of SMS alerts by SCSBs for the blocking and unblocking of UPI Mandate Requests;
+- hosting of a web portal by the Sponsor Bank containing statistical details of mandate blocks and unblocks;
+- limiting the facility of reinitiating UPI Bids by Syndicate Members to once per Bid; and
+- requiring SCSBs to complete the unblock process for non-allotted or partially allotted applications by the closing hours of one Working Day following the finalisation of the Basis of Allotment.
+
+The Registrar Agreement provides for retention of records by the Registrar to the
+{{ terms.issueWord }} for a period of at least eight years from the date of listing and commencement
+of trading of the Equity Shares on the Stock Exchange, to enable investors to approach the Registrar
+for redressal of their grievances.
+
+Investors may contact {{ company.companySecretary.name }}, our Company Secretary and Compliance
+Officer, the Book Running Lead Manager, or {{ offer.registrarToIssue }}, the Registrar to the
+{{ terms.issueWord }}, in the case of any pre-{{ terms.issueWordLower }} or
+post-{{ terms.issueWordLower }} problem, such as non-receipt of letters of Allotment, non-credit of
+Allotted Equity Shares to the beneficiary account, non-receipt of refund orders, or non-receipt of
+funds by electronic mode.
+
+All grievances relating to the {{ terms.issueWord }} may be addressed to the Registrar to the
+{{ terms.issueWord }}, with a copy to the relevant Designated Intermediary to whom the Bid cum
+Application Form was submitted, giving full particulars: the name of the Bidder, the Bid cum
+Application Form number, the Bidder's DP ID, Client ID, PAN and address, the number of Equity Shares
+applied for, the ASBA Account number in which the Bid Amount was blocked or the UPI ID, the date of
+the Bid cum Application Form, and the name and address of the Designated Intermediary where the Bid
+was submitted. The Bidder must also enclose the acknowledgement slip or the application number from
+the Designated Intermediary. Grievances relating to Bids submitted through Registered Brokers may be
+addressed to the Stock Exchange, with a copy to the Registrar to the {{ terms.issueWord }}.
+
+Our Company Secretary and Compliance Officer may be contacted at
+{{ company.companySecretary.email }} and {{ company.companySecretary.telephone }}.
+`.trim(),
+};
+
+export const regulatorySections: SectionSpec[] = [
+  regulatoryAuthority,
+  regulatoryConsents,
+  regulatoryDisclaimers,
+];

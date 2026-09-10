@@ -3,7 +3,7 @@ import { derivedTerms, renderSection, renderDocument } from './section';
 import { issueProcedure, issueProcedureApplicationSize, issueProcedureBidsByCategory, issueProcedureTechnicalRejection, issueProcedureBasisOfAllotment, issueProcedureUndertakings } from './sections/issue-procedure';
 import { sectionRegistry } from './sections';
 import { issueStructure } from './sections/issue-structure';
-import { regulatoryDisclaimers, regulatoryAuthority } from './sections/regulatory-disclosures';
+import { regulatoryDisclaimers, regulatoryAuthority, regulatoryConsents } from './sections/regulatory-disclosures';
 import { collectPlaceholders } from './nodes';
 import { vardhman } from '../seed/vardhman';
 import { money } from '../facts/money';
@@ -683,6 +683,59 @@ describe('Authority for the issue and confirmations', () => {
     expect(paths).toContain('offer.boardResolutionDate');
     expect(paths).toContain('offer.shareholderResolutionDate');
     expect(paths).toContain('offer.boardApprovalOfDocumentDate');
+  });
+
+  it('leaves no unresolved syntax', () => {
+    expect(render(vardhman)).not.toMatch(/\{\{|\}\}|\*\*/);
+  });
+});
+
+describe('Consents and investor grievances', () => {
+  const render = (facts: FactBase) =>
+    renderSection(regulatoryConsents, { facts })
+      .flatMap((n) =>
+        n.type === 'paragraph'
+          ? [n.runs.map((r) => r.text).join('')]
+          : n.type === 'list'
+            ? n.items.map((i) => i.map((r) => r.text).join(''))
+            : n.type === 'heading'
+              ? [n.text]
+              : [],
+      )
+      .join('\n');
+
+  it('cites Section 26 for the consents', () => {
+    expect(render(vardhman)).toContain('Section 26 of the Companies Act, 2013');
+  });
+
+  it('lists the five UPI grievance measures', () => {
+    const nodes = renderSection(regulatoryConsents, { facts: vardhman });
+    const list = nodes.find((n) => n.type === 'list') as { items: unknown[] };
+    expect(list.items).toHaveLength(5);
+    expect(render(vardhman)).toContain('nodal officer by SCSBs');
+    expect(render(vardhman)).toContain('one Working Day following the finalisation');
+  });
+
+  it('states the eight-year record retention', () => {
+    expect(render(vardhman)).toContain('at least eight years from the date of listing');
+  });
+
+  it('names the compliance officer and registrar from facts', () => {
+    const out = render(vardhman);
+    expect(out).toContain('Priya Deshmukh');
+    expect(out).toContain('Bigshare Services Private Limited');
+    expect(out).toContain('cs@vardhmanprecision.in');
+  });
+
+  it('raises a gap when the registrar is unknown', () => {
+    const noRegistrar: FactBase = {
+      ...vardhman,
+      offer: { ...vardhman.offer, registrarToIssue: undefined },
+    };
+    const paths = collectPlaceholders(
+      renderSection(regulatoryConsents, { facts: noRegistrar }),
+    ).map((g) => g.factPath);
+    expect(paths).toContain('offer.registrarToIssue');
   });
 
   it('leaves no unresolved syntax', () => {
