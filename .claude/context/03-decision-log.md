@@ -268,3 +268,31 @@ The pull here is real and worth naming: computing something the published docume
 **Rules out:** deriving category allotment counts. A test asserts `derivedTerms` does not expose them, so it cannot creep back.
 
 **Note:** the same conclusion was reached for Basis of Allotment one commit earlier and then talked out of. The ground-truth test is what held the line.
+
+---
+
+## D21 — There is no safe bulk-copy tier for glossary text
+
+**Evidence, 2026-09-10.** Definitions is ~200 entries and 17 pages, and most of it looks like standard regulatory boilerplate. The obvious move is to extract a corpus glossary, filter out the issuer-specific entries, and bulk import the rest.
+
+I wrote that filter (`scripts/build-glossary.mjs`). It rejects any proper noun that is not a statute, regulator or standard market term, plus anything carrying a date. Of 207 merged entries it passed 31.
+
+**Three of those 31 still carried Om Galaxy's own facts:**
+
+| Term | Leaked |
+|---|---|
+| Equity Shares | "...of face value of **5** each" — its face value |
+| Auditor | "...firm registration number **124851W**" — its auditor |
+| Stock Exchange | "...refers to, **BSE Limited**" — its exchange |
+
+They slipped through because issuer specifics are **not always capitalised proper nouns**. They are bare numbers, registration codes and two-word names. No regex separates them reliably.
+
+**And the failure is invisible.** The text reads perfectly while carrying another company's facts into a legal document. That is MM4 — never invent — wearing a different hat: not fabricated text, but *borrowed* text, which is arguably worse because it is specific and plausible.
+
+### Consequence
+
+**Every glossary entry is either fact-driven or deliberately authored.** Fact-driven means a template with substitution, as in `sections/definitions.ts` — `face value of Rs {{ capital.faceValue }} each`. The ~143 entries the filter rejects as issuer-specific mostly need to *become* fact-driven templates, not be filtered back in.
+
+`build-glossary.mjs` is kept as a **triage tool** — it says which entries need attention and why. Its output is a review queue, not a product artifact, and is named so.
+
+**Rules out:** copying glossary text from one issuer's prospectus into another's. The same caution applies to any section where the corpus text embeds issuer facts inline rather than in a table.
