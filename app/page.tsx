@@ -1,6 +1,6 @@
 import { DocumentView } from '@/components/document-view';
 import { GapDashboard } from '@/components/gap-dashboard';
-import { renderDocument, derivedTerms } from '@/lib/document/section';
+import { renderSections, flattenSections, derivedTerms } from '@/lib/document/section';
 import { sectionRegistry } from '@/lib/document/sections';
 import { estimatePages } from '@/lib/document/nodes';
 import { assess } from '@/lib/rules';
@@ -9,10 +9,10 @@ import { vardhman } from '@/lib/seed/vardhman';
 export default function Home() {
   const facts = vardhman;
   const terms = derivedTerms(facts);
-  const nodes = renderDocument(sectionRegistry, { facts });
+  const sections = renderSections(sectionRegistry, { facts });
 
-  const { findings, summary } = assess(facts, nodes);
-  const pages = estimatePages(nodes);
+  const { findings, summary } = assess(facts, sections);
+  const pages = estimatePages(flattenSections(sections));
 
   return (
     <div className="min-h-full bg-zinc-100 dark:bg-zinc-950">
@@ -31,7 +31,7 @@ export default function Home() {
             <div>
               <dt className="text-zinc-500">Sections</dt>
               <dd className="mt-0.5 text-lg font-semibold tabular-nums">
-                {sectionRegistry.length}
+                {sections.length}
                 <span className="ml-1 text-sm font-normal text-zinc-400">of 37</span>
               </dd>
             </div>
@@ -66,7 +66,7 @@ export default function Home() {
         <GapDashboard findings={findings} summary={summary} />
 
         <div className="rounded-lg border border-zinc-200 bg-white px-12 py-10 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
-          <DocumentView nodes={nodes} />
+          <DocumentView sections={sections} />
         </div>
 
         <p className="text-center text-xs uppercase tracking-widest text-zinc-400">

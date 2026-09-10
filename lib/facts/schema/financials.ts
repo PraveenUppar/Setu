@@ -42,6 +42,20 @@ export const zFinancialYear = z.object({
   intangibleAssets: zMoney,
   deferredIpoExpenses: zMoney.describe('Excluded from net worth and net tangible assets'),
 
+  /**
+   * R-029: BSE SME requires net tangible assets of at least Rs 3 crore with
+   * NOT MORE THAN 50% held in monetary assets — cash, bank balances and
+   * current investments. An issuer that clears Rs 3 crore by sitting on cash
+   * has not met the criterion.
+   *
+   * Nullable because the split is not always disclosed separately, and a
+   * default of zero would silently pass a test that was never run.
+   */
+  monetaryAssets: zMoney
+    .nullable()
+    .default(null)
+    .describe('Cash, bank balances and current investments included in total assets'),
+
   totalBorrowings: zMoney.describe("Drives BSE's debt-to-equity test, E-04"),
   shareholdersEquity: zMoney,
 

@@ -1,4 +1,6 @@
+import { findingAnchor, gapAnchor } from '@/lib/anchors';
 import type { DocumentNode, Run } from '@/lib/document/nodes';
+import { gapAnchorKeys, runKey, type RenderedSection } from '@/lib/document/section';
 
 /**
  * HTML renderer for the document AST.
@@ -7,19 +9,31 @@ import type { DocumentNode, Run } from '@/lib/document/nodes';
  * tree so the preview and the deliverable cannot drift.
  *
  * Placeholders are rendered prominently on purpose. A gap the issuer can see
- * is doing its job; a gap hidden in 280 pages is not.
+ * is doing its job; a gap hidden in 280 pages is not. Each one is also a link
+ * back to its finding, where the ask, the clause and the place to fix it are.
  */
 
-function RunSpan({ run }: { run: Run }) {
+function RunSpan({ run, anchorId }: { run: Run; anchorId?: string }) {
   if (run.placeholder) {
     return (
-      <mark
-        className="rounded-sm bg-amber-100 px-1 py-0.5 text-amber-900 ring-1 ring-amber-300 dark:bg-amber-950 dark:text-amber-200 dark:ring-amber-800"
-        data-fact-path={run.placeholder.factPath}
-        title={`Missing: ${run.placeholder.ask}`}
+      <a
+        href={`#${findingAnchor(`CM-${run.placeholder.factPath}`)}`}
+        className="no-underline"
+        title={`Missing: ${run.placeholder.ask} — open the finding`}
       >
-        {run.text}
-      </mark>
+        {/*
+          The id sits on the mark, not the anchor around it, so that :target
+          styling lands on the highlight the reader was sent to see. The scroll
+          margin keeps it clear of the top edge.
+        */}
+        <mark
+          id={anchorId}
+          className="scroll-mt-24 rounded-sm bg-amber-100 px-1 py-0.5 text-amber-900 ring-1 ring-amber-300 target:ring-2 target:ring-amber-600 dark:bg-amber-950 dark:text-amber-200 dark:ring-amber-800 dark:target:ring-amber-400"
+          data-fact-path={run.placeholder.factPath}
+        >
+          {run.text}
+        </mark>
+      </a>
     );
   }
 
@@ -29,12 +43,25 @@ function RunSpan({ run }: { run: Run }) {
   return <>{content}</>;
 }
 
-function Runs({ runs }: { runs: Run[] }) {
+/**
+ * `anchored` maps a run's address to the fact path whose id it carries. Only
+ * the first occurrence of a gap is in it, so the document never emits the same
+ * id twice.
+ */
+interface Addressing {
+  prefix: number[];
+  anchored: Map<string, string>;
+}
+
+function Runs({ runs, prefix, anchored }: { runs: Run[] } & Addressing) {
   return (
     <>
-      {runs.map((run, i) => (
-        <RunSpan key={i} run={run} />
-      ))}
+      {runs.map((run, i) => {
+        const factPath = anchored.get(runKey(...prefix, i));
+        return (
+          <RunSpan key={i} run={run} anchorId={factPath ? gapAnchor(factPath) : undefined} />
+        );
+      })}
     </>
   );
 }
@@ -46,7 +73,7 @@ const HEADING_CLASS: Record<number, string> = {
   4: 'mt-4 mb-2 text-sm font-semibold uppercase tracking-wide text-zinc-500',
 };
 
-function NodeView({ node }: { node: DocumentNode }) {
+function NodeView({ node, prefix, anchored }: { node: DocumentNode } & Addressing) {
   switch (node.type) {
     case 'heading': {
       const Tag = (['h1', 'h2', 'h3', 'h4'] as const)[node.level - 1];
@@ -60,7 +87,7 @@ function NodeView({ node }: { node: DocumentNode }) {
     case 'paragraph':
       return (
         <p className="my-3 text-justify leading-relaxed">
-          <Runs runs={node.runs} />
+          <Runs runs={node.runs} prefix={prefix} anchored={anchored} />
         </p>
       );
 
@@ -72,7 +99,7 @@ function NodeView({ node }: { node: DocumentNode }) {
         >
           {node.items.map((item, i) => (
             <li key={i} className="leading-relaxed">
-              <Runs runs={item} />
+              <Runs runs={item} prefix={[...prefix, i]} anchored={anchored} />
             </li>
           ))}
         </Tag>
@@ -142,11 +169,19 @@ function NodeView({ node }: { node: DocumentNode }) {
   }
 }
 
-export function DocumentView({ nodes }: { nodes: DocumentNode[] }) {
+export function DocumentView({ sections }: { sections: RenderedSection[] }) {
+  const anchored = gapAnchorKeys(sections);
+
   return (
     <article className="text-[15px] text-zinc-800 dark:text-zinc-200">
-      {nodes.map((node, i) => (
-        <NodeView key={i} node={node} />
+      {sections.map((section, s) => (
+        // The section id is what a finding's "Holds up" link scrolls to. The
+        // scroll margin keeps the heading off the top edge of the viewport.
+        <section key={section.id} id={section.anchor} className="scroll-mt-6">
+          {section.nodes.map((node, n) => (
+            <NodeView key={n} node={node} prefix={[s, n]} anchored={anchored} />
+          ))}
+        </section>
       ))}
     </article>
   );

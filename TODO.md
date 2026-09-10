@@ -4,17 +4,18 @@ Each stage ends with something demoable and a manual test gate. **Do not advance
 
 `🔴 core` (MVP dies without it) · `🟡 demo` (needed for the pitch) · `🟢 extended`
 
-**Progress** (`[x]` done, `[~]` partial, `[ ]` not started) — updated 2026-09-09
+**Progress** (`[x]` done, `[~]` partial, `[ ]` not started) — updated 2026-09-10
 
 | S0 | S1 | S2 | S3 | S4 | S5 | S6 | S7 | S8 | S9 | S10 | S11 | S12 | S13 |
 |----|----|----|----|----|----|----|----|----|----|-----|-----|-----|-----|
-| [~] | [x] | [x] | [ ] | [~] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| [x] | [x] | [x] | [ ] | [~] | [ ] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
 
-**61 tests passing, tsc clean, dev server runs.** Two commits pushed.
+**Tests, tsc and dev-server status live in `.claude/context/04-session-handoff.md`** — this table is stage-level only, so the two cannot contradict each other.
 
-- **S0 partial:** research and section map done; 2 of 20 rules still `PROPOSAL-ONLY`; corpus is 8 of 25 documents.
-- **S4 partial:** engine complete and proven end to end; **1 of 37 sections** written.
+- **S0 closed 2026-09-10** at 8 prospectuses rather than 25. Criteria corroborated across documents, paired fixtures built. 2 of 27 rule rows remain `PROPOSAL-ONLY` and carry no rules; O-5 (Schedule VI Part A) and O-7 (notification date) need SEBI's own text and stay open.
+- **S4 partial:** engine complete and proven end to end; **13 of 37 sections** written.
 - **S3 deliberately deferred** until after S4 — Wave 1 templates need only seed facts, so the document is visible before any form exists.
+- **S6 closed 2026-09-10:** rule engine, gap dashboard, standalone `/eligibility` pre-check, finding-to-document links, and all 32 exchange criteria ruled. Every finding gives a firm pass or fail with a clause — no rule hedges. Remaining consistency rules wait on M2 and M6 data (S5, S8).
 
 ---
 
@@ -22,23 +23,27 @@ Each stage ends with something demoable and a manual test gate. **Do not advance
 
 **No code.** This is the spec, the templates, and the tests all at once.
 
-### Corpus
-- [ ] Pull 25 SME prospectuses (chittorgarh.com; also bsesme.com, nseindia.com/emerge, merchant-banker sites)
-- [ ] Filter to **fixed-price** issues; tag by sector — 6–8 manufacturing, 3–4 IT/services, 3–4 trading, 2–3 textiles, 2–3 chemicals, 2–3 messy (litigation-heavy / group-heavy / has OFS)
-- [ ] **Reverse the corpus:** for 20, split restated-financials pages → `fixtures/input/`, capital-structure pages → `fixtures/truth/`. Free paired dataset.
-- [ ] MCA21 (mca.gov.in): full document sets for 3 companies — MOA/AOA, AOC-4, MGT-7, **PAS-3** (allotment history), DIR-12
-- [ ] 10 SME annual reports (free) as extra extraction inputs
+### Corpus — **closed at 8 prospectuses, 2026-09-10** (was 25)
+
+- [x] ~~Pull 25 SME prospectuses~~ → **8**, of which 7 are on disk. Quanto Agroworld (the only fixed-price document) is inventoried but missing and needs re-downloading.
+- [x] ~~Filter to fixed-price; tag by sector~~ → **superseded by D15.** The corpus is 7 book-built and 1 fixed-price, which is what reversed the plan to book-built-first in the first place.
+- [x] **Reverse the corpus** — `fixtures/corpus/`, restated financials as input and Capital Structure as truth, both halves for all 7 documents. Guarded by `lib/corpus/fixtures.test.ts`.
+- [ ] ~~MCA21 full document sets for 3 companies~~ — **dropped.** Needs a paid account and manual downloads per company; PAS-3 allotment history is the only piece the build actually wants, and S7 gets that from the prospectus capital build-up instead.
+- [ ] ~~10 SME annual reports~~ → **4 is enough.** They were extraction inputs, and `fixtures/corpus/` is a better-paired dataset for that.
 
 ### Research
-- [ ] Read ICDR **Chapter IX** + **Schedule VI**
-- [ ] Build `.claude/context/05-rule-sources.md`: threshold → clause → verbatim text → URL → date checked
-- [ ] Verify 2025 amendments specifically: EBITDA track record · OFS cap · GCP cap · promoter-loan-repayment restriction · minimum allottees · phased lock-in · comment period
-- [ ] Build the section map from 5 real fixed-price ToCs — every section/subsection with observed page counts
+- [x] Chapter IX read as-applied through the corpus. **Schedule VI Part A text still not located — O-5, the one real research gap left.**
+- [x] `05-rule-sources.md` built: R-001 to R-027, 20 BSE criteria (E-01 to E-20), 12 NSE (N-01 to N-12).
+- [x] 2025 amendments verified against real filings. The board memo was wrong on 5 of 6 figures.
+- [x] Section map from 5 real ToCs (`07-section-map.md`).
+- [x] **Exchange criteria corroborated across documents** (2026-09-10) — BSE against 3, NSE against 4. Corrected five criteria, added four, and produced O-12, O-13 and O-14.
 
 ### ✅ Gate
-- [ ] Can name every section of a fixed-price SME draft prospectus from own map
-- [ ] **Every threshold has a clause citation and a URL.** Zero numbers from memory.
-- [ ] 20 input/ground-truth pairs on disk
+- [x] Can name every section of an SME draft prospectus from own map
+- [~] **Every threshold has a clause citation.** 2 of 27 rows remain `PROPOSAL-ONLY` (R-007 minimum issue size, R-012 migration compliance) and no rule is built on either. Zero numbers from memory.
+- [x] ~~20~~ **7 input/ground-truth pairs on disk** — `fixtures/corpus/`, both halves for every prospectus.
+
+**S0 closes here** except O-5 (Schedule VI Part A) and O-7 (the amendment notification date), both of which need the notified SEBI text rather than another prospectus.
 
 ---
 

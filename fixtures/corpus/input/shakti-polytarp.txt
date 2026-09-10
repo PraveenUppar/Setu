@@ -1,0 +1,4608 @@
+Examination report of Independent Auditor on the Restated Financial Statements of SHAKTI POLYTARP LIMITED
+To, The Board of Directors SHAKTI POLYTARP LIMITED Shop No. 4, 4/1, Nayapura Main Road Indore, Madhya Pradesh �452009, India Dear Sir,
+1. We have examined the attached Restated Financial Statements of SHAKTI POLYTARP LIMITED, ("Company" ) comprising the Restated Standalone Financial Statements of the Company constituting Restated Statement of Assets and Liabilities as at 31st March 2026, 2025 and 2024, the Restated Statements of Profit and Loss, the Restated Cash Flow Statement for the period ended, 31st March 2026, 2025 and 2024. The Summary Statement of Significant Accounting Policies, the Notes and Annexures as forming part of these Restated Financial Statements (collectively, the "Restated financial statement"), as approved by the Board of Directors of the Company at their meeting held on 11th July 2026 for the purpose of inclusion in the Draft offer document/ offer document ("Draft offer document/ offer document") prepared by the Company in connection with its proposed SME Initial Public Offer of equity shares ("SME IPO") prepared in terms of the requirements of:
+a) Section 26 of Part I of Chapter III of the Companies Act, 2013 (the "Act"); b) The Securities and Exchange Board of India (Issue of Capital and Disclosure Requirements)
+Regulations, 2018, as amended ("ICDR Regulations"); and c) The Guidance Note on Reports in Company Prospectuses (Revised 2019) issued by the Institute of
+Chartered Accountants of India ("ICAI"), as amended from time to time (the "Guidance Note").
+Management's Responsibility for the Restated Financial Statements
+2. The Company's Board of Directors is responsible for the preparation of the Restated Financial Statements for the purpose of inclusion in the Draft offer document/ offer document
+3. The Restated Financial Statements have been prepared by the management of the Company on the basis of preparation stated in Annexure 4 to the Restated Financial Statements. The Board of Directors of the Company's responsibility includes designing, implementing, and maintaining adequate internal control relevant to the preparation and presentation of the Restated Financial Statements. The Board of Directors is also responsible for identifying and ensuring that the Company complies with the Act, ICDR Regulations, and the Guidance Note.
+Auditors' Responsibilities
+4. We have examined such Restated Financial Statements taking into consideration:
+a. The terms of reference and terms of our engagement agreed with you in accordance with our engagement letter; requesting us to carry out the assignment, in connection with the proposed IPO of equity shares of the Company
+b. The Guidance Note. The Guidance Note also requires that we comply with the ethical requirements of the Code of Ethics issued by the ICAI;
+c. Concepts of test checks and materiality to obtain reasonable assurance based on verification of evidence supporting the Restated Financial Statements; and
+d. The requirements of Section 26 of the Act and the ICDR Regulations.
+F-1
+
+Our work was performed solely to assist you in meeting your responsibilities in relation to your compliance with the Act, the ICDR Regulations, and the Guidance Note in connection with the proposed initial public offer of its equity shares of the Company.
+5. The Restated Financial Statements have been compiled by the management of the Company from:
+i. The audited financial statements of the Company as at and for the financial year ended March 31, 2026 which were prepared in accordance with the Accounting Standards as prescribed under Section 133 of the Act, read with Rule 7 of the Companies (Accounts) Rules, 2014, as amended, and other accounting principles generally accepted in India ("Audited Financial Statements 2026");
+ii. The audited financial statements of the Company as at and for the financial year ended March 31, 2025 which were prepared in accordance with the Accounting Standards as prescribed under Section 133 of the Act, read with Rule 7 of the Companies (Accounts) Rules, 2014, as amended, and other accounting principles generally accepted in India ("Audited Financial Statements 2025");
+iii. The audited financial statements of the Company as at and for the financial year ended March 31, 2024 which were prepared in accordance with the Accounting Standards as prescribed under Section 133 of the Act, read with Rule 7 of the Companies (Accounts) Rules, 2014, as amended, and other accounting principles generally accepted in India ("Audited Financial Statements 2024");
+The statutory audits of the for the for financial year ended on, March 31, 2024 were conducted by Previous Statutory Auditor I.e. Ajay Gangrade & Co. , Chartered Accountants ("Previous Auditor"). Accordingly, reliance has been placed on the financial information examined by him for the said years. The examination report included for these years is based solely on the report submitted by him and no audit has been carried out by us.
+6. For the purpose of our examination, we have relied on:
+a. the Auditors' reports issued by us dated on Audited Financial Statements May 29, 2026 as at and for the year ended March 31, 2026 as referred in Paragraph 5 above;
+b. the Auditors' reports issued by us dated on Audited Financial Statements August 26, 2025 as at and for the year ended March 31, 2025 as referred in Paragraph 5 above;
+c. the Auditors' reports issued by Auditor dated on July 15, 2024 Audited Financial Statements 2024 as at and for the year ended March 31, 2024 as referred in Paragraph 5 above;
+7. Based on our examination and according to the information and explanations given to us, we report that the Restated financial information have been prepared:
+a) have been prepared after incorporating adjustments for changes in accounting policies, material errors and regrouping/reclassifications retrospectively in the period/financial period ended March 31, 2026 March 31, 2025 and March 31, 2024 to reflect the same accounting treatment as per the accounting policies and groupings/classifications as at and for the period ended March 31, 2026;
+b) There are no qualifications in the auditor's reports on the Standalone financial statements of as at and for the year ended 31st March 2026, 31st March 2025, and 31st March 2024, which require any adjustments to the Restated financial Statements.
+c) have been prepared in accordance with the Act, ICDR Regulations and the Guidance Note.
+8. We have been subjected to the peer review process of the ICAI and hold a valid peer review certificate issued by the "Peer Review Board" of the ICAI.
+9. The Restated Financial Statements do not reflect the effects of events that occurred subsequent to the respective dates of the reports on Audited Financial Statements mentioned in paragraph 7 above.
+F-2
+
+10. The report should not in any way be construed as a re-issuance or re-dating of any of the previous audit reports issued by us or Previous Auditor nor should this report be construed as a new opinion on any of the financial statements referred to therein.
+11. We have no responsibility to update our report for events and circumstances occurring after the date of the report.
+12. Our report is intended solely for use of the Board of Directors for inclusion in the Offer Documents to be filed with SEBI, Stock Exchange, and ROC in connection with the proposed IPO. Our report should not be used, referred to, or distributed for any other purpose except with our prior consent in writing. Accordingly, we do not accept or assume any liability or any duty of care for any other purpose or to any other person to whom this report is shown or into whose hands it may come without our prior consent in writing.
+For VIJAY K. JAIN & ASSOCIATES Chartered Accountants Firm Registration Number: 006719C
+sd/-
+CA. SUNNY JAIN Partner M. No.:429107 Place: Indore Date: 11th July 2026 UDIN: 26429107HUSWCB7656
+F-3
+
+SHAKTI POLYTARP LIMITED CIN : U36900MP2018PLC045379 Annexure I- Restated Statement of Assets and Liabilities (Amount in INR lakhs, unless otherwise stated)
+
+PARTICULARS A) EQUITY AND LIABILITIES
+
+Note Nos.
+
+As at
+
+As at
+
+31 March 2026 31 March 2025
+
+As at 31 March 2024
+
+1. Shareholders' Funds (a) Share capital (b) Reserves and surplus
+Total (A)
+
+1
+
+1,256.40
+
+1,256.40
+
+2
+
+1,529.65
+
+524.04
+
+2,786.05
+
+1,780.44
+
+571.00 512.62 1,083.62
+
+2 Non Current Liabilities (a) Long-term borrowings (b) Deffered tax liability (c) Long-term provisions
+Total (B)
+
+3a
+
+3,195.76
+
+1,751.56
+
+4
+
+186.02
+
+123.23
+
+5
+
+15.51
+
+11.73
+
+3,397.29
+
+1,886.52
+
+779.04 107.18
+9.85 896.07
+
+3 Current Liabilities
+
+(a) Short-term borrowings
+
+3b
+
+(b) Trade payables
+
+6
+
+(i) total outstanding dues of micro enterprises and small
+
+enterprises; and
+
+(ii) total outstanding dues of creditors other than micro
+
+enterprises and small enterprises
+
+(c) Other current liabilities
+
+7
+
+(d) Short term provisions
+
+8
+
+Total (C)
+
+4,055.47
+4.31
+169.70
+255.03 344.58 4,829.09
+
+3,048.14
+137.57
+54.88
+80.42 151.11 3,472.13
+
+1,587.17
+3.54
+299.35
+117.02 42.60 2,049.69
+
+Total Equity and Liabilities (A+B+C)
+
+11,012.44
+
+7,139.08
+
+4,029.38
+
+B) ASSETS
+
+1. Non Current Assets
+
+(a) Property, plant and equipment and Intangible assets
+
+(i) Property, plant and equipment
+
+9
+
+(ii) CWIP
+
+9 'A
+
+4,570.62 744.98
+5,315.60
+
+1,856.13 203.77
+2,059.90
+
+1,236.46 266.88
+1,503.34
+
+(b) Long Trem Loans and advances (c) Other non-current assets
+Total (A)
+
+10
+
+607.42
+
+59.53
+
+11
+
+928.20
+
+633.95
+
+6,851.22
+
+2,753.38
+
+33.39 341.43 1,878.16
+
+2. Current Assets (a) Inventories (b) Trade receivables (c) Cash and cash equivalents (d) Short term loans and advances (e) Other current assets
+Total (B)
+Total Assets (A+B)
+
+12
+
+3,014.79
+
+1,575.58
+
+13
+
+834.85
+
+1,479.93
+
+14
+
+25.69
+
+354.63
+
+15
+
+220.26
+
+844.01
+
+16
+
+65.63
+
+131.57
+
+4,161.22
+
+4,385.71
+
+11,012.44
+
+7,139.08
+
+1,303.29 787.05 27.43 30.02 3.42
+2,151.22
+4,029.38
+
+The above statement should be read with Basis of Preparation, Significant Accounting Policies appearing in Annexure IV, and Notes to Restated Financial Information appearing in Annexure V. This is the Restated Statement of Assets and Liabilities referred to in our report of even date.
+
+For VIJAY K. JAIN & ASSOCIATES Chartered Accountants Firm Registration Number: 006719C
+sd/-
+CA. SUNNY JAIN Partner M. No.:429107 Place: Indore Date: 11th July 2026
+
+For SHAKTI POLYTARP LIMITED
+
+sd/-
+Ravi Singhal Managing Director (DIN -03567462 )
+
+sd/-
+Vivek Singhal Director (DIN - 08052619)
+
+sd/-
+Manoj Kumar CFO
+F-4
+
+sd/-
+Jitendra Kumar Gupta Company Secretary ACS-68061
+
+SHAKTI POLYTARP LIMITED CIN : U36900MP2018PLC045379 Annexure II- Restated Statement of Profit and Loss (Amount in INR lakhs, unless otherwise stated)
+
+PARTICULARS
+
+Note Nos.
+
+For the period ended For the period ended
+
+31 March 2026
+
+31 March 2025
+
+For the year ended 31 March 2024
+
+1 Income (a) Revenue from operations (b) Other income
+Total income
+
+17
+
+21,564.74
+
+16,623.57
+
+6,201.12
+
+18
+
+45.32
+
+25.95
+
+21.38
+
+21,610.06
+
+16,649.52
+
+6,222.50
+
+2 Expenditure
+
+(a) Cost of material consumed
+
+19
+
+(b) Purchases of stock-in-trade
+
+20
+
+(c) Changes in inventories of finished goods, work-in- 21
+
+progress and stock-in-trade
+
+(d) Direct Manufacturing expense
+
+22
+
+(e) Employee benefit expenses
+
+23
+
+(f) Finance cost
+
+24
+
+(g) Depreciation & amortization expense
+
+25
+
+(h) Other expenses
+
+26
+
+Total expenses
+
+9,530.42 9,639.29 (1,071.71)
+552.25 101.36 434.96 180.45 884.26 20,251.28
+
+5,478.56 9,204.16 (354.33)
+361.08 73.55
+288.52 116.34 791.75 15,959.64
+
+4,036.28 1,041.79
+269.60
+311.41 55.14 190.89 98.80 103.64 6,107.57
+
+3 Profit/(Loss) before exceptional and extra
+
+1,358.78
+
+689.87
+
+114.94
+
+Exceptional items
+
+-
+
+4 Profit before tax (2-4)
+
+1,358.78
+
+689.87
+
+114.94
+
+5 Tax expense: (a) Current Tax (b) Deferred tax (d) MAT credit entitlement
+Net current tax expenses
+
+27
+
+290.39
+
+115.60
+
+19.74
+
+27
+
+62.79
+
+16.06
+
+4.10
+
+-
+
+61.60
+
+(7.04)
+
+353.17
+
+193.26
+
+16.80
+
+6 Profit/(Loss) for the period from continuing operations (5-6)
+
+1,005.61
+
+496.62
+
+98.13
+
+Earnings per share Basic and Diluted [nominal value of INR 10 per share] 28
+
+8.00
+
+4.09
+
+0.96
+
+The above statement should be read with Basis of Preparation, Significant Accounting Policies appearing in Annexure IV, and Notes to Restated Financial Information appearing in Annexure V. This is the Restated Statement of Profit and Loss referred to in our report of even date.
+
+For VIJAY K. JAIN & ASSOCIATES Chartered Accountants Firm Registration Number: 006719C
+
+For SHAKTI POLYTARP LIMITED
+
+sd/-
+
+sd/-
+
+sd/-
+
+CA. SUNNY JAIN Partner M. No.:429107 Place: Indore Date: 11th July 2026
+
+Ravi Singhal Managing Director (DIN -03567462 )
+sd/-
+Manoj Kumar CFO
+F-5
+
+Vivek Singhal Director (DIN - 08052619)
+sd/-
+Jitendra Kumar Gupta Company Secretary ACS-68061
+
+SHAKTI POLYTARP LIMITED CIN : U36900MP2018PLC045379 Annexure III- Restated Statement of Cash Flows (Amount in INR lakhs, unless otherwise stated)
+PARTICULARS
+A) Cash Flow From Operating Activities : Net Profit before tax Adjustment for : Depreciation Interest income on fixed deposit Interest from MPEB Profit On Sale Of Fixed Assets MAT entitlement Interest paid Operating profit before working capital changes
+Changes in Working Capital (Increase)/Decrease in Inventories (Increase)/Decrease in trade receivables (Increase)/Decrease in other current assets Increase/(Decrease) in trade payables Increase/(Decrease) in other current liabilities (Increase)/Decrease in Long term loans & advances (Increase)/Decrease in short term loans & advances Increase/(Decrease) in long term provisions Increase/(Decrease) in short term provisions
+Direct Tax Paid Cash Flow Before Extraordinary Item Extraordinary Items
+B) Cash Flow From Investing Activities : (Purchase)/Sale of Property, Plant and Equipment Purchase/Sale of CWIP Interest income on fixed deposit Net other non current assets Interest from MPEB Net cash flow from investing activities
+C) Cash Flow From Financing Activities : Issue of shares Proceeds of long term borrowing Repayment of long term borrowing Proceeds of short term borrowing Repayment of short term borrowing Interest Paid Net cash flow from financing activities
+Net Increase/(Decrease) In Cash & Cash Equivalents Cash equivalents at the beginning of the year Cash equivalents at the end of the year
+
+For the period ended For the period ended
+
+31 March 2026
+
+31 March 2025
+
+For the year ended 31 March 2024
+
+1,358.78
+180.45 (45.32)
+434.96 1,928.87
+
+689.87
+116.34 (25.95)
+(61.60) 288.52 1,007.19
+
+114.94
+98.80 (3.64) (1.67) (13.76) 7.04 190.89 392.60
+
+(1,439.22) 645.08 65.94 (18.44) 174.60 (547.89) 623.75 3.78 18.24
+1,454.72 (115.15) 1,339.56
+
+(272.29) (692.87) (128.15) (110.44)
+(36.60) (26.15) (813.98)
+1.87 12.64 (1,058.77) (19.74) (1,078.51)
+
+69.05 (211.47)
+1.39 (381.65)
+(3.07) (25.45) (29.42)
+2.92 (3.70) (188.79) (16.32) (205.12)
+
+(2,691.17) (744.98) 45.32 (294.26)
+(3,685.08)
+2,049.07 (604.86) 1,374.45 (367.12) (434.96) 2,016.58
+(328.93) 354.63
+25.69
+
+(479.30) (193.60)
+25.95 (292.51)
+(939.47)
+200.20 1,347.10 (374.58) 1,538.16
+(77.19) (288.52) 2,345.17
+327.19 27.43
+354.63
+
+(34.73) (266.88)
+3.64 (228.64)
+1.67 (524.94)
+250.00 438.28 (209.42) 504.00 (43.27) (190.89) 748.70
+18.65 8.79
+27.43
+
+F-6
+
+Notes :-
+
+PARTICULARS
+
+For the period ended For the period ended
+
+For the year ended
+
+31 March 2026
+
+31 March 2025
+
+31 March 2024
+
+1
+
+Component of Cash and Cash equivalents
+
+Cash on hand
+
+25.36
+
+18.90
+
+2.65
+
+Balances with banks - Fixed deposit with banks
+
+-
+
+228.70
+
+- Current Account
+
+0.33
+
+107.03
+
+24.78
+
+Total
+
+25.69
+
+354.63
+
+27.43
+
+2.1
+
+The Restated Statement of Cash Flows has been prepared under the indirect method as set out in AS 3, Statement of Cash
+
+Flows.
+
+2.2
+
+The above statement should be read with Basis of Preparation, Significant Accounting Policies appearing in Annexure IV,
+
+and Notes to Restated Financial Information appearing in Annexure V.
+
+2.3
+
+This is the Restated Statement of Cash Flows referred to in our report of even date.
+
+For VIJAY K. JAIN & ASSOCIATES Chartered Accountants Firm Registration Number: 006719C
+sd/-
+
+For SHAKTI POLYTARP LIMITED sd/-
+
+sd/-
+
+CA. SUNNY JAIN Partner M. No.:429107 Place: Indore Date: 11th July 2026
+
+Ravi Singhal Managing Director (DIN -03567462 )
+sd/Manoj Kumar CFO
+
+Vivek Singhal Director (DIN - 08052619)
+sd/-
+Jitendra Kumar Gupta Company Secretary ACS-68061
+
+F-7
+
+ANNEXURE-4
+SIGNIFICANT ACCOUNTING POLICY AND NOTES TO THE RESTATED SUMMARY STATEMENTS
+A. BACKGROUND
+Shakti Polytarp Limited manufacturing of tarpaulin and other products is a Public Company domiciled in India originally incorporated as Shakti Polytarp Limited on March 22, 2018, issued by Registrar of Companies having Corporate Identification Number U36900MP2018PLC045379. The Company is engaged in the business of manufacturing of tarpaulin and other products including Shade Net. A tarpaulin is a large, strong, flexible, and water-resistant sheet used to cover and protect objects from environmental elements and also engaged in trading of PP granules.
+B. STATEMENT OF SIGNIFICANT ACCOUNTING POLICIES
+1. BASIS OF PREPARATION OF FINANCIAL SATEMENTS
+The Restated Statement of Assets and Liabilities of the Company as on March 31, 2025, as on March 31, 2024 and as on March 31, 2023 and the Restated Statement of Profit and Loss and Restated Statements of Cash Flows for the period/year ended on March 31, 2025, on March 31, 2024 and March 31, 2023 and the annexure thereto (collectively, the "Restated Financial Statements") have been extracted by the management from the Audited Financial Statements of the Company for the period/year ended on March 31, 2025 ,March 31, 2024 and March 31, 2023.
+The financial statements of company as at and for the year ended March 31,2025, on March 31, 2024 and March 31, 2023 which are prepared in accordance with the accounting standards as prescribed under Section 133 of the Act, read with Rule 7 of the Companies (Accounts) Rules, 2014, as amended, and other accounting principles generally accepted in India.
+All amount disclosed in Financials Statement and notes have been rounded off to the nearest lakhs as per the requirement of Schedule III, unless otherwise stated.
+The financial statement of the company has been prepared in accordance with the Generally Accepted Accounting Principles in India (Indian GAAP) to comply with the Accounting Standards specified under Section 133 the Companies Act, 2013, read with Rule 7 of the Companies Accounting Rules, 2014 and the relevant provisions of the Companies Act ("the 2013Act"), 2013. The financial statements have been prepared on accrual basis under the historical cost convention. The accounting policies adopted in the preparation of the financial statements are consistent with those followed in the previous year.
+2. USE OF ESTIMATES
+The preparation of financial statement in conformity with the GAAP requires estimates and assumption to be made that affect the reported amount of assets and liabilities on the date of the financial statements and the reported amounts of revenue and expenses during the reporting period. The estimates and assumptions used in the accompanying financial statement are based upon management's evaluation of the relevant facts and circumstances as on the date of financial statements. Actual results may differ from the estimates used in preparing the accompanying financial statements. Difference between the actual result and estimates are recognized in the year in which the results are known or materialized.
+F-8
+
+3. PROPERTY, PLANT & EQUIPMENT
+Property, plant and equipment (PPE) are stated at their cost of acquisition or construction less accumulated depreciation. The Company capitalizes all costs relating to the acquisition and installation of Fixed Assets.
+Subsequent expenditure is capitalized only if it is probable that future economic benefits associated with the expenditure will flow to the company.
+Property, plant and equipment, Building under construction and assets not ready for put to the use at the year-end are disclosed as capital work-in-progress (CWIP)
+4. DEPRECIATION
+The Company computes depreciation for all tangible fixed assets using the straight line based on estimated useful lives after retaining a residual value of 5% for all the assets. Depreciation is charged on a pro-rata basis from the date of installation till the date the assets are sold or disposed. In view of management, the useful life of the tangible fixed assets is as per the life specified in Schedule II of the Companies Act, 2013.
+5. IMPAIRMENT OF ASSETS
+The Company assesses at each balance sheet date whether there is any indication that an asset may be impaired. If any such indication exists, the Company estimates the recoverable amount of the asset. If such recoverable amount of the asset or the recoverable amount of the cash generating unit to which the asset belongs is less than its carrying amount, the carrying amount is reduced to its recoverable amount and the reduction is treated as an impairment loss and is recognized in the profit & loss account. If at the balance sheet date there is an indication that a previously assessed impairment loss no longer exists, the recoverable amount is reassessed and the asset is reflected at the recoverable amount subject to a maximum of depreciated historical cost and is accordingly reversed in the profit & loss account
+6. GOVERNMENT GRANTS
+The Company has received subsidy from government authorities. Subsidy are recognized when there is a reasonable assurance that the same will be received and all attached conditions will be complied with if any. Subsidy is reduced from cost of the respective asset against which is received.
+7. BORROWING COSTS
+Borrowing cost includes interest, amortization of ancillary cost incurred in connection with the arrangement of borrowings and exchange differences arising from foreign currency borrowings to the extent they are regarded as an adjustment to the interest cost.
+Borrowing costs directly attributable to the acquisition, construction or production of an asset that necessarily takes a substantial period of time to get ready for its intended use or sale are capitalized as part of the cost of the respective asset. All other borrowing costs are expensed in the period they occur.
+8. INVENTORIES
+Inventories are stated at cost or net realizable value, whichever is lower. Cost of inventories comprises of expenditure incurred in the normal course of business in bringing inventories to their present location. Cost comprises of cost of Purchase & other costs incurred in bringing them to their respective present location and condition and is determined on First-in-First-Out (FIFO) basis.
+F-9
+
+9. CASH & CASH EQUIVALENTS
+Cash and Cash Equivalents in the balance sheet include cash at bank, cash, cheque, draft on hand and demand deposits with an original maturity of less than three months, which are subject to an insignificant risks of changes in value.
+10. CURRENT/NON CURRENT CLASSIFICATIONS
+The Schedule III to the Act requires assets and liabilities to be classified as either Current or Non-current. An asset is classified as current when it satisfies any of the following criteria:
+a) it is expected to be realized in, or is intended for sale or consumption in, the entity's normal operating cycle; b) it is held primarily for the purpose of being traded; c) it is expected to be realized within twelve months after the balance sheet date; or d) It is cash or a cash equivalent unless it is restricted from being exchanged or used to settle a liability for at least
+twelve months after the balance sheet date.
+Current assets include the current portion of non-current financial assets. All other assets are classified as noncurrent.
+A liability is classified as current when it satisfies any of the following criteria: a) it is expected to be settled in, the entity's normal operating cycle; b) it is held primarily for the purpose of being traded; c) it is due to be settled within twelve months after the balance sheet date; or d) The Company does not have an unconditional right to defer settlement of the liability for at least twelve months
+after the balance sheet date.
+Current liabilities include current portion of non-current financial liabilities. All other liabilities are classified as non-current.
+OPERATING CYCLE
+Operating cycle is the time between the acquisition of assets for processing and their realization in cash or cash equivalents.
+11. REVENUE RECOGNITION
+Revenue is recognized to the extent that it is probable that the economic benefits will flow to the company and the revenue can be reliably measured.
+Sale of Goods Revenue from, sale of goods is recognized in the statement of profit and loss account when the significant risk and reward of ownership have been transferred to the buyer. The Company collects GST on behalf of the government and, therefore, these are not economic benefits flowing to the Company. Hence, they are excluded from revenue.
+Other Income Interest income is recognized on a time proportion basis taking into account the amount outstanding and the interest rate applicable, other incomes have been recognized on accrual basis in the financial statements, except when there is uncertainty of collection.
+F-10
+
+12. EMPLOYEE BENEFITS
+Short Term Employee Benefits The short-term employee benefits expected to be paid in exchange for the services rendered by employees are recognized as an expense during the period when the employees render the services.
+Post-Employment Benefits Defined Contribution Plans The company has no policy of encashment and accumulation of leave. Therefore, no provision of leave Encashment is made.
+Company's contribution to Provident Fund and other Funds for the year is accounted on accrual basis and charged to the Statement of Profit & Loss for the year.
+Defined Benefits Plans The cost of the defined benefit plan and other post-employment benefits and the present value of such obligation are determined using actuarial valuations. An actuarial valuation involves making various assumptions that may differ from actual developments in the future. These include the determination of the discount rate, future salary increases, mortality rates and future pension increases. Due to the complexities involved in the valuation and its long-term nature, a defined benefit obligation is highly sensitive to changes in these assumptions. All assumptions are reviewed at each reporting date.
+The company has recognized the gratuity payable to the employees as defined benefit plans. The liability in respect of these benefits is calculated using the Projected Unit Credit Method and spread over the period during which the benefit is expected to be derived from employees' services
+13. TAXATION
+Tax expense comprises current tax (i.e. amount of tax for the period determined in accordance with the Income Tax Act, 1961) and deferred tax charge or credit (reflecting the tax effect of timing differences between accounting income and taxable income for the period). Current tax Provision for income tax is recognized based on estimated tax liability computed after adjusting for allowances, disallowances and exemptions in accordance with the Income Tax Act, 1961. Deferred taxation The deferred tax charge or credit and the corresponding deferred tax liabilities and assets are recognized using the tax rates that have been enacted or substantively enacted at the balance sheet date. Deferred tax assets are recognized only to the extent there is reasonable certainty that the asset can be realized in future; however, where there is unabsorbed depreciation or carried forward loss under taxation laws, deferred tax assets are recognized only if there is a virtual certainty of realization of the assets. Deferred tax assets are reviewed at each balance sheet date and written down or written-up to reflect the amount that is reasonably / virtually certain (as the case may be) to be realized.
+Minimum Alternative Tax (MAT) credit
+MAT credit asset is recognized where there is convincing evidence that the asset can be realized in future. MAT credit assets are reviewed at each balance sheet date and written down or written up to reflect the amount that is reasonably certain to be realized.
+F-11
+
+14. PROVISIONS AND CONTINGENCIES The Company creates a provision when there is present obligation as a result of a past event that probably requires an outflow of resources and a reliable estimate can be made of the amount of the obligation. A disclosure for a contingent liability is made when there is a possible obligation or a present obligation that may, but probably will not, require an outflow of resources. When there is a possible obligation or a present obligation in respect of which the likelihood of outflow of resources is remote, no provision or disclosure is made. Provisions are reviewed at each balance sheet date and adjusted to reflect the current best estimate. If it is no longer probable that the outflow of resources would be required to settle the obligation, the provision is reversed. Contingent assets are not recognized in the financial statements. However, contingent assets are assessed continually and if it is virtually certain that an economic benefit will arise, the asset and related income are recognized in the period in which the change occurs.
+Loss contingencies arising from claims, litigation, assessment, fines, penalties, etc. are recorded when it is probable that a liability has been incurred and the amount can be reasonably estimated.
+15. SEGMENT REPORTING (i) Business Segment
+The accounting policies adopted for segment reporting are in line with the accounting policies of their Company. Revenues, expenses, assets and liabilities have been identified into segments on the basis of their relationship to operating activities of segments (taking into account the nature of products and services and the risk and rewards associated with them) and internal management information systems and the same is reviewed from time to time to realign the same to conform to the business units of the Company. Revenues, expenses, assets, and liabilities, which are common to the enterprise as a whole and are not allocable to the segments on a reasonable basis, have been treated as "Common Revenues/Expenses/Assets/Liabilities", as the case may be.
+(ii) Geographical Segment The Company activities / operations are confined to India there is only one geographical segment.
+16. INVESTMENTS
+Investments which are readily realizable and intended to be held for not more than a year from the date on which such investments are made, are classified as current investments. All other investments are classified as noncurrent investments.
+On initial recognition, all investments are measured at cost. The cost comprises purchase price and directly attributable acquisition charges such as brokerage, fees & duties.
+Long term investments prescribed in the consolidated financial statements are carried at cost and current investment at lower of cost and fair value.
+Current investments are carried in the financial statements at lower of cost and fair value determined on an individual investment basis. Long-term investments are carried at cost. However, provision for diminution in value is made to recognize a decline other than temporary in the value of the investments
+On disposal of an investment, the difference between carrying amount and net disposal proceeds is charged/credited to the consolidated statement of profit & loss.
+F-12
+
+17. CASH FLOW STATEMENTS Cash flows are reported using the indirect method, whereby profit before tax is adjusted for the effects of transactions of non-cash nature, any deferrals or accruals of past or future operating cash receipts or payments and item of income or expenses associated with investing or financing cash flows. Cash flows from operating, investing and financing activities of the Company are segregated, accordingly.
+C. NOTES TO ACCOUNTS 1. NON-ADJUSTMENT ITEMS
+No Audit qualifications for the respective periods which require any corrective adjustment in these Restated Financial Statements of the Company have been pointed out during the restated period. 2. MATERIAL REGROUPING Appropriate regrouping has been made in the restated summary statements of Assets and Liabilities Profits and Losses and Cash flows wherever required by reclassification of the corresponding items of income expenses assets and liabilities in order to bring them in line with the requirements of the SEBI Regulations. The figures have been grouped and classified wherever they were necessary and have been rounded off to the nearest rupee in lakhs. Other figures of the previous years have been regrouped / reclassified and / or rearranged wherever necessary. 3. PAYABLE TO MICRO, SMALL AND MEDIUM ENTERPRISES Under the Micro, Small and Medium Enterprises Development Act, 2006 which came into force from 2nd October 2006, certain disclosures are required to be made relating to Micro and Small Enterprises. Based on the information received from the company regarding supplier status under the Micro, Small and Medium Enterprises Development Act, 2006. bifurcation have been made
+F-13
+
+SHAKTI POLYTARP LIMITED (CIN : U36900MP2018PLC045379 ) Annexure V- Notes to Restated Financial Information (Amount in INR lakhs, except for share data unless otherwise stated)
+
+Note 1 Share capital
+
+Particulars
+Authorised Number of shares Equity shares of Rs.10 each
+
+As at 31 March 2026
+20,000,000 2,000.00
+
+As at 31 March 2025
+20,000,000 2,000.00
+
+As at 31 March 2024
+7,210,000 721.00
+
+Issued Number of shares Equity shares of Rs.10 each fully paid up
+
+12,564,000 1,256.40
+
+12,564,000 1,256.40
+
+5,710,000 571.00
+
+Subscribed & Paid up Number of shares Equity shares of Rs.10 each fully paid up
+
+12,564,000 1,256.40
+
+12,564,000 1,256.40
+
+5,710,000 571.00
+
+a) Rights, preferences and restrictions attached to equity shares The Company has a single class of equity shares. Accordingly, all equity shares rank equally with regard to dividends and share in the Company's residual assets. The equity shares are entitled to receive dividend as declared from time to time. The voting rights of an equity shareholder are in proportion to its share of the paid-up equity capital of the Company. Voting rights cannot be exercised in respect of shares on which any call or other sums presently payable have not been paid.
+
+b) Reconciliation of the number of equity shares outstanding at the beginning and end of the reporting period / year:
+
+Particulars
+
+As at
+
+As at
+
+As at
+
+Balance at the beginning of the period / year Add: Right issue of equity shares* Add: Bonus shares of equity shares Balance at the end of the period / year
+
+31 March 2026 12,564,000 12,564,000
+
+31 March 2025 5,710,000 572,000 6,282,000
+12,564,000
+
+31 March 2024 4,710,000 1,000,000 5,710,000
+
+* Company has issued 10,00,000 equity share of 10 Rs at a premium of 15 Rs each through Right issue on 31.10.2023
+
+* Company has issued 5,72,000 equity share of 10 Rs at a premium of 25 Rs each through Right issue on 17.08.2024
+
+* Company has issued 62,82,000 equity share through Bonus shares on December, 2024
+
+C) For the period of five years immediately preceding the date as at which the Balance Sheet is prepared A) Not allotted any shares other than for cash (Other than Bonus) B) The company has issued 62,82,000 equity share by way of bonus in the ratio of 1:1 December 23, 2024 C) Not bought back any share
+
+c) Details of shareholders holding more than 5 percent of equity shares in the Company:
+
+Name of Shareholders
+
+As at
+
+As at
+
+31 March 2026
+
+31 March 2025
+
+Ravi Singhal
+
+5,710,000
+
+5,710,000
+
+% Holding
+
+45.45%
+
+45.45%
+
+Vivek Singhal
+
+5,709,990
+
+5,709,990
+
+% Holding
+
+45.45%
+
+45.45%
+
+As at 31 March 2024
+2,855,000 50.00%
+2,854,995 50.00%
+
+F-14
+
+d) Shareholding of Promoters
+
+Shares held by promoters at the end of the period Promoter's name
+Ravi Singhal Vivek Singhal
+
+No. of Shares
+5,710,000 5,709,990
+
+As at 31 March 2026
+
+% of total shares
+
+% change during
+
+the period
+
+45.45%
+
+0.00%
+
+45.45%
+
+0.00%
+
+Shares held by promoters at the end of the period Promoter's name
+Ravi Singhal Vivek Singhal
+
+No. of Shares
+5,710,000 5,709,990
+
+As at 31 March 2025
+
+% of total shares
+
+% change during
+
+the period
+
+45.45%
+
+-4.55%
+
+45.45%
+
+-4.55%
+
+Shares held by promoters at the end of the year Promoter's name
+Ravi Singhal Vivek Singhal
+
+No. of Shares
+2,855,000 2,854,995
+
+As at 31 March 2024
+
+% of total shares
+
+% change during
+
+the period
+
+50.00%
+
+0.00%
+
+50.00%
+
+0.00%
+
+Note 2 Reserves and surplus
+
+Particulars
+
+As at 31 March 2026
+
+As at 31 March 2025
+
+As at 31 March 2024
+
+a) Securities Premium Balance as per the last financial statements Add: Addition on account of Right issue Less: Utilised for allotment of Bonus shares Balance as per end of the year (A)
+
+-
+
+150.00
+
+-
+
+-
+
+143.00
+
+150.00
+
+-
+
+293.00
+
+-
+
+-
+
+-
+
+150.00
+
+b) Surplus in Profit and Loss Account Balance as per the last financial statements* Add / Less: Profit / (Loss) for the year Less: Reserve utilised for allotment of bonus shares Balance as per end of the year (C)
+
+524.04 1,005.61
+1,529.65
+
+362.62 496.62 335.20 524.04
+
+264.49 98.13 -
+362.62
+
+Total (A+B+C) * Refer note no 34 (b) for opening balance adjustment
+
+1,529.65
+
+524.04
+
+512.62
+
+F-15
+
+Note 3 Borrowings (Refer Note 35 for terms and security details)
+
+3a Long-term borrowings
+
+Particulars
+
+As at
+
+31 March 2026
+
+As at 31 March 2025
+
+As at 31 March 2024
+
+A. Secured Loan Term Loan - From Bank And Financial Institutions
+B. Unsecured Loan - From Financial institutions - From ICD - From Directors and relatives*
+
+3,155.76 3,155.76
+40.00 40.00
+
+1,243.88 1,243.88
+179.67 328.01 507.68
+
+414.72 414.72
+138.28 -
+226.04 364.31
+
+Total
+
+3,195.76
+
+1,751.56
+
+779.04
+
+*The interest paid on loans from directors and relatives for the periods ending 31st March 2026, 31st March 2025 and
+
+31st March 2024 wereNil, Nil and 10.64 lakhs respectively.
+
+3b Short-term borrowings Particulars
+A. Secured Loan - Cash credit from Bank - Overdraft from Bank - From Financial Institution - Current Maturities Of Long Term Borrowings
+
+As at 31 March 2026
+2,873.55 382.00 295.67 504.26
+4,055.47
+
+As at 31 March 2025
+2,299.02 486.53
+262.59 3,048.14
+
+As at 31 March 2024
+1,496.15 -
+77.19 1,573.34
+
+B. Unsecured Loan - From NBFC and ICD
+Total
+
+-
+4,055.47
+
+3,048.14
+
+13.83 13.83 1,587.17
+
+The above amount includes: Secured Borrowings Unsecured Borrowings
+
+7,211.23 40.00
+
+4,292.02 507.68
+
+1,988.07 378.15
+
+Note 4 Deferred tax liability Particulars
+
+As at 31 March 2026
+
+As at 31 March 2025
+
+As at 31 March 2024
+
+Opening balance (DTA)/DTL for the year Closing Balance of Deferred Tax (Asset)/ Liability
+
+123.23 62.79
+186.02
+
+107.18 16.06
+123.23
+
+103.07 4.10
+107.18
+
+Note 5 Long term provisions Particulars
+Provision for gratuity Total
+
+As at 31 March 2026
+15.51 15.51
+
+As at 31 March 2025
+11.73 11.73
+
+As at 31 March 2024
+9.85 9.85
+
+F-16
+
+Note 6 Trade payables Particulars
+For Goods & Services - Micro, small and medium enterprises - Others
+
+As at 31 March 2026
+4.31 169.70
+
+Further classified to: - Related party - Others
+For Trade Payables Ageing , refer Notes to Accounts- Note 36 Note 7 Other current liabilities
+Particulars
+Advance from customers Creditors against fixed assets Interest Payable Creditors For Expenses Total
+
+174.01
+174.01 174.01
+As at 31 March 2026
+209.04 39.65 2.22 4.13
+255.03
+
+Note 8 Short term provisions Particulars
+Provisions For Expenses Statutory dues payable Provision For Current Tax Grautity Payable Total
+
+As at 31 March 2026
+46.50 4.15
+290.83 3.11
+344.58
+
+As at 31 March 2025
+137.57 54.88
+192.45
+192.45 192.45
+As at 31 March 2025
+66.42 -
+14.00 80.42
+As at 31 March 2025
+28.71 4.41
+115.60 2.39
+151.11
+
+As at 31 March 2024
+3.54 299.35
+302.89
+302.89 302.89
+As at 31 March 2024
+101.38 -
+15.64 117.02
+As at 31 March 2024
+17.86 3.40
+19.74 1.60
+42.60
+
+F-17
+
+SHAKTI POLYTARP LIMITED (CIN : U36900MP2018PLC045379 ) Annexure V- Notes to Restated Financial Information (Amount in INR lakhs, except for share data unless otherwise stated)
+
+Note 9
+
+Property, plant and equipment PARTICULARS
+
+Land
+
+Plant & Machinery
+
+Computer
+
+Vehicle
+
+Office Equipment
+
+Building
+
+Total
+
+As at 31 March 2026
+
+GROSS CARRYING AMOUNT Opening gross carrying amount Additions Subsidy* Closing Gross Carrying Amount
+
+113.33 -
+113.33
+
+ACCUMULATED DEPRECIATION
+
+Opening accumulated depreciation
+
+-
+
+Depreciation charged during the year
+
+-
+
+Disposals/Adjustments
+
+-
+
+Closing Accumulated Depreciation
+
+-
+
+Net Carrying Amount
+
+113.33
+
+*The Company has received a subsidy from the Government
+
+1,846.39 2,167.67
+61.70 3,952.37
+493.88 149.06
+3.91 639.04
+3,313.33
+
+0.92
+
+131.28
+
+1.11
+
+1.59
+
+-
+
+-
+
+2.02
+
+132.86
+
+0.87
+
+63.60
+
+0.18
+
+15.12
+
+-
+
+-
+
+1.05
+
+78.72
+
+0.97
+
+54.14
+
+4.63
+
+412.95
+
+2,509.49
+
+3.82
+
+782.45
+
+2,956.64
+
+-
+
+-
+
+61.70
+
+8.45
+
+1,195.40
+
+5,404.43
+
+3.34
+
+91.67
+
+653.36
+
+0.79
+
+19.20
+
+184.36
+
+-
+
+-
+
+3.91
+
+4.13
+
+110.87
+
+833.81
+
+4.32
+
+1,084.53
+
+4,570.62
+
+F-18
+
+PARTICULARS
+As at 31 March 2025
+GROSS CARRYING AMOUNT Opening gross carrying amount Additions Disposals/Adjustment Closing Gross Carrying Amount
+ACCUMULATED DEPRECIATION Opening accumulated depreciation Depreciation charged during the year Disposals/Adjustments Closing Accumulated Depreciation
+Net Carrying Amount
+
+Land
+
+Plant & Machinery
+
+Computer
+
+Vehicle
+
+Office Equipment
+
+Building
+
+Total
+
+113.33 -
+113.33
+-
+113.33
+
+1,110.76 735.63 -
+1,846.39
+406.61 87.27 493.88
+1,352.51
+
+0.92
+
+131.28
+
+-
+
+-
+
+-
+
+-
+
+0.92
+
+131.28
+
+0.87
+
+48.20
+
+-
+
+15.40
+
+-
+
+-
+
+0.87
+
+63.60
+
+0.05
+
+67.68
+
+4.25
+
+412.95
+
+1,773.48
+
+0.38
+
+-
+
+736.01
+
+-
+
+-
+
+-
+
+4.63
+
+412.95
+
+2,509.49
+
+2.77
+
+78.58
+
+537.02
+
+0.58
+
+13.09
+
+116.34
+
+-
+
+-
+
+-
+
+3.34
+
+91.67
+
+653.36
+
+1.29
+
+321.28
+
+1,856.13
+
+F-19
+
+PARTICULARS
+As at 31 March 2024
+GROSS CARRYING AMOUNT Opening gross carrying amount Additions Disposals/Adjustment Closing Gross Carrying Amount
+ACCUMULATED DEPRECIATION Opening accumulated depreciation Depreciation charged during the year Disposals/Adjustments Closing Accumulated Depreciation
+Net Carrying Amount
+
+Land
+
+Plant & Machinery
+
+Computer
+
+Vehicle
+
+Office Equipment
+
+Building
+
+Total
+
+113.33 -
+113.33
+-
+-
+113.33
+
+1,163.76 3.30 56.30
+1,110.76
+354.18 70.69 18.26
+406.61
+704.15
+
+0.92
+
+48.04
+
+-
+
+83.23
+
+-
+
+-
+
+0.92
+
+131.28
+
+0.82
+
+33.90
+
+0.05
+
+14.29
+
+-
+
+-
+
+0.87
+
+48.20
+
+0.05
+
+83.08
+
+4.25
+
+412.95
+
+1,743.25
+
+-
+
+-
+
+86.53
+
+-
+
+-
+
+56.30
+
+4.25
+
+412.95
+
+1,773.48
+
+2.09
+
+65.49
+
+456.48
+
+0.68
+
+13.09
+
+98.80
+
+18.26
+
+2.77
+
+78.58
+
+537.02
+
+1.48
+
+334.37
+
+1,236.46
+
+F-20
+
+Note 9 'A Capital work-in-progress aging schedule
+
+At the end of the year
+Particulars
+Projects in progress ( Building) Projects in progress (Plant and Machinery) Projects temporarily suspended
+
+Less than 1 year -
+744.98 -
+
+Amount in CWIP for a period of
+
+1-2 year
+
+2-3 year
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+As at 31 March 2026
+
+More than 3 Year -
+
+Total
+744.98
+-
+
+At the end of the year
+Particulars
+Projects in progress ( Building) Projects in progress (Plant and Machinery) Projects temporarily suspended
+
+Less than 1 year 50.72
+142.88 -
+
+Amount in CWIP for a period of
+
+1-2 year
+
+2-3 year
+
+10.17
+
+-
+
+-
+
+-
+
+As at 31 March 2025
+
+More than 3 Year -
+-
+
+Total
+60.89 142.88
+-
+
+At the end of the year
+Particulars
+Projects in progress ( Building) Projects in progress (Plant and Machinery) Projects temporarily suspended
+
+Less than 1 year 10.17
+256.71 -
+
+Amount in CWIP for a period of
+
+1-2 year
+
+2-3 year
+
+-
+
+-
+
+-
+
+-
+
+As at 31 March 2024
+
+More than 3 Year -
+-
+
+Total
+10.17 256.71
+-
+
+F-21
+
+NOTES FORMING PART OF THE FINANCIAL STATEMENTS
+
+SHAKTI POLYTARP LIMITED (CIN : U36900MP2018PLC045379 ) Annexure V- Notes to Restated Financial Information (Amount in INR lakhs, except for share data unless otherwise stated)
+
+Note 10 Long term Loan and Advances Particulars
+Balance with revenue authority Total
+
+As at 31 March 2026
+607.42 607.42
+
+As at 31 March 2025
+59.53 59.53
+
+As at 31 March 2024
+33.39 33.39
+
+Note 11 Other non-current assets Particulars
+Fixed Deposit with Banks Security deposits Mat Credit Total
+
+As at 31 March 2026
+840.62 87.58 -
+928.20
+
+As at 31 March 2025
+569.24 49.44 15.27
+633.95
+
+As at 31 March 2024
+219.28 45.29 76.87
+341.43
+
+Note 12 Inventories
+
+Particulars
+
+As at
+
+As at
+
+As at
+
+31 March 2026 31 March 2025 31 March 2024
+
+(As taken, valued and certified by the management of the company.)
+
+Work In Progress
+
+175.12
+
+91.94
+
+37.17
+
+Raw Material
+
+661.73
+
+294.22
+
+376.26
+
+Finished Goods
+
+2,102.42
+
+1,146.49
+
+876.91
+
+Stock in trade
+
+75.52
+
+42.93
+
+12.95
+
+Total
+
+3,014.79
+
+1,575.58
+
+1,303.29
+
+Note 13 Trade receivables
+
+Particulars
+
+Unsecured & Considered Good Sundry Debtors Due Less Than Six Months Sundry Debtors Due More Than Six Months Less : Provision for doubtful debts
+
+Further classified as: Receivable from related parties Receivable from others
+
+Note
+
+For Trade Receivables Ageing , refer Notes to Accounts- Note 3 7
+14 Cash and cash equivalents Particulars
+
+Cash on hand Balances with banks - Fixed deposit with banks - Current Account Total
+
+As at
+
+As at
+
+As at
+
+31 March 2026 31 March 2025 31 March 2024
+
+825.41 9.44
+
+1,311.62 168.30
+
+695.59 91.47
+
+834.85
+
+1,479.93
+
+787.05
+
+834.85 834.85
+
+1,479.93 1,479.93
+
+37.35 749.71 787.05
+
+As at 31 March 2026
+25.36
+
+As at 31 March 2025
+18.90
+
+As at 31 March 2024
+2.65
+
+0.33 25.69
+
+228.70 107.03 354.63
+
+24.78 27.43
+
+F-22
+
+NOTES FORMING PART OF THE FINANCIAL STATEMENTS
+
+Note 15 Short term loans and advances Particulars
+Advances given to capital goods Advances given to supplier Advances given to others
+Total
+Note 16 Other current assets Particulars
+Prepaid Expenses Other receivable
+Total
+
+As at
+31 March 2026 10.57
+207.34 2.34
+
+As at
+31 March 2025 538.25 305.26 0.49
+
+As at
+31 March 2024 19.85 10.17
+
+220.26
+
+844.01
+
+30.02
+
+As at 31 March 2026
+65.63 -
+
+As at 31 March 2025
+78.44 53.13
+
+As at 31 March 2024
+3.13 0.29
+
+65.63
+
+131.57
+
+3.42
+
+F-23
+
+NOTES FORMING PART OF THE FINANCIAL STATEMENTS
+
+SHAKTI POLYTARP LIMITED (CIN : U36900MP2018PLC045379 ) Annexure V- Notes to Restated Financial Information (Amount in INR lakhs, except for share data unless otherwise stated)
+
+Note 17 Revenue from operations
+
+Particulars
+
+For the period ended For the period ended
+
+31 March 2026
+
+31 March 2025
+
+For the year ended 31 March 2024
+
+Revenue From Sale Of Manufacturing Goods Revenue From Sale Of Traded Goods Commission Receipt
+
+11,163.50 10,401.23
+-
+
+6,614.06 10,009.51
+-
+
+5,094.70 1,094.42
+12.00
+
+Total
+
+21,564.74
+
+16,623.57
+
+6,201.12
+
+Note 18 Other income
+
+Particulars
+
+For the period ended For the period ended
+
+31 March 2026
+
+31 March 2025
+
+For the year ended 31 March 2024
+
+Interest Received Rate Difference & Discount Profit On Sale Of Fixed Assets
+
+45.32 -
+
+25.95 -
+
+5.31 2.32 13.76
+
+Total
+
+45.32
+
+25.95
+
+21.38
+
+Note 19 Cost of Raw Material Consumed Particulars
+Opening Stock Of Raw Material Add: Purchases Of Material Less: Closing Stock Of Material
+
+For the period ended For the period ended
+
+31 March 2026
+
+31 March 2025
+
+For the year ended 31 March 2024
+
+294.22 9,897.92
+661.73
+
+376.26 5,396.52
+294.22
+
+175.72 4,236.83
+376.26
+
+Total
+
+9,530.42
+
+5,478.56
+
+4,036.28
+
+Note 20 Purchase of traded goods Purchase of traded goods
+
+Particulars
+
+For the period ended For the period ended
+
+31 March 2026
+
+31 March 2025
+
+9,639.29
+
+9,204.16
+
+For the year ended 31 March 2024 1,041.79
+
+Total
+
+9,639.29
+
+9,204.16
+
+1,041.79
+
+Note
+
+21 Changes in inventories of finished goods, work-in-progress and stock-in-trade
+
+Particulars
+
+For the period ended
+
+31 March 2026
+
+For the period ended 31 March 2025
+
+For the year ended 31 March 2024
+
+Inventories at the beginning of the year Work In Progress Finished Goods Traded Goods
+
+91.94 1,146.49
+42.93
+
+37.17 876.91 12.95
+
+44.80 1,145.88
+5.94
+
+Inventories at the end of the year Work In Progress Finished Goods Traded Goods
+
+175.12 2,102.42
+75.52
+
+91.94 1,146.49
+42.93
+
+37.17 876.91
+12.95
+
+Total
+
+(1,071.71)
+
+(354.33)
+
+269.60
+
+F-24
+
+NOTES FORMING PART OF THE FINANCIAL STATEMENTS
+
+Note 22 Direct Manufacturing expense Particulars
+Freight Inward , Cartage & Loading Exp Power and Fuel Labour expense Consumables & Spare Exp. Total
+
+For the period ended 31 March 2026 104.56 264.96 145.81 36.92 552.25
+
+For the period ended 31 March 2025 55.25 212.25 60.54 33.04 361.08
+
+For the year ended 31 March 2024 44.95 188.65 53.93 23.89 311.41
+
+Note 23 Employee benefit expenses
+
+Particulars
+
+Salaries & Benefits To Staff Director's Remuneration and Sitting Fees Contribution to provident and other fund Gratuity Total
+
+For the period ended 31 March 2026 41.45 50.64 4.77 4.50 101.36
+
+For the period ended 31 March 2025 30.17 37.95 2.77 2.67 73.55
+
+For the year ended 31 March 2024 17.94 31.50 2.41 3.29 55.14
+
+Note 24 Finance cost
+
+Particulars
+
+Interest To Bank Interest to NBFC Interest to ICD Interest To Directors and relative Processing charges Bank Charges Total
+
+Note 25 Depreciation & amortization expense Particulars
+
+Depreciation
+
+For the period ended 31 March 2026 381.84 22.60 26.60 3.91 434.96
+
+For the period ended 31 March 2025 238.67 9.29 8.52 29.72 2.33 288.52
+
+For the year ended 31 March 2024 154.25 7.61 10.64 17.37 1.02 190.89
+
+For the period ended For the period ended
+
+31 March 2026
+
+31 March 2025
+
+180.45
+
+116.34
+
+For the year ended 31 March 2024 98.80
+
+Total
+
+180.45
+
+116.34
+
+98.80
+
+Note 26 Other expenses
+
+Particulars
+
+Audit Fees CSR Donation Legal & Professional Fees Electricity expense Insurance Expenses Office Expenses Discount on traded goods Discount On Manufacturing Sales Repair and Maintanence Rent Packing Charges Telephone And Internet Expenses Travelling Expenses Job Work charges MAT Written off Miscellaneous expenses Total
+
+For the period ended For the period ended
+
+31 March 2026
+
+31 March 2025
+
+For the year ended 31 March 2024
+
+4.00 5.95 8.12 0.38 21.14 1.00 649.49 102.22 10.07 18.25 3.66 0.14 1.86 13.13 15.27 29.59 884.26
+
+1.75 7.62 0.44 12.63 0.63 706.62
+9.24 18.25 9.86 0.21
+5.10 3.39
+16.01 791.75
+
+0.90 6.99 0.34 11.23 0.29 29.62
+2.79 18.25
+8.80 0.17 0.13 17.07
+7.07 103.64
+
+F-25
+
+NOTES FORMING PART OF THE FINANCIAL STATEMENTS
+
+Note 26A Audit remuneration
+
+Particulars
+
+- For audit
+
+Note 27 Tax expense
+
+Particulars
+
+Current tax: - Current period/year - Earlier year
+
+Deferred tax: - Attributable to origination and reversal of temporary differences
+
+Note
+
+MAT Credit Total tax expense recognized 28 Earnings per share
+Particulars
+
+(i) Profit for basic/diluted earning per share of face value of INR 10 each Profit/ Loss for the period/year
+
+For the period ended For the period ended
+
+31 March 2026
+
+31 March 2025
+
+For the year ended 31 March 2024
+
+4.00
+
+1.75
+
+0.90
+
+4.00
+
+1.75
+
+0.90
+
+For the period ended For the period ended
+
+31 March 2026
+
+31 March 2025
+
+290.39
+
+115.60
+
+For the year ended 31 March 2024
+19.74
+
+-
+
+-
+
+62.79
+
+16.06
+
+4.10
+
+353.17
+
+61.60 193.26
+
+(7.04) 16.80
+
+For the period ended For the period ended
+
+31 March 2026
+
+31 March 2025
+
+For the year ended 31 March 2024
+
+1,005.61
+
+496.62
+
+98.13
+
+(ii) Calculation of Weighted average number of equity shares for (basic and diluted) Number of equity shares at the beginning and end of the period/year
+
+12,564,000
+
+12,131,474
+
+10,258,356
+
+Earnings per share [nominal value of INR 10 per share] - Basic - Diluted
+
+8.00
+
+4.09
+
+0.96
+
+8.00
+
+4.09
+
+0.96
+
+F-26
+
+SHAKTI POLYTARP LIMITED (CIN : U36900MP2018PLC045379 ) Annexure V- Notes to Restated Financial Information (Amount in INR lakhs, except for share data unless otherwise stated)
+
+Note 29 Statement Of Related Party Transaction
+
+1. Names of the related parties with whom transaction were carried out during the years and description of relationship:
+
+Sr. No. Name
+
+Description of Relationship
+
+1 Ravi Singhal
+
+Managing Director
+
+2 Vivek Singhal
+
+Director
+
+3 Trisha Singhal
+
+Director
+
+4 Priyal Singhal
+
+CEO
+
+5 Manoj Kumar
+
+CFO
+
+6 Ruchi Joshi Meratia
+
+Independent Director
+
+7 Kumari Priya Pandey
+
+Independent Director
+
+8 Rajesh Gupta
+
+Non-Executive Director
+
+9 Tripal Traders (Ramdas Singhal)
+
+Relative of Director
+
+10 Nandan Enterprises
+
+Relative of Director
+
+11 Renu Singhal
+
+Relative of Director
+
+12 Shri Balaji Plastopack (Prop. Ashish Singhal)
+
+Relative of Director
+
+13 Raj Kamal Industries (Prop. Rajendra Kumar Singhal)
+
+Relative of Director
+
+14 Aditi Vohra
+
+Company Secretary Till May 2025
+
+15 Kapil Vinod Garg
+
+Company Secretary From June 2025
+
+16 Jitendra Kumar Gupta
+
+Company Secretary From April 2026
+
+2. Transaction with Key Management Personnel/Directors Sr. No. Nature of Transaction
+1 Remuneration Ravi Singhal Vivek Singhal Trisha Singhal
+
+For the period ended For the period ended For the year ended
+
+31 March 2026
+
+31 March 2025
+
+31 March 2024
+
+18.00 18.00 12.00
+
+12.00 12.00 12.00
+
+12.00 12.00
+7.50
+
+2 Director Sitting Fees Rajesh Gupta Ruchi Joshi Meratia Kumari Priya Pandey
+
+0.72
+
+0.65
+
+0.96
+
+0.65
+
+0.96
+
+0.65
+
+3 Rent Vivek Singhal
+
+18.00
+
+18.00
+
+18.00
+
+4 Salary Aditi Vohra Kapil Garg Manoj Kumar Priyal Singhal
+
+0.33
+
+0.79
+
+4.05
+
+4.80
+
+1.20
+
+12.00
+
+12.00
+
+7.60
+
+5 Loan Taken by company Ravi Singhal Trisha Singhal Vivek Singhal Priyal Singhal Nandan Enterprises Renu Singhal
+
+69.53 -
+40.00 -
+
+72.00 10.00
+74.97 55.00 104.00
+
+23.50 -
+16.00 110.83
+56.50 1.25
+
+6 Loan Repaid by company Ravi Singhal Trisha Singhal Vivek Singhal Priyal Singhal Nandan Enterprises Renu Singhal
+
+69.53 57.50
+156.31
+114.20
+
+72.00 32.50
+52.50 55.00 2.00
+
+142.93 14.83 74.53 -
+101.50 -
+
+7 Interest on Unsecured Loan Ravi Singhal Priyal Singhal Renu Singhal
+8 Sales Tripal Traders (Ramdas Singhal) Shri Balaji Plastopack (Prop. Ashish Singhal) Raj Kamal Industries (Prop. Rajendra Kumar Singhal)
+9 Purchases Tripal Traders (Ramdas Singhal) Shri Balaji Plastopack (Prop. Ashish Singhal)
+
+-
+7.24 418.13
+10.66
+75.14 0.31
+
+-
+209.75
+306.74 0.63
+
+9.25 1.39 54.25 117.45
+326.48
+
+F-27
+
+F-28
+
+3. Balances Outstanding at the end of the Year
+Sr. No. Particulars
+1 Salary payable Trisha Singhal Kapil Garg Priyal Singhal Manoj Kumar
+2 Sitting Fees Payable Ruchi Joshi Meratia Kumari Priya Pandey Rajesh Gupta
+2 Unsecured Loans Ravi Singhal Vivek Singhal Trisha Singhal Priyal Singhal Renu Singhal
+3 Sundry Debtors Tripal Traders (Ramdas Singhal) Shri Balaji Plastopack (Prop. Ashish Singhal)
+4 Advance Salary Paid to Directors Ravi Singhal Vivek Singhal
+5 Advance to Supplier Tripal Traders (Ramdas Singhal)
+6 Advances from Customers Shri Balaji Plastopack (Prop. Ashish Singhal)
+
+As at 31 March 2026
+0.45 0.40
+0.08 0.08 0.72
+40.00 -
+0.33 0.33
+95.60
+0.11
+
+As at 31 March 2025
+1.20
+-
+57.50 156.31 114.20
+-
+245.25
+0.07
+
+As at 31 March 2024
+0.28 -
+80.00 133.84 12.20
+37.35
+-
+28.91
+
+F-29
+
+SHAKTI POLYTARP LIMITED (CIN : U36900MP2018PLC045379 ) Annexure V- Notes to Restated Financial Information (Amount in INR lakhs, except for share data unless otherwise stated)
+Note 30 Statement Of Tax Shelter Particulars
+A Profit before taxes as restated - Taxable at normal Rate - Taxable at special Rate
+B Normal Tax Rate Applicable % MAT Tax Rate Applicable %
+C Tax Impact as per Normal Tax rate (A*B) Tax Impact as per MAT Tax rate (A*B)
+D Adjustments: Add: 37 disallowance Depreciation as per Companies Act 36 disallowance Provision of gratuity MAT Disallow
+
+As at
+
+As at
+
+As at
+
+31 March 2026 31 March 2025 31 March 2024
+
+1,358.78 1,358.78
+
+689.87 689.87
+
+114.94 114.94
+
+25.17%
+341.98 -
+
+27.82% 16.69% 191.92 115.15
+
+26.00% 16.69%
+29.88 19.19
+
+23.27 180.45
+5.95 4.50 15.27
+
+116.34
+4.79 2.67
+
+0.93 98.80 1.41 3.29
+
+Less: Depreciation as per Income Tax Act 43B allowance Unabsorbed Depreciation Total
+
+(434.43) -
+(204.99)
+
+(176.72) -
+(52.93)
+
+(118.10) (0.23)
+(51.25) (65.14)
+
+E Unabsorbed Loss/(Carried Forward Loss Set off)
+
+-
+
+-
+
+-
+
+F Net Adjustment (F) = (D+E)
+
+(204.99)
+
+(52.93)
+
+(65.14)
+
+G Net Adjustment for MAT (G)
+
+2.67
+
+3.29
+
+H Tax Expenses/ (Saving) thereon
+
+(51.59)
+
+(14.72)
+
+(16.94)
+
+I Tax Expenses/ (Saving) thereon MAT
+
+-
+
+0.44
+
+0.55
+
+Tax Liability, After Considering the effect of Adjustment As per J Normal Provision (C +H)
+
+290.39
+
+177.20
+
+12.95
+
+K Tax Liability As per MAT(C +I)
+
+-
+
+115.60
+
+19.74
+
+L Net tax ( Higher of J or K )
+
+290.39
+
+177.20
+
+19.74
+
+M MAT Credit utilised as per income tax computation
+
+(61.60)
+
+-
+
+N Deferred Tax
+
+62.79
+
+16.06
+
+4.10
+
+O Total Tax expenses (J+K+L+M)
+
+353.17
+
+131.66
+
+24.71
+
+STATEMENT OF DEFERRED TAX (ASSETS) / LIABILITIES AS RESTATED
+
+Particulars
+Depreciation as per Companies Act (A) Depreciation as per Income tax Act (B) Difference in WDV (B-A) Deferred Tax (Asset)/ Liability ( C)
+
+As at 31 March 2026
+180.45 434.43 253.98
+63.92
+
+As at 31 March 2025
+116.34 176.72
+60.38 16.80
+
+As at 31 March 2024
+98.80 118.10
+19.30 5.02
+
+Gratuity Expenses Disallowance u/s 43B Total (D) Deferred Tax (Asset)/ Liability (E)
+
+4.50 4.50 (1.13)
+
+2.67 2.67 (0.74)
+
+3.29 0.23 3.52 (0.92)
+
+Deferred Tax (Asset)/ Liability charged to P & L (C+E) Deferred Tax (Assets)/ Liability as per Balance sheet of Previous Year Restated Closing Balance of Deferred Tax (Asset)/ Liability
+
+62.79 123.23 186.02
+
+16.06 107.18 123.23
+
+4.10 103.07 107.18
+
+Notes: 1 The aforesaid statement of tax shelters has been prepared as per the restated summary statement of profits and losses of the Company.The permanent/timing differences have been computed considering the ackowledged copies of the income-tax return respective years stated above.
+2 The figures for the period ended March 31, 2026 are based on the provisional computation of Total Income prepared by the Company. 3 The above statement should be read with the significant accounting policies and notes to restated summary statements of assets and liabilities, profits
+and losses and cash flows appearing in Annexures IV, I, II and III.
+
+F-30
+
+SHAKTI POLYTARP LIMITED (CIN : U36900MP2018PLC045379 ) Annexure V- Notes to Restated Financial Information (Amount in INR lakhs, except for share data unless otherwise stated)
+
+Note 31 Statement Of Capitalisation
+
+Particulars
+Debt Short Term Debt Long Term Debt ( Including current maturity) Total Debt
+
+Pre Issue 31 March 2026
+3,551.21 3,700.02 7,251.23
+
+Post Issue [.]
+
+Shareholders' Fund (Equity) Share Capital Reserves & Surplus Less: Miscellaneous Expenses not w/off Total Shareholders' Fund (Equity)
+
+1,256.40 1,529.65
+2,786.05
+
+Long Term Debt/Equity
+
+1.33
+
+Total Debt/Equity
+
+2.60
+
+Notes: 1. Short term debts represents the debts which are expected to be paid/payable within 12 months and excludes installment of term loans repayable within 12 months. 2. Long term debts represent debts other than Short term debts as defined above but includes installment of term loans repayable within 12 months grouped under other current liabilities
+3. The figures disclosed above are based on restated statement of assets and liabilities of the Company as at March 31, 2026. Effect of Increase in Capital after March 31, 2026 not taken.
+
+F-31
+
+SHAKTI POLYTARP LIMITED (CIN : U36900MP2018PLC045379 ) Annexure V- Notes to Restated Financial Information (Amount in INR lakhs, except for share data unless otherwise stated)
+
+Note 32
+
+Statement Of Mandatory Accounting Ratios Particulars
+
+As at
+
+As at
+
+As at
+
+31 March 2026 31 March 2025 31 March 2024
+
+Net worth (A)
+
+2,786.05
+
+1,780.44
+
+1,083.62
+
+Earnings Before Interest, Tax, Depreciation and Amortisation (EBITDA)
+
+1,928.87
+
+1,068.79
+
+383.25
+
+Restated profit after tax (B)
+
+1,005.61
+
+496.62
+
+98.13
+
+Number of equity share outstanding as on the end of year/period - Refer Note 1
+
+12,564,000
+
+12,564,000
+
+5,710,000
+
+Weighted average number of equity shares outstanding during the year/period (D) - Refer Note 1
+
+12,564,000
+
+12,131,474
+
+10,258,356
+
+Weighted average number of diluted equity shares outstanding during the year/period (E) -
+
+12,564,000
+
+12,131,474
+
+10,258,356
+
+Refer Note 1
+
+Basic earning per share (INR) (B/D)
+
+8.00
+
+4.09
+
+0.96
+
+Diluted earning per share (INR) (B/E)
+
+8.00
+
+4.09
+
+0.96
+
+Return on net worth (%) (B/A)
+
+44.04%
+
+34.68%
+
+10.79%
+
+Net asset value per share - (A/C) (Face value of Rs. 10 each)
+
+22.17
+
+14.17
+
+18.98
+
+Note:
+
+1) The ratios have been computed as below:
+
+(a) Basic earnings per share (): Net profit after tax as restated for calculating basic EPS/ Weighted average number of equity shares outstanding at the end of
+
+the period/ year
+
+(b) Diluted earnings per share (): Net profit after tax as restated for calculating diluted EPS/ Weighted average number of equity shares outstanding at the
+
+end of the period/ year for diluted EPS
+
+(c) Return on net worth (%) : Net profit after tax (as restated)/Average Net worth at the end of the period/ year
+
+(d) Net assets value per share: Net Worth at the end of the period or year/ Total number of equity shares outstanding at the end of the period/ year
+
+2) Weighted average number of equity shares is the number of equity shares outstanding at the beginning of the year adjusted by the number of equity shares issued during the year multiplied by the time weighting factor. The time weighting factor is the number of days for which the specific shares are outstanding as a proportion of total number of days during the year.
+
+3) Net worth for ratios mentioned in note 1(c) and 1(d) is = Equity share capital + Reserves and surplus (including, Securities Premium, General Reserve and surplus in statement of profit and loss).
+
+4) The figures disclosed above are based on the restated summary statements of the Company.
+
+5) EBITDA has been calculated as Profit before tax + Depreciation + Interest Expenses - Other Income
+
+F-32
+
+SHAKTI POLYTARP LIMITED (CIN : U36900MP2018PLC045379 ) Annexure V- Notes to Restated Financial Information (Amount in INR lakhs, except for share data unless otherwise stated)
+
+Note 33 Financial ratios Particulars
+
+Unit of measurement
+
+Numerator
+
+Denominator
+
+Current ratio Debt equity ratio
+
+Times Times
+
+Debt service coverage Times ratio
+
+Return on equity ratio Percentage
+
+Inventory turnover ratio Times
+
+Trade receivable
+
+Times
+
+turnover ratio
+
+Trade payable turnover Times
+
+ratio
+
+Net capital turnover ratio
+
+Times
+
+Net profit ratio
+
+Percentage
+
+Return on capital employed
+
+Percentage
+
+Return on investment Percentage
+
+Current assets
+
+Current liabilities
+
+Total debt (including Networth current maturities of long term borrowings) Earnings for debt Debt service = Interest service = Net profit & lease payments after taxes + Non-cash + principal repayments operating expenses + Interest expense
+Net profits after taxes Average networth
+
+Revenue from Ropeevreantiuoens from operations Total purchases
+
+Average inventory
+Average trade receivable Average trade payables
+
+Revenue from Average Working
+
+operations
+
+capital (WC= current
+
+assets �
+
+Net profit after tax
+
+current liabilities) Revenue from
+
+operations
+
+Earnings before Capital employed =
+
+interest and taxes
+
+networth
+
++ total debt
+
+Income generated from Cost of investment
+
+investment
+
+Particulars
+
+Unit of measurement
+
+Numerator
+
+Denominator
+
+Current ratio Debt equity ratio
+
+Times Times
+
+Debt service coverage Times ratio
+
+Return on equity ratio Percentage
+
+Inventory turnover ratio Times
+
+Trade receivable
+
+Times
+
+turnover ratio
+
+Trade payable turnover Times
+
+ratio
+
+Net capital turnover ratio
+
+Times
+
+Net profit ratio
+
+Percentage
+
+Return on capital employed
+
+Percentage
+
+Return on investment Percentage
+
+Current assets
+
+Current liabilities
+
+Total debt (including Networth current maturities of long term borrowings) Earnings for debt Debt service = Interest service = Net profit & lease payments after taxes + Non-cash + principal repayments operating expenses + Interest expense
+
+Net profits after taxes Average networth
+
+Revenue from operations Revenue from operations Total purchases
+
+Average inventory
+Average trade receivable Average trade payables
+
+Revenue from Average Working
+
+operations
+
+capital (WC= current
+
+assets �
+
+Net profit after tax
+
+current liabilities) Revenue from
+
+operations
+
+Earnings before Capital employed =
+
+interest and taxes
+
+networth
+
++ total debt
+
+Income generated from Cost of investment
+
+investment
+
+As at 31 March 2026
+0.86 2.60 0.35
+44.04% 9.40
+18.63 106.63 175.53
+4.66% 17.87%
+NA
+As at 31 March 2025
+1.26 2.70 0.26
+34.68% 11.55 14.67 58.95 42.53
+2.99% 14.87%
+NA
+
+As at 31 March 2025
+1.26 2.70 0.26
+34.68% 11.55 14.67 58.95 42.53
+2.99% 14.87%
+NA
+
+% Change March 31, 2026 -
+March 31, 2025
+
+Remarks March 31, 2026 - March 31,
+2025
+
+-31.78% Due to Decrease in current asset of the company
+-3.45% NA
+
+35.93%
+Due to incresae in earning for debt of the company as a result of increase in turnover
+
+27.00% Due to incresae in PAT of the company
+-18.64% NA 27.05% Due to incresae in Revenue of
+the company 80.87% Due to incresae in Purchase of
+the company as a result of increase in revenue 312.72% Due to incresae in working capital of the company
+56.09% Due to incresae in PAT of the company
+20.19% NA
+NA NA
+
+As at 31 March 2024
+1.05 2.18 0.21
+10.79% 4.36
+11.29 18.08 138.26
+1.58% 8.87%
+NA
+
+% Change
+March 31, 2025 March 31, 2024
+
+Remarks
+March 31, 2025 - March 31, 2024
+
+20.35% Due to increase in current asset of the company
+23.46% NA
+
+25.41%
+Due to incresae in earning for debt of the company as a result of increase in turnover
+
+221.43% Due to incresae in PAT of the company
+164.94% Due to incresae in Revenue of the company
+29.93% Due to incresae in Revenue of the company
+226.06% Due to incresae in Purchase of the company as a result of increase in revenue
+-69.24% Due to incresae in working capital of the company
+88.78% Due to incresae in PAT of the company
+67.73% Due to incresae in EBITDAof the company
+NA NA
+
+F-33
+
+SHAKTI POLYTARP LIMITED (CIN : U36900MP2018PLC045379 ) Annexure V- Notes to Restated Financial Information (Amount in INR lakhs, except for share data unless otherwise stated)
+
+Additional notes to Restated Financial Information
+
+Note 34 Statement of Adjustments in the financial statements
+
+(a) Impact of restatement adjustments Below mentioned is the summary of results of restatement adjustments made to the audited financial statements of the respective period/years and its impact on profits.
+
+Particulars Net profit after tax as per audited financial statements
+
+As at 31 March 2026
+1,005.61
+
+As at 31 March 2025
+496.62
+
+As at 31 March 2024
+87.33
+
+Restatement adjustments: Provision for gratuity Short/excess of Deferred tax adjustment Add back of Prior period tax MAT Credit adjustment
+
+-
+
+-
+
+(3.29)
+
+-
+
+-
+
+0.92
+
+-
+
+-
+
+6.15
+
+-
+
+-
+
+7.04
+
+-
+
+-
+
+10.80
+
+Restated net profit after tax
+
+1,005.61
+
+496.62
+
+98.13
+
+Reconciliation of restated Equity/ Net worth Particulars
+Equity/ Net worth as per audited financials
+
+As at 31 March 2026
+2,786.05
+
+As at 31 March 2025
+1,778.58
+
+As at 31 March 2024
+1,086.17
+
+Restatement adjustments: Provision for gratuity Deffered tax liability adjustment MAT credit
+
+-
+
+-
+
+(11.45)
+
+-
+
+1.87
+
+1.87
+
+-
+
+7.04
+
+-
+
+1.87
+
+(2.55)
+
+Restated Equity/ Net worth
+
+2,786.05
+
+1,780.44
+
+1,083.62
+
+(b) Reconciliation of opening balance of reserve and surpuls for the F.Y. 2023-24 Particulars
+Audited Opening Balance of reserve and surpuls (A)
+Less: Prior periods gratuity expenses Less: Earlier year income tax Short/excess of Deferred tax adjustment MAT Credit Total (B)
+Restated Opening Balance of surplus (A+B)
+
+As at 4/1/2023 277.85
+(8.16) (21.39)
+0.95 15.24 (13.36)
+264.49
+
+(C) Explanatory notes for the restatement adjustments (i) The amount relating to the income/ expenses have been adjusted in the year to which the same relates to and under which head the same related to.
+(ii) The company has provided excess provision of tax in the year in which income tax return has been filed and has been adjusted in prior period items in financials but in the restated financials it has been adjusted in the same financial year where it relates to. (iii) Appropriate adjustments have been made in the restated financial statements, wherever required, by reclassification of the corresponding item of income, expenses, assets and liabilities, in order to bring them in line with the groupings as per audited financials of the company for all the years.
+
+F-34
+
+SHAKTI POLYTARP LIMITED (CIN : U36900MP2018PLC045379 ) Annexure V- Notes to Restated Financial Information (Amount in INR lakhs, except for share data unless otherwise stated)
+
+Note 35 Statement of terms of loans and security details
+
+Name of Lender/Fund
+
+Nature of Facility
+
+Date of Issue
+
+Sanctioned Amount
+
+Securities offered
+
+Re-Payment Period
+
+a Secured Loans Small Industries Devlopment Bank of Term Loan India Small Industries Devlopment Bank of Term Loan India Small Industries Devlopment Bank of Term Loan India
+Small Industries Devlopment Bank of Term Loan India
+
+December 2024
+March 2025
+November 2024
+November 2023
+
+861.00 As per note 1
+
+6.5 years
+
+548.00 As per note 2
+
+7 Year
+
+162.90 As per note 3
+
+6.5 years
+
+Against Hypothication Of
+
+300.00
+
+Plant & Machinery And Kept Security Of Fixed
+
+Deposit Fdr 75 Lakh
+
+5 Year
+
+Rate of Interest
+
+Outstanding amount (as per
+Books) 31 March 2026
+
+9.40% 9.60% 8.85% 8.80%
+
+834.00 499.00 152.90 231.50
+
+Small Industries
+
+Term Loan-
+
+Devlopment Bank of Direct Credit
+
+India
+
+Scheme
+
+October 10, 2025
+
+490.00 As per note 4
+
+6.5 years after 6 month moratorium period
+
+0.85% + MCLR Rate
+
+490.00
+
+Small Industries Devlopment Bank of India
+
+Term LoanPurchase of equipment for enterprise development scheme
+
+January, 05, 2026
+
+734.00 As per note 5
+
+6.5 years after 6 month moratorium period
+
+8.55%
+
+734.00
+
+Small Industries Devlopment Bank of Term Loan India
+
+January 12, 2026
+
+100.00 As per note 6
+
+5 years after 6 month moratorium period
+
+8.55%
+
+100.00
+
+Union bank of India UGECL A/c 699-296
+
+August 2022
+
+112.00 Against Hypothication Of 7 Year
+
+Plant & Machinery,
+
+(July.2027)
+
+Movable Assets, Equitable
+
+Mortgage Of Factory Land
+
+& Building And Personal
+
+Guarantee Of Directors
+
+And Third Parties
+
+F-35
+
+7.50%
+
+52.89
+
+Union bank of India Term Lona
+
+November 27, 2025
+
+Union bank of India Term Lona
+
+November 27, 2025
+
+Aditya Birla Capital Limited
+
+Purchase Invoice Discounting
+
+July, 2025
+
+Cash Credit/Overdraft:
+
+Yes Bank
+
+OD
+
+November 2024
+
+Yes Bank Union bank of India
+
+November Cash Credit
+2024 Cash Credit August 2024
+
+Unsecured Loans
+Directors and other related parties Priyal Singhal (Share Holder)
+
+300.00 Mortgage on Asset
+
+proposed to be created out
+
+of bank finance for
+
+construction of factory on
+
+Plot No 47 MPAKVN
+
+(MPIDC), Industrial Area, 6 years after
+
+Nimrani, Teh Kasrawad, 12 month
+
+Dist Khargone, M.P
+
+moratorium
+
+Collateral security:
+
+period
+
+Extention Of Factory Land
+
+& Building And residential
+
+plot of Director and
+
+Personal Guarantee Of
+
+Directors 300.00 Asset created out of bank
+
+finance for construction of
+
+factory building over the
+
+land situated at Plot no. 48,
+
+Patwari halka no. 27,
+
+MPAKVN (MPIDC),
+
+Industrial Area, Nimrani, 6 years after
+
+Teh Kasrawad, Dist
+
+12 month
+
+Khargone, M.P. in the name of M/s Shakti
+
+moratorium period
+
+Polytarp Ltd
+
+Collateral security:
+
+Extention Of Factory Land
+
+& Building And residential
+
+plot of Director and
+
+Personal Guarantee Of 300.00 15 % of the sanction
+
+1 Year (July,
+
+amount to be lien marked 2026)
+
+in favor of Aditya Birla
+
+Capital Limited
+
+Total
+
+EXCLUSIVE CHARGE
+
+ON PROPERTY
+
+SITUTAED AT 4/1
+
+NAYAPURA INDORE
+
+500.00
+
+AND PERSONAL GURANTEE OF ALL
+
+DIRECTOR & PARI -
+
+PASSU CHARGE ON
+
+CURRENT ASSETS
+
+(BOOKS DEBTS & MFA)
+
+700.00 As per Above
+
+Against Hypothication Of 2,300.00 Movable Assets All Stock
+And Other Curent Assets
+
+EBLR+2.5%1.00%
+EBLR+2.5%1.00%
+12.50%
+9.25% 9.25% 9.50%
+
+Total
+
+265.74
+300.00
+295.67 3,955.69
+382.00 636.63 2,236.92 3,255.55 40.00 40.00
+
+F-36
+
+Note 1 A. Primary Security: 1.) First charge by way of hypothecation in favour of SIDBI on all the movable assets of the borrower including plant, machinery, equipment, spares, tools, accessories, furniture, fixtures and fittings. office equipment and other movables, already acquired under the proposed assistance and situated Plot no 45,46,47 & 48 IIDC, Nimrani, 452007, Madhya Pradesh B.Collateral Security: 1.) Extension of charge on SIDBI FDR having face value of Rs.75lakh 2.) SIDBI FDR having face value of Rs.226 Lakh 3.) Extension of charge on SIDBI FDR having face value of Rs.41 lakh 4.) Extension of first charge by way of hypothecation in favour of SIDBI on all the movable assetsof the borrower including plant, machinery, equipment, spares, tools, accessories, furniture, fixtures nd fittings, office equipment and other movables, already acquired under the previous assistance and situated Plot no 45,46,47 & 48 IIDC, Nimrani, 452007, Madhya Pradesh 5.) Extension of first charge by way of hypothecation in favour of SIDBI on all the movable assetsof the borrower including plant, machinery, equipment, spares, tools, accessories, furniture, fixtures and fittings, office equipment and other movables, already acquired under the previous assistance and situated Plot no 45,46,47 & 48 IIDC, Nimrani, 452007, Madhya Pradesh Borrower shall make out a good and marketable title to its properties/above properties to the satisfaction of SIDBI and comply with all such formalities at its costs and expenses as may be necessary or required for the said purpose. C.GUARANTEE(S): The Borrower shall procure and furnish irrevocable, unconditional joint and several personal guarantees from Shri Ravi Singhal, Shri Vivek Singhal, in favour of SIDBI for the due repayment of the dues outstanding under the loan and the payment of all interest and other monies payable by the Borrower in the form and manner prescribed by SIDBI and to be delivered to SIDBI before any part of the Loan is advanced. The Borrower shall not pay any guarantee commission to the said Guarantors. The guarantee shall be joint and several and the guarantors shall be liable to SIDBI as if he/she/it is/are principal debtors to SIDBI.
+F-37
+
+Note 2 A. Primary Security: 1.) First charge by way of hypothecation of all the plant and machineries included in the present project and to be installed at Plot No 45,46,47,48 IIDC Nimrani, Khargone Madhya Pradesh-451659. B.Collateral Security: 1.) Extension of SIDBI FDR having face value of Rs.346.87 lakh 2.) Pledge of SIDBI FDR having face value of Rs.55 lakh. 3.) Extension of first charge by way of hypothecation of all the plant and machineries included in the earlier projects and installed at Plot No 45,46,47,48 IIDC Nimrani, Khargone Madhya Pradesh-451659. Borrower shall make out a good and marketable title to its properties/above properties to the satisfaction of SIDBI and comply with all such formalities, at its costs and expenses, as may be necessary or required for the said purpose. C. GUARANTEE (S): The Borrower shall procure and furnish irrevocable, unconditional, and joint & several personal guarantee of Ravi Singhal, Trisha Singhal, Vivek Singhal, in favour of SIDBI for the due repayment of the dues outstanding under the loan and the payment of all interest and other monies payable by the Borrower in the form and manner prescribed by SIDBI and to be delivered to SIDBI before any part of the Loan is advanced. The Borrower shall not pay any guarantee commission to the said Guarantors. The guarantee shall be joint and several and the guarantors shall be liable to SIDBI as if he/she/it is/are principal debtors to SIDBI. Note 3 A. Primary Security: 1.) PLEDGE OF SIDBI FDR HAVING FACE VALUE OF RS.41 LAKH 2.) First charge by way of hypothecation in favour of SIDBI on all the movable assets of theborrower including plant, machinery, equipment, spares, tools, accessories, furniture, fixtures and fittings, office equipment and other movables, already acquired under the proposed assistance and situated Plot no 45,46,47 & 48 IIDC, Nimrani, 452007, Madhya Pradesh B.Collateral Security: 1.) Extension of charge on existing sidbi fdr of Rs.75 lakh 2.) Extension of first charge by way of hypothecation in favour of SIDBI on all the movable assetsof the borrower including plant, machinery, equipment, spares, tools, accessories, furniture, fixtures and fittings, office equipment and other movables, already acquired under the previous assistance and situated Plot no 45,46,47 & 48 IIDC, Nimrani, 452007, Madhya Pradesh Borrower shall make out a good and marketable title to its properties/above properties to the satisfaction of SIDBI and comply with all such formalities at its costs and expenses as may be necessary or required for the said purpose. C.GUARANTEE(S): The Borrower shall procure and furnish irrevocable, unconditional joint and several personal guarantees from Shri Ravi Singhal, Smt Trisha Singhal, Shri Vivek Singhal, in favour of SIDBI for the due repayment of the dues outstanding under the loan and the payment of all interest and other monies payable by the Borrower in the form and manner prescribed by SIDBI and to be delivered to SIDBI before any part of the Loan is advanced. The Borrower shall not pay any guarantee commission to the said Guarantors. The guarantee shall be joint and several and the guarantors shall be liable to SIDBI as if he/she/it is/are principal debtors to SIDBI.
+F-38
+
+Note 4 SECURITY: A. Primary Security: 1.) First Charge by way of hypothecation of all the movables of the borrower including plant, equipment, machinery, machinery spares, tools, accessories, furniture, fixtures, computers etc., acquired to be acquired under the project scheme. B.Collateral Security: 1.) Extension of First Charge by way of pledge of duly discharged Fixed Deposit Receipt (FDR) already placed with SIDBI for previous loans, in auto renewal mode till currency of loan period with lien marked in favour of SIDBI. 2.) First Charge by way of pledge of duly discharged Fixed Deposit Receipt (FDR) already placed with SIDBI for previous loans, in auto renewal mode till currency of loan period with lien marked in favour of SIDBI. 3.) Extension of First Charge by way of hypothecation of all the movables of the borrower including plant, equipment, machinery, machinery spares, tools, accessories, furniture, fixtures, computers etc., Borrower shall make out a good and marketable title to its properties/above properties to the satisfaction of SIDBI and comply with all such formalities, at its costs and expenses, as may be necessary or required for the said purpose. C. GUARANTEE (S): The Borrower shall procure and furnish irrevocable, unconditional, and joint & several personal guarantee of Ravi Singhal, Trisha Singhal, Vivek Singhal, in favour of SIDBI for the due repayment of the dues outstanding under the loan and the payment of all interest and other monies payable by the Borrower in the form and manner prescribed by SIDBI and to be delivered to SIDBI before any part of the Loan is advanced. The Borrower shall not pay any guarantee commission to the said Guarantors. The guarantee shall be joint and several and the guarantors shall be liable to SIDBI as if he/she/it is/are principal debtors to SIDBI.
+Note 5
+F-39
+
+SECURITY: The loan together with interest, costs, expenses, penal charge(s) and all other monies due and payable by the borrower shall be secured by: A. Primary Security: 1.) First Charge by way of hypothecation of all the movables of the borrower including plant, equipment, machinery, machinery spares, tools, accessories, furniture, fixtures, computers etc., acquired to be acquired under the project B.Collateral Security: 1.) Extension of First Charge by way of pledge of duly discharged Fixed Deposit Receipt (FDR) having face value of Rs.426.87 lakh to be placed with SIDBI, in auto renewal mode till currency of loan period with lien marked in favour of SIDBI. 2.) First Charge by way of pledge of duly discharged Fixed Deposit Receipt (FDR) having face value of Rs. 183.5 lakh to be placed with SIDBI, in auto renewal mode till currency of loan period with lien marked in favour of SIDBI. 3.) Extension of First Charge by way of hypothecation of all the movables of the borrower including plant, equipment, machinery, machinery spares, tools, accessories, furniture, fixtures, computers etc., acquired to be acquired under the project Borrower shall make out a good and marketable title to its properties/above properties to the satisfaction of SIDBI and comply with all such formalities at its costs and expenses as may be necessary or required for the said purpose
+C. GUARANTEE (S): The Borrower shall procure and furnish irrevocable, unconditional, and joint & several personal guarantee of Ravi Singhal, Trisha Singhal, Vivek Singhal, in favour of SIDBI for the due repayment of the dues outstanding under the loan and the payment of all interest and other monies payable by the Borrower in the form and manner prescribed by SIDBI and to be delivered to SIDBI before any part of the Loan is advanced. The Borrower shall not pay any guarantee commission to the said Guarantors. The guarantee shall be joint and several and the guarantors shall be liable to SIDBI as if he/she/it is/are principal debtors to SIDBI.
+Note 6 SECURITY: 1. (i.) Primary Security: 1.) First Charge by way of hypothecation of all the movables of the borrower including plant, equipment, machinery, machinery spares, tools, accessories, furniture, fixtures, computers etc., acquired to be acquired under the project (ii). Collateral Security: 1.) First Charge by way of pledge of duly discharged Fixed Deposit Receipt (FDR) having face value of Rs.25 lakh to be placed with SIDBI, in auto renewal mode till currency of loan period with lien marked in favour of SIDBI 2.) Extension of First Charge by way of pledge of duly discharged Fixed Deposit Receipt (FDR) having face value of Rs.610.37 lakh to be placed with SIDBI, in auto renewal mode till currency of loan period with lien marked in favour of SIDBI. 3.) Extension of First Charge by way of hypothecation of all the movables of the borrower including plant, equipment, machinery, machinery spares, tools, accessories, furniture, fixtures, computers etc., acquired to be acquired under the previous loans of SIDBI 1 Borrower shall make out a good and marketable title to its properties/above properties to the satisfaction of SIDBI and comply with all such formalities, at its costs and expenses, as may be necessary or required for the said purpose (iii). GUARANTEE (S): The Borrower shall procure and furnish irrevocable, unconditional, and joint & several personal guarantee of Ravi Singhal, Trisha Singhal, Vivek Singhal, in favour of SIDBI for the due repayment of the dues outstanding under the loan and the payment of all interest and other monies payable by the Borrower in the form and manner prescribed by SIDBI and to be delivered to SIDBI before any part of the Loan is advanced. The Borrower shall not pay any guarantee commission to the said Guarantors. The guarantee shall be joint and several and the guarantors shall be liable to SIDBI as if he/she/it is/are principal debtors to SIDBI. Collateral Security
+F-40
+
+SHAKTI POLYTARP LIMITED (CIN : U36900MP2018PLC045379 ) Annexure V- Notes to Restated Financial Information (Amount in INR lakhs, except for share data unless otherwise stated)
+
+Note 36 The trade payables ageing schedule:
+
+At the end of the period
+Particulars
+MSME Others Disputed dues - MSME Disputed dues - Others
+
+Not due for payment
+-
+
+Outstanding for following periods from due date of payment
+
+Less than 1 year
+
+1-2 year
+
+2-3 year
+
+More than 3 Year
+
+4.31
+
+163.28
+
+6.42
+
+As at 31 March 2026
+Total
+4.31 169.70
+-
+
+At the end of the period
+Particulars
+MSME Others Disputed dues - MSME Disputed dues - Others
+
+Not due for payment
+-
+
+Outstanding for following periods from due date of payment
+
+Less than 1 year
+
+1-2 year
+
+2-3 year
+
+More than 3 Year
+
+137.57
+
+-
+
+-
+
+-
+
+48.45
+
+6.42
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+As at 31 March 2025
+Total
+137.57 54.88
+-
+
+At the end of the year
+Particulars
+MSME Others Disputed dues - MSME Disputed dues - Others
+
+Not due for payment -
+-
+
+Outstanding for following periods from due date of payment
+
+Less than 1 year
+
+1-2 year
+
+2-3 year
+
+More than 3 Year
+
+3.54
+
+-
+
+-
+
+-
+
+299.35
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+As at 31 March 2024
+Total
+3.54 299.35
+-
+
+Disclosure relating to suppliers registered under MSMED Act based on the information available with the Company:
+
+Particulars
+(a) Amount remaining unpaid to any supplier at the end of each accounting year: Principal and interest Total (b) The amount of interest paid by the buyer in terms of section 16 of the MSMED Act, along with the amount of the payment made to the supplier beyond the appointed day during each accounting year.
+(c) The amount of interest due and payable for the period of delay in making payment (which have been paid but beyond the appointed day during the year) but without adding the interest specified under the MSMED Act.
+
+As at
+
+As at
+
+As at
+
+As at 31 March 2026 As at 31 March 2025 As at 31 March 2024
+
+4.31
+
+137.57
+
+3.54
+
+(d) The amount of interest accrued and remaining unpaid at the end of each accounting year. (e) The amount of further interest remaining due and payable even in the succeeding years, until such date when the interest dues above are actually paid to the small enterprise, for the purpose of disallowance of a deductible expenditure under section 23 of the MSMED Act.
+
+Total
+
+4.31
+
+137.57
+
+3.54
+
+Note 37 The trade receivables ageing schedule:
+At the end of the period Particulars
+(i) Undisputed trade receivables � considered good (ii) Undisputed trade receivables � considered doubtful (iii) Disputed trade receivables considered good (iv) Disputed trade receivables considered doubtful
+At the end of the period Particulars
+(i) Undisputed trade receivables � considered good (ii) Undisputed trade receivables � considered doubtful (iii) Disputed trade receivables considered good (iv) Disputed trade receivables considered doubtful
+At the end of the year Particulars
+(i) Undisputed trade receivables � considered good (ii) Undisputed trade receivables � considered doubtful (iii) Disputed trade receivables considered good (iv) Disputed trade receivables considered doubtful
+
+Less than 6 months 6 Month to 1 year
+
+825.41
+
+5.74
+
+Less than 6 months 1,311.62 -
+
+6 Month to 1 year 161.81 -
+
+Less than 6 months 695.59 -
+
+6 Month to 1 year 91.47 -
+
+1-2 years 3.70
+1-2 years 6.49 -
+1-2 years -
+
+2-3 years
+2-3 years -
+2-3 years -
+
+More than 3 Years
+
+As at 31 March 2026 Total 834.85 -
+
+More than 3 Years -
+
+As at 31 March 2025 Total 1,479.93 -
+
+More than 3 Years -
+
+As at 31 March 2024 Total 787.05 -
+
+F-41
+
+SHAKTI POLYTARP LIMITED (CIN : U36900MP2018PLC045379 ) Annexure V- Notes to Restated Financial Information (Amount in INR lakhs, except for share data unless otherwise stated)
+
+Note 38 Employee Benefits
+
+I. Defined contribution plans
+
+The Company has classified the various benefits provided to employees as under:
+
+a. Contribution to provident fund & Other funds
+
+The expense recognised during the period towards defined contribution plan -
+
+Particulars
+
+For the period ended For the period ended For the year ended
+
+31 March 2026
+
+31 March 2025
+
+31 March 2024
+
+Contribution to provident fund & Other funds
+
+4.77
+
+2.77
+
+2.41
+
+II. Defined benefit plans
+
+Gratuity
+
+The Company should provide for gratuity for employees in India as per the Payment of Gratuity Act, 1972. Employees who are in continuous service for a
+
+period of 5 years are eligible for gratuity. The amount of gratuity payable on retirement/ termination is the employees last drawn basic salary per month
+
+computed proportionately for 15 days salary multiplied for the number of years of service, subject to a payment ceiling of INR 20,00,000/-.
+
+Based on the actuarial valuation obtained in this respect, the following table sets out the details of the employee benefit obligation as at balance sheet date:
+
+Particulars
+I. Changes in present value of obligations Present value of obligation as at the beginning of the period Interest cost Current service cost Benefits paid Actuarial (Gain) / Loss on obligations Present value of obligation as at the end of the period
+II. Actuarial (Gain) / Loss recognised Actuarial (Gain) / loss for the period � Obligations Actuarial (Gain) / Loss for the period � Plan assets Total (Gain) / Loss for the period Actuarial (Gain) / Loss recognised in the period Unrecognised actuarial (Gain) / Loss at the end of the period
+III. Amount to be recognised in the Balance Sheet Present value of obligation at the end of period Fair value of the plan assets at the end of period Surplus / (Deficit) Current liability Non-current liability Unrecognised past service cost Amount not recognised as asset (Para 59(b) limit) Net asset / (liability) recognised in balance sheet
+IV. Expense recognised in the statement of profit and loss Current service cost Past service cost Interest cost Actuarial (Gain) / Loss recognised in the period Expenses recognised in the statement of profit & loss at the end of period
+V. Reconciliation of net asset / (liability) recognised Net asset / (liability) recognised at the beginning of the period Benefits directly paid by Company Expense recognised at the end of period Net asset / (liability) recognised at the end of the period
+VI. Experience adjustment for the current period Present value of obligations Plan assets Surplus / (Deficit) Experience (Gain) or Loss on plan liabilities Experience (Gain) or Loss on plan assets
+
+For the period ended For the period ended
+
+31 March 2026
+
+31 March 2025
+
+For the year ended 31 March 2024
+
+14.12 0.92 3.50 0.07
+18.62
+
+11.45 0.82 3.10 (1.25) 14.12
+
+8.16 0.60 2.55 0.15 11.45
+
+0.07
+
+(1.25)
+
+0.15
+
+-
+
+-
+
+-
+
+0.07
+
+(1.25)
+
+0.15
+
+0.07
+
+(1.25)
+
+0.15
+
+-
+
+-
+
+-
+
+18.62
+
+14.12
+
+11.45
+
+(18.62) 3.11
+15.51 -
+(18.62)
+
+(14.12) 2.39
+11.73 -
+(14.12)
+
+(11.45) 1.60 9.85 -
+(11.45)
+
+3.50
+
+3.10
+
+2.55
+
+-
+
+-
+
+-
+
+0.92
+
+0.82
+
+0.60
+
+0.07
+
+(1.25)
+
+0.15
+
+4.50
+
+2.67
+
+3.29
+
+(14.12) -
+(4.50) (18.62)
+
+(11.45) -
+(2.67) (14.12)
+
+(8.16) -
+(3.29) (11.45)
+
+18.62 -
+(18.62) -
+
+14.12 -
+(14.12) -
+
+11.45 -
+(11.45) -
+
+F-42
+
+VII. Actuarial assumptions:
+Mortality table
+Discount rate Rate of increase in compensation levels Retirement Age
+
+For the period ended For the period ended For the year ended
+
+31 March 2026
+
+31 March 2025
+
+31 March 2024
+
+Indian Assured Lives Indian Assured Lives Indian Assured Lives
+
+Mortality (2012-14) Mortality (2012-14) Mortality (2012-14)
+
+Ultimate 6.89%
+
+Ultimate 6.55%
+
+Ultimate 7.18%
+
+5.00%
+
+5.00%
+
+5.00%
+
+60
+
+60
+
+60
+
+* It is actuarially calculated term of the plan using probabilities of death, withdrawal and retirement. ^ It is simple arithmetical difference between retirement age and average age (by zeroing out negatives for employees above retirement age) and is calculated without using any decrements.
+
+F-43
+
+SHAKTI POLYTARP LIMITED (CIN : U36900MP2018PLC045379 ) Annexure V- Notes to Restated Financial Information (Amount in INR lakhs, except for share data unless otherwise stated)
+
+Note 39 SEGMENT REPORTING (i) Business Segment
+
+The accounting policies adopted for segment reporting are in line with the accounting policies of their Company. Comapny has operated in one business segment Revenues, expenses, assets and liabilities have been identified into segments on the basis of their relationship to operating activities of segments (taking into account the nature of products and services and the risk and rewards associated with them) and internal management information systems and the same is reviewed from time to time to realign the same to conform to the business units of the Company. Revenues, expenses, assets, and liabilities, which are common to the enterprise as a whole and are not allocable to the segments on a reasonable basis, have been treated as "Common Revenues/Expenses/Assets/Liabilities", as the case may be. (ii) Geographical Segment
+
+The Company activities / operations are confined to India there is only one geographical segment. Accordingly, the figures appearing in these financial statements relate to the Company one geographical segment.
+
+Note 40 During the year, the provisions of Section 135 of the Companies Act, 2013 relating to Corporate Social Responsibility ("CSR") became applicable to the Company..
+
+Details of CSR Particular
+Amount required to be spent during the year Amount of expenditure incurred Shortfall at the end of the year Total of previous year shortfall Nature of CSR Activity
+
+For the period ended For the period ended For the period ended
+
+31 March 2026 5.95
+
+31 March 2025 NA
+
+31 March 2024 NA
+
+5.95
+
+NA
+
+NA
+
+Nil
+
+NA
+
+NA
+
+Nil
+
+NA
+
+NA
+
+Donation made to
+
+NA
+
+NA
+
+Charitable Trust
+
+Note 40
+
+Foreign exchange earnings/ expenditures during the year
+
+Particulars
+
+For the period ended For the period ended
+
+31 March 2026
+
+31 March 2025
+
+For the year ended 31 March 2024
+
+Foreign exchange earnings Foreign exchange expenditures
+
+-
+
+-
+
+-
+
+-
+
+Note 41
+
+Unhedged Foreign Currency Exposure during the year
+
+Particulars
+
+For the period ended For the period ended
+
+31 March 2026
+
+31 March 2025
+
+For the year ended 31 March 2024
+
+Trade Payables USD INR
+Trade Receivables
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+Note 42 Sundry debtors, sundry creditors, loans & advances balances are subject to confirmation.
+
+Note 43
+
+Contingent Liability
+
+The Provision for Contingent Liability as per AS 29 Provisions, Contingent Liabilities and Contingent Assets is as follows:
+
+Particulars
+
+As at
+
+As at
+
+As at
+
+31 March 2026
+
+31 March 2025
+
+31 March 2024
+
+Income Tax TDS GST
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+F-44
+
+Note 44 OTHER RELEVANT DISCLOSURES
+Additional regulatory information required by Schedule III of Companies Act, 2013:
+A. Balance of Debtors & Creditors & Loans & advances Taken & giving are subject to confirmation and subject to consequential adjustments, if any. Debtors & creditors balance has been shown separately and the advances received and paid from/to the parties is shown as advance from customer and advance to suppliers.
+B. The company has no transactions, which are not recorded in the books of accounts and which are surrendered or disclosed as income during the year in the tax assessment or in search or survey or under any other relevant provision of the Income Tax Act, 1961.
+C. The Company has not traded or invested in crypto currency or virtual currency for year ended 31st March 2026, 31st March 2025 and 31st March 2024.
+D. The Company do not had any transaction for the year ended 31st March 2026, 31st March 2025 and 31st March 2024 with the companies which are struck off under section 248 of the Companies Act, 2013 or section 560 of the Companies Act, 1956.
+E. The company has not been declared as willful defaulter by any bank or from any other lender for the year ended 31st March 2026, 31st March 2025 and 31st March 2024.
+F. The company has registered all the charges which are required to be registered under the terms of the loan and liabilities and submitted Documents with ROC within the period as required by Companies Act, 2013.
+G. As per the information & detail available on records and the disclosure given by the management, the company has complied with the number of layers prescribed under clause (87) of section 2 of the companies act read with the Companies (Restriction on number of layers) Rules 2017.
+H. As per the Information & details available on records and the disclosure given by the management, the company has not advanced, loaned or invested to any other person or entity or foreign entitles with the understanding that the intermediary shall directly or indirectly lend or invest in other person or entities identified in any manner whatsoever by or on behalf of the company or provided any guarantee, security or like to or on behalf of the company. Further the company has not received any funds from any person, entity including the foreign entity with the understanding that the company shall directly or indirectly lend, invest or guarantee, security or like manner on behalf of the funding party.
+I. Compliance with approved scheme(s) of arrangements: The Company has not entered into any scheme of arrangement which has an accounting impact on current or previous financial year.
+F-45
+
+OTHER FINANCIAL INFORMATION For Details on other financial information please refer to "Ratios" under the chapter titled Financial Statements as Restated beginning on page 238 of this Red Herring Prospectus.
+This space has been left blank intentionally.
+Page 239 of 367
+
+MANAGEMENT's DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATION
+The following discussion is intended to convey management's perspective on our financial condition and results of operations for the financial year ended March 31, 2026, March 31, 2025, and for the financial year ended March 31, 2024. One should read the following discussion and analysis of our financial condition and results of operations in conjunction with our section titled "Financial Statements" and the chapter titled "Financial Information" on page 238 of the Red Herring Prospectus. This discussion contains forward-looking statements and reflects our current views with respect to future events and our financial performance and involves numerous risks and uncertainties, including, but not limited to, those described in the section entitled "Risk Factors" on page 22 of this Red Herring Prospectus. Actual results could differ materially from those contained in any forward-looking statements and for further details regarding forward-looking statements, kindly refer the chapter titled "ForwardLooking Statements" on page 20 of this Red Herring Prospectus. Unless otherwise stated, the financial information of our Company used in this section has been derived from the Restated Financial Information. Our financial year ends on March 31 of each year. Accordingly, unless otherwise stated, all references to a particular financial year are to the 12-month period ended March 31 of that year.
+In this section, unless the context otherwise requires, any reference to "we", "us" or "our" refers to Shakti Polytarp Limited, our Company. Unless otherwise indicated, financial information included herein are based on our Restated Financial Statements for the Financial Years 2026, 2025 & 2024 included in this Red Herring Prospectus beginning on page 238 of this Red Herring Prospectus.
+BUSINESS OVERVIEW
+Our Company is engaged in the business of manufacturing of tarpaulin and other products including Shade Net. A tarpaulin is a large, strong, flexible, and water-resistant sheet used to cover and protect objects from environmental elements. Our products have diverse applications across various industries including agriculture, construction, automotive, transportation & logistics and consumer goods. We offer end-to-end services, assisting clients in selecting the right type of tarpaulin for their applications while also providing design and customization options according to the intended use.
+SIGNIFICANT DEVELOPMENTS SUBSEQUENT TO THE LAST FINANCIAL YEAR I.E., MARCH 31, 2026
+As per mutual discussion between the Board of the Company and BRLM, in the opinion of the Board of the Company there have not arisen any circumstances since the date of the last financial statements as disclosed in the Red herring Prospectus and which materially and adversely affect or is likely to affect within the next twelve months except as follows:
+� The Board of Directors of our Company has approved and passed a resolution on December 18, 2024, to authorize the Board of Directors to raise the funds by way of Initial Public Offering.
+� The Shareholders of our Company has approved and passed a resolution on January 13, 2025, to authorize the issue by way of Initial Public Offering.
+� The board of directors appointed Mr. Ravi Singhal as Managing Director w.e.f. November 19, 2024.
+Page 240 of 367
+
+� The board of directors appointed Mr. Rajesh Gupta as Non-Executive Director w.e.f. November 19, 2024. � The board of directors appointed Ms. Ruchi Joshi Meratia as Independent Director w.e.f. November 19, 2024.
+� The board of directors appointed Ms. Kumari Priya Pandey as Independent Director w.e.f. November 19, 2024.
+� The board of directors appointed Ms. Aditi Vohra as Company Secretary & Compliance officer of the Company w.e.f. November 19, 2024.
+� The board of directors appointed Ms. Priyal Singhal as Chief Executive Officer of the Company w.e.f. November 19, 2024.
+� The board of directors appointed Mr. Manoj Kumar as Chief Financial Officer of the Company w.e.f. January 02, 2025.
+� Ms. Aditi Vohra resigned from the position of Company Secretary and Compliance Officer of the Company with effect from May 23, 2025.
+� The board of directors appointed Mr. Kapl Vinod Garg as Company Secretary & Compliance officer of the Company w.e.f. June 24, 2025.
+� Mr. Kapl Vinod Garg resigned from the position of Company Secretary and Compliance Officer of the Company with effect from April 01, 2026.
+� The board of directors appointed Mr. Jitenndra Kumar Gupta as Company Secretary & Compliance officer of the Company w.e.f. April 01, 2026.
+SIGNIFICANT FACTORS AFFECTING OUR RESULTS OF OPERATIONS
+Our business is subjected to various risks and uncertainties, including those discussed in the section titled "Risk Factor" beginning on page 22 of this Red Herring Prospectus. Our results of operations and financial conditions are affected by numerous factors including the following:
+� Changes, if any, in the regulations / regulatory framework / economic policies in India and / or in foreign countries, which affect national & international finance.
+� Company's results of operations and financial performance; � Performance of Company's competitors; � Significant developments in India`s economic and fiscal policies; � Failure to adapt to the changing needs of industry and in particular Sector may adversely affect our business
+and financial condition; � Volatility in the Indian and global capital market;
+This space has been left blank intentionally.
+Page 241 of 367
+
+MANAGEMENT's DISCUSSION ON RESULTS OF OPERATION
+
+(Amount in Lakhs, except %)
+
+For the Financial Year Ended
+
+S No. Particulars
+
+I
+
+Revenue from Operations
+
+II Other Income
+
+III Total Income (I + II)
+
+March 31, 2026
+21,564.74
+
+%age of Total Income
+99.79%
+
+March 31, 2025
+16,623.57
+
+%age of Total Income
+99.84%
+
+March 31, 2024
+6,201.12
+
+%age of Total Income
+99.66%
+
+45.32 0.21%
+
+25.95
+
+21,610.06 100.00% 16,649.52
+
+0.16% 100.00%
+
+21.38
+
+0.34%
+
+6,222.50 100.00%
+
+IV Expenses
+
+Cost of Material Consumed
+
+Purchase of stock-intrade
+
+Changes in Inventories of Finished Goods, WIP and stock-in-trade
+
+Direct Manufacturing Expenses
+
+Employee Benefits Expenses
+
+Finance Costs
+
+Depreciation and Amortization Expenses
+
+Other Expenses
+
+Total Expenses (IV)
+
+V
+
+Profit before tax (III + IV)
+
+VI Tax expense:
+
+Current Tax
+
+Deferred Tax
+
+MAT credit entitlement
+
+Total Tax Expense (VI)
+
+VII
+
+Profit after tax for the period (V - VI)
+
+VIII
+
+Earning per equity share:
+
+9,530.42 9,639.29 (1,071.71)
+552.25 101.36 434.96 180.45 884.26 20,251.28 1,358.78
+290.39 62.79
+353.17 1,005.61
+
+44.10% 44.61% -4.96%
+
+5,478.56 9,204.16 (354.33)
+
+2.56%
+0.47%
+2.01% 0.84%
+4.09% 93.71% 6.29%
+
+361.08
+73.55 288.52 116.34 791.75 15,959.64 689.87
+
+1.34% 0.29%
+-
+1.63%
+4.65%
+
+115.60 16.06 61.60
+193.26
+496.62
+
+32.91% 55.28%
+
+4,036.28 1,041.79
+
+(2.13%)
+
+269.60
+
+2.17%
+
+311.41
+
+0.44% 1.73% 0.70% 4.76% 95.86% 4.14%
+
+55.14 190.89
+98.80 103.64 6,107.57 114.94
+
+0.69% 0.10% 0.37%
+1.16%
+2.98%
+
+19.74 4.10 (7.04)
+16.80
+98.13
+
+64.87% 16.74%
+4.33%
+5.00% 0.89% 3.0% 1.59% 1.67% 98.15% 1.85%
+0.32% 0.07% (0.11%) 0.27% 1.58%
+
+Basic & Diluted (Rs.)
+
+8.00
+
+4.09
+
+-
+
+0.96
+
+-
+
+Page 242 of 367
+
+Our Significant Accounting Policies
+For Significant accounting policies please refer Significant Accounting Policies", under Chapter titled Financial Statements beginning on page 238 of the Red Herring Prospectus.
+Overview of Revenue & Expenditure
+The following discussion on results of operations should be read in conjunction with the Restated Financial statements for the financial years 2025-26, Financial Year 2025-24 & Financial Year 2024-23. Our revenue and expenses are reported in the following manner:
+Total Income
+ Revenue from operations Our Company's revenue is primarily generated from 1. Manufacturing of Tarpaulins which is a large sheet of solid, flexible and waterproof fabric or polyester wrapped in polyurethane, or made of polyethylene-like plastics customized to the bulk packaging requirements of our clients. 2. Trading of Raw Material (Granules) which is also used as major Raw material consumption to produce Tarpaulins.
+ Other Income Other Income mainly includes interest received from Deposits, rate difference and profit on sale of fixed asset.
+Expenditure
+Our total expenditure primarily consists of cost of materials consumed, employee benefit expense, Finance cost, Changes in inventories of finished goods, work-in-progress and stock-in-trade, Direct Manufacturing expense and other expenses.
+ Cost of material consumed
+The Cost of material consumed includes purchase of raw material used for manufacturing purposes.
+ Purchase of stock-in-trade
+The purchase of stock-in-trade includes material purchased for trading purposes.
+ Changes in inventories of finished goods, work-in-progress and stock-in-trade
+It includes the opening and closing balances of the inventories, i.e., WIP, finished goods and traded goods.
+ Direct Manufacturing Expense
+The other direct expense includes Power and Fuel, Factory labour and wages, Carriage and Freight Inward Expenses, Loading expenses, Consumables & Spare Expenses.  Employee benefit expense
+Page 243 of 367
+
+The Employee benefit expense includes salary and benefits to staff, contribution to various funds, director's salary gratuity of staff & director.
+
+ Finance Cost Finance cost expense includes Bank charges and processing fees, Interest to Bank and interest to NBFC, interest on ICDs and interest on unsecured loan from Directors and Relatives.
+
+ Depreciation and Amortization Expenses Depreciation and Amortization Expenses majorly include depreciation on Property/ Factory Building, Plant & Equipment, Vehicle, computer etc.
+
+ Other Expenses Other Expenses include major expenses on Rent, Packing charges, Insurance Expense, Legal and Professional Fees, Discount on traded goods, repair and maintenance and miscellaneous expense etc.
+
+FISCAL YEAR ENDED MARCH 31, 2026, COMPARED WITH THE FISCAL YEAR ENDED MARCH 31, 2025(BASED ON RESTATED FINANCIAL STATEMENTS)
+
+ Total Income Total Income for the Financial Year 31st March 2026, stood at Rs. 21,610.06 lakhs whereas in Financial Year 31st March 2025it stood at Rs 16,649.52 lakhs representing an increase of29.79%.
+Reason: The Company Total Income increased during FY 2025-26 mainly due to increase in Revenue from Operations (Manufacturing Sales) also getting more discount on bulk purchases thereby COGS reduced and Net profit increased.
+
+ Revenue from operations Revenue from operations for the Financial Year 31st March 2026, stood at Rs. 21,564.74 Lakhs whereas in Financial Year 31st March 2025 it stood at Rs. 16,623.57 Lakhs representing an increase of 29.72%
+
+Reason: The increase in Revenue from Operations during FY 2025�26 was primarily attributable to the enhancement of production capacity of tarpaulin in the month of Jan 2026 by 3,000 MTPA and Capacity of Shed Net in the month of Mar 2026 by 3000 MTPA through the acquisition and installation of additional machinery. The expanded manufacturing capacity enabled the Company to significantly increase its production and sales volumes, thereby contributing to higher revenue generation.
+
+(Amount in Lakhs, except %)
+
+PARTICULARS
+Revenue From Sale of Mfg Goods Revenue From Sale of Mfg Goods as %age of Revenue Revenue From Trading Goods Revenue From Trading Goods as %age of Revenue TOTAL
+
+For the year ended 31 March 2026
+11,163.50 51.77% 10,401.23
+48.23%
+21,564.74
+
+For the year ended 31 March 2025
+6,614.06 39.79% 10,009.51
+60.21%
+16,623.57
+
+Page 244 of 367
+
+ Other Income Other Income for the Financial Year 31st March 2026, stood at Rs. 45.32 Lakhs whereas in the Financial Year 31st March 2025 it stood at Rs. 25.95 lakhs representing an increase of 74.69%.
+Reason: The increase in other income is mainly due to the increase in interest income from fixed deposit.
+
+Particulars
+Interest Received Total
+
+For the year ended 31 March 2026 45.32 45.32
+
+(Amt in Rs. Lakhs) For the year ended 31
+March 2025 25.95 25.95
+
+ Total Expenses Total Expenses for the Financial Year 31st March 2026 stood at Rs. 20,251.28Lakhs whereas in the Financial Year 31st March 2025 it stood at Rs 15,959.64 Lakhs representing an increase of 26.89%
+Reason : The total expenses increased due to increasing of sales During the FY 2026 by 29.72% but the total expenses in FY 2024-25 was 96.01% and in FY 2026 is 93.91% therefore decreased by 2.10% as compared to the total turnover increased by 29.72% in FY 2026.
+
+ Cost of Material Consumed Total Cost of material consumed for the Financial Year 31st March 2026, stood at Rs. 9,530.42 Lakhs whereas in the Financial Year 31st March 2025 it stood at Rs. 5,478.56 Lakhs representing an increase of73.96%.
+
+Reason : The increase in the cost of materials consumed was primarily attributable to the higher consumption of raw materials in line with the significant increase in manufacturing activity and revenue from manufactured goods during the year FY 26.
+
+(Amount in Rs. Lakhs)
+
+Particulars
+
+For the year ended 31 March For the year ended 31 March
+
+2026
+
+2025
+
+Opening Stock of Raw Material Add: Purchases of Material Less: Closing Stock of Material Total
+
+294.22 9,897.92
+661.73 9,530.42
+
+376.26 5,396.52
+294.22 5,478.56
+
+ Purchase of stock in trade
+
+Purchase of traded goods for the financial year 31st March 2026 stood at Rs. 9,639.29 lakhs whereas in the financial year 31st March 2025 stood at Rs. 9,204.16 lakhs an increase of 4.73%
+Reason: The increase in purchase of traded goods during FY 26 was marginal in nature and occurred in the normal course of business operations, in line with the overall demand of traded goods and trading sales increased by 3.91% in FY2026.
+ Change in Inventories of Finished Goods, WIP and Stock in Trade
+
+Total Change in Inventory for the Financial Year 31st March 2026, stood at Rs.(1,071.71) Lakhs whereas in the Financial Year 31st March 2025 it stood at Rs. (354.33) Lakhs increase of 202.46%.
+
+Page 245 of 367
+
+Reason:. The increase in inventories during FY 2025�26 was primarily attributable to higher closing balances of finished goods, raw materials, and stock-in-trade. This was mainly due to increased production levels during the year and higher inventory holding of finished goods at the year-end. Further, the Company procured additional raw materials in March 2026 as a precautionary measure in view of the prevailing war-related uncertainties, resulting in higher raw material inventories as at the end of the financial year.
+
+Particulars
+Inventories at the beginning of the year Inventories at the end of the year Total
+
+(Amount in Rs. Lakhs)
+
+For the year ended 31 For the year ended 31
+
+March 2026
+
+March 2025
+
+1,281.35 2,353.06 (1,071.71)
+
+927.02 1,281.35 (354.33)
+
+ Direct Manufacturing Expenses
+
+The Direct Manufacturing Expenses for the Financial Year 31st March 2026, stood at Rs.552.25Lakhs whereas in the Financial Year 31st March 2025 it stood at Rs 361.08 Lakhs representing an increase of 52.95%.
+Reason:. The increase in direct manufacturing expenses in FY 26 was primarily due to the higher scale of manufacturing operations and increase in revenue from operations during the year. Since these expenses are directly linked to production activity, the rise in manufacturing volumes resulted in a proportionate increase in related direct manufacturing expenses.
+
+Particulars
+Freight Inward , Cartage & Loading Exp Power and Fuel Labour expense Consumables & Spare Exp. Total
+
+(Amounts in Rs. Lakhs)
+
+For the year ended 31 For the year ended 31
+
+March 2026
+
+March 2025
+
+104.56 264.96 145.81 36.92 552.25
+
+55.25 212.25 60.54 33.04 361.08
+
+ Employment Benefit Expenses The Employee benefit expense for the Financial Year 31st March 2026, stood at Rs.101.36 Lakhs whereas in Financial Year 31st March 2025 it stood at Rs. 73.55 Lakhs representing an increase of 37.81%.
+
+Reason: There was an increase in `Employee benefit expenses' because of an increase in Salaries and benefit to staff, Director's remunerations &Contribution to various funds.
+
+Particulars
+Salaries & Benefits To Staff Director's Remuneration and Sitting Fees Contribution to provident and other fund Gratuity
+
+For the year ended 31 March 2026
+40.90 51.19
+4.77 4.50
+
+(Amount in Lakhs)
+For the year ended 31 March 2025 30.17 37.95 2.77 2.67
+
+Page 246 of 367
+
+Total
+
+101.36
+
+73.55
+
+ Finance Cost The Finance Cost for the Financial Year on 31st March 2026, stood at Rs.434.96Lakhs whereas in the Financial Year 31st March 2025 it stood at Rs.288.52Lakhs representing an increase of 50.75% from the previous years.
+
+Reason: The increase in finance costs during FY 2025�26 was primarily attributable to higher interest expenses on bank borrowings. The Company availed additional borrowings during the year to finance the acquisition of plant and machinery and the construction of building infrastructure, undertaken to support business growth and capacity expansion. Consequently, finance costs increased during the year.
+
+Particulars
+Finance Cost Total borrowings
+
+(Amount in Rs. Lakhs)
+
+For the year ended 31 March 2026 434.96 7251.23
+
+For the year ended 31 March 2025 288.52 4799.70
+
+ Depreciation and Amortization Expenses The Depreciation and Amortization Expenses for the Financial Year 31st March 2026, stood at 180.45 Lakhs whereas in the Financial Year 31st March 2025 it stood at Rs.116.34Lakhs representing an increase of 55.10%
+
+Reason: The increase in depreciation and amortization expenses was mainly due to the addition of new plant & machinery and Factory building construction during FY 26. The capitalization of these assets pursuant to the
+
+capacity expansion resulted in a higher depreciation charge as compared to the previous financial year.
+
+(Amount in Rs. Lakhs)
+
+Particulars
+Opening Balance Addition Less: Subsidy Less: Deletion
+
+For the year ended 31 March 2026 1856.13 2,956.64 61.70 -
+
+For the year ended 31 March 2025 1236.46 736.01
+-
+
+Less: Depreciation
+
+180.45
+
+116.34
+
+Closing balance
+
+4570.62
+
+1856.13
+
+ Other Expenses The Other Expenses for the Financial Year March 31, 2026, stood at Rs.884.26 Lakhs whereas in Financial Year 31st March 2025 it stood at Rs. 791.75 Lakhs representing an increase of 11.68%.
+
+Reason:. The increase in other expenses during FY 2025�26 was primarily due to higher discounts on sales, increased job work charges, write-off of MAT credit (due to change corporate tax regime), and an increase in miscellaneous expenses.
+(Amount in Rs. Lakhs)
+
+Particulars
+Discount on Traded/Manufacturing Sales Job Work Charges MAT Written Off
+
+For the year ended For the year ended 31 31 March 2026 March 2025
+
+751.71 13.13 15.27
+
+706.62 3.39 0.00
+
+Page 247 of 367
+
+Miscellaneous expenses
+
+29.59
+
+16.01
+
+ Restated Profit before Tax The restated profit before tax for the Financial Year 31st March 2026, stood at Rs.1,358.78 Lakhs whereas in Financial Year 31st March 2025 it stood at Rs. 689.87 Lakhs representing an increase of 96.96%.
+
+Reason: The significant increase in profit before tax during FY 2025�26 was primarily driven by higher revenue generated from manufacturing operations, supported by increased production capacity and improved operational performance, reduced COGS and total expenses during the year.
+
+ Tax Expense Tax Expense for the Financial Year 31st March 2026, stood at Rs. 353.17 lakhs out of which Current Tax being Rs 290.39 lakhs, Deferred Tax being Rs. 62.79 lakh whereas in financial year 31st March 2025 it stood at Rs 193.26 Lakhs out of which Current Tax being Rs.115.60 Lakhs, Deferred Tax being Rs.16.06 Lakhs and MAT credit entitlement being Rs. 61.60 lakhs representing as increase of 82.75%.
+
+Reason: The tax expenses increased over the financial year due to an increase in profit before tax causing more provision for tax to be made in the financial year 2025-26 as compared to the financial year 2024-25.
+
+ Restated Profit after Tax The restated profit after tax for the Financial Year 31st March 2026, stood at Rs. 1,005.61 Lakhs whereas in Financial Year 31st March 2025 it stood at Rs. 496.62 Lakhs representing an increase of 102.49%
+
+Reason: Increase in profit in FY26 is mainly because of the following reasons:
+
+Particulars Revenue from operation Revenue from Sale of Manufacturing Goods
+Revenue from Sale of Traded Goods
+total Cost of Goods Sold
+COGS for Manufacturing Goods
+% of COGS of manufacturing goods
+COGS for Trading Goods % of COGS of Trading Goods
+PAT
+PAT Margin
+
+31st March 2026 21,564.74 11,163.50
+10,401.23 18,650.25
+90,43.55 81.00% 9,606.70 92.36% 1,005.61 4.66%
+
+(Amount in Lakhs) 31st March 2025
+16,623.57 6,614.06
+10,009.51 14,689.47
+5,515.28 83.39% 9,174.19 91.65% 496.62 2.99%
+
+Justification of PAT Margin
+The increase in PAT during FY 2025�26 was primarily attributable to the significant growth in manufacturing operations and improved operational efficiencies during the year. Revenue from operations increased from Rs. 16,623.57 Lakhs in FY 2024�25 to Rs. 21,564.74 Lakhs in FY 2025�26, mainly driven by higher sales of
+
+Page 248 of 367
+
+manufactured goods, which increased from Rs. 6,614.06 Lakhs to Rs. 11,163.50 Lakhs.
+
+The increase in profitability was supported by the enhancement of production capacity by 3000 MTPA during FY 2025�26, which resulted in higher production volumes as compared to the previous year. Consequently, the Company achieved improved absorption of fixed costs and operational leverage resulting in decrease in COGS from Manufacturing operation.
+
+Further, the bulk procurement of raw materials (granules), enabling it to avail higher volume-based discounts and scheme-related credit notes from key suppliers. This led to improved cost efficiencies and reduction in the overall cost of goods sold.
+
+As a result of the above factors, the PAT Margin improved from 2.99% in FY 2024�25 to 4.66% in FY 2025� 26. Long Term Borrowings
+
+The Long-term borrowings for the Financial Year March 31, 2026, stood at Rs. 3,195.76 Lakhs whereas in
+
+Financial Year 31st March 2025 it stood at Rs 1,751.56 Lakhs representing an increase of 82.45%.
+
+(Amount in Lakhs)
+
+Particulars
+
+FY 26
+
+FY25
+
+From bank & financial Institutions
+
+3,155.76
+
+1243.88
+
+Unsecured loans (From Directors & ICD)
+
+40.00
+
+507.68
+
+Total
+
+3,195.76
+
+1751.56
+
+Reason: During FY 2026, the Company incurred capital expenditure towards expansion and capacity enhancement, including additions of Rs. 2167.67 Lakhs in Plant & Machinery and Rs. 782.45 Lakhs in Factory Building construction. Consequently, the long-term borrowings increased during the year.
+
+ Short-term Borrowings The Short-term borrowings for the Financial Year March 31, 2026, stood at Rs. 4,055.47 Lakhs whereas in Financial Year 31st March 2025 it stood at Rs. 3,048.14 Lakhs representing an increase of 33.05%
+
+The details of short-term borrowings are as follows:
+Particulars Cash credit limit from union bank Overdraft from Yes bank From Financial Institution Current Maturities of Long-Term Borrowings Total
+
+FY 26 2,873.55 382.00 295.67 504.26 4,055.47
+
+(Amount in Lakhs) FY25 2299.02 486.53
+262.59 3,048.14
+
+Reason: During FY 2026, the Company's manufacturing sales increased significantly from Rs. 6614.06 Lakhs in FY 2025 to Rs. 11163.50 Lakhs in FY 2026, representing a growth of 68.77%. The increase in business operations required higher working capital led to an increase in short-term borrowings during the year.
+
+ Trade Payable The Tread payable for the Financial Year March 31, 2026, stood at Rs. 174.01 Lakhs whereas in Financial Year 31st March 2025 it stood at Rs. 192.45 Lakhs representing a decrease of 9.58%.
+
+Page 249 of 367
+
+Reason: During FY 2026, the Company received discounts on bulk purchases and accordingly made payments either in advance or immediately after delivery of goods, resulting in a reduction in trade payables. Further, the Company enhanced and utilized its cash credit limits for timely payments to suppliers, which also contributed to the decrease in trade payables during the year.
+ Trade Receivable The Tread receivable for the Financial Year March 31, 2026, stood at Rs. 834.85 Lakhs whereas in Financial Year 31st March 2025 it stood at Rs. 1,479.93 Lakhs representing a decrease of 43.59%.
+Reason: The Company offered trade discounts to customers to encourage quicker payment cycles. As a result, the collection efficiency of trade receivables improved, leading to a reduction in the outstanding trade receivables during the year.
+ Advance from customers The Advance from customer for the Financial Year March 31, 2026, stood at Rs. 209.04 Lakhs whereas in Financial Year 31st March 2025 it stood at Rs. 66.42 Lakhs representing an increase of 214.72%.
+Reason: The Company received higher advances from customers in the ordinary course of business against orders scheduled for execution in the subsequent months. This resulted in an increase in customer advances outstanding as on March 31, 2026.
+FISCAL YEAR ENDED MARCH 31, 2025, COMPARED WITH THE FISCAL YEAR ENDED MARCH 31, 2024 (BASED ON RESTATED FINANCIAL STATEMENTS)
+Revenues
+ Total Income Total Income for the Financial Year 31st March 2025, stood at Rs. 16,649.52 lakhs whereas in Financial Year 31st March 2024 it stood at Rs 6,222.50 lakhs representing an increase of 168.07%.
+Reason: The increase in the total income of the company is due to increase in revenue from operations and other income. The increase in revenue from operations saw a jump majorly because of increase in revenue of traded goods as the company offered goods for sale at discounted rate.
+ Revenue from operations
+Revenue from operations for the Financial Year 31st March 2025, stood at Rs. 16,623.57 Lakhs whereas in Financial Year 31st March 2024 it stood at Rs. 6,201.12 Lakhs representing an increase of 168.07% Reason: The increase in revenue was driven by an increase of 1,200 MTPA by purchase of an additional machinery allowing us to increase our manufacturing revenue significantly through increased efficiency and also the company entered into strategic agreements with key raw material suppliers, including Reliance Industries Limited (RIL) and Hindustan Petroleum Corporation Limited (HPCL), in line with their respective bulk purchase schemes and policies. These arrangements enabled the company to secure higher discounts on bulk purchases of (granules).
+Page 250 of 367
+
+By leveraging these supplier pricing structures, the company expanded its trading activities in raw materials during the year. Competitive pricing and strong market demand contributed to a substantial increase in trading sales, thereby diversifying the company's revenue streams.
+(Amount in Lakhs, except %)
+
+PARTICULARS
+
+For the year ended For the year ended 31
+
+31 March 2025
+
+March 2024
+
+Revenue From Sale of Mfg Goods Revenue From Sale of Mfg Goods as %age of Revenue Revenue From Trading Goods Revenue From Trading Goods as %age of Revenue Commission Receipt TOTAL
+
+6,614.06 39.79% 10,009.51
+60.21%
+-
+16,623.57
+
+5,094.70 82.16% 1,094.42
+17.65%
+12
+6,201.12
+
+ Other Income Other Income for the Financial Year 31st March 2025, stood at Rs. 25.95 Lakhs whereas in the Financial Year 31st March 2024 it stood at Rs. 21.38 lakhs representing an increase of 21.38%.
+Reason: The increase in other income is mainly due to the increase in interest income from fixed deposit.
+
+Particulars
+Interest Received Rate Difference & Discount Profit on Sale of Fixed Assets Total
+
+For the year ended 31 March 2025 25.95 25.95
+
+(Amt in Rs. Lakhs) For the year ended 31
+March 2024 5.31 2.32 13.76 21.38
+
+ Total Expenses Total Expenses for the Financial Year 31st March 2025 stood at Rs. 15,959.64 Lakhs whereas in the Financial Year 31st March 2024 it stood at Rs 6,107.57 Lakhs representing an increase of 161.31%.
+
+Reason: The increase in total expenses is largely due to increase in cost of material consumed, purchase of stock-in-trade, increase in finance cost, depreciation and other expenses. However, in FY 25 total expenses as % of revenue decreased by 2.49% as compare to FY 24
+
+ Cost of Material Consumed Total Cost of material consumed for the Financial Year 31st March 2025, stood at Rs. 5,478.56 Lakhs whereas in the Financial Year 31st March 2024 it stood at Rs. 4,036.28 Lakhs representing an increase of 35.73%.
+
+Reason: The cost of raw material consumed increased due to increase in the revenue from manufacturing goods. (Amount in Rs. Lakhs)
+
+Particulars
+Opening Stock of Raw Material Add: Purchases of Material Less: Closing Stock of Material Total
+
+For the year ended 31 March For the year ended 31 March
+
+2025
+
+2024
+
+376.26 5,396.52
+294.22 5,478.56
+
+175.72 4,236.83
+376.26 4,036.28
+
+Page 251 of 367
+
+ Purchase of stock in trade
+
+Purchase of traded goods for the financial year 31st March 2025 stood at Rs. 9,204.16 lakhs whereas in the financial year 31st March 2024 stood at Rs. 1,041.79 lakhs an increase of 783.49%.
+Reason: Increase in the purchase of traded goods is due to a gradual shift towards the sale of traded goods along with sale of manufactured goods because on bulk purchase of raw material, discount were provided by the supplier causing the company to trade the raw materials to avail bulk discount.
+The company entered into strategic agreements with key raw material suppliers, including Reliance Industries Limited (RIL) and Hindustan Petroleum Corporation Limited (HPCL), in line with their respective bulk purchase schemes and policies. These arrangements enabled the company to secure higher discounts on bulk purchases of raw material (granules).
+
+By leveraging these supplier pricing structures, the company expanded its trading activities in raw materials during the financial year. Competitive pricing and strong market demand contributed to a substantial increase in trading sales.
+ Change in Inventories of Finished Goods, WIP and Stock in Trade Total Change in Inventory for the Financial Year 31st March 2025, stood at Rs. (354.33) Lakhs whereas in the Financial Year 31st March 2024 it stood at Rs. 269.60 Lakhs a decrease of 231.43%.
+
+Reason: The reason for decrease in the change in inventories of finished goods, WIP and Stock in trade is due to increase in closing stock of inventories mainly in finished goods.
+(Amount in Rs. Lakhs)
+
+Particulars
+
+For the year ended 31 March 2025
+
+For the year ended 31 March 2024
+
+Inventories at the beginning of the year Inventories at the end of the year Total
+
+927.02 1,281.35 (354.33)
+
+1,196.62 927.02 269.60
+
+ Direct Manufacturing Expenses
+
+The Direct Manufacturing Expenses for the Financial Year 31st March 2025, stood at Rs. 361.08 Lakhs whereas in the Financial Year 31st March 2024 it stood at Rs 311.41 Lakhs representing an increase of 15.95%.
+
+Reason: Since direct manufacturing expenses are linked to revenue from operations, the increase in revenue from operations caused an increase in these expenses, all of these expenses have increased slightly, contributing to an overall increase in the direct manufacturing expenses.
+(Amounts in Rs. Lakhs)
+
+Particulars
+
+For the year ended 31 March 2025
+
+For the year ended 31 March 2024
+
+Freight Inward, Cartage & Loading Exp Power and Fuel Labour expense Consumables & Spare Exp. Total
+
+55.25 212.25
+60.54 33.04 361.08
+
+44.95 188.65 53.93 23.89 311.41
+
+Page 252 of 367
+
+ Employment Benefit Expenses
+
+The Employee benefit expense for the Financial Year 31st March 2025, stood at Rs. 73.55 Lakhs whereas in Financial Year 31st March 2024 it stood at Rs. 55.14 Lakhs representing an increase of 33.38%.
+
+Reason: There was an increase in `Employee benefit expenses' because of an increase in Salaries and benefit to staff, Director's remunerations & Contribution to various funds.
+(Amount in Lakhs)
+
+Particulars
+Salaries & Benefits to Staff Director's Salary Contribution to various funds Gratuity of staff & director Total
+
+For the year ended 31 March 2025
+18.17 49.95 2.77 2.67 73.55
+
+For the year ended 31 March 2024
+10.34 39.10 2.41 3.29 55.14
+
+ Finance Cost
+
+The Finance Cost for the Financial Year on 31st March 2025, stood at Rs. 288.52 Lakhs whereas in the Financial
+
+Year 31st March 2024 it stood at Rs. 190.89 Lakhs representing an increase of 51.15% from the previous years.
+
+Reason: The increase was due to interest given to bank and interest towards unsecured loan, due to increased
+
+borrowings in FY25 as shown in the table below.
+
+(Amount in Rs. Lakhs)
+
+Finance Cost
+
+Particulars
+
+For the year ended 31 March 2025 288.52
+
+For the year ended 31 March 2024 190.89
+
+Total borrowings
+
+4,799.70
+
+2,366.21
+
+ Depreciation and Amortization Expenses The Depreciation and Amortization Expenses for the Financial Year 31st March 2025, stood at Rs.116.34 Lakhs whereas in the Financial Year 31st March 2024 it stood at Rs. 98.80 Lakhs representing an increase of 17.75%.
+
+Reason:
+
+In the financial year 2024-25, the depreciation charged was higher because there was an addition of a new plant
+
+& machinery in that year causing depreciation charge to be higher.
+
+(Amount in Rs. Lakhs)
+
+Particulars
+Opening Balance Addition Less: Deletion
+
+For the year ended 31 March 2025
+1236.46 736.01 -
+
+For the year ended 31 March 2024
+1286.78 86.53 38.04
+
+Less: Depreciation
+
+116.34
+
+98.80
+
+Closing balance
+
+1856.13
+
+1236.46
+
+ Other Expenses The Other Expenses for the Financial Year March 31, 2025, stood at Rs. 791.75 Lakhs whereas in Financial Year 31st March 2024 it stood at Rs. 103.64 Lakhs representing an increase of 663.94%
+
+Page 253 of 367
+
+Reason: There is an increase in `Other expenses' because of an increase in Discount on traded good, repair and maintenance and due to miscellaneous expenses.
+(Amount in Rs. Lakhs)
+
+Particulars
+
+For the year ended 31 March
+2025
+
+For the year ended 31 March 2024
+
+Discount on traded goods Repair & Maintenance Miscellaneous expenses
+
+706.62 9.24 16.01
+
+29.62 2.79 7.07
+
+ Restated Profit before Tax The restated profit before tax for the Financial Year 31st March 2025, stood at Rs. 689.87 Lakhs whereas in Financial Year 31st March 2024 it stood at Rs. 114.94 Lakhs representing an increase of 500.20%.
+
+Reason: The increase in revenue from manufacturing and trading goods were the major reason for the company's increase in profits.
+
+ Tax Expense
+
+Tax Expense for the Financial Year 31st March 2025, stood at Rs. 193.26 lakhs out of which Current Tax being Rs. 115.60 lakhs, Deferred Tax being Rs. 16.06 lakh and MAT credit entitlement being Rs. 61.60 lakhs whereas in financial year 31st March 2024 it stood at Rs 16.80 Lakhs out of which Current Tax being Rs. 19.74 Lakhs, Deferred Tax being Rs. 4.10 Lakhs and MAT credit entitlement being Rs. (7.04) lakhs and representing as increase of 1050.36%
+
+Reason: The tax expenses increased over the financial year due to an increase in profit before tax causing more provision for tax to be made in the financial year 2024-25 as compared to the financial year 2023-24.
+
+ Restated Profit after Tax The restated profit after tax for the Financial Year 31st March 2025, stood at Rs. 496.62 Lakhs whereas in Financial Year 31st March 2024 it stood at Rs. 98.13 Lakhs representing an increase of 406.08%
+
+Reason: Increase in profit in FY25 is mainly because of the following reasons:
+
+Particulars Revenue from operation Revenue from Sale of Manufacturing Goods Revenue from Sale of Traded Goods Commission Receipt Total Cost of Goods Sold COGS for Manufacturing Goods
+
+31st March 2025 16,623.57 6,614.06
+10,009.51 -
+14,689.47 5,515.28
+
+(Amount in Lakhs) 31st March 2024
+6,201.12 5,094.70
+1,094.42 12.00
+5,659.09 4624.29
+
+Page 254 of 367
+
+% of COGS of manufacturing goods COGS for Trading Goods % of COGS of Trading Goods PAT PAT Margin
+
+83.39%
+9,174.19 91.65% 496.62
+2.99%
+
+90.77%
+1,034.78 94.55%
+98.13 1.58%
+
+Justification of PAT Margin
+ In FY25, the company reported an increase in Profit After Tax (PAT), primarily driven by the strategic procurement of raw materials (granules) and traded goods in bulk. These bulk purchases of granules enabled the company to secure higher volume-based discounts and scheme-related credit notes from key suppliers, resulting in a significant reduction in the overall cost of goods sold. The improved cost efficiency, coupled with steady sales performance, contributed to a higher gross margin. This, in turn, positively impacted the company's bottom line, leading to a notable increase in PAT for the financial year.
+ The company entered into strategic arrangements with key raw material suppliers, primarily Reliance Industries Limited (RIL) and Hindustan Petroleum Corporation Limited (HPCL), in accordance with their bulk purchase schemes and policies for granules. These agreements enabled the company to benefit from volume-based discounts and scheme-related credit notes on bulk procurement.
+ The granules procured were utilized both for in-house manufacturing of tarpaulins and for trading activities, allowing the company to capitalize on bulk purchase advantages across both business segments. As a result, the COGS for bith Manufacturing Goods and Traded Goods decreased resulting in increase in PAT margin.
+ Additionally, direct expenses declined, supported by revenue growth and improved operational efficiency. Other operating expenses did not increase in proportion to revenue, further contributing to improved cost management. Consequently, the company achieved an overall increase in PAT margin during the financial year.
+ As per our supplier's policy we receive discount on the basis of the quantity of raw material purchased by us. Since we have purchased almost 7.83 times more raw material for traded goods in FY25 than FY24 we were provided with a greater discount, therefore reducing our cost of goods sold that is used for both trading and manufacturing purposes, ultimately reducing our expenses.
+INFORMATION REQUIRED AS PER ITEM (II) (C) (I) OF PART A OF SCHEDULE VI TO THE SEBI REGULATIONS:
+1. Unusual or infrequent events or transactions Except as described in this Red Herring Prospectus, during the periods under review there have been no transactions or events, which in our best judgment, would be considered unusual or infrequent.
+2. Significant economic changes that materially affected or are likely to affect income from continuing operations.
+Other than as described in the section titled Risk Factors beginning on page 22 of this Red Herring Prospectus, to our knowledge there are no known significant economic changes that have or had or are expected to have a material adverse impact on revenues or income of our Company from continuing
+
+Page 255 of 367
+
+operations.
+3. Known trends or uncertainties that have had or are expected to have a material adverse impact on sales, revenue or income from continuing operations.
+Other than as described in this Red Herring Prospectus, particularly in the sections Risk Factors and Management's Discussion and Analysis of Financial Condition and Results of Operations on page 22 and 240, respectively, to our knowledge, there are no known trends or uncertainties that are expected to have a material adverse impact on our revenues or income from continuing operations.
+4. Income and Sales on account of major product/main activities
+The income and sales of our Company on account of major activities derives from the business is manufacturing of tarpaulins and trading of raw materials.
+5. Future changes in the relationship between costs and revenues, in case of events such as future increase in cost of service and freight & forwarding expenses that will cause a material change are known.
+Our Company's future costs and revenues can be indirectly impacted by an increase in the cost of services and freight & forwarding expenses.
+6. Future relationship between Costs and Income
+Our Company's future costs and revenues will be determined by competition, demand/supply situation, interest rates quoted by banks & others.
+7. The extent to which material increases in net sales or revenue are due to increased sales volume, introduction of new products or services or increased sales prices.
+Increases in our revenues are by and large linked to increases in the volume of business.
+8. Total turnover of each major industry segment in which the issuer company operates.
+The Company operates in the Plastic Industry. Relevant industry data, as available, has been included in the chapter titled "Our Industry" beginning on page 126 of this Red Herring Prospectus.
+9. Status of any publicly announced new products or business segments.
+Our Company has not announced any new services and segment / scheme, other than disclosure in this Red Herring Prospectus.
+10. The extent to which the business is seasonal.
+Our business is not seasonal in nature.
+11. Competitive Conditions
+Page 256 of 367
+
+We face competition from existing and potential competitors, which is common for any business. We have, over a period of time, developed certain competitive strengths which have been discussed in the section titled Our Business on page 171 of this Red Herring Prospectus.
+This space has been left blank intentionally
+Page 257 of 367
+

@@ -1,4 +1,5 @@
-import type { Finding, ReadinessSummary, Severity } from '@/lib/rules';
+import { findingAnchor } from '@/lib/anchors';
+import type { Finding, FindingLink, ReadinessSummary, Severity } from '@/lib/rules';
 
 /**
  * The gap dashboard.
@@ -51,10 +52,48 @@ function Score({ summary }: { summary: ReadinessSummary }) {
   );
 }
 
+/**
+ * "Holds up" entries the document can satisfy become links; the rest stay
+ * plain text.
+ *
+ * Most rules name sections that are not built yet, and dressing those up as
+ * links that scroll nowhere would teach the reader that the links do not work.
+ * The difference in appearance IS the statement about which sections exist.
+ */
+function Blocked({ links, labels }: { links?: FindingLink[]; labels?: string[] }) {
+  const entries: FindingLink[] = links ?? (labels ?? []).map((label) => ({ label }));
+  if (entries.length === 0) return null;
+
+  return (
+    <span>
+      <span className="text-zinc-400">Holds up: </span>
+      {entries.map((entry, i) => (
+        <span key={`${entry.label}-${i}`}>
+          {i > 0 && ', '}
+          {entry.anchor ? (
+            <a
+              href={`#${entry.anchor}`}
+              className="underline decoration-dotted underline-offset-2 hover:text-zinc-800 dark:hover:text-zinc-200"
+            >
+              {entry.label}
+            </a>
+          ) : (
+            <span title="Not drafted yet">{entry.label}</span>
+          )}
+        </span>
+      ))}
+    </span>
+  );
+}
+
 function FindingCard({ finding }: { finding: Finding }) {
   const style = SEVERITY_STYLE[finding.severity];
   return (
-    <li className={`border-l-2 ${style.rail} py-3 pl-4`}>
+    <li
+      // The target of the link on every placeholder this finding covers.
+      id={findingAnchor(finding.ruleId)}
+      className={`scroll-mt-6 rounded-r border-l-2 ${style.rail} py-3 pl-4 target:bg-amber-50 dark:target:bg-amber-950/40`}
+    >
       <div className="flex flex-wrap items-center gap-2">
         <span className={`rounded px-1.5 py-0.5 text-[11px] font-medium uppercase tracking-wide ring-1 ${style.chip}`}>
           {style.label}
@@ -73,12 +112,7 @@ function FindingCard({ finding }: { finding: Finding }) {
           <span className="text-zinc-400">Requirement: </span>
           {finding.clause}
         </span>
-        {finding.blocks && finding.blocks.length > 0 && (
-          <span>
-            <span className="text-zinc-400">Holds up: </span>
-            {finding.blocks.join(', ')}
-          </span>
-        )}
+        <Blocked links={finding.links} labels={finding.blocks} />
         {finding.fix && (
           <span>
             <span className="text-zinc-400">Fix in: </span>

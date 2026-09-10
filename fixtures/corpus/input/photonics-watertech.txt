@@ -1,0 +1,5766 @@
+SECTION VI - FINACIAL INFORMATION
+RESTATED FINANCIAL INFORMATION
+Particulars Restated Financial Information
+
+Pages F1 to F 47
+
+219
+
+Independent Auditor's Examination report on Restated Financial Information of PHOTONICS WATERTECH LIMITED
+To, The Board of Directors Photonics Watertech Limited (Formerly known as Photonics Watertech Private Limited) B5/1, Electronics Estate, Sector-25, GIDC, Gandhinagar, Gujarat, India, 382025
+Dear Sirs,
+1. I have examined the attached Restated Financial Information of PHOTONICS WATERTECH LIMITED (Formerly known as PHOTONICS WATERTECH PRIVATE LIMITED) (hereinafter referred as "the Company") (the Company and its subsidiary together referred to as the "Group" or the "Issuer"), comprising of (a) the Restated Consolidated Statement of Assets and Liabilities as at December 31, 2025, the Restated Consolidated Statement of Profit and Loss and the Restated Consolidated Cash Flow Statement for the period ended December 31, 2025, (b) Restated Standalone Statement of Assets and Liabilities as at March 31, 2025, March 31, 2024 and March 31, 2023, the Restated Standalone Statements of Profit and Loss and the Restated Standalone Cash Flow Statements for the years ended March 31, 2025, March 31, 2024 and March 31, 2023 together with the Summary Statement of Material Accounting Policies, the notes, annexures and other explanatory information thereto (hereinafter collectively referred to as the,"Restated Financial Information"). The Restated Financial Information have been approved by the Board of Directors of the Company in its meeting held on 26th June 2026 for the purpose of inclusion in the Draft Red Herring Prospectus (DRHP)/ Red Herring Prospectus (RHP)/ Prospectus (hereinafter referred to as "Offer Documents") prepared by the Company in connection with its proposed Initial Public Offering (the "Proposed IPO") comprising of fresh issue of equity shares and an offer for sale of Equity shares held by the Selling Shareholder (the "Offer") of face value of Rs. 10 each.
+2. These restated Summary Statement have been prepared in terms of the requirements of:
+a) Section 26 of Part I of Chapter III of the Companies Act, 2013 (the "Act")
+b) The Securities and Exchange Board of India (Issue of Capital and Disclosure Requirements) Regulations, 2018, as amended ("ICDR Regulations") ;and
+c) The Guidance Note on Reports in Company Prospectuses (Revised 2019) issued by the Institute of Chartered Accountants of India ("ICAI"), as amended from time to time (the "Guidance Note").
+3. The Company's Board of Directors is responsible for the preparation of the Restated Financial Information for the purpose of inclusion in the Offer Documents to be filed with Securities and Exchange Board of India, Registrar of Companies, at Ahmedabad Gujarat and at the Emerge platform of NSE "NSE Emerge" in connection with the proposed IPO. The Restated Financial
+F1
+
+Information have been prepared by the management of the Company on the basis of preparation stated in Annexure IV to the Restated Financial Information. The Board of Directors' responsibility includes designing, implementing and maintaining adequate internal control relevant to the preparation and presentation of the Restated Financial Information. The Board of Directors are also responsible for identifying and ensuring that the company complies with the Act, ICDR Regulations and the Guidance Note.
+4. I have examined such Restated Financial Information taking into consideration:
+a) The terms of reference and terms of our engagement agreed upon with you in accordance with my engagement letter dated February 15, 2026 in connection with the proposed IPO of equity shares of the Issuer;
+b) The Guidance Note also requires that I comply with the ethical requirements of the Code of Ethics issued by the ICAI;
+c) Concepts of test checks and materiality to obtain reasonable assurance based on verification of evidence supporting the Restated Financial Information; and
+d) The requirements of Section 26 of the Act and the ICDR Regulations. Our work was performed solely to assist you in meeting your responsibilities in relation to your compliance with the Act, the ICDR Regulations and the Guidance Note in connection with the IPO.
+5. These Restated Financial Information have been compiled by the management from the Audited Special Purpose Consolidated Financial Statements of the Group for the stub period ended on December 31, 2025 and Standalone Financial Statements of the company for the year ended on March 31, 2025, March 31, 2024 and March 31, 2023 which has been approved by the Board of Directors at their meeting held on 22nd June 2026, 01st September, 2025, 01st September, 2024 & 01st September, 2023.
+a. Audited Special Purpose Consolidated Financial Statements of the company as at nine months ended December 31, 2025 prepared in accordance with the accounting standards notified under Section 133 of the Act, read with Rule 7 of the Companies (Accounts) Rules, 2014, as amended, and other accounting principles generally accepted in India. The same has been approved by the Board of Directors at their meeting held on 22nd June, 2026.
+b. Re-Audit Report issued by me dated 22nd June, 2026 on the Financial Statements of the Company for the Financial Year ended on March 31st, 2025, I have re-audited this financial information of the Company for the limited purpose of complying with the requirement of getting its financial statements audited by an audit firm holding a valid peer review certificate issued by the "Peer Review Board" of the ICAI as required by ICDR Regulations in relation to proposed IPO and relied upon previous Statutory Audited financial statements of the Company as at and for the years ended March 31, 2024 and 2023 prepared in accordance with the Indian Accounting Standards (Indian GAAP) which have been approved by the Board of Directors at their meeting held on 01st September, 2024 & 01st September, 2023.
+F2
+
+6. Details of Subsidiary forming part of Restated Financial Information:
+The Company has a subsidiary, namely PHOTONICS WATERTECH PRIVATE LIMITED LLC, incorporated in Sultanate of Oman, which became a subsidiary with effect from 29th April, 2025. The said subsidiary has not undertaken any operations or financial transactions during the period under review; accordingly, there is no financial impact on the Restated Financial Information presented in this report.
+7. For the purpose of my examination,
+a) I have considered the Audit Reports issued by me on the Special Purpose Consolidated Financial Statements and Standalone Financial Statements of the Company for the respective period/years ended on December 31, 2025, March 31, 2025, March 31, 2024 and March 31, 2023. Such reports comprise the Audit Report dated June 22, 2026 on the Special Purpose Consolidated Financial Statements, the Re-Audit Report dated June 22, 2026, and the Audit Reports dated September 1, 2024 and September 1, 2023, respectively, which have been relied upon for the purpose of preparing and issuing this Restated Financial Information included in the Draft Red Herring Prospectus/Red Herring Prospectus/Prospectus.
+Accordingly, the Restated Consolidated Statement of Assets and Liabilities as at December 31, 2025, the Restated Consolidated Statement of Profit and Loss and the Restated Consolidated Cash Flow Statement for the period ended December 31, 2025, (b) Restated Standalone Statement of Assets and Liabilities as at March 31, 2025, March 31, 2024 and March 31, 2023, the Restated Standalone Statements of Profit and Loss and the Restated Standalone Cash Flow Statements for the years ended March 31, 2025, March 31, 2024 and March 31, 2023 together with the Summary Statement of Material Accounting Policies, the notes, annexures and other explanatory information thereto (hereinafter collectively referred to as the, "Restated Financial Information") have been examined by me for the aforesaid periods.
+8. Based on my examination and according to the information and explanations given to me, I report that:
+a) The "Restated Consolidated/Standalone Summary Statement of Assets and Liabilities" as set out in Annexure I to this report, of the Company as at and for the year ended on December 31, 2025, March 31, 2025, March 31, 2024 & March 31, 2023 are prepared by the Company and approved by the Board of Directors. These Restated Consolidated/Standalone Summary Statement of Assets and Liabilities, have been arrived at after making such adjustments and regroupings to the individual financial statements of the Company, as in our opinion were appropriate and more. These fully described in Significant Accounting Policies and Notes to Accounts as set out in Annexure IV and V to this Report.
+b) The "Restated Consolidated/Standalone Summary Statement of Profit and Loss" as set out in Annexure II to this report, of the Company as at and for the Period ended on
+F3
+
+December 31, 2025, March 31, 2025, March 31, 2024 & March 31, 2023are prepared by the Company and approved by the Board of Directors. These Restated Consolidated/Standalone Summary Statement of Profit and Loss have been arrived at after making such adjustments and regroupings to the individual financial statements of the Company, as in our opinion were appropriate and more fully described in Significant Accounting Policies and Notes to Accounts as set out in Annexure IV and V to this Report.
+c) The "Restated Consolidated/Standalone Summary Statement of Cash Flow" as set out in Annexure III to this report, of the Company as at and for the Period ended on December 31, 2025, March 31, 2025, March 31, 2024& March 31, 2023 are prepared by the Company and approved by the Board of Directors. These Restated Consolidated/Standalone Summary Statement of Cash Flow have been arrived at after making such adjustments and regroupings to the individual financial statements of the Company, as in our opinion were appropriate and more fully described in Significant Accounting Policies and Notes to Accounts as set out in Annexure IV and V to this Report.
+d) The Restated Financial Information have been prepared in accordance with the Act, ICDR Regulations and the Guidance Note.
+e) The Restated Financial Information have been made after incorporating adjustments for the changes in accounting policies retrospectively in respective financial period/years to reflect the same accounting treatment as per the changed accounting policy for all reporting periods, if any;
+f) The Restated Financial Information have been made after incorporating adjustments for prior period and other material amounts in the respective financial years/period to which they relate, if any and there are no qualifications which require adjustments;
+g) Extra-ordinary items that need to be disclosed separately in the accounts has been disclosed wherever required;
+h) There were no qualifications in the Audit Reports issued by me as Statutory Auditors in respect of the financial statements of the Company for the period/year ended December 31, 2025, March 31, 2025, March 31, 2024 and March 31, 2023 which would require any adjustments in the Consolidated and Standalone Restated Financial Information of the Company.
+i) Profits and losses have been arrived at after charging all expenses including depreciation and after making such adjustments/restatements and regroupings as in our opinion are appropriate and are to be read in accordance with the Significant Accounting Polices and Notes to Accounts as set out in Annexure IV and V to this report;
+j) There have been no changes in accounting policy of the company for the period disclosed in the Restated Financial Information except for accounting for employee benefits (Gratuity). The Company has changed its accounting policy for gratuity from recognition on a cash basis to recognition based on an actuarial valuation.
+F4
+
+k) There are no revaluation reserves, which need to be disclosed separately in the Restated Financial Information;
+l) The company has not proposed any dividend in past effective for the said periods.
+m) Do not require any adjustment for modification as there is no modification in the underlying audit reports.
+n) I have complied with the relevant applicable requirements of the Standard on Quality Control (SQC) 1, Quality Control for Firms that Perform Audits and Reviews of Historical Financial Information, and Other Assurance and Related Services Engagements.
+9. I have also examined the following other financial information relating to the Company prepared by the Management and as approved by the Board of Directors of the Company and annexed to this report relating to the Company as at and for the Period/Year ended December 31, 2025, March 31, 2025, March 31, 2024 & March 31, 2023 proposed to be included in the Offer Documents.
+
+Annexure No. I
+I.1 I.2 I.3 I.4 I.5 I.6 I.7 I.8 I.9 I.10 I.11 I.12 I.13 I.14 I.15 I.16 I.17 II II.1 II.2 II.3 II.4 II.5 II.6 II.7 II.8
+
+Particulars RESTATED STATEMENT OF ASSETS & LIABILITIES Restated Statement of Share Capital Restated Statement of Reserves & Surpluses Restated Statement of Long-Term Borrowings Restated Statement of Long Term Provision Restated Statement of Short Term Borrowings Restated Statement of Trade Payables Restated Statement of Other Current Liabilities Restated Statement of Short Term Provision Restated Statement of Property, Plant & Equipment Restated Statement of Other Non-Current Investments Restated Statement of Deferred Tax Assets Restated Statement of Other Non-Current Assets Restated Statement of Inventories Restated Statement of Trade Receivable Restated Statement of Cash &Cash Equivalents Restated Statement of Short-Term Loans and Advances Restated Statement of Other Current Assets RESTATED STATEMENT OF PROFIT & LOSS Restated Statement of Revenue from operations Restated Statement of Other Income Restated Statement of Cost of materials consumed Restated Statement of Purchase of Stock-in-Trade Restated Statement of Changes in Inventories of finished goods Restated Statement of Employees Benefit Expenses Restated Statement of Finance Cost Restated Statement of Depreciation and Amortization Expense
+
+F5
+
+Annexure No. II.9 II.10
+
+Particulars Restated Statement of Other Expenses Restated Statement of Earnings per equity share
+
+Other Annexures: III
+IV
+V
+VI
+VII VIII IX
+X XI XII XIII XIV
+
+Restated Statement of Cash Flow Summary of Material Accounting Policies and Other Explanatory Notes Notes to the Restated Financial Statements Statement of Restated Adjustments to Audited Consolidated/Standalone Financial Statements Restated Statement of Accounting & Other Ratios Restated Statement of Capitalization Restated Statement of Tax Shelter Restated Statement of Segment Reporting Statement of Related Parties & Transactions Statement of Dividends Changes in the Significant Accounting Policies Contingent Liabilities & Commitments
+
+10. I, M/s. S V Patel & Co, Chartered Accountants have been subjected to the peer review process of the Institute of Chartered Accountants of India ("ICAI") and hold a valid peer review certificate issued by the "Peer Review Board" of the ICAI which is valid till January 01, 2029.
+
+11. The Restated Financial Information reflect the effects of events that occurred subsequent to the respective dates of the reports on the special purpose financial statements and audited financial statements are mentioned below:
+
+i.
+
+Pursuant to the approval of shareholders at the extraordinary general meeting of the
+
+Company held on April 04, 2026, Issued Share Capital was increased by Rs. 9,02,27,500
+
+by issuing 90,22,750 bonus shares of Rs. 10 each to the existing shareholders in the ratio
+
+of 1:1 during the period.
+
+ii. Subsequent to the reporting period, on April 14, 2026, the issued share capital of the foreign subsidiary was reduced from 250,000 equity shares to 50,000 equity shares. Consequently, the Company's shareholding in the foreign subsidiary was reduced from 212,500 equity shares to 42,500 equity shares. The reduction in share capital was effected on a proportionate basis among all shareholders and, accordingly, the Company's ownership interest in the foreign subsidiary remains unchanged at 85%. Consequently, there has been no change in the Company's control over the foreign subsidiary as a result of the aforesaid reduction in share capital.
+
+12. These events have occurred after the reporting period and accordingly adjustments have been made in the Restated Financial Information as at December 31, 2025.
+
+13. This report should not in any way be construed as a reissuance or re-dating of any of the previous audit reports issued by me, nor should this report be construed as a new opinion on any of the financial statements referred to herein.
+
+F6
+
+14. I have no responsibility to update our report for events and circumstances occurring after the date of the report.
+15. My report is intended solely for use of the Board of Directors for inclusion in the Offer Documents to be filed with Securities and Exchange Board of India, the stock exchanges and Registrar of Companies, Gujarat in connection with the proposed IPO. My report should not be used, referred to, or distributed for any other purpose except with our prior consent in writing. Accordingly, I do not accept or assume any liability or any duty of care for any other purpose or to any other person to whom this report is shown or into whose hands it may come without my prior consent in writing.
+For, S V Patel & Co Chartered Accountants Firm Reg. No: 137745W PRC No:023922
+Snehal V Patel Proprietor Membership No:157798 UDIN: 26157798NTWNXI1629 Place: Himatnagar Date: 26th June, 2026
+F7
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN : U27400GJ2011PLC065108
+ANNEXURE - I RESTATED STATEMENT OF ASSETS & LIABILITIES
+
+Particulars
+
+Note
+
+Consolidated As At
+31/12/2025
+
+As At 31/03/2025
+
+Standalone As At
+31/03/2024
+
+I EQUITY AND LIABILITIES 1. Shareholders' funds (a) Share Capital (b) Reserves and surplus (c) Minority Interest
+
+I.1
+
+902.28
+
+902.28
+
+I.2
+
+2,405.84
+
+1,653.03
+
+-
+
+-
+
+2. Non-current liabilities (a) Long-term borrowings (b) Long-term provisions
+
+I.3
+
+119.96
+
+145.56
+
+I.4
+
+22.58
+
+22.89
+
+3. Current liabilities
+
+(a) Short-term borrowings
+
+I.5
+
+(b) Trade payables
+
+I.6
+
+i) Total outstanding dues of micro enterprises and
+
+small enterprise and
+
+ii) Total outstanding dues of Creditors other than
+
+micro enterprise and small enterprise
+
+(c) Other current liabilities
+
+I.7
+
+(d) Short-term provisions
+
+I.8
+
+1,395.09
+809.85
+624.04 381.01 235.66
+
+1,142.65
+740.54
+741.84 500.44 297.50
+
+TOTAL
+
+6,896.30
+
+6,146.72
+
+II. ASSETS
+
+1. Non-current assets
+
+(a) Property Plant & Equipments and Intangible Assets
+
+I.9
+
+(i) Property Plant & Equipments
+
+(b) Non Current Investments
+
+I.10
+
+(c) Deferred Tax Assets
+
+I.11
+
+(d) Other Non-current Assets
+
+I.12
+
+688.89 301.16 33.87 384.98
+
+694.56 400.55 33.14 364.62
+
+2. Current assets (a) Inventories (b) Trade receivables (c) Cash and cash equivalents (d) Short-term loans and advances (e) Other Current Assets
+
+I.13
+
+1,915.16
+
+1,286.67
+
+I.14
+
+2,799.18
+
+2,860.87
+
+I.15
+
+42.55
+
+159.51
+
+I.16
+
+710.13
+
+342.62
+
+I.17
+
+20.38
+
+4.18
+
+TOTAL
+
+6,896.30
+
+6,146.72
+
+Notes : 1 The above statement should be read with the Material Accounting Policies and Notes on Financial Statements appearing in Annexure IV & V respectively. 2 The above restated statement of assets and liabilities should be read in conjunction with the accompanying notes.
+
+902.28 686.76
+-
+212.09 20.01
+1,221.45
+755.72
+1,210.44 727.65 64.44
+5,800.84
+544.59 265.08 31.63 672.55
+481.16 2,929.18
+452.15 424.27
+0.23 5,800.84
+
+As per our report of even date attached
+For S V PATEL & Co Chartered Accountants Firm's Registration No. : 137745W
+
+For and on behalf of the Board of Directors PHOTONICS WATERTECH LIMITED
+
+Snehal V Patel
+Proprietor M No.: 157798 UDIN : 26157798NTWNXI1629
+
+Brijeshkumar Amrutlal Patel Jayavik Hasmukhbhai Patel Vasantkumar Narayanbhai Patel
+
+Chairman And Managing
+
+Director
+
+Whole Time Director
+
+Whole Time Director
+
+DIN:03500362
+
+DIN:03497491
+
+DIN:03497482
+
+Place: Himatnagar Date : 26th June, 2026
+
+Prakash Bhambhani Chief Financial Officer PAN : FEBPB5217J
+Place: Gandhinagar Date : 26th June, 2026
+
+Manali Shah Company Secretary And Compliance Officer M.No.: A40726
+
+( in Lakhs) As At 31/03/2023
+902.28 307.61
+-
+209.82 19.16
+949.84
+813.69
+1,398.11 372.47 86.08
+5,059.05
+576.34 243.72 30.28 477.47
+108.88 3,320.80
+22.35 278.52
+0.69 5,059.05
+
+F8
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN : U27400GJ2011PLC065108
+ANNEXURE - II RESTATED STATEMENT OF PROFIT & LOSS
+
+Particulars
+
+Consolidated Note For period ended on 31/12/2025
+
+For the year ended 31/03/2025
+
+Standalone
+For the year ended 31/03/2024
+
+( in Lakhs)
+For the year ended 31/03/2023
+
+I Revenue from operations
+
+II.1
+
+II Other Income
+
+II.2
+
+III Total Income (I+II)
+
+Expenses:
+
+(a) Cost of materials consumed
+
+II.3
+
+(b) Purchases of Stock-in-Trade
+
+II.4
+
+(c) Changes in inventories of finished goods
+
+II.5
+
+(d) Employee benefits expense
+
+II.6
+
+(e) Finance costs
+
+II.7
+
+(f) Depreciation and amortisation expense
+
+II.8
+
+(g) Other expenses
+
+II.9
+
+IV Total expenses
+
+V Profit /(Loss) before tax and Exceptional Items (III-IV)
+
+VI Exceptional Items
+
+VII Profit /(Loss) before tax (V-VI)
+
+VIII Tax expense: (a) Current tax expense (b) Short/(Excess) provision of tax for earlier years (c) Deferred tax charge/(credit)
+IX Profit after tax for the year (VII-VIII)
+
+XII Earning per Equity Share (Face Value of  10/- each) II.10 (1) Basic (in ) (2) Diluted (in )
+
+Earning per Equity Share (Face Value of  10/- each) (considering Bonus impact with retrospective effect) (1) Basic (in ) (2) Diluted (in )
+
+4,134.33 35.08
+4,169.41
+923.75 2,142.74 (755.22)
+230.94 128.26 24.77 456.62
+3,151.86
+1,017.55
+-
+1,017.55
+265.47 -
+(0.73) 752.80
+8.34 8.34
+4.17 4.17
+
+9,581.31 56.75
+9,638.06
+4,215.60 2,780.28 (509.60)
+299.09 139.67
+34.91 1,335.80
+8,295.75
+1,342.32
+-
+1,342.32
+377.55 -
+(1.51) 966.28
+10.71 10.71
+5.35 5.35
+
+6,448.51 40.56
+6,489.08
+990.71 4,141.43 (230.75)
+177.12 122.42 39.25 731.92
+5,972.09
+516.99
+-
+516.99
+139.19 -
+(1.35) 379.15
+4.20 4.20
+2.10 2.10
+
+5,151.38 58.93
+5,210.31
+462.16 3,082.35
+296.82 189.02 80.81 42.25 655.09
+4,808.49
+401.82
+-
+401.82
+120.34 -
+(6.85) 288.33
+3.20 3.20
+1.60 1.60
+
+Notes :
+1 The above statement should be read with the Material Accounting Policies and Notes on Financial Statements appearing in Annexure IV & V respectively. 2 The above restated statement of profit and loss should be read in conjunction with the accompanying notes.
+
+As per our report of even date attached
+For S V PATEL & Co Chartered Accountants Firm's Registration No. : 137745W
+
+For and on behalf of the Board of Directors PHOTONICS WATERTECH LIMITED
+
+Snehal V Patel
+Proprietor M No.: 157798 UDIN : 26157798NTWNXI1629
+
+Brijeshkumar Amrutlal Patel Chairman And Managing Director DIN:03500362
+
+Jayavik Hasmukhbhai Patel Vasantkumar Narayanbhai Patel
+
+Whole Time Director
+
+Whole Time Director
+
+DIN:03497491
+
+DIN:03497482
+
+Prakash Bhambhani Chief Financial Officer PAN : FEBPB5217J
+
+Manali Shah Company Secretary And Compliance Officer M.No.: A40726
+
+Place: Himatnagar Date : 26th June, 2026
+
+Place: Gandhinagar Date : 26th June, 2026
+
+F9
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN : U27400GJ2011PLC065108
+ANNEXURE - III RESTATED STATEMENT OF CASH FLOW
+
+Particulars
+
+Consolidated For period ended 31/12/2025
+
+For the year ended 31/03/2025
+
+Standalone For the year ended
+31/03/2024
+
+( in Lakhs)
+For the year ended 31/03/2023
+
+Cash Flow From Operating Activities: Profit Before Tax Adjustments for: Depreciation & Amortisation Expense Bad Debt Written off Provision for Bad Debts Interest Income Finance Cost (Profit)/Loss on Sale of Asset Operating Profit before Working Capital Changes
+Changes in Working Capital (a) (Increase)/Decrease in Inventories (b) (Increase)/Decrease in Trade Receivables (c) (Increase)/Decrease in Loans & Advances & Other (Ads)sIentcsrease /(Decrease) in Trade Payables & Other Cash Generated from Operations
+
+1,017.55
+24.77 -
+17.35 (7.01) 128.26
+1,180.92
+(628.49) 44.34
+(404.06) (230.07)
+(37.36)
+
+1,342.32
+34.91 12.16
+(13.27) 139.67
+1,515.79
+(805.51) 56.16 385.63
+(475.06) 677.01
+
+516.99
+39.25 66.80
+(13.44) 122.42
+732.01
+(372.28) 324.81 (340.37) 88.77 432.94
+
+401.82
+42.25 79.12
+(8.48) 80.81
+0.80 596.31
+286.42 (2,117.13)
+(434.87) 1,736.12
+66.85
+
+Net Income tax Paid/Refunded
+
+(265.47)
+
+(377.55)
+
+(139.19)
+
+(120.34)
+
+Net Cash Flow from/(used in) Operating Activities (A)
+
+(302.84)
+
+299.46
+
+293.75
+
+(53.48)
+
+Cash Flow From Investing Activities: (a) Addition in Fixed Assets (b) Sale of Fixed Assets (c) (Increase) / Decrease in Investment (d) Interest Income
+
+(19.11) -
+99.38 7.01
+
+(184.98) 0.10
+(135.47) 13.27
+
+(10.35) 2.85
+(21.36) 13.44
+
+(22.69) 5.24
+(124.35) 8.48
+
+Net Cash Flow from/(used in) Investing Activities (B)
+Cash Flow from Financing Activities: (a) Proceeds from Long Term Borrowings (b) Repayment of Long Term Borrowings (c) Proceeds from Short Term Borrowings (d) Repayments of Short Term Borrowings (e) Finance Cost
+
+87.28
+170.50 (109.39) 165.73
+(128.26)
+
+(307.08)
+67.39 (210.70)
+23.89 (25.92) (139.67)
+
+(15.41)
+178.25 (175.26) 270.91
+(122.42)
+
+(133.32)
+53.99 (21.31) 214.10
+(80.81)
+
+Net Cash Flow from/(used in) Financing Activities (C)
+
+98.59
+
+(285.01)
+
+151.47
+
+165.98
+
+NET INCREASE IN CASH & CASH EQUIVALENTS (A)+(B)+(C ) OPENING BALANCE � CASH & CASH EQUIVALENT CLOSING BALANCE - CASH & CASH EQUIVALENT
+
+(116.96) 159.51
+42.55
+
+(292.64) 452.15
+159.51
+
+429.80 22.35
+452.15
+
+(20.83) 43.17
+22.35
+
+Components of Cash and Cash Equivalents
+Bank Balance (i) In current account (ii) Fixed Deposit due within 3 Months
+Cash on Hand Cash and cash equivalents
+
+10.74 -
+31.80 42.55
+
+130.83 3.14 25.54
+159.51
+
+427.27 -
+24.88 452.15
+
+6.92 -
+15.42 22.35
+
+Notes : 1. Cash flows are reported using the indirect method, whereby profit before tax is adjusted for the effects of transactions of a noncash nature and any deferrals or accruals of past or future cash receipts or payments. The cash flows from regular revenue generating, financing and investing activities of the company are segregated. 2. The above statement should be read with the Material Accounting Policies and Notes on Financial Statements appearing in Annexure IV & V respectively. 3. The above restated statement of cashflow should be read in conjunction with the accompanying notes.
+
+As per our Report of even date
+For S V PATEL & Co Chartered Accountants Firm's Registration No. : 137745W
+
+For and on behalf of the Board of Directors PHOTONICS WATERTECH LIMITED
+
+Snehal V Patel Proprietor M No.: 157798 UDIN : 26157798NTWNXI1629
+Place: Himatnagar Date : 26th June, 2026
+
+Brijeshkumar Amrutlal Patel Chairman And Managing Director DIN:03500362
+
+Jayavik Hasmukhbhai Patel Vasantkumar Narayanbhai Patel
+
+Whole Time Director DIN:03497491
+
+Whole Time Director DIN:03497482
+
+Prakash Bhambhani Chief Financial Officer PAN : FEBPB5217J
+Place: Gandhinagar Date : 26th June, 2026
+
+Manali Shah Company Secretary And Compliance Officer M.No.: A40726
+
+F 10
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN: U27400GJ2011PLC065108
+
+ANNEXURE-IV
+Summary of Material Accounting Policies and Other Explanatory Notes
+1. Corporate Information
+Photonics Watertech Limited (Formerly known as Photonics Watertech Private Limited) ("the Company") was originally incorporated as a private limited company on April 24, 2011 and is converted into a public limited company on March 10, 2026, with Company identification no: U27400GJ2011PLC065108. The Registered office of the Company is located at B5/1, Electronics Estate, Sector-25, GIDC, Gandhinagar, Gandhinagar, Gujarat, India, 382025.
+The Company is engaged in providing end-to-end services in (i) LED based lighting solutions; (ii) Solar EPC; (iii) Water Infrastructure and; (iv) Automation; for government sector (including institutional & public sector undertakings) and private sector. In LED based Lighting Solutions, the company design, manufacture, supply, install, test, commission and maintain a full range of LED based lighting products and systems tailored to government sector (including institutional & public sector undertakings) and private sector. For Solar EPC, the company provides comprehensive, end-to-end services spanning site specification, feasibility verification, designing, supply, installation, testing and commissioning, and ongoing operation & maintenance. The company's capabilities extend to engineering, procurement, assembly, consultation, operation and maintenance of water infrastructure, including ground water recharging, water management and conservation systems. The Company's Automation segment focuses on infrastructure solutions, comprising Smart techno projects like Smart Transport Nagar, it also comprises of EV Charging Infra. The company combine technical expertise with turnkey project delivery to ensure reliable, efficient and compliant outcomes for government sector (including institutional & public sector undertakings) and private sector.
+The Company has a foreign subsidiary PHOTONICS WATERTECH LLC incorporated in the Sultanate of Oman, 29th April , 2025 in which it holds an 85% equity interest. The subsidiary has been considered for consolidation based on the Company's controlling interest arising from its majority shareholding, voting rights, and decision-making power. The Company's ownership interest is evidenced by the registration and incorporation documents of the subsidiary.
+Details of Subsidiary and Shareholding
+
+Sr. No.
+
+Name of the Subsidiary
+
+Country of Incorporation
+
+Percentage of Holding
+
+1 PHOTONICS WATERTECH LLC
+
+Sultanate of Oman
+
+85.00%
+
+Note: As of the reporting date, the Company has not made the payment towards its proposed capital contribution in the subsidiary.
+
+Date of acquisition 29-04-2025
+
+2. Material Accounting Policies:
+
+a) Statement of compliance and basis of preparation:
+The Restated Financial Information comprises: a) the Restated Consolidated Statement of Assets and Liabilities as at December 31, 2025, the Restated Consolidated Statement of Profit and Loss and the Restated Consolidated Cash Flow Statement for the period ended December 31, 2025, together with the significant accounting policies and notes thereto; and b) the Restated Standalone Statement of Assets and Liabilities as at March 31, 2025, March 31, 2024 and March 31, 2023, the Restated Standalone Statements of Profit and Loss and the Restated Standalone Cash Flow Statements for the years ended March 31, 2025, March 31, 2024 and March 31, 2023,
+together with the significant accounting policies and notes thereto (hereinafter collectively referred to as the "Restated Financial Information").
+
+The Restated Financial Information of the Group has been prepared for inclusion in the Draft Red Herring Prospectus (DRHP)/ Red Herring Prospectus (RHP)/ Prospectus (hereinafter referred to as "Offer Documents") proposed to be filed by the Company with the Securities and Exchange Board of India ("SEBI"), NSE Emerge and the Registrar of Companies ("ROC") in connection with the proposed Initial Public Offer ("IPO") of the equity shares of the Company.
+
+F 11
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN: U27400GJ2011PLC065108
+These Restated Financial Information have been prepared by the Management of the Group to comply with the requirements of:
+a) Section 26 of Part I of Chapter III of the Companies Act, 2013 (the "Act"); b) The Securities and Exchange Board of India (Issue of Capital and Disclosure Requirements) Regulations,
+2018, as amended (the "ICDR Regulations"); and
+c) The Guidance Note on Reports in Company Prospectuses (Revised 2019) issued by the Institute of
+Chartered Accountants of India ("ICAI"), as amended (the "Guidance Note").
+The Restated Financial Information has been compiled by the Management from the Audited Special Purpose Consolidated Financial Statements of the Group as at and for the period ended December 31, 2025 and the Audited Standalone Financial Statements of the Company for the years ended March 31, 2025, March 31, 2024 and March 31, 2023. These financial statements have been prepared in accordance with the Accounting Standards specified under Section 133 of the Companies Act, 2013 read with the Companies (Accounting Standards) Rules, 2021, as amended, and other accounting principles generally accepted in India which have been approved by the Board of Directors at their meeting held on 22th June, 2026, 01st September, 2025, 01st September, 2024 & 01st September, 2023.
+The Special Purpose Consolidated Financial Statements as at and for the period ended December 31, 2025 have been prepared solely for the purpose of preparation of the Restated Financial Information for inclusion in the Draft Red Herring Prospectus/Red Herring Prospectus/Prospectus in connection with the proposed Initial Public Offer of the Company. Accordingly, such Special Purpose Consolidated Financial Statements may not be suitable for any purpose other than the preparation of the Restated Financial Information. The Re-Audited Standalone Financials Statements of the Company for the year ended March 31, 2025 and the Audited Standalone Financial Statements of the Company for the years ended March 31, 2024 and March 31, 2023 have been derived from the statutory audited financial statements prepared in accordance with the requirements of the Companies Act, 2013 and the applicable Accounting Standards.
+For the reconciliation of Shareholders' Funds and Profit After Tax as per the audited Special Purpose Consolidated Financial Statements for the period ended December 31, 2025, the audited Standalone Financial Statements for the years ended March 31, 2025, March 31, 2024 and March 31, 2023, and Shareholders' Funds and Profit After Tax as per the Restated Financial Information, refer Annexure VI.
+b) Basis of Consolidation
+The Restated Financial Information comprises the financial information of the Company and its subsidiary. The subsidiary is an entity over which the Company exercises control through its majority shareholding, voting rights and decision-making power. The financial statements of the subsidiary are consolidated with those of the Company from the date on which control is obtained and continue to be consolidated until the date such control ceases. The consolidated financial statements have been prepared by combining the financial statements of the Company and its subsidiary on a line-by-line basis by adding together like items of assets, liabilities, income and expenses. All intercompany balances, transactions and unrealized gains or losses arising from transactions between the Company and its subsidiary have been eliminated upon consolidation. The consolidated financial statements have been prepared using uniform accounting policies for like transactions and events in similar circumstances.
+c) Use of estimates
+The preparation of financial statements in conformity with generally accepted accounting principles require estimates and assumptions to be made that affect the reported amounts of assets and liabilities and disclosure of contingent liabilities on the date of financial statements and the reported amounts of revenues and expenses during the reporting period. Actual results could differ from these estimates and differences between actual results and estimates are recognized in the periods in which the results are known/materialize. The estimates used in the preparation are prudent and reasonable.
+F 12
+
+PHOTONICS WATERTECH LIMITED
+(Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED)
+CIN: U27400GJ2011PLC065108
+d) Property, Plant and equipment
+Property, plant and equipment are stated at cost, less accumulated depreciation and impairment losses, if any. The cost of an item of property, plant and equipment comprises its purchase price, including import duties and nonrefundable taxes, after deducting trade discounts, rebates and other directly attributable discounts, and any directly attributable expenditure incurred in bringing the asset to its working condition for its intended use. Cost also includes borrowing costs directly attributable to the acquisition or construction of qualifying assets, wherever applicable. Land acquired on perpetual lease as well as on lease for 99 years is treated as Freehold Land are auto renewal for 99 years.
+Subsequent expenditure incurred on property, plant and equipment is capitalised only when it is probable that future economic benefits associated with the expenditure will flow to the Company and the cost of the item can be measured reliably. Expenditure that results in an increase in the future benefits from the existing asset beyond its previously assessed standard of performance, such as major improvements, modifications or replacement of significant components, is capitalised. All other subsequent expenditures, including routine repairs and maintenance, servicing and day-to-day maintenance costs, are charged to the Statement of Profit and Loss in the period in which they are incurred.
+An item of property, plant and equipment is derecognised upon disposal or when no future economic benefits are expected from its use or disposal. Any gain or loss arising on derecognition of an item of property, plant and equipment is determined as the difference between the net disposal proceeds, if any, and the carrying amount of the asset and is recognised in the Statement of Profit and Loss in the period in which the asset is derecognised.
+e) Depreciation
+Depreciation is provided using the written down method, pro rata to the period of the use of assets, in accordance with the requirements of Part C of the Schedule II of the Companies Act, 2013. The residual values, useful lives and methods of depreciation of property, plant and equipment are reviewed at each financial year end and adjusted prospectively, if appropriate.
+
+Type of Asset
+
+Useful lives as per Companies Act
+
+Useful lives as per Management
+
+Furniture & Fixtures Vehicles Office Equipment Plant & Machinery Computer & Peripherals Factory Building Solar Rooftop
+
+10Years 8 Years 5 Years 15 Years 6 Years 30 Years 15 Years
+
+10Years 8 Years 5 Years 15 Years 6 Years 30 Years 15 Years
+
+f) Foreign Currency Transactions
+Initial Recognition Foreign currency transactions are initially recorded in the functional currency of the Company by applying the exchange rate prevailing at the date of the transaction. Monetary assets and liabilities denominated in foreign currencies are translated at the closing exchange rate prevailing at the Balance Sheet date. Non-monetary items carried at historical cost are translated using the exchange rate at the date of the transaction, while non-monetary items measured at fair value are translated using the exchange rate at the date when the fair value was determined.
+Conversion / Measurement at Reporting Date At each Balance Sheet date, foreign currency monetary items are restated using the closing exchange rate. Exchange differences arising on settlement of monetary items or on reporting such monetary items at rates different from those at which they were initially recorded or reported in previous financial statements are recognised in the Statement of Profit and Loss in the period in which they arise.
+
+F 13
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN: U27400GJ2011PLC065108
+Exchange Differences Exchange differences arising on foreign currency transactions are recognised as income or expense in the Statement of Profit and Loss, except in cases where they relate to acquisition of depreciable capital assets, in which case such exchange differences are adjusted in the cost of the respective asset. Exchange differences arising on translation of non-integral foreign operations, if any, are accumulated in a separate component of equity and recognised in the Statement of Profit and Loss on disposal of the net investment in such operations.
+g) Segment Reporting
+The Company prepares segment information in accordance with Accounting Standard 17 � Segment Reporting. The Company has identified four business segments for reporting purposes, namely LED Based Lighting Solutions, Solar EPC, Water Infrastructure and Automation. These segments have been identified based on the nature of products and services, the risks and returns associated therewith, and the internal organisation and management structure for detailed information of segment reporting disclosure refer Annexure X.
+Segment revenue, results, assets and liabilities are measured in accordance with the accounting policies adopted in the preparation of the financial statements. Revenue and expenses are allocated to segments based on the nature of activity and wherever directly attributable, and in other cases on a reasonable basis.
+The Company operates primarily within India. Accordingly, geographical segment reporting is not considered applicable as the risks and returns are not significantly different across geographical locations. Export sales during the period constitute less than 10% of total revenue and are not considered significant for separate disclosure under AS 17 � Segment Reporting.
+h) Earning Per Share
+Basic earnings per share is calculated by dividing the net profit or loss for the year attributable to equity shareholders (after deducting attributable taxes) by the weighted average number of equities shares outstanding during the year. For the purpose of calculating diluted earnings per share, the net profit or loss for the year attributable to equity shareholders and the weighted average number of shares outstanding during the year are adjusted for the effects of all dilutive potential equity shares. The weighted number of equity shares outstanding during the period is adjusted for events such as bonus issue.
+i) Income taxes
+Income Tax expense is accounted for in accordance with AS-22 "Accounting for Taxes on Income" for both Current Tax and Deferred Tax stated below:
+� Current Tax: Provision for current tax is made considering various allowances and benefits available to the company under the provisions of the Income Tax Act, 1961.
+� Deferred Tax: In accordance with Accounting Standard (AS-22) Accounting for Tax on Income', deferred taxes resulting from timing differences between book and tax profits are accounted for at the rate substantively enacted by the Balance Sheet date to the extent the timing differences are expected to be crystallized. Deferred Tax assets are recognized and reviewed at each Balance Sheet date to the extent there is reasonable/virtual certainty of realizing such assets against future taxable income. At each reporting date, the company re-assesses unrecognized deferred tax assets. It recognizes unrecognized deferred tax asset to the extent that it has become reasonably certain or virtually certain, as the case may be, that sufficient future taxable income will be available against which such deferred tax assets can be realized. The carrying amount of deferred tax assets are reviewed at each reporting date. The company writes-down the carrying amount of deferred tax asset to the extent that it is no longer reasonably certain or virtually certain, as the case may be, that sufficient future taxable income will be available against which deferred tax asset can be realized. Any such write-down is reversed to the extent that it becomes reasonably certain or virtually certain, as the case may be, that sufficient future taxable income will be available.
+j) Inventories
+Inventories are valued after providing for obsolescence, as under:
+F 14
+
+PHOTONICS WATERTECH LIMITED
+(Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED)
+CIN: U27400GJ2011PLC065108
+� Raw materials are valued at lower of cost or net realisable value. Cost is computed on First-In-First-Out (FIFO) basis. However, these items are considered to be realisable at cost if the finished products in which they will be used, are expected to be sold at or above cost. Cost includes purchase price, (excluding those subsequently recoverable by the enterprise from the concerned revenue authorities), freight inwards and other expenditure incurred in bringing such inventories to their present location and condition.
+� Finished Goods are valued at lower of cost including related overheads or net realisable value. Cost is computed on First-In-First-Out (FIFO) basis.
+� Stock-in-Trade: Stock-in-trade is valued at the lower of cost and net realisable value. Cost is determined on the First-In-First-Out (FIFO) basis and includes purchase price, non-refundable taxes and duties, freight inward, and other direct expenses incurred in bringing the inventories to their present location and condition, net of trade discounts and rebates. Net realisable value represents the estimated selling price in the ordinary course of business less the estimated costs necessary to make the sale.
+Assessment of net realisable value is made at each reporting period end and when the circumstances that previously caused inventories to be written-down below cost no longer exist or when there is clear evidence of an increase in net realisable value because of changed economic circumstances, the write-down, if any, in the past period is reversed to the extent of the original amount written-down so that the resultant carrying amount is the lower of the cost and the revised net realisable value.
+k) Borrowings
+Borrowing costs that are directly attributable to the acquisition, construction or production of a qualifying asset are capitalized as part of the cost of such asset until the time the asset is substantially ready for its intended use or sale. A qualifying asset is an asset that necessarily takes a substantial period of time to get ready for its intended use or sale. All other borrowing costs are recognized as an expense in the Statement of Profit and Loss in the period in which they are incurred.
+l) Provisions, Contingent liabilities and Contingent assets
+A provision has been recognized in respect of a present obligation as a result of past event i.e. based on the probability of there being an outflow of resources to settle the obligation, in respect of which a reliable estimate can be made. Provisions have not been discounted to its present value and have been determined based on best estimate required to settle the obligation at the balance sheet date. These are reviewed at each balance sheet date and adjusted to reflect the current best estimates.
+A contingent liability is a possible obligation that arises from past events whose existence will be confirmed by the occurrence or non-occurrence of one or more uncertain future events beyond the control of the company or a present obligation that is not recognized because it is not probable that an outflow of resources will be required to settle the obligation. The company does not recognize a contingent liability but discloses its existence in the financial statements.
+m) Revenue Recognition
+Revenue is recognized to the extent that it is probable that the economic benefits will flow to the Company and the revenue can be reliably measured. Revenue is measured at the fair value of the consideration received or receivable, net of returns, trade discounts, rebates and taxes collected on behalf of the government.
+� Sale of Products Revenue from sale of products is recognised when significant risks and rewards of ownership in the goods are transferred to the buyer, which generally coincides with dispatch or delivery of goods as per the terms of the contract. Revenue is measured at the fair value of the consideration received or receivable, net of returns, trade discounts, rebates, taxes and applicable duties collected on behalf of government authorities. Revenue is recognised when it is probable that the economic benefits associated with the transaction will flow to the Company and the amount of revenue can be measured reliably.
+� Sale of Services Revenue from rendering of services is recognised based on the stage of completion of the service contract at the reporting date. Stage of completion is determined with reference to the proportion of costs incurred to date to the estimated total costs of the transaction or on the basis of technical assessment of work performed, depending on the nature of the service contract. Revenue is recognised only when it is probable that the
+F 15
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN: U27400GJ2011PLC065108
+economic benefits associated with the transaction will flow to the Company and the amount of revenue can be measured reliably. In cases where services are rendered through milestones, revenue is recognised on achievement of such milestones as per the terms of the contract.
+n) Employee benefits
+� Short-term Employee Benefits Short-term employee benefits are recognised as an expense at the undiscounted amount in the Statement of Profit and Loss for the period in which the related service is rendered. Liabilities for salaries, wages, bonus, exgratia, leave travel assistance and other short-term employee benefits expected to be settled wholly within twelve months after the end of the reporting period are recognised based on the amount expected to be paid.
+� Post-employment Benefits Post-employment benefits comprise retirement benefit plans such as gratuity and provident fund.
+ The Company's gratuity scheme is a defined benefit plan. The obligation in respect of the defined benefit plan is determined by an independent actuary at each Balance Sheet date using the Projected Unit Credit Method. Actuarial gains and losses arising from changes in actuarial assumptions and experience adjustments are recognised immediately in the Statement of Profit and Loss in the period in which they occur.
+ The Company's contribution to provident fund and other defined contribution plans is recognised as an expense in the Statement of Profit and Loss in the period during which the employee renders the related service. The Company has no further obligation beyond its contributions to such plans."
+� Other Long-term Employee Benefits Liabilities in respect of long-term employee benefits, such as compensated absences and leave encashment, are determined by an independent actuary using the Projected Unit Credit Method at the Balance Sheet date. The obligation is measured at the present value of the estimated future cash outflows expected to be made by the Company in respect of services rendered by employees up to the reporting date.
+o) Current and Non-Current Classification of Assets and Liabilities
+The Company presents assets and liabilities in the Balance Sheet based on current / non-current classification.
+The Company classifies an asset as current asset when: � Expected to be realised or intended to sold or consumed in normal operating cycle; � Held primarily for the purpose of trading; � Expected to be realised within twelve months after the reporting period; or � Cash or cash equivalent unless restricted from being exchanged or used to settle a liability for at least twelve months after the reporting period.
+All other assets are classified as non-current.
+The Company classifies a liability is current when: � It is expected to be settled in normal operating cycle � It is held primarily for the purpose of trading; � It is due to be settled within twelve months after the reporting period; or � There is no unconditional right to defer the settlement of the liability for at least twelve months after the reporting period.
+All other liabilities are classified as non-current. Deferred tax assets and liabilities are classified as non-current assets and liabilities.
+The operating cycle is the time between the acquisition of assets for processing and their realisation/settlement in cash and cash equivalents. The companies have identified twelve months as their operating cycle for classification of their current assets and liabilities
+p) Provisions for Doubtful Debts:
+F 16
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN: U27400GJ2011PLC065108
+Trade receivables are stated at their realizable value. A provision for doubtful debts is made in accordance with the principles of prudence, based on a periodic review of outstanding receivables. The Company assesses, at each reporting date, whether there is any objective evidence that a receivable is impaired. Provision is made for receivables where there is uncertainty in collection, based on factors such as ageing of receivables, past experience, credit evaluation of customers and other relevant circumstances. Bad debts are written off when identified.
+q) Statement of Cash flows
+Statement of Cash Flows is prepared segregating the cash flows into operating, investing and financing activities. Cash flow from operating activities is reported using indirect method, adjusting the net profit for the effects of:
+� Changes during the period in inventories and operating receivables/payables transactions of a non-cash nature;
+� Non-cash items such as depreciation, provisions, deferred taxes, unrealised foreign currency gains and losses.
+� All other items for which the cash effects are investing or financing cash flows.
+r) Other Income
+Interest income is recognized on a time proportion basis taking into account the amount outstanding and the applicable rate.
+Freight, courier, packing and forwarding charges recovered from customers are recognized as income when the related services are rendered and the right to receive consideration is established. Such recoveries are disclosed under "Other Income" as they are incidental to the Company's principal operating activities and are measured at the amount expected to be realized. Income is recognized net of applicable taxes and discounts, where applicable.
+Other income comprises income earned from activities incidental to the Company's principal business operations and is recognized when there is reasonable certainty of ultimate collection. Such income includes miscellaneous receipts, discounts, rebates and other non-operating income, as applicable.
+s) Impairment of fixed assets
+At each Balance Sheet date, the Company assesses whether there is any indication that a fixed asset may be impaired. If any such indication exists, the Company estimates the recoverable amount of the asset. The recoverable amount is the higher of the asset's net selling price and its value in use. Where the carrying amount of an asset exceeds its recoverable amount, the asset is considered impaired and is written down to its recoverable amount. The resulting impairment loss is recognised in the Statement of Profit and Loss. An impairment loss recognised in prior periods is reversed if there has been a change in the estimates used to determine the recoverable amount, provided that the increased carrying amount of the asset does not exceed the carrying amount that would have been determined, net of depreciation, had no impairment loss been recognised previously. Such reversal is recognised in the Statement of Profit and Loss.
+t) Investments
+Investments are classified as either current investments or long-term investments. Current investments are carried at the lower of cost and fair value determined on an individual investment basis or by category of investment, as appropriate. Long-term investments are carried at cost. Provision for diminution in the value of long-term investments is made only when such decline is other than temporary in nature. The cost of investments includes acquisition charges such as brokerage, fees and duties. Profit or loss on disposal of investments is determined using the carrying amount of the investments and is recognised in the Statement of Profit and Loss in the year of disposal.
+u) Cash and Cash Equivalents
+Cash and cash equivalents comprise cash on hand, balances with banks and short-term highly liquid investments that are readily convertible into known amounts of cash and are subject to an insignificant risk of changes in value. Such investments generally have original maturities of three months or less from the date of acquisition. Cash and cash equivalents are carried at cost, which approximates their fair value.
+v) Other Operating Revenue
+Other Operating Revenue comprises income arising from activities that are incidental and ancillary to the Company's principal business operations and which do not qualify as revenue from sale of products or rendering of services. Such
+F 17
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN: U27400GJ2011PLC065108
+income includes cloud service income and other similar operating receipts. Revenue is recognised when the related services are rendered or the right to receive consideration is established, provided that there is reasonable certainty of ultimate collection. Such income is measured at the amount expected to be realised and is recognised net of applicable taxes, discounts and rebates, where applicable.
+F 18
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN: U27400GJ2011PLC065108
+ANNEXURE �V
+I. Additional regulatory information: (a) Details of crypto currency or virtual currency: The Company has neither traded nor invested in Crypto
+currency or Virtual Currency for the period/year ended on December 31, 2025, March 31, 2025, 2024 & 2023. Further, the Company has also not received any deposits or advances from any person for the purpose of trading or investing in Crypto Currency or Virtual Currency. (b) Undisclosed income: During the Period, the Company has not surrendered or disclosed as income any transactions not recorded in the books of accounts in the course of tax assessments under the Income Tax Act, 1961 (such as, search or survey or any other relevant provisions of the Income Tax Act, 1961).
+(c) Relationship with struck off companies: The Company does not have any transactions with the companies struck off under section 248 of the Companies Act, 2013 or section 560 of the Companies Act, 1956 for the year ended on December 31, 2025, March 31, 2025, 2024 & 2023.
+(d) Compliance with numbers of layers of companies: The Company is in compliance with the number of layers of companies in accordance with clause 87 of Section 2 of the Act read with the Companies (Restriction on number of Layers) Rules, 2017 for the year ended on December 31, 2025, March 31, 2025, 2024 & 2023.
+(e) Utilisation of borrowed funds and share premium: For the period ended on December 31, 2025 and for the year ended March 31, 2025, 2024 & 2023 the Company has not advanced or loaned or invested funds (either borrowed funds or share premium or kind of funds) to any other person(s) or entity(ies), including foreign entities (Intermediaries) with the understanding (whether recorded in writing or otherwise) that the Intermediary shall: i) directly or indirectly lend or invest in other persons or entities identified in any manner whatsoever by or on behalf of the Company (Ultimate Beneficiaries) or ii) provide any guarantee, security or the like to or on behalf of the ultimate beneficiaries.
+(f) For the year ended on December 31, 2025, March 31, 2025, 2024 & 2023, the Company has not received any fund from any person(s) or entity(ies), including foreign entities (Funding Party) with the understanding (whether recorded in writing or otherwise) that the Company shall: i) directly or indirectly lend or invest in other persons or entities identified in any manner whatsoever by or on behalf of the Funding Party (Ultimate Beneficiaries) or ii) provide any guarantee, security, or the like on behalf of the ultimate beneficiaries.
+(g) The Company has not been declared Wilful Defaulter by any bank or financial institution or government or any government authority.
+(h) No proceeding have been initiated nor pending against the company for holding any benami property under the Benami Transactions (Prohibition) Act, 1988 (45 of 1988) and rules made thereunder.
+(i) The Company does not have any immovable property (other than properties where the Company is the lessee and the lease agreements are duly executed in favour of the lessee) whose title deeds are not held in the name of the company.
+(j) The Company has not revalued its Property, Plant and Equipment. The Company does not have any Intangible asset under Development.
+F 19
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN: U27400GJ2011PLC065108
+
+(k) The Company has borrowings from banks or financial institutions on the basis of security of current assets, and the quarterly/monthly returns or statements of current assets filed by the Company with banks or financial institutions are not in agreement with the books of account. Summary of reconciliation and reasons of material discrepancies mentioned below:
+
+Name of Bank: State Bank of India
+
+('Lakhs)
+
+Year
+
+Securities
+
+Amount as per Audited Financials
+
+Amount as per Statement
+submitted to bank
+
+Difference
+
+Reason
+
+2022-23 Inventory
+
+108.88
+
+99.42
+
+Primarily on account of
+
+provisional valuation considered
+
+9.45
+
+in stock statements submitted to
+
+the bank prior to finalisation of
+
+audit and year-end adjustments.
+
+2022-23 Book Debts 3,320.80
+
+3,594.27
+
+(273.47)
+
+Due to reconciliation of receivable balances and consideration of eligible receivables as per bank norms.
+
+2023-24 Inventory
+
+481.16
+
+480.07
+
+Minor variation due to rounding-
+
+1.09
+
+off
+
+and
+
+reconciliation
+
+adjustments.
+
+2023-24 Book Debts 2,929.18
+
+2,261.32
+
+667.87
+
+Mainly due to exclusion of
+
+certain receivables considered
+
+non-eligible for drawing power
+
+purposes, reconciliation of
+
+balances
+
+and
+
+year-end
+
+adjustments.
+
+2024-25 Inventory
+
+1,286.67
+
+1,245.52
+
+41.15
+
+Due to reconciliation and valuation adjustments considered during finalisation of accounts.
+
+2024-25 Book Debts 2,860.87
+
+1,613.06
+
+1,247.81
+
+Mainly on account of reconciliation of customer balances, year-end adjustments and consideration of eligible receivables as per bank norms.
+
+31.12.2025 Inventory
+
+1,914.38
+
+1,868.35
+
+46.03
+
+Due to provisional figures reported to the bank pending final reconciliation and closing adjustments.
+
+31.12.2025 Book Debts 2,799.18
+
+3,138.28
+
+-339.10
+
+Due to reconciliation of receivable balances and adjustments recorded upon finalisation of books of account.
+
+Note: The differences between the amounts reported to the bank and the amounts disclosed in the audited financial statements are primarily attributable to reconciliation of balances, year-end adjustments and consideration of eligible receivables as per bank-specific norms for drawing power computation. The management believes that such differences are procedural in nature and do not have any material impact on the financial statements of the Company.
+
+F 20
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN: U27400GJ2011PLC065108
+(l) As on December 31, 2025: There are no charges for which registration or satisfaction yet to be registered with Registrar of Companies beyond the statutory period except CHG-4 for the State Bank of India term loan was filled in April, 2026.
+(m) Except as disclosed in "ANNEXURE �IX - Statement of Related Party & Transactions", the Company has not granted loans or advances in the nature of loans to promoters, Directors, KMPs, and the related parties (as defined under the Companies Act, 2013) either severally or jointly with any other person, that are: (a) repayable on demand or (b) without specifying any terms or period of repayment.
+(n) The Company has followed the relevant provisions of the Foreign Exchange Management Act, 1999 (42 of 1999) and the Companies Act has been complied with for such transactions, and the transactions are not violative of the Prevention of Money-Laundering Act, 2002 (15 of 2003).
+(o) No Scheme of arrangement has been approved by the Competent authority in terms of Section 230 to 237 of the Companies Act, 2013.
+
+(p) Statements of Net assets and Profit / (Loss) attributable to owners and Minority Interest as restated (As per para 2 of general instructions for the preparation of consolidated financial statements to Division I of Schedule III, Companies Act, 2013)
+For the period ended 31.12.2025
+
+Particulars
+
+Net Assets i.e. total assets minus total liabilities
+
+As % of Consolidated
+net assets
+
+Amount
+
+Share in profit or Loss
+
+As % of Consolidated net
+assets
+
+Amount
+
+Parent
+
+Photonics Watertech Limited
+
+Nil
+
+Nil
+
+Nil
+
+Nil
+
+Subsidiary
+
+Photonics Watertech LLC
+
+Nil
+
+Nil
+
+Nil
+
+Nil
+
+(q) The Company has used accounting software for maintaining its books of account which has a feature of recording audit trail (edit log) facility, and the same has operated throughout the year for all relevant transactions recorded in the software, except that the audit trail feature is not enabled for direct changes to data for users with certain privileged access rights and also for certain changes made using privileged/administrative access rights. Further, no instance of the audit trail feature being tampered with was noted in respect of other accounting software.
+(s) There were no amounts which were required to be transferred to the Investor Education and Protection Fund by the Company.
+II. Non-adjustment Items No Audit qualifications for the respective periods which require any corrective adjustment in these Restated Financial Statements of the Company have been pointed out during the restated period.
+III. Details of dues to Micro and Small Enterprises as defined under the MSMED Act, 2006 Based on the information available with the Company in respect of Micro, Small and Medium Enterprises ("MSME") as defined under the Micro, Small and Medium Enterprises Development Act, 2006, there have been delays in payment of certain dues to such enterprises during the respective reporting periods. The Company has recognised/provided interest liability in the books of account in respect of such delayed payments, wherever applicable, in accordance with the provisions of the MSMED Act.
+The details relating to Micro and Small Enterprises disclosed as under to the extent of information available:
+
+F 21
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN: U27400GJ2011PLC065108
+
+Consolidated
+
+Standalone
+
+('Lakhs)
+
+Particulars
+
+As At 31/12/2025
+
+As At 31/03/20
+25
+
+As At 31/03/20
+24
+
+As At 31/03/20
+23
+
+1.Principal amount unpaid to any supplier at the end of each accounting year
+
+809.85 740.54 755.72 813.69
+
+2.Interest due thereon remaining unpaid to any supplier at the end of each accounting year
+
+3.08
+
+2.81
+
+2.34
+
+1.62
+
+2. The amount of interest paid by the buyer in terms of section 16 of the Micro, Small and Medium Enterprises Development Act, 2006 (27 of 2006), along with the amount of the payment made to the supplier beyond the appointed day during each accounting year;
+
+-
+
+-
+
+-
+
+-
+
+3. The amount of interest due and payable for the period of delay in making payment (which has been paid but beyond the appointed day during the year) but without adding the interest specified under the Micro, Small and Medium Enterprises Development Act, 2006;
+
+-
+
+-
+
+-
+
+-
+
+4. The amount of interest accrued and remaining unpaid at the end of each accounting year; and
+
+9.86
+
+6.78
+
+3.97
+
+1.62
+
+5. The amount of further interest remaining due and payable even in the succeeding years, until such date when the interest dues above are actually paid to the small enterprise, for the purpose of disallowance of a deductible expenditure under section 23 of the Micro, Small and Medium Enterprises Development Act, 2006
+
+-
+
+-
+
+-
+
+-
+
+Notes: I. Other figures of the previous years have been regrouped/reclassified and/or rearranged wherever necessary. II. The balance of Sundry Creditors, Sundry Debtors, Loans & Advances, Unsecured Loans, and Current Liabilities are subject to confirmation and reconciliation.
+
+IV. As required under SEBI (ICDR) Regulations, the statement of assets and liabilities has been prepared after deducting the balance outstanding on revaluation reserve account from both fixed assets and reserves, and the net worth arrived at after such deductions.
+
+V. Corporate Social Responsibility:
+
+The CSR provision as per section 135 was applicable from the financial year 2024-25, and the company has made provision for the same in 2024-25
+('Lakhs)
+
+Consolidated
+
+Standalone
+
+Particulars
+
+Period Ended Year Ended 12/31/2025 03/31/2025
+
+Year Ended 03/31/2024
+
+Year Ended 03/31/2023
+
+Amount Required to be spent by the company during the period
+
+11.47
+
+7.64
+
+-
+
+-
+
+Amount of expenditure incurred
+
+-
+
+7.64
+
+-
+
+-
+
+Shortfall at the end of the previous year
+
+Nil
+
+Nil
+
+Nil
+
+Nil
+
+F 22
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN: U27400GJ2011PLC065108
+
+Particulars
+
+Consolidated
+Period Ended 12/31/2025
+
+Year Ended 03/31/2025
+
+Standalone
+Year Ended 03/31/2024
+
+Year Ended 03/31/2023
+
+Total of previous years shortfall
+
+Nil
+
+Nil
+
+Nil
+
+Nil
+
+Reason for shortfall
+
+NA
+
+NA
+
+NA
+
+NA
+
+Nature of CSR activities
+
+Environment and Eradicating hunger, poverty and malnutrition
+
+Details of related party transaction, e.g.,
+
+contribution to a trust controlled by the company in relation to CSR Expenditure as
+
+NA
+
+NA
+
+NA
+
+NA
+
+per relevant Accounting Standard,
+
+Where a provision is made with respect to
+
+a liability incurred by entering into a
+
+contractual obligation, the movement in the
+
+NA
+
+NA
+
+NA
+
+NA
+
+provision during the year should be shown
+
+separately.
+
+VI. Trade Receivables, Trade Payables, Borrowings, Loans & Advances and Deposits Balances of Trade Receivables, Trade Payables, Borrowings and Loans & Advances and Deposits are subject to confirmation.
+VII. Re-grouping/re-classification of amounts: The previous year's figures have been regrouped/ reclassified wherever considered necessary to make them comparable with those of the current year's classification, none of which it believes to be material, hence no additional disclosure are provided
+VIII. Director Personal Expenses: There are no direct personal expenses debited to the profit and loss account. However, personal expenditure if included in expenses like telephone, vehicle expenses etc. are not identifiable or separable.
+IX. Deferred Tax Asset / Liability [AS-22]: The company has created Deferred Tax Asset / Liability as required by Accounting Standard (AS) - 22.
+
+X. Disclosure under AS - 15 Employee Benefits The benefits payable under this plan are governed by the Gratuity Act, 1972. Under the Act, an employee who has completed five years of service is entitled to a specific benefit. The level of benefit provided depends on the member's length of service and salary at retirement age.
+
+The following tables summarise the components of net benefit expense recognised in the summary statement of profit or loss, and the funded status and amounts recognised in the statement of assets and liabilities for the respective plans:
+
+Components of Employer Expense
+Particulars Current Service Cost Interest Cost Expected return on Plan Assets Actuarial Losses/(gains) Past Service Cost
+
+('Lakhs)
+
+As on 31st Dec, As on 31st As on 31st As on 31st
+
+2025
+
+Mar, 2025
+
+Mar, 2024
+
+Mar, 2023
+
+2.75
+
+3.21
+
+3.01
+
+22.27
+
+1.21
+
+1.55
+
+1.52
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-3.12
+
+-1.68
+
+-3.79
+
+-
+
+-
+
+-
+
+-
+
+-
+
+F 23
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN: U27400GJ2011PLC065108
+
+Particulars
+
+As on 31st Dec, As on 31st As on 31st As on 31st
+
+2025
+
+Mar, 2025
+
+Mar, 2024
+
+Mar, 2023
+
+Total Expense recognised in the Statement of Profit & Loss.
+
+0.84
+
+3.08
+
+0.73
+
+22.27
+
+Net (Asset)/Liability recognised in the Balance Sheet
+
+Particulars
+
+As on 31st Dec, 2025
+
+As on 31st Mar, 2025
+
+As on 31st Mar, 2024
+
+('Lakhs)
+As on 31st Mar, 2023
+
+Opening Net Liability
+
+26.08
+
+23
+
+22.27
+
+-
+
+Expense recognised in the Statement of Profit & Loss
+
+0.84
+
+3.08
+
+0.73
+
+22.27
+
+Net Liability/(Asset) Transfer In
+
+-
+
+-
+
+-
+
+-
+
+Net (Liability)/Asset Transfer Out
+
+-
+
+-
+
+-
+
+-
+
+Benefit paid directly by the employer
+
+-1.02
+
+-
+
+-
+
+-
+
+Employers' Contribution
+
+-
+
+-
+
+-
+
+-
+
+Net (Asset)/Liability recognised in the Balance Sheet
+
+25.90
+
+26.08
+
+23.00
+
+22.27
+
+Change in defined benefit obligations (DBO) during the year
+
+Particulars
+
+As on 31st Dec, As on 31st
+
+2025
+
+Mar, 2025
+
+As on 31st Mar, 2024
+
+('Lakhs)
+As on 31st Mar, 2023
+
+Present value of DBO at beginning of the Year
+
+26.08
+
+23
+
+22.27
+
+-
+
+Current Service Cost
+
+2.75
+
+3.21
+
+3.01
+
+22.27
+
+Interest Cost
+
+1.21
+
+1.55
+
+1.52
+
+-
+
+Expected return on Plan Assets
+
+-
+
+-
+
+-
+
+-
+
+Benefit paid directly by the employer
+
+-1.02
+
+-
+
+-
+
+-
+
+Actuarial (Gains)/Losses on Obligations Due to Change in Financial Assumptions
+
+-3.12
+
+-1.68
+
+-3.79
+
+-
+
+Actuarial (Gains)/Losses on Obligations -
+
+Due to Change in Demographic
+
+-
+
+-
+
+-
+
+-
+
+Assumptions
+
+Actuarial (Gains)/Losses on Obligations Due to Experience
+
+-
+
+-
+
+-
+
+-
+
+Present Value of DBO at the end of the year
+
+25.90
+
+26.08
+
+23.00
+
+22.27
+
+Bifurcation of Present Value of Obligation at the end of the year with respect to provisions of the Companies Act, 2013
+('Lakhs)
+
+Particulars
+
+As on 31st Dec, As on 31st As on 31st As on 31st
+
+2025
+
+Mar, 2025
+
+Mar, 2024
+
+Mar, 2023
+
+Current Liability (Amount due within One year)
+
+3.32
+
+3.19
+
+2.98
+
+3.11
+
+F 24
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN: U27400GJ2011PLC065108
+
+Particulars
+
+As on 31st Dec, As on 31st As on 31st As on 31st
+
+2025
+
+Mar, 2025
+
+Mar, 2024
+
+Mar, 2023
+
+Non-Current Liability (Amount due over One year)
+
+22.58
+
+22.89
+
+20.01
+
+19.16
+
+Present Value of Obligation as at the end of the Period
+
+25.90
+
+26.08
+
+23.00
+
+22.27
+
+Actuarial Valuation Assumptions:
+
+Financial Assumptions
+
+As on 31st Dec, As on 31st As on 31st As on 31st
+
+2025
+
+Mar, 2025
+
+Mar, 2024
+
+Mar, 2023
+
+Discount Rate
+
+6.65%
+
+6.60%
+
+7.20%
+
+7.35%
+
+Salary Growth Rate
+
+9.00%
+
+9.00%
+
+9.00%
+
+9.00%
+
+Demographic Assumptions � Mortality Rate (Indian Assured Lives Mortality (2012-14) Table)
+
+Age (in years)
+
+20
+
+0.09%
+
+0.09%
+
+0.09%
+
+0.09%
+
+30
+
+0.10%
+
+0.10%
+
+0.10%
+
+0.10%
+
+40
+
+0.17%
+
+0.17%
+
+0.17%
+
+0.17%
+
+50
+
+0.44%
+
+0.44%
+
+0.44%
+
+0.44%
+
+60
+
+1.12%
+
+1.12%
+
+1.12%
+
+1.12%
+
+Withdrawal Rates
+
+Age Band
+
+25 & Below
+
+15.00%
+
+15.00%
+
+15.00%
+
+15.00%
+
+25 to 35
+
+15.00%
+
+15.00%
+
+15.00%
+
+15.00%
+
+35 to 45
+
+15.00%
+
+15.00%
+
+15.00%
+
+15.00%
+
+45 to 55
+
+15.00%
+
+15.00%
+
+15.00%
+
+15.00%
+
+XI. Value of Imported and Indigenous material consumed Additional information pursuant to paragraph 5 to Part II of Schedule III of the Companies Act, 2013.
+
+(a) Value of imports calculated on CIF basis by the Company during the financial year:
+
+Particulars
+Imported Indigineous
+
+Consolidated
+
+Standalone
+
+( in Lakhs)
+
+Period Ended Year Ended Year Ended Year Ended Dec 31, 2025 Mar 31, 2025 Mar 31, 2024 Mar 31, 2023
+
+20.06
+
+29.65
+
+27.38
+
+12.52
+
+2,565.61
+
+8,102.41
+
+5,200.32
+
+3,530.27
+
+TOTAL
+
+2,585.67
+
+8,132.06
+
+5,227.70
+
+3,542.79
+
+(b) Value of imports on accrual basis, expenditure and earnings in foreign currency:
+
+F 25
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN: U27400GJ2011PLC065108
+
+Particulars
+
+Consolidated
+Period Ended Dec 31, 2025
+
+a) CIF Value of Imports (On Accrual Basis)
+
+- Raw Material and Components and Spare Parts, Capital Goods
+
+20.06
+
+(b) Expenditure in Foreign Currency
+
+-
+
+(c) Earnings in Foreign Currency
+
+- Export of Services/Goods
+
+9.76
+
+TOTAL
+
+29.82
+
+Year Ended Mar 31, 2025
+29.65 -
+29.65
+
+Standalone Year Ended Mar 31, 2024
+27.38 -
+25.10 52.48
+
+( in Lakhs)
+Year Ended Mar 31, 2023
+12.52 -
+0.43 12.96
+
+XII. Segment Reporting:
+The Company has identified four reportable business segments, namely (i) LED Based Lighting Solutions, (ii) Solar EPC & SITC, (iii) Water Infrastructure and (iv) Automation, in accordance with the requirements of Accounting Standard (AS) 17 � Segment Reporting. These segments have been identified based on the nature of products and services, differing risks and returns, internal management reporting structure and the manner in which operating performance is reviewed and resources are allocated by management. Detailed segment-wise information relating to revenue, results, assets, liabilities, capital expenditure, depreciation and amortisation, and other relevant disclosures for the respective reporting periods is set out in Annexure X forming an integral part of these Restated Financial Information.
+
+F 26
+
+PHOTONICS WATERTECH LIMITED
+
+(Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED)
+
+CIN : U27400GJ2011PLC065108
+
+Annexure - I.1
+
+Restated Statement of Share Capital
+
+Particulars
+
+As at 31/12/2025
+
+Authorised Capital
+
+As At 31/03/2025
+
+As At 31/03/2024
+
+( in Lakhs) As At 31/03/2023
+
+No. of Equity shares of 10/- each with voting rights Authorised Equity Share Capital In 
+Issued, Subscribed & Fully Paid up No. of Equity shares of 10/- each fully paid up
+Issued, Subscribed & Fully Paid up Share Capital In  (December 31, 2025, March 31,2025, March 31, 2024, and March 31, 2023 - 90,22,750 Equity Shares of Face value of 10/each) Total
+
+1,00,00,000 1,000.00
+90,22,750
+
+1,00,00,000 1,000.00
+90,22,750
+
+1,00,00,000 1,000.00
+90,22,750
+
+902.28 902.28
+
+902.28 902.28
+
+902.28 902.28
+
+1,00,00,000 1,000.00
+90,22,750
+902.28 902.28
+
+Reconciliation of the number of shares outstanding is set out below:-
+
+As at
+
+Particulars
+
+31/12/2025
+
+Number of Shares
+
+Number of shares (Face value  10/-) at the beginning of
+
+90,22,750
+
+Add:
+
+Number of Shares at Face value 10/- issued during the year
+
+-
+
+Bonus Issue of Equity Shares (Face value  10)
+
+-
+
+Less:
+
+Buy Back of Equity shares (Face value 10)
+
+-
+
+Number of shares (Face value  10/-) at the end of Period/year
+
+90,22,750
+
+As At 31/03/2025 Number of Shares
+90,22,750
+-
+90,22,750
+
+As At 31/03/2024 Number of Shares
+90,22,750
+-
+90,22,750
+
+As At 31/03/2023 Number of Shares
+2,65,375
+87,57,375
+90,22,750
+
+Notes: -Pursuant to the approval of shareholders at the extraordinary general meeting of the Company held on December 22, 2022, Issued Share Capital was increased by  8,75,73,750/- by issuing 87,57,375 bonus shares of  10/- each to the existing shareholders in the ratio of 33:1 during the period 2022-23 -The Company has increased the Authorised Capital from 1,00,00,000 Equiy shares of 10/- each to 2,50,00,000 equity shares of  10/- each in the extraordinary general meeting of the Company held as on April 4, 2026, - Pursuant to the approval of shareholders at the extraordinary general meeting of the Company held on April 04, 2026, Issued Share Capital was increased by  9,02,27,500 by issuing 90,22,750 bonus shares of  10 each to the existing shareholders in the ratio of 1:1 during the period 2026-27.
+Terms and Conditions :
+-The Company has only one class of equity shares having a par value of  10 per share. Each holder of Equity shares is entitled to one vote per share. The dividend proposed by the Board of Directors is subject to the approval of shareholders in the ensuing Annual General Meeting. During year ended 31st March, 2025, 31st March, 2024, 31st March, 2023 company had not declared any dividend.
+-In the event of liquidation of the company, the holder of equity shares will be entitled to receive any of the remaining assets of the company, after distribution of all preferential amounts, if any. The distribution will be proportion to the number of equity shares held by the shareholder.
+-There are no calls unpaid by the Directors or officers of the company during the year. -The Company has not forfeited any Equity Shares during the period of restatement.
+-Partly Paid up equity Shares in immediately preceding the reporting date is Nil -Allotment of Equity Shares Made in other than Cash in immediately preceding the reporting date is Nil -Aggregate number of shares bought back- Nil -The Company does not have a holding company or an ultimate holding company. Accordingly, the disclosure of shares held by the holding company or the ultimate holding company, including shares held by subsidiaries or associates of the holding company or the ultimate holding company, in aggregate, as required under the Companies Act, 2013, is not applicable to the Company
+
+Details of Shareholders holding more than 5% shares:-
+
+Name of Shareholder
+
+As at 31/12/2025
+
+Brijeshkumar Amrutlal Patel
+
+Number of Shares
+
+34,82,450
+
+% of Holding
+
+38.60%
+
+Jayavik Hasmukhbhai Patel Number of Shares % of Holding
+
+28,39,850 31.47%
+
+Vasantkumar Narayanbhai Patel Number of Shares % of Holding
+
+27,00,450 29.93%
+
+Rakshit Shah Number of Shares % of Holding
+
+0.00%
+
+As At 31/03/2025
+34,82,450 38.60%
+
+As At 31/03/2024
+32,43,940 35.95%
+
+As At 31/03/2023
+32,43,940 35.95%
+
+28,39,850 31.47%
+
+26,01,340 28.83%
+
+26,01,340 28.83%
+
+27,00,450 29.93%
+
+24,61,940 27.29%
+
+24,61,940 27.29%
+
+0.00%
+
+7,15,530 7.93%
+
+7,15,530 7.93%
+
+Shares held by the promoters at the end of the year:-
+
+Name of Shareholder
+
+As at 31/12/2025
+
+Brijeshkumar Amrutlal Patel
+
+Number of Shares
+
+34,82,450
+
+% of Holding
+
+38.60%
+
+Percentage of change during the year
+
+-
+
+As At 31/03/2025 As At 31/03/2024 As At 31/03/2023
+
+34,82,450 38.60% 2.64%
+
+32,43,940 35.95% -
+
+32,43,940 35.95% -
+
+Jayavik Hasmukhbhai Patel Number of Shares % of Holding Percentage of change during the year
+
+28,39,850 31.47% -
+
+28,39,850 31.47% 2.64%
+
+26,01,340 28.83% 0.00%
+
+26,01,340 28.83% 0.00%
+
+Vasantkumar Narayanbhai Patel Number of Shares % of Holding Percentage of change during the year
+
+27,00,450 29.93% -
+
+27,00,450 29.93% 2.64%
+F 27
+
+24,61,940 27.29% -
+
+24,61,940 27.29% -
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN : U27400GJ2011PLC065108
+Annexure - I.2 Restated Statement of Reserves And Surplus
+Particulars
+
+Consolidated As At
+31/12/2025
+
+As At 31/03/2025
+
+Standalone As At
+31/03/2024
+
+( in Lakhs)
+As At 31/03/2023
+
+Surplus in Statement of Profit & Loss A/c Balance at the beginning of the year
+
+1,653.03
+
+686.76
+
+307.61
+
+Profit / (loss) for the year Less: Issue of Bonus Shares
+
+752.80 -
+
+966.28 -
+
+379.15 -
+
+Balance at the end of the year
+
+2,405.84
+
+1,653.03
+
+686.76
+
+Securities Premium Account Balance at the beginning of the year Add: On issue of shares Less: Issue of Bonus Shares Balance at the end of the year
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+Total
+
+2,405.84
+
+1,653.03
+
+686.76
+
+Notes: The Company has issued 87,57,375 Equity shares of 10 each as a bonus in the ratio of 33:1 to the existing equity shareholders on November 01, 2022.
+
+Annexure - I.3 Restated Statement of Long Term Borrowings
+Particulars
+
+Consolidated As At
+31/12/2025
+
+As At 31/03/2025
+
+Standalone As At
+31/03/2024
+
+834.55 288.33 815.27 307.61
+60.46 -
+60.46 -
+307.61
+( in Lakhs) As At 31/03/2023
+
+Secured Borrowing From Bank and other Financial Institution Less: Current Maturities of Long Term Borrowing
+
+-
+
+52.15
+
+100.18
+
+127.85
+
+-
+
+51.06
+
+48.03
+
+32.06
+
+-
+
+1.09
+
+52.15
+
+95.79
+
+Unsecured Borrowings From Bank and other Financial Institution Less: Current Maturities of Long Term Borrowing
+
+21.02 21.02 (0.00)
+
+62.81 54.25
+8.57
+
+173.86
+
+-
+
+111.05
+
+-
+
+62.81
+
+-
+
+Loan from GIDC
+
+119.96
+
+135.91
+
+97.13
+
+114.02
+
+Total Borrowings
+
+119.96
+
+145.56
+
+212.09
+
+209.82
+
+Note:I.3.1
+
+Terms & Conditions Related to Secured Borrowings taken by the Company
+
+Lender
+
+Nature of Loan
+
+Rate of Interest per annum
+
+Sanction Amount ( In lakhs)
+
+Period of Repayment
+
+Outstanding Balance as on 31.12.2025
+
+State Bank of India - Working Capital Term Loan
+
+GECL 1.0 (ECLGS
+
+8.90%
+
+108.50
+
+48 Months
+
+Nil
+
+Scheme)*
+
+State Bank of India - Working Capital Term Loan
+
+GECL -Extension
+
+8.65%
+
+54.00
+
+48 Months
+
+Nil
+
+(ECLGS Scheme)*
+
+HDFC Bank
+
+Ultra Light Commercial Vehicle
+
+15.00%
+
+5.00
+
+36 Months
+
+1.53
+
+*Note : State Bank of India (GECL Loan 1.0 and GECL Extension) - Guaranteed Emergency Credit Line (GECL) is sanctioned in terms of Government of India, by way of Working Capital Term
+
+Loan. The facility is covered by 100% Guarantee from NCGTC (National Credit Guarantee Trustee Company Limited which is wholly owned trustee company of Government of India.
+
+I.3.1.a
+
+Details of Security given Lender
+State Bank of India GECL 1.0 (ECLGS
+Scheme)
+
+Primary Security
+
+State Bank of India GECL -Extension (ECLGS Scheme)
+
+Hypothecation of Stocks and Receivables
+
+HDFC Bank
+
+Hypothecation of Vehicle
+
+Collateral Security Immovable Property Non Agriculture Industrial Property Bearing no B/5/1 GIDC Electronics Estate, Sector - 25, Gandhinagar 382025 measuring plot area 1061.25 Sq. Mtrs and Construction area 1756.37 Sq. Mtr belongs to the Company
+Immovable Property Industrial Plot No, 611 at GIDC Industrial Estate Ta. Mansa Dist. Gandhinagar admeasuring 2324 Sq. MtR belongs to Company
+Immovable Property Residential Flat A/504, T. P. Scheme No. 09 bearing F.P. No. 113 of revenue survey no. 655/1 situated scheme known at Shree Sharnam Co-op Housing Society Ltd. Uvarsad, Ta. & Dist Gandhinagar admeasuring 168.90 Sq. Mtrs belongs to Brijesh Amrutlal Patel and Amishaben Rameshbhai Patel
+Immovable Property bearing office no. 416, 4th Floor in the scheme known as The Capital of T.P. Scheme No. 42 (SolaThaltej) bearing F.P. No. 211, 214 and 215 of Revenue Survey No. 719/2, 719/1 and 717/1 admeasurring about 449-98 Sq-Mtr undivided share situated at scheme known as The Capital, at the Capital Commerical Co-operative (Service) Society Limited Sola Ta. Ghatlodiya Dist: Ahmedabad belongs to Jayavik Patel.
+Immovable Residential Property Residential Bunglow-09 situated scheme known as Royal Elegance Street Name HL Patel House Sector Science City Bhadaj, Ta. & Dist. Ahmedabad belongs to Vasantkumar Patel.
+Personal Guarantee of Brijeshkumar A. Patel, Vasantkumar N. Patel, Jayavik H. Patel, Amishaben Patel and Chetanaben Patel. Lien of STDR of  50.00 Lakhs.
+NA
+
+F 28
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN : U27400GJ2011PLC065108
+
+I.3.2 Terms & Conditions Related to Unsecured Borrowings taken by the Company from Bank and Financial Institutions
+
+Lender
+
+Nature of Loan
+
+Rate of Interest per annum
+
+Sanction Amount
+
+Deutsche Bank
+
+Business Loan
+
+16.00%
+
+50.00
+
+HDFC Bank
+
+Business Loan
+
+14.75%
+
+50.00
+
+ICICI Bank
+
+Business Loan
+
+15.65%
+
+40.00
+
+L&T Finance
+
+SME - Business Loan - Dropline Overdraft
+
+16.00%
+
+35.00
+
+Standard Chartered Bank
+
+Term Loan
+
+15.75%
+
+75.00
+
+Period of Repayment
+24 Months 36 Months 36 Months 36 Months
+24 Months
+
+( in Lakhs) Outstanding Balance as
+on 31.12.2025 Nil
+8.33 6.76 5.93
+Nil
+
+I.3.3 Details of Loan from GIDC Lender
+
+Rate of Interest per annum
+
+Sanction Amount
+
+Period of Repayment
+
+Outstanding Balance as on 31.12.2025
+
+Gujarat Industrial Development Corporation
+
+10.00% 10.00%
+
+135.14 73.25
+
+10 years 6 years
+
+92.91 55.67
+
+Note: Loan from GIDC is against the Plot no -2 and Plot no -7 Aithor Industrial Estate, Aithor, Taluka- Unjha, Mahesana Taken on Long term Lease of 99 years from GIDC, against which payment is disbursed in installments as agreed.
+
+Annexure - I.4 Restated Statement of Long Term Provision
+Particulars
+
+Consolidated As At
+31/12/2025
+
+As At 31/03/2025
+
+Standalone As At
+31/03/2024
+
+( in Lakhs)
+As At 31/03/2023
+
+Provision for Gratuity - Refer Annexure V Total
+
+22.58 22.58
+
+22.89 22.89
+
+20.01 20.01
+
+19.16 19.16
+
+Annexure - I.5 Restated Statement of Short Tem Borrowings
+Particulars
+
+Consolidated As At
+31/12/2025
+
+As At 31/03/2025
+
+Standalone As At
+31/03/2024
+
+( in Lakhs)
+As At 31/03/2023
+
+Secured Borrowings a) Bank Overdraft / CC b) Current Maturities of Long Term Borrowing (Refer Note No. I.3)
+
+1,074.02
+1.53 1,075.55
+
+890.42
+51.06 941.48
+
+916.33
+48.03 964.37
+
+649.72
+32.06 681.77
+
+Unsecured Borrowings a) From Related Parties b) Current Maturities of Long Term Borrowing (Refer Note No. I.3)
+
+269.91
+21.02 290.93
+
+118.31
+54.25 172.56
+
+129.15
+111.05 240.20
+
+251.17
+251.17
+
+Current Maturities of Loan from GIDC (Refer Note No. I.3)
+
+28.61
+
+28.61
+
+16.89
+
+16.89
+
+Total Borrowings
+
+1,395.09
+
+1,142.65
+
+1,221.45
+
+949.84
+
+Note:-
+
+I.5.1 Terms & Conditions Related to Short term Borrowings taken by the Company from Bank and Financial Institutions :
+
+Lender
+
+Nature of Loan
+
+Sanctioned Amount ( In
+
+Outstanding as on
+
+Rate of Interest per annum
+
+Lakhs)
+
+31/12/2025 ( In Lakhs)
+
+Primary Security
+
+Collateral Security
+
+State Bank of India
+
+Cash Credit
+
+950.00
+
+941.30
+
+9.00%
+
+Refer Note: I.3.1.a
+
+Oxyzo Financial Services Ltd OXYDPF01DZ4E7
+
+Cash Credit
+
+50.00
+
+A demand promissory note
+
+32.71
+
+14.5% ((14.8 (OBLR) + -0.3% (Spread))
+
+and a letter of continuity. Security cheque/s. NACH
+
+N.A
+
+Mandate
+
+Oxyzo Financial Services Ltd. OXYPF016KKRJ
+
+Cash Credit
+
+100.00
+
+A demand promissory note
+
+100.00
+
+14.5% ((14.8 (OBLR) + -0.3% (Spread))
+
+and a letter of continuity. Security cheque/s. NACH
+
+N.A
+
+Mandate
+
+1/A New
+
+Suryanarayan,
+
+CHSL Part 2 ,
+
+ICICI Bank
+
+Cash Credit
+
+500.00
+
+Nil
+
+8.75% ((5.25% (Repo Rate) + 3.50% (Spread))
+
+Current Assets and Immovable Fixed Assets
+
+Ghatlodiya Ahmedabad -
+
+380061.
+
+Personal
+
+Guarantee of
+
+Directors
+
+I.5.2 Terms & Conditions Related to Unsecured Borrowings taken by the Company from Related Parties :
+
+Lender
+
+Nature of Loan
+
+As at 31.12.2025
+
+As at 31.03.2025
+
+Brijesh Patel
+
+Repayable on Demand
+
+251.23
+
+95.23
+
+Jayavik Patel
+
+Repayable on Demand
+
+-
+
+-
+
+Rakshit Shah
+
+Repayable on Demand
+
+-
+
+-
+
+Vasant Patel
+
+Repayable on Demand
+
+18.68
+
+23.08
+
+As at 31.03.2024 81.58 47.57
+
+( in Lakhs) As at 31.03.2023
+94.08 70.31 39.24 47.55
+
+F 29
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN : U27400GJ2011PLC065108
+
+Annexure - I.6 Restated Statement of Trade Payable
+Particulars
+
+Consolidated As At
+31/12/2025
+
+As At 31/03/2025
+
+Micro and Small Enterprises Others
+
+809.85 624.04
+
+740.54 741.84
+
+Total
+Note : -There is no unbilled Trade Payables. - Trade Payables includes dues to Related Parties which are disclosed in Annexure-IX (a) Ageing schedule:
+
+1,433.88
+
+1,482.38
+
+Balance as at 31st December, 2025 [Consolidated]
+
+Particulars
+(i) Undisputed MSE (ii) Undisputed Others (iii) Disputed dues - MSE (iv) Disputed dues - Others Total
+
+Not Due -
+
+Outstanding for following periods from due date of payment
+
+Less than 1 year 569.14 441.51 -
+1,010.65
+
+1-2 years 236.61 114.43 351.04
+
+2-3 years
+
+4.10 46.29
+50.40
+
+Standalone As At 31/03/2024
+755.72 1,210.44 1,966.16
+More than 3 years -
+21.80 -
+21.80
+
+( in Lakhs) As At 31/03/2023
+813.69 1,398.11 2,211.80
+( in Lakhs) Total
+809.85 624.04
+1,433.88
+
+Balance as at 31st March, 2025 [Standalone]
+
+Particulars
+(i) Undisputed MSE (ii) Undisputed Others (iii) Disputed dues - MSE (iv) Disputed dues - Others Total
+
+Not Due -
+
+Outstanding for following periods from due date of payment
+
+Less than 1 year 619.16 682.75 -
+1,301.91
+
+1-2 years 75.73 33.84 109.57
+
+2-3 years
+
+45.65 11.56
+57.21
+
+More than 3 years -
+13.69 -
+13.69
+
+( in Lakhs)
+Total
+740.54 741.84
+1,482.38
+
+Balance as at 31st March, 2024 [Standalone]
+
+Particulars
+(i) Undisputed MSE (ii) Undisputed Others (iii) Disputed dues - MSE (iv) Disputed dues - Others Total
+
+Not Due -
+
+Outstanding for following periods from due date of payment
+
+Less than 1 year 445.78
+1,044.94 -
+1,490.72
+
+1-2 years 82.11 48.42 130.53
+
+2-3 years 224.32 60.12 284.44
+
+More than 3 years 3.51 56.96 60.47
+
+( in Lakhs)
+Total
+755.72 1,210.44
+1,966.16
+
+Balance as at 31st March 2023 [Standalone]
+
+Particulars
+(i) Undisputed MSE (ii) Undisputed Others (iii) Disputed dues - MSE (iv) Disputed dues - Others Total
+
+Not Due -
+
+Outstanding for following periods from due date of payment
+
+Less than 1 year 765.83 931.10 -
+1,696.94
+
+1-2 years 25.02 288.59 313.61
+
+2-3 years
+
+22.84 55.75
+78.58
+
+More than 3 years -
+122.67 -
+122.67
+
+( in Lakhs)
+Total
+813.69 1,398.11
+2,211.80
+
+The information relating to Micro and Small Enterprises has been determined by the Management based on the information and records available with the Company. In accordance with the provisions of Section 16 of the Micro, Small and Medium Enterprises Development Act, 2006, the Company has made provision for interest payable on delayed payments to Micro and Small Enterprises, wherever applicable, in respect of outstanding dues during the period ended December 31, 2025 and the years ended March 31, 2025, March 31, 2024 and March 31, 2023. For further details refer to Annexure V.
+
+Annexure - I.7 Restated Statement of Other Current Liabilities
+Particulars
+
+Consolidated As At
+31/12/2025
+
+As At 31/03/2025
+
+Standalone As At 31/03/2024
+
+( in Lakhs)
+As At 31/03/2023
+
+Statutory Dues Payable Advance from Customers Salary Payable Expenses Payable CSR Payable - Refer Annexure V
+Total
+
+34.60 218.13 113.81
+3.00 11.47 381.01
+
+44.55 372.54
+70.87 4.84 7.64 500.44
+
+6.77 652.12
+67.32 1.44 727.65
+
+6.72 297.33
+60.9 7.52 372.47
+
+Annexure - I.8 Restated Statement Short Term Provisions
+Particulars
+
+Consolidated As At
+31/12/2025
+
+As At 31/03/2025
+
+Standalone As At 31/03/2024
+
+( in Lakhs)
+As At 31/03/2023
+
+Provision for Gratuity - Refer Annexure V Audit fees payable Provision for Interest payable on MSME Creditors - Refer Annexure V Provision for Tax (Net of Advance Tax and TDS)
+Total
+
+3.32 0.75 9.85 221.74 235.66
+
+3.19 1.00 6.77 286.55 297.50
+
+2.98 1.00 3.97 56.49 64.44
+
+3.11 1.00 1.62 80.35 86.08
+
+F 30
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN : U27400GJ2011PLC065108 Restated Statement of Property Plant & Equipment Annexure - I.9
+As At 31/12/2025(Consolidated)
+
+Gross Block
+
+Accumulated Depreciation
+
+Fixed Assets
+
+Balance as at 1 April 2025
+
+Additions
+
+Disposals
+
+Balance as at 31st December, 2025
+
+Balance as at 1 April Depreciation charge
+
+2025
+
+for the year
+
+On disposals
+
+I. Property Plant & Equipment Plant & Machinery Furniture & Fixtures Motor Vehicles Office Equipments Computers & Peripherals Building Solar Roof Top Freehold Land Total
+
+98.16
+
+0.56
+
+-
+
+10.99
+
+-
+
+-
+
+49.82
+
+-
+
+-
+
+42.17
+
+8.10
+
+-
+
+31.97
+
+1.66
+
+-
+
+409.24
+
+8.80
+
+-
+
+22.73
+
+-
+
+-
+
+458.46
+
+-
+
+-
+
+1,123.52
+
+19.11
+
+-
+
+98.71 10.99 49.82 50.27 33.62 418.04 22.73 458.46 1,142.63
+
+72.04 10.13 46.47 33.90 28.56 224.01 13.83
+428.96
+
+3.60
+
+-
+
+0.20
+
+-
+
+0.78
+
+-
+
+4.40
+
+-
+
+1.19
+
+-
+
+13.40
+
+-
+
+1.21
+
+-
+
+-
+
+-
+
+24.77
+
+-
+
+( in Lakhs) Net Block
+Balance as at 31st Balance as at 31st Balance as at 31 December, 2025 December, 2025 March 2025
+
+75.64 10.33 47.26 38.31 29.75 237.41 15.04
+453.73
+
+23.08 0.66 2.56
+11.96 3.87
+180.63 7.68
+458.46 688.89
+
+26.12 0.86 3.34 8.27 3.40
+185.23 8.89
+458.46 694.56
+
+As at 31st March, 2025 [Standalone]
+Fixed Assets
+I. Property Plant & Equipment Plant & Machinery Furniture & Fixtures Motor Vehicles Office Equipments Computers & Peripherals Building Solar Roof Top Freehold Land
+Total Tangible Assets
+
+Gross Block
+
+Accumulated Depreciation
+
+( in Lakhs) Net Block
+
+Balance as at 1 April 2024
+
+Additions
+
+Disposals
+
+Balance as at 31st March, 2025
+
+Balance as at 1 April Depreciation charge
+
+2024
+
+for the year
+
+On disposals
+
+Balance as at 31st Balance as at 31st Balance as at 31
+
+March, 2025
+
+March, 2025
+
+March 2024
+
+93.26
+
+5.00
+
+0.10
+
+10.94
+
+0.05
+
+-
+
+49.14
+
+0.68
+
+-
+
+35.97
+
+6.20
+
+-
+
+30.67
+
+1.30
+
+-
+
+408.49
+
+0.75
+
+-
+
+22.73
+
+-
+
+-
+
+287.45
+
+171.01
+
+-
+
+938.64
+
+184.98
+
+0.10
+
+98.16 10.99 49.82 42.17 31.97 409.24 22.73 458.46
+1,123.52
+
+66.48 9.75
+45.03 29.55 26.74 204.63 11.87
+-
+394.05
+
+5.56
+
+-
+
+0.38
+
+-
+
+1.44
+
+-
+
+4.35
+
+-
+
+1.82
+
+-
+
+19.38
+
+-
+
+1.97
+
+-
+
+-
+
+-
+
+34.91
+
+-
+
+72.04 10.13 46.47 33.90 28.56 224.01 13.83
+-
+428.96
+
+26.12 0.86 3.34 8.27 3.40
+185.23 8.89
+458.46
+694.56
+
+26.77 1.19 4.10 6.42 3.93
+203.87 10.86
+287.45
+544.59
+
+F 31
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN : U27400GJ2011PLC065108
+
+As at 31st March, 2024 [Standalone]
+Fixed Assets
+I. Property Plant & Equipment Plant & Machinery Furniture & Fixtures Motor Vehicles Office Equipments Computers & Peripherals Building Solar Roof Top Freehold Land Total Tangible Assets
+
+Balance as at 1 April 2023
+
+Gross Block Additions Disposals
+
+Balance as at 31st March, 2024
+
+Accumulated Depreciation
+
+Balance as at 1 April Depreciation charge
+
+2023
+
+for the year
+
+On disposals
+
+Balance as at 31st March, 2024
+
+( in Lakhs) Net Block
+
+Balance as at 31st Balance as at 31
+
+March, 2024
+
+March 2023
+
+92.95
+
+0.31
+
+-
+
+10.94
+
+-
+
+-
+
+50.07
+
+5.95
+
+6.88
+
+34.40
+
+1.57
+
+-
+
+28.15
+
+2.51
+
+-
+
+408.49
+
+-
+
+-
+
+22.73
+
+-
+
+-
+
+287.45
+
+-
+
+-
+
+935.18
+
+10.35
+
+6.88
+
+93.26 10.94 49.14 35.97 30.67 408.49 22.73 287.45 938.64
+
+60.57 9.21
+47.26 24.44 24.66 183.23
+9.47 358.84
+
+5.91
+
+-
+
+0.54
+
+-
+
+1.81
+
+4.03
+
+5.11
+
+-
+
+2.08
+
+-
+
+21.40
+
+-
+
+2.40
+
+-
+
+-
+
+-
+
+39.25
+
+4.03
+
+66.48 9.75
+45.03 29.55 26.74 204.63 11.87
+394.05
+
+26.77 1.19 4.10 6.42 3.93
+203.87 10.86
+287.45 544.59
+
+32.37 1.74 2.80 9.96 3.50
+225.27 13.26
+287.45 576.34
+
+As at 31st March, 2023 [Standalone]
+Fixed Assets
+I. Property Plant & Equipment Plant & Machinery Furniture & Fixtures Motor Vehicles Office Equipments Computers & Peripherals Building Solar Roof Top Freehold Land Total Tangible Assets
+
+Gross Block
+
+Balance as at 1 April 2022
+
+Additions
+
+Disposals
+
+Accumulated Depreciation
+
+Balance as at 31st March, 2023
+
+Balance as at 1 April Depreciation charge
+
+2022
+
+for the year
+
+On disposals
+
+( in Lakhs) Net Block
+
+Balance as at 31st Balance as at 31st Balance as at 31
+
+March, 2023
+
+March, 2023
+
+March 2022
+
+89.04
+
+3.91
+
+-
+
+10.94
+
+-
+
+-
+
+52.40
+
+3.70
+
+6.03
+
+24.20
+
+10.20
+
+-
+
+25.01
+
+3.15
+
+-
+
+408.49
+
+-
+
+-
+
+22.73
+
+-
+
+-
+
+285.71
+
+1.74
+
+-
+
+918.52
+
+22.69
+
+6.03
+
+92.95 10.94 50.07 34.40 28.15 408.49 22.73 287.45 935.18
+
+54.16 8.60
+44.93 19.32 21.93 159.58
+8.08 316.59
+
+6.41
+
+-
+
+0.61
+
+-
+
+2.33
+
+-
+
+5.13
+
+-
+
+2.73
+
+-
+
+23.65
+
+-
+
+1.39
+
+-
+
+-
+
+-
+
+42.25
+
+-
+
+60.57 9.21
+47.26 24.44 24.66 183.23
+9.47 358.84
+
+32.37 1.74 2.80 9.96 3.50
+225.27 13.26
+287.45 576.34
+
+34.88 2.34 7.47 4.88 3.08
+248.91 14.65
+285.71 601.93
+
+Notes : Details of Freehold Land 1. The Land at Mansa is taken on lease from GIDC having plot no. 611 situated at GIDC Industrial Estate, Mansa, District - Gandhinagar 2. The Land at Gandhinagar is taken on lease from GIDC having plot no. B/5-1 situated at Gandhinagar Electronic GIDC Estate , Gandhinagar. 3. The Land at Aithor is taken on lease from GIDC having plot no. 2 & plot no. 7 situated at Aithor, Unjha, Mahesana. (Refer Note I.3.3 for details w.r.t. Land at Aithor) 4. Land taken on lease are auto renew for 99 years.
+
+F 32
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN : U27400GJ2011PLC065108
+Annexure - I.10 Restated Statement of Non-Current Investments
+Particulars
+
+Consolidated As At
+31/12/2025
+
+As At 31/03/2025
+
+Standalone As At
+31/03/2024
+
+( in Lakhs)
+As At 31/03/2023
+
+Unquoted: (Valued as cost) Fixed Deposit with banks Investment in Bonds Investment in Gold
+
+262.56 36.79 0.81
+
+360.09 38.65 0.81
+
+233.76 31.32
+-
+
+Quoted: (Valued as cost) Investment in Mutual Fund - SBI Automotive Opportunities Fund - Regular Growth
+
+1.00
+
+1.00
+
+-
+
+Total
+
+301.16
+
+400.55
+
+*Fixed deposits with banks, investments in bonds, gold, and mutual funds are classified as non-current investments and are valued at cost, subject to provision for diminution in value, if any, other than temporary.
+
+Fixed Deposit with State Bank of India in form of SDTR amounting to  50 lacs is subject to lien against loan facilities availed from the State Bank of India. For further details refer Annexure I.3 and
+
+Aggregrate Value of Unquoted Investments :
+Particulars
+Fixed Deposit with banks Investment in Bonds Investment in Gold Details of the Market Value of the Quoted Investments:
+Particulars As on 31st December, 2025 Investment in Mutual Fund - SBI Automotive Opportunities Fund - Regular Growth
+
+As At 31/12/2025
+262.56 36.79 0.81
+Units
+9,999.50
+
+As At 31/03/2025
+360.09 38.65 0.81
+
+As At 31/03/2024
+233.76 31.32
+-
+
+NAV
+
+Market Value
+
+11.34
+
+1,13,394.33
+
+As At 31/03/2023
+212.26 31.46
+-
+
+265.08
+
+As on 31st March, 2025 Investment in Mutual Fund - SBI Automotive Opportunities Fund - Regular Growth
+
+9,999.50
+
+10.22
+
+1,02,148.89
+
+Annexure - I.11 Restated Statement of Deferred Tax Assets
+
+Particulars
+
+Consolidated As At
+31/12/2025
+
+As At 31/03/2025
+
+Standalone As At
+31/03/2024
+
+Deferred Tax Asset On account of timing difference in depreciation On account of timing difference expenses disallowed u/s. 43B of I.T. Act., 1961
+Total *Deferred tax assets and deferred tax liabilities have been offset as they related to the same governing tax laws. Annexure - I.12 Restated Statement of Non-Current Assets
+Particulars
+Statutory Dues Receivable Security Deposits Retention Deposits
+Total
+
+27.10 6.77 33.87
+
+26.58 6.56 33.14
+
+25.84 5.79 31.63
+
+Consolidated As At
+31/12/2025
+0.82 188.09 196.07 384.98
+
+As At 31/03/2025
+0.82 157.74 206.06 364.62
+
+Standalone As At
+31/03/2024
+0.82 161.87 509.87 672.55
+
+Annexure - I.13 Restated Statement of Inventories
+
+Particulars
+
+Consolidated As At
+31/12/2025
+
+Raw Materials
+
+349.01
+
+Finished Goods
+
+47.78
+
+Stock in Trade
+
+1,518.37
+
+Total
+
+1,915.16
+
+-Inventories are hypothecated and pledged to Long-Tem Secured Borrowings and cash credit facilities from Bank (For further details refer Annexure I.3 and I.5)
+
+As At 31/03/2025
+184.73 125.52 976.42 1,286.67
+
+Standalone As At
+31/03/2024
+85.99 11.40 383.78 481.16
+
+212.26 31.46
+-
+243.72
+( in Lakhs) As At 31/03/2023
+24.68 5.60 30.28
+( in Lakhs) As At 31/03/2023
+0.82 173.06 303.59 477.47
+( in Lakhs) As At 31/03/2023
+38.30 3.90 66.68 108.88
+
+F 33
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN : U27400GJ2011PLC065108
+Annexure - I.14 Restated Statement of Trade receivables
+Particulars
+Undisputed, Considered good Undisputed, Considered doubtful Less : Provision for Bad Debts Total
+Note : -Trade Receivables include receivables from related parties which are disclosed in Annexure IX. -There are no unbilled trade receivables as at the reporting date. -Trade Receivables are hypothecated and pledged to secured cash credit facilities from Bank (For further details refer Annexure I.3 and I.5)
+
+Consolidated As At
+31/12/2025
+2,816.53 -
+17.35 2,799.18
+
+As At 31/03/2025
+2,860.87 -
+2,860.87
+
+Aging of receivables As At 31/12/2025 [Consolidated]
+Particulars
+Undisputed Trade receivables - Considered good Trade receivables - doubtful debt
+Disputed Trade receivables - Considered good Trade receivables - doubtful debt
+Less : Provision for Bad Debts Total
+As At 31/03/2025 [Standalone]
+Particulars
+Undisputed Trade receivables - Considered good Trade receivables - doubtful debt
+Disputed Trade receivables - Considered good Trade receivables - doubtful debt Total
+
+Not Due
+-
+Not Due
+-
+
+Less Than 6 Month
+
+Outstanding for following periods from due date of payment
+
+6 Months - 1 year
+
+1-2 years
+
+2-3 years
+
+939.60 -
+
+577.67 -
+
+1,024.75 -
+
+190.89 -
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+939.60
+
+577.67
+
+1,024.75
+
+190.89
+
+Less Than 6 Month
+
+Outstanding for following periods from due date of payment
+
+6 Months - 1 year
+
+1-2 years
+
+2-3 years
+
+1,729.39 -
+
+167.23 -
+
+852.77 -
+
+59.58 -
+
+1,729.39
+
+167.23
+
+852.77
+
+59.58
+
+Standalone As At
+31/03/2024 2,929.18 2,929.18
+More than 3 years 83.62 17.35 66.27
+More than 3 years 51.89 51.89
+
+( in Lakhs) As At 31/03/2023
+3,320.80 -
+3,320.80
+( in Lakhs)
+Total
+2,816.53 -
+17.35 2,799.18 ( in Lakhs) Total
+2,860.87 -
+2,860.87
+
+As At 31/03/2024 [Standalone]
+Particulars
+Undisputed Trade receivables - Considered good Trade receivables - doubtful debt
+Disputed Trade receivables - Considered good Trade receivables - doubtful debt Total
+
+Not Due
+-
+-
+
+Less Than 6 Month
+
+Outstanding for following periods from due date of payment
+
+6 Months - 1 year
+
+1-2 years
+
+2-3 years
+
+2,038.44 -
+
+484.58 -
+
+258.61 -
+
+90.33 -
+
+2,038.44
+
+484.58
+
+258.61
+
+90.33
+
+More than 3 years
+57.22 -
+57.22
+
+( in Lakhs)
+Total
+2,929.18 -
+2,929.18
+
+F 34
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN : U27400GJ2011PLC065108
+
+As at 31/03/2023 [Standalone]
+
+Particulars
+Undisputed Trade receivables - Considered good Trade receivables - doubtful debt
+Disputed Trade receivables - Considered good Trade receivables - doubtful debt Total
+
+Not Due
+-
+-
+
+Annexure - I.15 Restated Statement of Cash and Bank Balance
+
+Particulars
+
+Cash and Cash Equivalents Bank Balance
+(i) In current account (ii) Fixed Deposit due within 3 Months Cash on Hand Total
+Annexure - I.16 Restated Statement of Short Term Loans And Advances
+
+Particulars
+
+Balance With Government Authorities Advances to Suppliers Advance to Employee Advance to Related party - Refer Annexure - IX Advance for Expenses Total
+Annexure - I.17 Restated Statement of Other current assets
+Other Receivable Pre-Paid Expenses Total
+
+Particulars
+
+Less Than 6 Month
+
+Outstanding for following periods from due date of payment
+
+6 Months - 1 year
+
+1-2 years
+
+2-3 years
+
+2,765.51 -
+
+75.67 -
+
+334.18 -
+
+62.33 -
+
+2,765.51
+
+75.67
+
+334.18
+
+62.33
+
+More than 3 years
+83.10 -
+83.10
+
+( in Lakhs)
+Total
+3,320.80 -
+3,320.80
+
+Consolidated As At
+31/12/2025
+
+As At 31/03/2025
+
+Standalone As At
+31/03/2024
+
+( in Lakhs)
+As At 31/03/2023
+
+10.74 -
+31.80 42.55
+Consolidated As At
+31/12/2025
+12.69 638.52 14.18
+0.68 44.06 710.13
+Consolidated As At
+31/12/2025 0.23 20.15
+20.38
+
+130.83 3.14
+25.54 159.51
+
+427.27 -
+24.88 452.15
+
+6.92 15.42 22.35
+
+As At 31/03/2025
+
+Standalone As At
+31/03/2024
+
+( in Lakhs)
+As At 31/03/2023
+
+70.07 196.61 11.37 36.73 27.84 342.62
+.
+
+115.55 234.23 20.98 11.34 42.17 424.27
+
+As At 31/03/2025
+0.23 3.96 4.18
+
+Standalone As At
+31/03/2024
+0.23 -
+0.23
+
+127.26 135.12
+7.56 -
+8.58 278.52
+( in Lakhs)
+As At 31/03/2023
+0.23 0.47 0.69
+
+F 35
+
+PHOTONICS WATERTECH LIMITED
+
+(Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED)
+
+CIN : U27400GJ2011PLC065108
+
+Annexure - II.1
+
+Restated Statement of Revenue from operations
+
+Consolidated
+
+Particulars
+
+For period ended on 31/12/2025
+
+For the year ended 31/03/2025
+
+Standalone For the year ended
+31/03/2024
+
+( in Lakhs)
+For the year ended 31/03/2023
+
+Sales of Products Sales of Services
+
+3,009.54 1,124.79
+
+7,880.39 1,700.92
+
+5,427.87 1,020.65
+
+4,557.68 593.70
+
+Total
+
+4,134.33
+
+9,581.31
+
+6,448.51
+
+5,151.38
+
+Note : The sale of products includes goods that are supplied together with services under Engineering, Procurement, and Construction [EPC Contracts]
+
+*Note: Geographical Revenue Bifurcation Particulars
+
+Consolidated For period ended on
+31/12/2025
+
+For the year ended 31/03/2025
+
+Standalone For the year ended
+31/03/2024
+
+( in Lakhs)
+For the year ended 31/03/2023
+
+Domestic
+
+4,124.57
+
+Export
+
+9.76
+
+Total
+
+4,134.33
+
+Notes: Exports includes export's to Abu Dhabi, Kingdom of Bahrain, Nepal and Oman.
+
+9,581.31 -
+9,581.31
+
+6,423.42 25.10
+6,448.51
+
+5,150.95 0.44
+5,151.38
+
+*Note: Statewise Revenue Bifurcation Particulars
+
+Consolidated For period ended on
+31/12/2025
+
+For the year ended 31/03/2025
+
+Standalone For the year ended
+31/03/2024
+
+( in Lakhs)
+For the year ended 31/03/2023
+
+Gujarat Bihar Andhra Pradesh Assam Dadra & Nagar Haveli Delhi Haryana Himachal Pradesh Jammu & Kashmir Karnataka Kerala Lakshadweep Madhya Pradesh Maharashtra Meghalaya Odisha Punjab Rajasthan Tamil Nadu Telangana Tripura Uttar Pradesh Uttarakhand West Bengal
+Total
+
+2,443.71 1,611.17
+8.68 1.35 0.21 3.64 8.71 3.48 20.24 23.36 0.02 4,124.57
+
+4,501.76 4,785.11
+0.10 0.80 21.15 6.09 53.64 6.52 0.03 203.25 0.18 0.24 2.45 9,581.31
+
+5,056.75 1,262.46
+1.66 -
+0.05 2.40
+45.50 1.46 0.11 7.67 2.55 0.58 19.63 19.19 0.73 2.68 6,423.42
+
+4,831.30 164.92 5.29 3.50 8.50 1.74 38.30 6.50 0.35 0.22 1.26 1.06 0.31 20.17 1.94 1.41 4.21 16.77 10.13 5.33 0.60 0.33 25.75 1.06
+5,150.95
+
+Annexure - II.2 Restated Statement of Other income
+Particulars
+Interest Income Foreign Exchange Difference Frieght,Courier and Packing and Forwarding Charges Other income
+Total
+
+Consolidated For period ended on
+31/12/2025
+
+For the year ended 31/03/2025
+
+Standalone For the year ended
+31/03/2024
+
+( in Lakhs)
+For the year ended 31/03/2023
+
+7.01 0.09 27.51 0.47 35.08
+
+13.27 0.30 40.46 2.72 56.75
+
+13.44 -
+26.89 0.23
+40.56
+
+8.48 0.03 50.13 0.29 58.93
+
+F 36
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN : U27400GJ2011PLC065108
+
+Annexure - II.3 Restated Statement of Cost of material consumed
+Particulars
+
+Consolidated For period ended on
+31/12/2025
+
+For the year ended 31/03/2025
+
+Standalone For the year ended
+31/03/2024
+
+( in Lakhs)
+For the year ended 31/03/2023
+
+Inventories at the beginning of the year: Add : Purchases Less : Inventories at the end of the year Cost of material consumed
+
+475.74 797.02 349.01 923.75
+
+179.84 4,511.50
+475.74 4,215.60
+
+38.30 1,132.25
+179.84 990.71
+
+27.90 472.56
+38.30 462.16
+
+Annexure - II.4 Restated Statement of Purchase of Stock in Trade
+Particulars
+
+Consolidated For period ended on
+31/12/2025
+
+For the year ended 31/03/2025
+
+Standalone For the year ended
+31/03/2024
+
+( in Lakhs)
+For the year ended 31/03/2023
+
+Purchase of Stock-in-Trade Total
+
+2,142.74 2,142.74
+
+2,780.28 2,780.28
+
+4,141.43 4,141.43
+
+3,082.35 3,082.35
+
+Annexure - II.5
+
+Restated Statement of Changes in inventories of finished goods and work-in-progress
+
+Consolidated
+
+Particulars
+
+For period ended on For the year ended
+
+31/12/2025
+
+31/03/2025
+
+Standalone For the year ended
+31/03/2024
+
+( in Lakhs)
+For the year ended 31/03/2023
+
+Inventories at the end of the year: Finished goods Stock-in-trade
+Inventories at the beginning of the year: Finished goods Stock-in-trade
+Change in Inventories
+
+47.78 1,518.37 1,566.15
+22.99 787.94 810.93 (755.22)
+
+22.99 787.94 810.93
+3.84 297.49 301.33 (509.60)
+
+3.84 297.49 301.33
+3.90 66.68 70.58 (230.75)
+
+3.90 66.68 70.58
+367.40 367.40 296.82
+
+Annexure - II.6 Restated Statement of Employee benefits expense
+Particulars
+
+Consolidated For period ended on
+31/12/2025
+
+For the year ended 31/03/2025
+
+Standalone For the year ended
+31/03/2024
+
+( in Lakhs)
+For the year ended 31/03/2023
+
+(a) Salaries and wages (b) Directors' Remuneration (c) Gratuity - Refer Annexure V (d) Contributions to Provident and other funds (e) Staff welfare expenses (f) Other Employee Benefits Expenses Total
+
+59.79 155.53
+0.84 6.53 8.14 0.11 230.94
+
+83.36 198.86
+3.08 6.29 7.45 0.06 299.09
+
+100.81 62.50 0.73 6.71 5.96 0.41
+177.12
+
+98.62 60.00 22.27
+4.48 3.44 0.21 189.02
+
+Annexure - II.7 Restated Statement of Finance costs
+Particulars
+
+Consolidated For period ended on
+31/12/2025
+
+For the year ended 31/03/2025
+
+Standalone For the year ended
+31/03/2024
+
+( in Lakhs)
+For the year ended 31/03/2023
+
+Interest Expenses on Borrowings Other Finance Cost Total
+
+101.91 26.35
+128.26
+
+129.68 10.00
+139.67
+
+122.42 -
+122.42
+
+80.81 -
+80.81
+
+F 37
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN : U27400GJ2011PLC065108
+
+Annexure - II.8
+
+Restated Statement of Depreciation and Amortisation Expense
+
+Consolidated
+
+Particulars
+
+For period ended on 31/12/2025
+
+For the year ended 31/03/2025
+
+Standalone For the year ended
+31/03/2024
+
+( in Lakhs)
+For the year ended 31/03/2023
+
+Depreciation on Property, Plant and Equipment Total
+
+24.77 24.77
+
+34.91 34.91
+
+39.25 39.25
+
+42.25 42.25
+
+Annexure - II.9 Restated Statement of Other expenses
+Particulars
+
+Consolidated For period ended on
+31/12/2025
+
+For the year ended 31/03/2025
+
+Standalone For the year ended
+31/03/2024
+
+( in Lakhs)
+For the year ended 31/03/2023
+
+Audit Fees Export - Import Expense Foreign Exchange Diffrence Sub - Contract Expenses Bank Charges LED Sim Card Charges Transportation Expenses CSR Expense Insurance Expenses Interest on GST Interest on Income Tax and TDS Late Fees on GST Interest on MSME Commission Expenses Telephone and Internet Charges Electricty Expense Legal and Professional Fees Business promotion Expenses Rates and Taxes Travelling Expenses Bad Debt Written off Fuel Expenses Repairs & Maintainance Expenses Loss on Sale of Assets Provision for Doubtful Debts Administrative and Office Expenses Inspection and Testing Charges Licensing, Tender and Registration Fees Consumption of Stores and Spare Other Miscellanous Expense
+Total Payments to the auditors comprises of - Audit Fees - Taxation Matters - Other services Total
+Annexure - II.10 Restated Statement of Earning Per Equity Share
+Particulars
+Before Exceptional Itmes 1.Net Profit after tax as per Statement of Profit and Loss attributable to Equity Shareholders ( in Lakhs)
+2.Weighted Average number of equity shares 3. Weighted Average number of equity shares used as denominator for calculating EPS (After considering Bonus impact with retrospective effect) 4. Basic and Diluted Earning per Share (On Face value of  10/ per share)(Pre- Bonus) 5. Basic and Diluted Earning per Share (On Face value of  10/ per share)(Post - Bonus)
+
+0.75 4.76 178.19 23.54 61.06 30.43 11.47 6.56 4.27 3.08 0.52 2.39 2.41 15.37 11.04 1.72 23.06
+5.54 11.00
+17.35
+8.85 10.17
+3.22 4.63 15.25
+456.62
+0.56 0.19 0.75
+
+1.00 2.65 1,030.65 49.39 29.97 34.04 7.64 1.93 2.32 0.59 1.57 2.80 7.75 2.10 2.59 27.77 2.62 2.40 31.76 12.16 9.26 10.52 9.64 1.23 7.01 22.12 22.34
+1,335.80
+0.75 0.25 1.00
+
+1.00 4.49 0.09 488.11 28.80 4.40 16.65
+3.19 1.61 0.02 0.02 2.34 1.73 2.99 15.94 2.33 2.87 14.51 66.80 12.72 7.65 1.88 2.29 15.80 33.70
+731.92
+0.75 0.25 1.00
+
+1.00 1.45 416.02 42.03 7.00
+5.62 3.59 0.06 8.85 1.62 9.68 1.99 3.52 16.47 1.73 2.21 11.79 79.12 14.01 10.20 0.80 2.09 0.68 3.75 9.82
+655.09
+0.75 0.25 1.00
+
+Consolidated For period ended on
+31/12/2025
+
+For the year ended 31/03/2025
+
+( in lakhs, except per share data)
+
+Standalone
+
+For the year ended For the year ended
+
+31/03/2024
+
+31/03/2023
+
+752.80
+90,22,750 1,80,45,500
+
+966.28
+90,22,750 1,80,45,500
+
+379.15
+90,22,750 1,80,45,500
+
+288.33
+90,22,750 1,80,45,500
+
+8.34
+
+10.71
+
+4.20
+
+3.20
+
+4.17
+
+5.35
+
+2.10
+
+1.60
+
+F 38
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN : U27400GJ2011PLC065108
+Annexure-VI
+
+Part:A
+
+Statement of Restated Adjustments to Audited Consolidated/Standalone Financial Statements
+
+Reconcilation between proft/(loss) as per Audited Statutory Financial Statements and Restated Financial Information
+
+( in Lakhs)
+
+Consolidated
+
+Standalone
+
+Particulars
+
+For the Period For the Year For the Year For the Year Ended 12/31/2025 Ended 03/31/2025 Ended 03/31/2024 Ended 03/31/2023
+
+Profit After Tax as per Audited Fianancials Adjustment for provision of Gratuity Adjustment for provision of Income Tax Adjustment for provision of Deferred Tax Adjustment for Others Profit After Tax as per Restated
+
+696.83 -
+55.97 -
+752.81
+
+1,010.36 (3.08) (36.24) 0.77 (5.55)
+966.27
+
+389.52 (0.73) (7.02) 0.18 (2.81)
+379.15
+
+316.35 (22.27) (12.72)
+5.40 1.56 288.33
+
+Consolidated
+
+Standalone
+
+Particulars
+
+For the Period For the Year For the Year For the Year Ended 12/31/2025 Ended 03/31/2025 Ended 03/31/2024 Ended 03/31/2023
+
+Shareholders' Funds as per Audited Financials
+
+3,308.55
+
+2,637.80
+
+1,627.43
+
+1,237.91
+
+Adjustment for :
+Difference pertaining to changes in Profit/Loss due to Restated Effect for the period cover in Restated Financials
+Shareholders' Funds as per Restated
+
+(0.44) 3,308.11
+
+(82.49) 2,555.31
+
+(38.40) 1,589.03
+
+(28.02) 1,209.88
+
+Notes : 1 Explanatory notes for the restatement adjustments
+i) The Amount relating to the Income / Expenses have been adjusted in the year to which the same realted to & under which head the same realtes to.
+ii) The Company has provided Excess or Short Provision of Income Tax in the year in which the Income Tax Return has been filled for the respective financial year But in the Restated Financial Information the company has provided Excess or Short Provision of Income Tax in the year to which it relates to iii) There is change in deferred tax assets / liabilities as per audited books of accounts and as per restated books for respective financial covered under the restated financial information and the same has been given effect in the year to which the same realtes to. 2 To give Explanatory Notes Regarding Adjustment :Appropriate adjustment have been made in the restated financial statement, wherever required, by reclassification of the corresponding item of income, expenses, assets and liabilities, in order to bring them In line with the groupings asper audited financial of the company for all the years and requirements of the Securities and Exchange Board of India ( Issue of Capital and Disclosure Requirements) Regulation 2018.
+3 Material Regrouping : Appropriate regroupings have been made in the restated summary statement of assets and liabilities, restated summary statement of profit and loss and restated summary statement of cash flows, wherever required, by reclassification of the corresponding items of income, expenses, assets, liabilities and cash flows, in order to bring them in line with the accounting policies and classification as per the summary statements of the Company for the period/year ended on December 31, 2025, March 31, 2025, March 31, 2024 and March 31, 2023 prepared in accordance with Schedule III of Companies Act,2013, requirements of Indian GAAP's - 'Presentation of financial statements' and other applicable Indian GAAP's principles and the requirements of the Securities and Exchange Board of India (Issue of Capital & Disclosure Requirements) Regulations, 2018, as amended.
+
+F 39
+
+PHOTONICS WATERTECH LIMITED
+
+(Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED)
+
+CIN : U27400GJ2011PLC065108
+
+ANNEXURE �VII
+
+Restated Statement of Accounting & Other Ratios
+
+Particulars
+
+Consolidated 31-12-2025
+
+31-03-2025
+
+Standalone 31-03-2024
+
+31-03-2023
+
+Net Profit as Restated Add: Depreciation Add: Interest on Loan Add: Income Tax/ Deferred Tax Less: Other Income EBITDA EBITDA Margin (%)
+
+(A)
+
+752.80
+
+966.28
+
+379.15
+
+24.77
+
+34.91
+
+39.25
+
+128.26
+
+139.67
+
+122.42
+
+264.74
+
+376.04
+
+137.84
+
+(35.08)
+
+(56.75)
+
+(40.56)
+
+1,135.50
+
+1,460.15
+
+638.09
+
+27.47%
+
+15.24%
+
+9.90%
+
+288.33 42.25 80.81
+113.48 (58.93) 465.94 9.04%
+
+Net Worth as Restated Return on Net worth (%) as Restated
+
+(B) (A/B)
+
+3,308.11 22.76%
+
+2,555.31 37.81%
+
+1,589.03 23.86%
+
+1,209.89 23.83%
+
+Equity Share at the end of year (in Nos.) Weighted No. of Equity Shares (Pre-Bonus)
+
+(C)
+
+90,22,750
+
+90,22,750
+
+90,22,750
+
+(D)
+
+90,22,750
+
+90,22,750
+
+90,22,750
+
+90,22,750 90,22,750
+
+Weighted No. of Equity Shares (Post-Bonus) (after considering Bonus Impact with retrospective effect)
+
+(E)
+
+1,80,45,500
+
+1,80,45,500
+
+1,80,45,500
+
+1,80,45,500
+
+Basic & Diluted Earnings per Equity Share as Restated
+
+(A/D)
+
+8.34
+
+10.71
+
+4.20
+
+3.20
+
+Basic & Diluted Earnings per Equity Share as Restated after
+
+considering Bonus Impact with retrospective effect
+
+(A/E)
+
+4.17
+
+5.35
+
+2.10
+
+1.60
+
+Equity Share at the end of year (in Nos.) Equity Share at the end of year (in Nos.) (after considering Bonus Impact with retrospective effect) Net Asset Value per Equity share as Restated Net Asset Value per Equity share as Restated after considering Bonus Impact with retrospective effect
+
+(F)
+(G) (B/C)
+(B/G)
+
+90,22,750
+1,80,45,500 36.66
+18.33
+
+90,22,750
+1,80,45,500 28.32
+14.16
+
+90,22,750
+1,80,45,500 17.61
+8.81
+
+90,22,750
+1,80,45,500 13.41
+6.70
+
+Notes :-
+i. EBITDA calculated as profit before exceptional items and tax plus depreciation and amortisation expense and finance costs, as reduced by other income as per the Restated Consolidated Financial Information. ii. EBITDA Margin is calculated as EBITDA divided by Revenue from operations
+iii. Earnings per share are in accordance with Accounting Standard 20 - Earnings Per Share, notified under the Companies (Accounting Standard) Rules, 2006, as amended. iv. Basic Earnings per Equity Share () = Profit for the year, as restated divided by Weighted average number of equity shares outstanding during the period/year. v. Diluted Earnings per Equity Share () = Profit for the year, as restated divided by Weighted average number of diluted equity shares outstanding during the period/year. vi. Earnings per share () = Profit available to equity shareholders / Weighted No. of shares outstanding at the end of the year.
+vii. Return on Net worth attributable to the Equity Shareholders of our Company (%) = Restated net profit for the period/year attributable to Equity Shareholders of our Company / Restated Net worth attributable to the Equity Shareholders of our Company as at the end of the period/year. viii. Net asset value per share = Restated Net worth at the end of the year divided by weighted average number of equity shares outstanding at the end of the period/year. viii. The Company does not have any revaluation reserves or extra-ordinary items.
+
+As per Accounting Standard 20 (AS - 20), In case of a bonus issue or a share split, equity shares are issued to existing shareholders for no additional consideration. Therefore, the number of equity shares outstanding is increased without an increase in resources.The number of equitiy shares outstanding before the event is adjusted for the proportionate change in the number of equities shares outstanding as if the event had occurred at the beginning of the earliest period reported.
+
+F 40
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN : U27400GJ2011PLC065108
+
+Sr. No.
+
+Ratio
+
+1 Current Ratio 2 Debt-Equity Ratio 3 Debt Service Coverage Ratio 4 Return on Equity (ROE)(%) 5 Inventory Turnover Ratio 6 Trade receivables turnover ratio 7 Trade payables turnover ratio 8 Net capital turnover ratio 9 Net profit ratio(%) 10 Return on capital employed (ROCE)(%) 11 Return on investments(%)
+
+As At 31/12/2025
+
+As At 31/03/2025
+
+As At 31/03/2024
+
+1.59 0.46 7.76 25.68 1.44 1.46 4.30 2.53 18.21% 26.65% 2.33%
+
+1.36 0.50 6.19 46.63 7.34 3.31 7.47 12.46 10.09% 43.58% 3.31%
+
+1.08 0.90 2.41 27.09 16.61 2.06 4.04 30.83 5.88% 23.99% 5.07%
+
+Sr. No.
+
+Ratio
+
+1 Current Ratio 2 Debt-Equity Ratio 3 Debt Service Coverage Ratio 4 Return on Equity (ROE)(%) 5 Inventory Turnover Ratio 6 Trade receivables turnover ratio 7 Trade payables turnover ratio 8 Net capital turnover ratio 9 Net profit ratio(%) 10 Return on capital employed (ROCE)(%) 11 Return on investments(%)
+
+As At 31/03/2025
+26.21% -44.12% 156.83% 72.12% -55.83% 60.38% 84.75% -59.59% 71.53% 81.64% -34.68%
+
+Notes
+
+As At 31/03/2024
+
+Refer A-1 Refer A-2 Refer A-3 Refer A-4 Refer A-5 Refer A-6
+Refer A-7 Refer A-8 Refer A-9
+
+4.52% -5.88% -48.16% 0.14% 9.03% -7.80% 24.32% 88.27% 5.05% 3.58% 45.73%
+
+Note : A Reasons for Variations: 1 Debt Equity Ratio: Decreased primarily due to increase in total equity during the period. 2 Debt Service Coverage Ratio : Increased due to improvement in overall earnings. 3 Return on Equity (ROE)(%) : Increased due to improvement in overall earnings. 4 Inventory Turnover Ratio :Decreased mainly due to increase in average inventory levels. 5 Trade receivables turnover ratio : Increased primarily due to growth in revenue from operations. 6 Trade payables turnover ratio : Increased mainly due to higher purchase volumes during the period. 7 Net profit ratio(%) :Increased due to improvement in overall earnings. 8 Return on capital employed (ROCE)(%) :Increased mainly due to higher earnings before interest and tax (EBIT). 9 Return on investments(%) : Decreased due to increase in investment base.
+Note : B Reasons for Variations: 1 Debt Service Coverage Ratio: Decreased due ti increased in borrowing. 2 Return on investments(%) : Increased due to higher investment income.
+
+As At 31/03/2023
+1.03 0.96 4.65 27.06 15.24 2.24 3.25 16.38 5.60% 23.16% 3.48%
+Notes
+Refer B-1
+Refer B-2
+
+F 41
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN : U27400GJ2011PLC065108
+ANNEXURE �VIII
+
+Restated Statement of Capitalization
+
+Debt : Long Term Borrowings Short Term Borrowings Total Borrowings
+
+Particulars
+
+Pre-Offer 31-12-2025
+
+( in Lakhs) Post Offer*
+
+142.51
+
+[]
+
+1,372.54
+
+[]
+
+1,515.05
+
+-
+
+Shareholders Funds Equity Share Capital Reserves and Surplus Minority Interest Total Shareholders' Funds
+
+902.28
+
+[]
+
+2,405.84
+
+[]
+
+-
+
+-
+
+3,308.11
+
+[]
+
+Long Term Borrowings/ Shareholders' Funds Total Borrowings/ Shareholders Fund
+
+0.04
+
+[]
+
+0.46
+
+[]
+
+*Note:1) The pre offer figures are as on 31.12.2025. 2) The post offer figures areare not determinable at this stage pending the completion of public offer and hence have not been furnished.
+3) The Company has increased the Authorised Capital from 1,00,00,000 Equiy shares of 10/- each to 2,50,00,000 equity shares of  10/- each in the extraordinary general meeting of the Company held as on April 4, 2026,
+4) Pursuant to the approval of shareholders at the extraordinary general meeting of the Company held on April 04, 2026, Issued Share Capital was increased by  9,02,27,500 by issuing 90,22,750 bonus shares of  10 each to the existing shareholders in the ratio of 1:1 during the period 2026-27.
+5) "Long term Borrowings represent debts other than Short Term Borrowings as defined above but includes installment of term loans repayable within 12 months grouped under short term borrowings". 6) "Short term Borrowings represent which are expected to be paid/payable within 12 months and excludes instalment of term loans repayable within 12 months."
+7) The above ratios have been computed on the basis of the Restated Consolidated Statement of Assets and Liabilities of the Company.
+8)The above statement should be read with the Statement of Notes to the Restated Consolidated Financial Information of the Company.
+
+F 42
+
+PHOTONICS WATERTECH LIMITED
+
+(Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED)
+
+CIN : U27400GJ2011PLC065108
+
+ANNEXURE �IX
+
+Restated Statement of Tax Shelter
+
+Consolidated
+
+Particulars
+
+31-03-2025
+
+Consolidated Profit Before Tax as per books of accounts (A) Profit/(loss) of Subsidiary Company Profit Before Tax as per books of accounts after eliminating profit of Subsidiary -- Normal Tax rate Permanent differences Other adjustments Donation Expenses Total (B)
+
+1,017.55 -
+1,017.55 25.17%
+40.44 -
+40.44
+
+Timing Differences Depreciation as per Books of Accounts Depreciation as per Income Tax Difference between tax depreciation and book depreciation Other adjustments Deduction under chapter VI-A Total (C) Net Adjustments (D = B+C) Total Income (E = A+D) Brought forward losses set off (INCLUDING Depreciation) Tax effect on the above (F) Taxable Income/ (Loss) for the year/period (E+F) Tax & interest thereon Payable for the year Tax payable as per MAT Tax expense recognised Tax payable as per normal rates or MAT (whichever is higher)
+
+24.77 27.95 (3.18)
+(3.18) 37.26 1,054.81 1,054.81 265.47 NA 265.47 Income Tax
+
+Standalone
+
+31-03-2025
+
+31-03-2024
+
+1,342.32 -
+1,342.32 25.17%
+
+516.99 -
+516.99 25.17%
+
+17.65
+
+4.84
+
+-
+
+-
+
+17.65
+
+4.84
+
+( in Lakhs)
+31-03-2023 401.82 401.82 25.17%
+23.95 0.05 24.00
+
+34.91 31.98 2.93
+2.93 20.58 1,362.90 1,362.90 377.55 NA 377.55 Income Tax
+
+39.25 34.62 4.63
+4.63 9.46 526.45 526.45 139.19 NA 139.19 Income Tax
+
+42.25 37.29 4.95
+4.95 28.96 430.78 430.78 120.34 NA 120.34 Income Tax
+
+F 43
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED)
+CIN : U27400GJ2011PLC065108
+
+ANNEXURE - X Restated Statement of Segment Reporting
+
+Sr. No
+
+Particulars
+
+1) Segment Revenue External Sales Inter-Segment Sales Total Revenue
+
+Led Based Lighting Solutions
+
+Solar EPC
+
+31/12/2025 (Consolidated)
+
+Water Infrastructure
+
+Automation
+
+UnAllocable
+
+1,626.86
+
+1,621.63
+
+51.21
+
+834.63
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+1,626.86
+
+1,621.63
+
+51.21
+
+834.63
+
+-
+
+2) Segment Result
+
+724.85
+
+484.56
+
+10.64
+
+603.01
+
+-
+
+Other Income Employee benefits expense Finance costs Depreciation and amortisation expense Other expenses
+
+-
+
+-
+
+-
+
+-
+
+35.08
+
+-
+
+-
+
+-
+
+-
+
+(230.94)
+
+-
+
+-
+
+-
+
+-
+
+(128.26)
+
+-
+
+-
+
+-
+
+-
+
+(24.77)
+
+-
+
+-
+
+-
+
+-
+
+(456.62)
+
+Profit /(Loss) before tax and Exceptional Items Tax expense: (a) Current tax expense (b) Short/(Excess) provision of tax for earlier years (c) Deferred tax charge/(credit)
+
+724.85
+-
+
+484.56
+-
+
+10.64
+-
+
+603.01
+-
+
+(805.52)
+-
+
+Profit after tax for the year
+
+3) OTHER INFORMATION Segment Assets Segment Liabilities Capital Expenditure Depreciation Non-cash expenses other than depreciation
+
+452.41 -
+-
+
+1,088.19 -
+-
+
+425.11 -
+-
+
+11.89 -
+-
+
+4,918.69 6,896.30
+19.11 24.77 17.35
+
+Sr. No
+
+Particulars
+
+1) Segment Revenue External Sales Inter-Segment Sales Total Revenue
+
+Led Based Lighting Solutions
+1,351.04 -
+1,351.04
+
+Solar EPC
+
+31/03/2024 (Standalone)
+
+Water Infrastructure
+
+Automation
+
+3,996.03
+
+1,101.44
+
+-
+
+-
+
+-
+
+-
+
+3,996.03
+
+1,101.44
+
+-
+
+UnAllocable
+-
+
+2) Segment Result Other Income Employee benefits expense Finance costs Depreciation and amortisation expense Other expenses Profit /(Loss) before tax and Exceptional Items Tax expense: (a) Current tax expense (b) Short/(Excess) provision of tax for earlier years (c) Deferred tax charge/(credit)
+Profit after tax for the year
+3) OTHER INFORMATION Segment Assets Segment Liabilities Capital Expenditure Depreciation Non-cash expenses other than depreciation
+
+361.99 -
+361.99
+-
+
+520.12 -
+520.12
+-
+
+665.02 -
+665.02
+-
+
+-
+
+-
+
+-
+
+40.56
+
+-
+
+(177.12)
+
+-
+
+(122.42)
+
+-
+
+(39.25)
+
+-
+
+(731.92)
+
+-
+
+(1,030.14)
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+240.92 -
+
+286.65 -
+
+11.12 -
+
+-
+
+5,262.14
+
+-
+
+5,800.84
+
+-
+
+10.35
+
+-
+
+39.25
+
+-
+
+75.58
+
+Total
+
+Led Based Lighting Solutions
+
+Solar EPC
+
+31/03/2025 (Standalone)
+
+Water Infrastructure
+
+Automation
+
+UnAllocable
+
+4,134.33
+
+5,334.05
+
+2,663.83
+
+10.84
+
+1,572.59
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+4,134.33
+
+5,334.05
+
+2,663.83
+
+10.84
+
+1,572.59
+
+-
+
+-
+
+1,823.06
+
+1,134.12
+
+830.75
+
+2.19
+
+1,127.98
+
+-
+
+35.08
+
+-
+
+-
+
+-
+
+-
+
+56.75
+
+(230.94)
+
+-
+
+-
+
+-
+
+-
+
+(299.09)
+
+(128.26)
+
+-
+
+-
+
+-
+
+-
+
+(139.67)
+
+(24.77)
+
+-
+
+-
+
+-
+
+-
+
+(34.91)
+
+(456.62)
+
+-
+
+-
+
+-
+
+(653.27)
+
+(682.53)
+
+1,017.54
+
+1,134.12
+
+830.75
+
+2.19
+
+474.71
+
+(1,099.45)
+
+265.47
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+0.73
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+752.80
+
+6,896.30 6,896.30
+19.11 24.77 17.35
+
+557.49 -
+
+757.94 -
+
+29.28 -
+
+4.50
+
+4,797.51
+
+-
+
+6,146.72
+
+-
+
+184.98
+
+-
+
+34.91
+
+-
+
+12.16
+
+Total
+
+Led Based Lighting Solutions
+
+Solar EPC
+
+31/03/2023 (Standalone)
+
+Water Infrastructure
+
+Automation
+
+UnAllocable
+
+6,448.51 -
+6,448.51 -
+1,547.13 40.56
+(177.12) (122.42) (39.25) (731.92) 516.99
+
+629.06 -
+629.06
+168.78 -
+168.78
+
+2,189.03 -
+2,189.03
+223.71 -
+223.71
+
+2,333.29 -
+2,333.29
+917.56 -
+917.56
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+58.93
+
+-
+
+(189.02)
+
+-
+
+(80.81)
+
+-
+
+(42.25)
+
+-
+
+(655.09)
+
+-
+
+(908.24)
+
+139.19
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+(1.35)
+
+-
+
+-
+
+-
+
+-
+
+379.15
+
+-
+
+-
+
+-
+
+-
+
+-
+
+-
+
+5,800.84
+
+97.51
+
+64.03
+
+4.66
+
+5,800.84
+
+-
+
+-
+
+-
+
+10.35
+
+-
+
+-
+
+-
+
+39.25
+
+-
+
+-
+
+-
+
+75.58
+
+-
+
+-
+
+-
+
+-
+
+4,892.84
+
+-
+
+5,059.05
+
+-
+
+22.69
+
+-
+
+42.25
+
+-
+
+80.36
+
+Total
+9,581.31 -
+9,581.31
+3,095.04
+56.75 (299.09) (139.67) (34.91) (1,335.80)
+1,342.32
+377.55 -
+(1.51) -
+966.28
+6,146.72 6,146.72
+184.98 34.91 12.16
+Total
+5,151.38 -
+5,151.38
+1,310.05 58.93
+(189.02) (80.81) (42.25) (655.09) 401.82
+120.34 -
+(6.85) -
+288.33
+5,059.05 5,059.05
+22.69 42.25 80.36
+
+F 44
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN : U27400GJ2011PLC065108
+
+ANNEXURE �X
+
+Statement of Related Party & Transactions :
+
+List of Related Parties where Control exists and Relationships:
+
+Sr. No Name of the Related Party
+
+Relationship
+
+1)
+
+Brijeshkumar Amrutlal Patel
+
+2)
+
+Vasantkumar Narayanbhai Patel
+
+3)
+
+Jayavik Hasmukhbhai Patel
+
+4)
+
+Rakshitbhai Kiritbhai Shah (Resigned Date - 13th February 2024)
+
+5)
+
+Prakash Bhambhani (w.e.f - 03rd April, 2026)
+
+6)
+
+Manali Hirenkumar Shah (w.e.f - 03rd April, 2026)
+
+7)
+
+Jaya Bhardwaj (w.e.f - 04th April, 2026)
+
+8)
+
+Shivani Kumari Joshi (w.e.f - 04th April, 2026)
+
+9)
+
+Urvish Vinodchandra Jardosh (w.e.f - 04th April, 2026)
+
+10)
+
+Chetnaben Patel (Resigned Date - 31st July, 2025)
+
+11)
+
+Brijeshkumar Patel - HUF
+
+12)
+
+Vasantkumar Patel - HUF
+
+13)
+
+Jayavik Patel - HUF
+
+14)
+
+Photonics Watertech LLC
+
+15)
+
+Equator Exim Private Limited
+
+16)
+
+BrightLine Studio
+
+17)
+
+Biztech Corporation
+
+18)
+
+Deepak Seeds Private Limited
+
+19)
+
+Maithili Engeneering [Upto December 29,2026]
+
+20)
+
+SP121 Enterprise
+
+21)
+
+Green Revolution Energy [Upto September 11, 2022]
+
+22)
+
+Ellence Corporation LLP (Incorporated on 23/06/2025)
+
+23)
+
+Shubham Engineering
+
+Chairman And Managing Director Whole Time Director Whole Time Director Whole Time Director Chief Financial Officier Company Secretary Independent Director Independent Director Independent Director
+Relative of Key Management Personnel Relative of Key Management Personnel Relative of Key Management Personnel Relative of Key Management Personnel
+Subsidiary Company
+Entity Over Which Key Management Personnel exercise significant influence
+
+Transactions during the year:
+
+Consolidated
+
+For the period ended For the year ended
+
+31/12/2025
+
+31/03/2025
+
+Standalone
+For the year ended
+31/03/2024
+
+( in Lakhs)
+For the year ended 31/03/2023
+
+Director's Remuneration Brijeshkumar Amrutlal Patel Vasantkumar Narayanbhai Patel Jayavik Hasmukhbhai Patel Rakshitbhai Kiritbhai Shah
+
+51.84 51.84 51.84
+-
+
+66.29 66.29 66.29
+-
+
+20.00 15.00 15.00 12.50
+
+15.00 15.00 15.00 15.00
+
+Salary Chetnaben Patel
+
+-
+
+6.50
+
+5.81
+
+5.25
+
+Loan Taken by Company Brijeshkumar Amrutlal Patel Vasantkumar Narayanbhai Patel Jayavik Hasmukhbhai Patel Rakshitbhai Kiritbhai Shah
+
+168.00
+
+33.23
+
+51.00
+
+-
+
+-
+
+-
+
+-
+
+-
+
+30.00
+
+21.00
+
+95.00
+
+0.40
+
+-
+
+-
+
+-
+
+0.10
+
+Loan Repaid Brijeshkumar Amrutlal Patel Vasantkumar Narayanbhai Patel Jayavik Hasmukhbhai Patel Rakshitbhai Kiritbhai Shah
+
+12.00 4.40 16.00 -
+
+19.58 24.49 46.39
+-
+
+63.50 22.74 153.89 39.24
+
+3.50 12.48 11.70
+0.34
+
+Reimbursement to Directors Brijeshkumar Amrutlal Patel Vasantkumar Narayanbhai Patel Jayavik Hasmukhbhai Patel Rakshitbhai Kiritbhai Shah
+
+35.15
+
+4.27
+
+6.82
+
+9.62
+
+6.50
+
+7.04
+
+7.54
+
+7.22
+
+0.02
+
+5.17
+
+12.98
+
+0.83
+
+-
+
+0.00
+
+0.01
+
+1.67
+
+Acquisition of Immovable Property Equator Exim Private Limited
+
+-
+
+171.01
+
+-
+
+-
+
+Sales Equator Exim Private Limited Maithili Engeneering Shubham Engineering Green Revolution Energy Brijesh Patel HUF SP121 Enterprise
+
+46.63
+
+-
+
+-
+
+10.11
+
+-
+
+-
+
+0.02
+
+-
+
+-
+
+0.46
+
+-
+
+-
+
+2.26
+
+-
+
+2.90
+
+-
+
+-
+
+-
+
+-
+
+Purchase Biztech Corporation Brightline Studio SP121 Enterprise Ellence Corporation LLP
+
+0.56 0.96 46.75 229.50
+
+538.14 1.01
+319.05 NA
+
+26.17 -
+NA
+
+41.19 -
+NA
+
+F 45
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN : U27400GJ2011PLC065108
+
+Transactions during the year:
+Business Advance Given Equator Exim Private Limited
+
+Consolidated
+
+For the period ended For the year ended
+
+31/12/2025
+
+31/03/2025
+
+Standalone For the year
+ended 31/03/2024
+
+For the year ended 31/03/2023
+
+-
+
+-
+
+20.89
+
+17.10
+
+Business Advance Received SP121 Enterprise Equator Exim Private Limited Green Revolution Energy Biztech Corporation Deepak Seeds Private Limited Ellence Corporation LLP
+
+25.00 40.00
+
+-
+
+-
+
+2.30
+
+-
+
+-
+
+206.00
+
+-
+
+66.00
+
+-
+
+80.00 18.05
+-
+
+Business Advance Repaid Maithili Engeneering Equator Exim Private Limited SP121 Enterprise Biztech Corporation Deepak Seeds Private Limited
+
+-
+
+-
+
+206.00
+
+-
+
+7.00
+
+-
+
+-
+
+85.00
+
+-
+
+-
+
+-
+
+63.30
+
+-
+
+25.00
+
+-
+
+-
+
+-
+
+Closing Balance at the year end
+
+Consolidated
+
+For the period ended For the year ended
+
+31/12/2025
+
+31/03/2025
+
+Standalone
+For the year ended
+31/03/2024
+
+For the year ended 31/03/2023
+
+Loan Payable Brijeshkumar Amrutlal Patel Vasantkumar Narayanbhai Patel Jayavik Hasmukhbhai Patel Rakshitbhai Kiritbhai Shah
+Loan Receivable Jayavik Hasmukhbhai Patel
+Director's Remuneration Payable Brijeshkumar Amrutlal Patel Vasantkumar Narayanbhai Patel Jayavik Hasmukhbhai Patel Rakshitbhai Kiritbhai Shah
+Salary Payable Chetnaben Patel
+Amount Payable to Director Brijeshkumar Amrutlal Patel
+Business Advance Given Vasantkumar Narayanbhai Patel Jayavik Hasmukhbhai Patel Rakshitbhai Kiritbhai Shah Equator Exim Private Limited SP121 Enterprise Green Revolution Energy
+Business Advance Received Maithili Engeneering SP121 Enterprise Biztech Corporation Brijesh Patel HUF Ellence Corporation LLP
+Advance to Supplier Biztech Corporation Brightline Studio SP121 Enterprise
+Trade Receivables Equator Exim Private Limited Maithili Engeneering Green Revolution Energy Ellence Corporation LLP
+Trade Payables Biztech Corporation SP121 Enterprise
+
+251.23 18.68 -
+0.68
+44.31 39.81
+-
+-
+1.78
+9.63 13.27
+8.89
+-
+40.00
+4.38 -
+29.79
+5.59 15.74 170.79
+-
+
+95.23 23.08
+-
+36.73
+30.17 25.67 7.90
+-
+1.54
+11.13
+6.31 13.71
+8.89 5.00 -
+-
+4.39 0.17 -
+5.59 15.74 -
+57.06
+
+81.58 47.57
+-
+11.34
+15.90 11.41 12.14
+9.81
+1.98
+0.35
+1.27 12.57
+76.20
+5.00 3.29
+0.92 -
+95.40 -
+-
+-
+25.75 5.59 15.74
+-
+-
+
+94.08 70.31 47.55 39.24
+-
+7.14 7.65 8.38 7.61
+1.27
+3.59
+1.91 0.16 0.02 55.31
+209.29
+206.92 80.00
+3.25
+-
+-
+-
+25.75 5.59
+15.74 -
+61.81 -
+
+F 46
+
+PHOTONICS WATERTECH LIMITED (Formerly also known as PHOTONICS WATERTECH PRIVATE LIMITED) CIN : U27400GJ2011PLC065108
+
+ANNEXURE �XII Statement of Dividends No Dividend were declared and paid by the company during the period under Restatement.
+
+ANNEXURE �XIII Changes in the Significant Accounting Policies There have been no changes in the accounting policies of the Company during the period covered by the Restated Consolidated Financial Information, except with respect to the accounting treatment of employee benefits relating to gratuity. The Company has changed its accounting policy for gratuity from recognition on a cash basis to recognition based on an actuarial valuation, in accordance with the actuarial valuation report obtained by the Company. The effect of this change has been appropriately
+
+ANNEXURE �XIV Contingent Liabilities & Commitement to the extent not provided for : i. Contingent Liabilities Claims against the Company (including unasserted claims) not acknowledged as debt:
+
+Contingent Liabilities
+
+31.12.2025
+
+31.03.2025
+
+31.03.2024
+
+( in Lakhs) 31.03.2023
+
+a. Bank Guarantee
+
+1,106.94
+
+777.36
+
+814.27
+
+386.12
+
+b. Disputed income tax demands under the Income-tax Act, 1961 not acknowledged as debt
+
+7.26
+
+7.26
+
+7.26
+
+7.26
+
+*Note : The Company has received a notice under Section 154 of the Income-tax Act, 1961 for Assessment Year 2020-21, pursuant to which a demand of 4.74 lakh
+
+was raised. As at the date of theis Report, the aggregate demand outstanding, including applicable interest, amounts to 7.31 lakh.
+
+ii. Commitments a. Capital Commitement
+
+31.12.2025
+
+31.03.2025
+
+31.03.2024
+
+( in Lakhs) 31.03.2023
+
+Commitment towards investment in Foreign Subsidiary against subscription of
+
+495.81
+
+NA
+
+NA
+
+NA
+
+212,500 equity shares of OMR 1 each, pending remittance as at the reporting
+
+date. Note : The exchange rate considered for conversion is 1 Omani Riyal (OMR) = INR 233.32 as on 31 December 2025.
+
+As at the date of this report, the share capital of the foreign subsidiary has been reduced from 250,000 shares to 50,000 shares. Consequently, the Company's holding
+
+in the foreign subsidiary has been reduced from 212,500 shares to 42,500 shares. However, the Company's percentage ownership interest in the foreign subsidiary
+
+remains unchanged, as the reduction in shareholding was proportionate to the reduction in the subsidiary's total share capital.
+
+b. The company doesnot have any longterm contracts including derivative contracts for which there are any material foreseable losses.
+
+F 47
+

@@ -51,6 +51,11 @@ export const vardhman: FactBase = {
       email: 'cs@vardhmanprecision.in',
       telephone: '+91 20 6712 4412',
     },
+    // The only name change is the 2025 conversion, well outside E-09's window,
+    // so the revenue test never arises.
+    revenueShareFromNewNameActivity: null,
+    convertedFromFirmType: 'NONE',
+    conversionFromFirmDate: null,
     sector: 'ENGINEERING',
     businessDescription:
       'Manufacture of precision machined components and sub-assemblies for commercial vehicle and off-highway powertrain applications, supplied directly to original equipment manufacturers.',
@@ -167,6 +172,8 @@ export const vardhman: FactBase = {
 
     hasOutstandingConvertibles: false,
     hasPartlyPaidShares: false,
+    // BSE SME requires both (E-15); the agreements are tripartite with Bigshare.
+    depositoryAgreements: { nsdl: true, cdsl: true },
   },
 
   promoters: {
@@ -198,6 +205,8 @@ export const vardhman: FactBase = {
     anyWilfulDefaulterOrFraudulentBorrower: false,
     anyFugitiveEconomicOffender: false,
     controlChangedInPastYear: false,
+    anyAssociatedWithDelistedCompany: false,
+    majorityPromoterChangeDate: null,
   },
 
   management: {
@@ -283,6 +292,9 @@ export const vardhman: FactBase = {
         totalLiabilities: cr('22.90'),
         intangibleAssets: cr('0.18'),
         deferredIpoExpenses: cr('0.12'),
+        // Cash and current investments. R-029 caps these at 50% of net
+        // tangible assets; 4.20 against 19.40 is comfortably inside.
+        monetaryAssets: cr('4.20'),
         totalBorrowings: cr('8.60'),
         shareholdersEquity: cr('19.40'),
         cashFlowFromOperations: cr('5.20'),
@@ -307,6 +319,7 @@ export const vardhman: FactBase = {
         totalLiabilities: cr('18.75'),
         intangibleAssets: cr('0.15'),
         deferredIpoExpenses: cr('0'),
+        monetaryAssets: cr('3.05'),
         totalBorrowings: cr('7.20'),
         shareholdersEquity: cr('14.20'),
         cashFlowFromOperations: cr('3.10'),
@@ -331,6 +344,7 @@ export const vardhman: FactBase = {
         totalLiabilities: cr('14.38'),
         intangibleAssets: cr('0.12'),
         deferredIpoExpenses: cr('0'),
+        monetaryAssets: cr('2.10'),
         totalBorrowings: cr('6.10'),
         shareholdersEquity: cr('9.80'),
         cashFlowFromOperations: cr('2.05'),
@@ -366,8 +380,22 @@ export const vardhman: FactBase = {
       },
     ],
     referredToNCLT: false,
+    ibcProceedingsAgainstPromotingCompanies: false,
     windingUpPetitionAdmitted: false,
     referredToBIFR: false,
+    /**
+     * The pollution-control show cause notice above is NOT a regulatory action
+     * for E-13 or N-09 — a notice replied to, with no order and no further
+     * communication, is not an action by an exchange or a regulator against
+     * the company. Litigation disclosure and eligibility are different tests,
+     * and conflating them would fire a finding on an ordinary tax appeal.
+     */
+    regulatoryActionAgainstCompanySince: null,
+    regulatoryActionAgainstPromotersSince: null,
+    regulatoryActionAgainstGroupCompaniesSince: null,
+    tradingSuspendedForPromoterCompanies: false,
+    pendingDebtSecurityDefaults: false,
+    sebiActionAgainstDirectorsSince: null,
   },
 
   approvals: {
@@ -412,6 +440,9 @@ export const vardhman: FactBase = {
 
     floorPrice: money('47'),
     capPrice: money('49'),
+    // Not fixed until the book closes, so it renders as a gap. Every corpus
+    // document prints it as "[dot]" at this stage too.
+    issuePrice: null,
     lotSize: 3000,
 
     // Objects plus issue expenses total Rs 22.05 cr, which is exactly
@@ -460,6 +491,18 @@ export const vardhman: FactBase = {
 
     bookRunningLeadManager: 'Indorient Financial Services Limited',
     registrarToIssue: 'Bigshare Services Private Limited',
+    sponsorBank: 'HDFC Bank Limited',
+    escrowCollectionBank: 'ICICI Bank Limited',
+    monitoringAgency: 'Brickwork Ratings India Private Limited',
+    legalAdvisor: 'Kanga and Company, Advocates and Solicitors',
+    isin: 'INE9V8K01015',
+    // The six-month rules: neither has happened. E-10 asks about the company,
+    // N-08 about the merchant banker — two different questions.
+    // No Reg 300(1)(c) application; the section prints the standard negative.
+    exemptionApplicationDetails: null,
+    registrarAgreementDate: '2026-07-14',
+    exchangeApplicationRejectedSince: null,
+    brlmDraftReturnedSince: null,
 
     jurisdiction: 'Mumbai, Maharashtra',
     bidOpeningDate: '2026-12-08',

@@ -1,7 +1,8 @@
 import Decimal from 'decimal.js';
+import { sectionAnchor } from '../anchors';
 import type { FactPath, ProvenanceMap } from '../facts/provenance';
 import type { FactBase } from '../facts/schema';
-import type { DocumentNode } from './nodes';
+import { collectPlaceholders, type DocumentNode, type Placeholder, type Run } from './nodes';
 import { renderTemplate } from './template';
 
 /**
@@ -265,10 +266,126 @@ export function renderSection(spec: SectionSpec, ctx: RenderContext): DocumentNo
   }
 }
 
-/** Render an ordered set of sections into one document. */
-export function renderDocument(specs: SectionSpec[], ctx: RenderContext): DocumentNode[] {
+/**
+ * One section's output, with the identity it needs to be linked TO.
+ *
+ * The flat `DocumentNode[]` is what the renderers consume, but a finding that
+ * says "this holds up Issue Structure" has to be able to point somewhere, and
+ * once the tree is flattened there is nothing left to point at. Keeping the
+ * section boundary is what makes the gap list navigable rather than a list of
+ * complaints about a document the reader then has to search by hand.
+ */
+export interface SectionRef {
+  id: string;
+  title: string;
+  group: string;
+  /** DOM id now, DOCX bookmark later. */
+  anchor: string;
+}
+
+export interface RenderedSection extends SectionRef {
+  nodes: DocumentNode[];
+}
+
+/** Render an ordered set of sections, keeping the section boundaries. */
+export function renderSections(specs: SectionSpec[], ctx: RenderContext): RenderedSection[] {
   return specs
     .slice()
     .sort((a, b) => a.order - b.order)
-    .flatMap((spec) => renderSection(spec, ctx));
+    .map((spec) => ({
+      id: spec.id,
+      title: spec.title,
+      group: spec.group,
+      anchor: sectionAnchor(spec.id),
+      nodes: renderSection(spec, ctx),
+    }))
+    /**
+     * A section switched off by `appliesIf` produces nothing, and must not
+     * appear in the outline either — a "Holds up" link that scrolls nowhere is
+     * worse than plain text, because the reader assumes they missed it.
+     */
+    .filter((section) => section.nodes.length > 0);
+}
+
+/** Render an ordered set of sections into one document. */
+export function renderDocument(specs: SectionSpec[], ctx: RenderContext): DocumentNode[] {
+  return flattenSections(renderSections(specs, ctx));
+}
+
+export function flattenSections(sections: RenderedSection[]): DocumentNode[] {
+  return sections.flatMap((section) => section.nodes);
+}
+
+/** A placeholder together with every section that renders it. */
+export interface Gap extends Placeholder {
+  /** In document order. The first is where the gap's anchor sits. */
+  sections: SectionRef[];
+}
+
+/**
+ * Every gap in the document, deduplicated by fact path.
+ *
+ * One missing fact can surface in several sections — the registrar's address
+ * appears in Definitions, General Information and Terms of the Issue — and it
+ * is one thing to provide, so it is one finding that names all of them.
+ */
+export function collectGaps(sections: RenderedSection[]): Gap[] {
+  const byPath = new Map<string, Gap>();
+
+  for (const section of sections) {
+    const ref: SectionRef = {
+      id: section.id,
+      title: section.title,
+      group: section.group,
+      anchor: section.anchor,
+    };
+    for (const placeholder of collectPlaceholders(section.nodes)) {
+      const existing = byPath.get(placeholder.factPath);
+      if (!existing) {
+        byPath.set(placeholder.factPath, { ...placeholder, sections: [ref] });
+      } else if (!existing.sections.some((s) => s.id === ref.id)) {
+        existing.sections.push(ref);
+      }
+    }
+  }
+  return [...byPath.values()];
+}
+
+/**
+ * Address of a single run within a rendered document: section, node, then the
+ * list item where there is one, then the run.
+ *
+ * The renderer and `gapAnchorKeys` must agree on this exactly, which is why
+ * neither builds the string itself.
+ */
+export const runKey = (...parts: number[]): string => parts.join('.');
+
+/**
+ * Which run carries each gap's anchor: the FIRST occurrence of that fact path
+ * in the document.
+ *
+ * A gap repeated in nine places must still have exactly one id, or the
+ * document emits duplicate DOM ids and the browser jumps to whichever it
+ * happens to find first.
+ */
+export function gapAnchorKeys(sections: RenderedSection[]): Map<string, string> {
+  const anchored = new Map<string, string>();
+  const seen = new Set<string>();
+
+  const scan = (runs: Run[], prefix: number[]) => {
+    runs.forEach((run, r) => {
+      const path = run.placeholder?.factPath;
+      if (!path || seen.has(path)) return;
+      seen.add(path);
+      anchored.set(runKey(...prefix, r), path);
+    });
+  };
+
+  sections.forEach((section, s) =>
+    section.nodes.forEach((node, n) => {
+      if (node.type === 'paragraph') scan(node.runs, [s, n]);
+      else if (node.type === 'list') node.items.forEach((item, i) => scan(item, [s, n, i]));
+    }),
+  );
+  return anchored;
 }

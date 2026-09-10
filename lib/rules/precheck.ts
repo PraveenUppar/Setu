@@ -57,6 +57,49 @@ export interface PreCheckInput {
   anyFugitiveEconomicOffender: boolean;
   hasOutstandingConvertibles: boolean;
   hasPartlyPaidShares: boolean;
+
+  /**
+   * The exchange criteria a promoter can answer on day one.
+   *
+   * These are the ones that cost months if discovered late: a name change or a
+   * control change starts a one-year clock, a rejected application starts a
+   * six-month one, and the insolvency tests are absolute. Everything else in
+   * E-05 to E-18 and N-05 to N-11 needs a balance sheet, a merchant banker or a
+   * drafted document, and asking for it here would turn a ten-minute check into
+   * an interrogation people abandon.
+   */
+  referredToNCLT: boolean;
+  windingUpPetitionAdmitted: boolean;
+  referredToBIFR: boolean;
+  anyAssociatedWithDelistedCompany: boolean;
+
+  /** BSE SME only — E-08, E-09, E-10, E-18. */
+  controlChangedInPastYear: boolean;
+  /**
+   * Dates, not booleans, because both rules are about a window that clears:
+   * the issuer needs to be told WHEN, and a date the promoter supplies is a
+   * fact, where a date derived from "yes" would be invented.
+   */
+  lastNameChangeDate?: string | null;
+  /** Only asked where a name change falls inside E-09's window. */
+  revenueShareFromNewNameActivity?: number | null;
+  conversionToPublicDate?: string | null;
+  exchangeApplicationRejectedSince?: string | null;
+  pendingDebtSecurityDefaults: boolean;
+
+  /**
+   * Both venues, both regulations rather than exchange criteria, and both
+   * start a clock the promoter cannot shorten — which makes them the highest
+   * value questions in the whole pre-check.
+   */
+  convertedFromFirmType?: 'NONE' | 'PROPRIETORSHIP' | 'PARTNERSHIP' | 'LLP';
+  conversionFromFirmDate?: string | null;
+  majorityPromoterChangeDate?: string | null;
+  sebiActionAgainstDirectorsSince?: string | null;
+
+  /** NSE Emerge only — N-06, N-10. */
+  ibcProceedingsAgainstPromotingCompanies: boolean;
+  tradingSuspendedForPromoterCompanies: boolean;
 }
 
 const ZERO = money('0');
@@ -77,12 +120,28 @@ export function toFactBase(input: PreCheckInput): FactBase {
       dateOfIncorporation: input.dateOfIncorporation,
       incorporatedUnder: 'COMPANIES_ACT_2013',
       isPublicLimited: input.isPublicLimited,
-      nameChanges: [],
+      conversionToPublicDate: input.conversionToPublicDate ?? undefined,
+      /**
+       * Only the dates are known here — the pre-check does not ask what the
+       * company used to be called, and EL-025 prints the from/to clause only
+       * when it actually has both names.
+       */
+      nameChanges: [
+        ...(input.conversionToPublicDate
+          ? [{ previousName: '', newName: '', date: input.conversionToPublicDate }]
+          : []),
+        ...(input.lastNameChangeDate && input.lastNameChangeDate !== input.conversionToPublicDate
+          ? [{ previousName: '', newName: '', date: input.lastNameChangeDate }]
+          : []),
+      ],
       registeredOffice: { line1: '', city: '', state: '', pincode: '000000', country: 'India' },
       website: '',
       email: '',
       telephone: '',
       companySecretary: { name: '', email: '', telephone: '' },
+      revenueShareFromNewNameActivity: input.revenueShareFromNewNameActivity ?? null,
+      convertedFromFirmType: input.convertedFromFirmType ?? 'NONE',
+      conversionFromFirmDate: input.conversionFromFirmDate ?? null,
       sector: 'OTHER',
       businessDescription: '',
     },
@@ -99,6 +158,12 @@ export function toFactBase(input: PreCheckInput): FactBase {
       promoterHoldings: [],
       hasOutstandingConvertibles: input.hasOutstandingConvertibles,
       hasPartlyPaidShares: input.hasPartlyPaidShares,
+      /**
+       * Not asked. The tripartite agreements are arranged with the registrar
+       * during the process, not held on day one, so EL-037 is not a pre-check
+       * rule and never reads these.
+       */
+      depositoryAgreements: { nsdl: false, cdsl: false },
     },
     promoters: {
       promoters: [],
@@ -106,7 +171,9 @@ export function toFactBase(input: PreCheckInput): FactBase {
       anyDebarredBySebi: input.anyDebarredBySebi,
       anyWilfulDefaulterOrFraudulentBorrower: input.anyWilfulDefaulterOrFraudulentBorrower,
       anyFugitiveEconomicOffender: input.anyFugitiveEconomicOffender,
-      controlChangedInPastYear: false,
+      controlChangedInPastYear: input.controlChangedInPastYear,
+      anyAssociatedWithDelistedCompany: input.anyAssociatedWithDelistedCompany,
+      majorityPromoterChangeDate: input.majorityPromoterChangeDate ?? null,
     },
     management: { directors: [], keyManagerialPersonnel: [] },
     business: { topCustomers: [], topSuppliers: [], facilities: [] },
@@ -125,6 +192,9 @@ export function toFactBase(input: PreCheckInput): FactBase {
         totalLiabilities: ZERO,
         intangibleAssets: ZERO,
         deferredIpoExpenses: ZERO,
+        // Not asked. The net tangible assets tests need a balance sheet and
+        // are not pre-check rules, so they never read this.
+        monetaryAssets: null,
         totalBorrowings: y.totalBorrowings,
         shareholdersEquity: y.shareholdersEquity,
         cashFlowFromOperations: y.cashFlowFromOperations ?? ZERO,
@@ -138,9 +208,21 @@ export function toFactBase(input: PreCheckInput): FactBase {
     },
     legal: {
       litigation: [],
-      referredToNCLT: false,
-      windingUpPetitionAdmitted: false,
-      referredToBIFR: false,
+      referredToNCLT: input.referredToNCLT,
+      ibcProceedingsAgainstPromotingCompanies: input.ibcProceedingsAgainstPromotingCompanies,
+      windingUpPetitionAdmitted: input.windingUpPetitionAdmitted,
+      referredToBIFR: input.referredToBIFR,
+      /**
+       * Not asked. E-13 and N-09 turn on whether an action was MATERIAL, which
+       * is the exchange's judgement on facts a promoter cannot summarise in a
+       * checkbox — so those rules are not pre-check rules and read null here.
+       */
+      regulatoryActionAgainstCompanySince: null,
+      regulatoryActionAgainstPromotersSince: null,
+      regulatoryActionAgainstGroupCompaniesSince: null,
+      tradingSuspendedForPromoterCompanies: input.tradingSuspendedForPromoterCompanies,
+      pendingDebtSecurityDefaults: input.pendingDebtSecurityDefaults,
+      sebiActionAgainstDirectorsSince: input.sebiActionAgainstDirectorsSince ?? null,
     },
     approvals: { licences: [] },
     offer: {
@@ -152,6 +234,7 @@ export function toFactBase(input: PreCheckInput): FactBase {
       sellingShareholders: [],
       floorPrice: null,
       capPrice: null,
+      issuePrice: null,
       lotSize: 0,
       objects: [],
       issueExpenses: ZERO,
@@ -159,6 +242,14 @@ export function toFactBase(input: PreCheckInput): FactBase {
       underwritingPercent: 100,
       brlmUnderwritingPercent: 15,
       marketMakingYears: 3,
+      exchangeApplicationRejectedSince: input.exchangeApplicationRejectedSince ?? null,
+      /**
+       * N-08 is about the merchant bankers involved, and at pre-check time
+       * there are none. Its BSE counterpart E-10 asks about the company and is
+       * answerable now — the same six months, two different parties.
+       */
+      exemptionApplicationDetails: null,
+      brlmDraftReturnedSince: null,
     },
     groupCompanies: { companies: [] },
   };

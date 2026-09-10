@@ -1,4 +1,5 @@
-import type { SectionSpec } from '../section';
+import { derivedTerms, type SectionSpec } from '../section';
+import { renderTemplate } from '../template';
 
 /**
  * ISSUE PROCEDURE — the largest single template in the document.
@@ -28,13 +29,16 @@ import type { SectionSpec } from '../section';
  * spelling of "dematerialised".
  *
  * Being built incrementally. Subsections still to extract, in document order:
- *   Phased implementation of UPI, Availability of the RHP and forms, Maximum
- *   and minimum application size, Method of bidding, Bids at different price
- *   levels, Bids by [12 investor categories], Terms of payment, Electronic
- *   registration, Build of the book, Withdrawal of bids, Price discovery and
- *   allocation, Underwriting agreement and RoC filing, Pre-issue advertisement,
- *   General instructions, Grounds for technical rejection, Basis of allotment,
- *   Impersonation, Undertakings, Utilisation of issue proceeds.
+ *   Nothing. Every subsection observed in the corpus is now built.
+ *
+ * Built so far: Book Building Procedure, Phased Implementation of UPI,
+ * Availability of the Offer Document and Forms, Application Size and Method of
+ * Bidding, Bids by Investor Category, Bids at Different Price Levels and
+ * Participation by Associates, Terms of Payment, Electronic Registration,
+ * Build of the Book / Withdrawal / Price Discovery, Grounds for Technical
+ * Rejection, General Instructions with the Do's and Don'ts, Information for
+ * Bidders, Bids by Anchor Investors, Withdrawal of the Issue and the
+ * Advertisements, Basis of Allotment, Impersonation and Undertakings.
  */
 export const issueProcedure: SectionSpec = {
   id: 'issueRelated.issueProcedure',
@@ -502,6 +506,15 @@ Our Board of Directors certifies that:
  *   "In case of Bidders (excluding NIIs and QIBs) Bidding at cut-off price..."
  *   confirms Individual Bidders MAY bid at cut-off. Om Galaxy's formulation is
  *   used; Maxwell's would have wrongly told issuers to reject valid retail bids.
+ *
+ *   DEFECT FOUND AND REMOVED, 2026-09-10. This list carried a ground reading
+ *   "Bids by Individual Bidders with a Bid Amount exceeding Rs 2,00,000". It
+ *   has NO support in any rejection-grounds list in the corpus — the phrase
+ *   exists only in the Do's and Don'ts, where two documents state it and both
+ *   are wrong for an SME issue. Left in, it told issuers to reject every valid
+ *   SME retail bid, since R-006 requires the Bid Amount to EXCEED Rs 2,00,000.
+ *   The generic "amounts greater than the maximum permissible" ground, which
+ *   three documents do state, covers the legitimate case. See D29.
  */
 export const issueProcedureTechnicalRejection: SectionSpec = {
   id: 'issueRelated.issueProcedure.technicalRejection',
@@ -535,7 +548,6 @@ following technical grounds:
 - Bids for a number of Equity Shares lower than the minimum specified for that category of investor, or not in the multiples specified in this {{ terms.documentName }}.
 - Category not ticked.
 - Multiple Bids, as defined in this {{ terms.documentName }}.
-- Bids by Individual Bidders with a Bid Amount exceeding Rs 2,00,000.
 - Bids for amounts greater than the maximum permissible amount prescribed by applicable regulations.
 - Bids by persons not competent to contract under the Indian Contract Act, 1872, including minors and persons of unsound mind.
 - In the case of partnership firms, Equity Shares may be registered in the names of the individual partners; no firm as such shall be entitled to apply.
@@ -644,11 +656,869 @@ thereafter.
 `.trim(),
 };
 
+/**
+ * Phased Implementation of the Unified Payments Interface.
+ *
+ * Extraction notes, 2026-09-10:
+ *   - "Phase III ... mandatory for public issues opening on or after
+ *     December 1, 2023" appears in five of the six documents. The sponsor bank
+ *     conduit sentence appears in four.
+ *   - **The Phase I and Phase II history is deliberately omitted.** Real
+ *     documents carry three paragraphs recounting the 2019 and 2020 phases
+ *     with their circular numbers and extended deadlines. None of it has any
+ *     effect on an issue opening in 2026 — every such issue is Phase III
+ *     mandatory — and quoting circular numbers that only two documents
+ *     corroborate is citation risk for no reader benefit. A merchant banker
+ *     who wants the history can add it; we are not inventing it.
+ *   - **NOT included, both single-sourced in Om Galaxy (D26):** the list of
+ *     four entity types with whom a UPI ID may be lodged, and "All SCSBs
+ *     offering the facility of making applications in public issues shall also
+ *     provide the facility to apply using the UPI Mechanism". The
+ *     single-source sentences keep turning up in Om Galaxy because it is the
+ *     longest document in the corpus and the primary extraction source — the
+ *     risk is systematically higher there, not evenly spread.
+ *   - **Held-out verification disagreed, and the held-out document lost.**
+ *     Century describes Phase III as a future timeline "as may be prescribed
+ *     by SEBI", which is the pre-2023 framing. Five documents state the
+ *     December 1, 2023 mandatory date. Century is carrying stale boilerplate
+ *     here, the way Shakti carries pre-amendment figures (D16). A held-out
+ *     mismatch is a question to adjudicate, not an automatic veto.
+ */
+export const issueProcedureUpi: SectionSpec = {
+  id: 'issueRelated.issueProcedure.upi',
+  title: 'Phased Implementation of the Unified Payments Interface',
+  producer: 'template',
+  order: 3102,
+  group: 'SECTION - ISSUE RELATED INFORMATION',
+  clause: 'SEBI UPI Circulars; SEBI ICDR Master Circular',
+  extractedFrom: [
+    'bookbuilt__manufacturing__om-galaxy__bse-sme__2026-09__rhp.pdf p.356',
+    'bookbuilt__gas-engineering__axiom-gas__nse-emerge__2026-09__rhp.pdf',
+    'bookbuilt__engineering__maxwell-engineering__nse-emerge__2026-08__drhp.pdf',
+  ],
+  asks: {
+    'offer.sponsorBank': 'Sponsor Bank — the SCSB acting as conduit to NPCI for UPI mandates',
+  },
+  template: `
+## Phased Implementation of the Unified Payments Interface
+
+SEBI has issued the UPI Circulars in relation to streamlining the process of public issues of, inter
+alia, equity shares. Pursuant to those circulars, the UPI Mechanism was introduced in a phased
+manner as a payment mechanism, in addition to the mechanism of blocking funds in an account
+maintained with a SCSB under the ASBA process.
+
+Using the UPI Mechanism for applications by UPI Bidders was made voluntary for public issues opening
+on or after September 1, 2023, and **mandatory for public issues opening on or after December 1,
+2023**. This {{ terms.issueWord }} is being made under that mandatory phase.
+
+In accordance with the UPI Circulars, our Company has appointed {{ offer.sponsorBank }} as the
+Sponsor Bank, to act as a conduit between the Stock Exchange and NPCI in order to facilitate
+collection of requests or payment instructions of the UPI Bidders into the UPI Mechanism.
+
+SEBI has prescribed that all individual investors applying in initial public offerings opening on or
+after May 1, 2022, where the application amount is **up to Rs 5,00,000**, shall use the UPI
+Mechanism. Note that this is the threshold at which UPI becomes mandatory, not a limit on what an
+Individual Investor may bid — for an SME issue the minimum application already exceeds Rs 2,00,000.
+
+Pursuant to the SEBI ICDR Master Circular, SEBI has set out specific requirements for the redressal
+of investor grievances for applications made through the UPI Mechanism. These include the
+appointment of a nodal officer by the SCSB and submission of their details to SEBI, the requirement
+for SCSBs to send SMS alerts for the blocking and unblocking of UPI mandates, and the requirement
+for the Registrar to the {{ terms.issueWord }} to submit details of cancelled, withdrawn or deleted
+applications.
+
+The processing fees for applications made by UPI Bidders using the UPI Mechanism may be released to
+the SCSBs only after those banks provide a written confirmation in compliance with the SEBI RTA
+Master Circular, in the format prescribed by SEBI from time to time. For further details, refer to
+the General Information Document available on the websites of the Stock Exchange and the Book
+Running Lead Manager.
+`.trim(),
+};
+
+/**
+ * Availability of the offer document and the forms, and who may submit what
+ * to whom.
+ *
+ * Extraction notes, 2026-09-10:
+ *   - The submission routes by investor category, and the "3 in 1 type
+ *     accounts" phrasing, appear in all five extraction sources and in the
+ *     held-out document.
+ *   - The Anchor Investor form being available only at the Book Running Lead
+ *     Manager's offices is in four sources, and is the one asymmetry in this
+ *     subsection worth keeping: everything else is available in three places.
+ */
+export const issueProcedureAvailability: SectionSpec = {
+  id: 'issueRelated.issueProcedure.availability',
+  title: 'Availability of the Offer Document and Application Forms',
+  producer: 'template',
+  order: 3103,
+  group: 'SECTION - ISSUE RELATED INFORMATION',
+  clause: 'ICDR Schedule VI Part A; SEBI ICDR Master Circular (ASBA)',
+  extractedFrom: [
+    'bookbuilt__manufacturing__om-galaxy__bse-sme__2026-09__rhp.pdf pp.360, 356',
+    'bookbuilt__engineering__maxwell-engineering__nse-emerge__2026-08__drhp.pdf',
+  ],
+  template: `
+## Availability of the {{ terms.documentName }} and Bid cum Application Forms
+
+Copies of this {{ terms.documentName }}, the Bid cum Application Form and the Abridged Prospectus
+will be available at the offices of the Book Running Lead Manager, with the Designated
+Intermediaries at the Bidding Centres, and at the Registered Office of our Company. An electronic
+copy will be available on the websites of SEBI, the Stock Exchange and the Book Running Lead
+Manager.
+
+Copies of the Anchor Investor Application Form will be available only at the offices of the Book
+Running Lead Manager.
+
+Our Company has filed this {{ terms.documentName }} with the RoC at least three days before the
+Bid/{{ terms.issueWord }} Opening Date. Any Bidder who wishes to obtain this
+{{ terms.documentName }} or the Bid cum Application Form may obtain it from our Registered Office.
+
+### How Bids are Submitted
+
+All Bidders other than Anchor Investors shall mandatorily participate in the
+{{ terms.issueWord }} only through the ASBA process. ASBA Bidders must provide either the bank
+account details and authorisation to block funds in the ASBA Form, or the UPI ID, as applicable.
+
+- **Individual Investors not using the UPI Mechanism** may submit their ASBA Forms with SCSBs, physically or online, or online using the facility of linked online trading, demat and bank account (3 in 1 type accounts) provided by certain brokers.
+- **Individual Investors using the UPI Mechanism** may submit their ASBA Forms with Registered Brokers, RTAs or CDPs, or online using the facility of linked online trading, demat and bank account (3 in 1 type accounts) provided by certain brokers.
+- **QIBs and Non-Institutional Investors** may submit their ASBA Forms with SCSBs, Registered Brokers, RTAs or CDPs.
+
+Bid cum Application Forms submitted directly to a SCSB should bear the stamp of the SCSB or its
+Designated Branch. Bidders applying directly through a SCSB should ensure that the form is submitted
+to a Designated Branch where the ASBA Account is maintained.
+
+Except for applications by or on behalf of the Central or State Government, officials appointed by
+the courts, and investors residing in the State of Sikkim, the Bidders must state their PAN. Where
+the PAN, DP ID and Client ID stated on the form do not match those held in the depository's records,
+the application is liable to be rejected.
+`.trim(),
+};
+
+/**
+ * Bids at different price levels, revision of bids, and participation by the
+ * Book Running Lead Manager's own associates.
+ *
+ * Extraction notes, 2026-09-10:
+ *   - The right to revise the price band without prior approval of, or
+ *     intimation to, the Bidders appears in all five extraction sources and
+ *     in the held-out document.
+ *   - The cut-off price restriction here matches the finding already recorded
+ *     in the handoff: only INDIVIDUAL bidders may bid at cut-off. Maxwell's
+ *     wording elsewhere would have had issuers reject valid retail bids.
+ *   - The anchor investor price floor — "shall not be lower than the price
+ *     offered to other applicants" — is in three sources plus the held-out
+ *     document.
+ */
+export const issueProcedurePriceLevels: SectionSpec = {
+  id: 'issueRelated.issueProcedure.priceLevels',
+  title: 'Bids at Different Price Levels and Participation by Associates',
+  producer: 'template',
+  order: 3115,
+  group: 'SECTION - ISSUE RELATED INFORMATION',
+  appliesIf: (facts) => facts.offer.issueType === 'BOOK_BUILT',
+  clause: 'R-024; ICDR Reg 250',
+  extractedFrom: [
+    'bookbuilt__manufacturing__om-galaxy__bse-sme__2026-09__rhp.pdf pp.363-364',
+    'bookbuilt__engineering__maxwell-engineering__nse-emerge__2026-08__drhp.pdf',
+  ],
+  template: `
+## Bids at Different Price Levels and Revision of Bids
+
+Our Company, in consultation with the Book Running Lead Manager and without the prior approval of,
+or intimation to, the Bidders, reserves the right to revise the Price Band during the
+Bid/{{ terms.issueWord }} Period, in accordance with the SEBI ICDR Regulations. Our Company, in
+consultation with the Book Running Lead Manager, will finalise the {{ terms.issueWord }} Price
+within the Price Band, again without prior approval of, or intimation to, the Bidders.
+
+Bidders may Bid at any price within the Price Band, and must Bid for the desired number of Equity
+Shares at a specific price. **Only Individual Bidders may Bid at the Cut-off Price.** Individual
+Bidders who Bid at the Cut-off Price agree that they will purchase the Equity Shares at any price
+within the Price Band, and shall submit the Bid cum Application Form for an amount calculated at the
+Cap Price.
+
+The price of the specified securities offered to an Anchor Investor shall not be lower than the
+price offered to other applicants.
+
+## Participation by Associates and Affiliates of the Book Running Lead Manager
+
+The Book Running Lead Manager shall not be allowed to purchase in this {{ terms.issueWord }} in any
+manner, except towards fulfilling its underwriting obligations. However, the associates and
+affiliates of the Book Running Lead Manager may Bid in the {{ terms.issueWord }}, either in the QIB
+Category or in the Non-Institutional Category, where the allocation is on a proportionate basis, and
+such subscription may be on their own account or on behalf of their clients.
+
+Neither the Book Running Lead Manager nor any person related to it, other than Mutual Funds
+sponsored by entities related to the Book Running Lead Manager, may apply in the
+{{ terms.issueWord }} under the Anchor Investor Portion.
+`.trim(),
+};
+
+/**
+ * Terms of Payment, the ASBA payment mechanism, and the anchor escrow.
+ *
+ * Extraction notes, 2026-09-10:
+ *   - Four extraction sources agree, and every clause is also present in the
+ *     held-out document.
+ *   - **The anchor escrow account NAMES are not derivable.** The concept is in
+ *     three sources, but each states a different convention:
+ *       "OM GALAXY LIMITED-ANCHOR RESIDENT ACCOUNT"
+ *       "AXIOM GAS ENGINEERING LIMITED - ANCHOR R ACCOUNT"
+ *       "CENTURY BUSINESS MEDIA LIMITED-ANCHOR ACCOUNT-R"
+ *     and a fourth prints it blank at draft stage. Building the string from
+ *     the company name would look completely plausible and match no bank's
+ *     records, so both names are facts and render as gaps. Same shape as the
+ *     category allotment figures in D20.
+ *   - The issue price is likewise a gap: all four documents print "[dot]"
+ *     because the price is not fixed until the book closes.
+ */
+export const issueProcedureTermsOfPayment: SectionSpec = {
+  id: 'issueRelated.issueProcedure.termsOfPayment',
+  title: 'Terms of Payment and Payment Mechanism',
+  producer: 'template',
+  order: 3120,
+  group: 'SECTION - ISSUE RELATED INFORMATION',
+  clause: 'SEBI ICDR Master Circular (ASBA); ICDR Reg 254',
+  extractedFrom: [
+    'bookbuilt__manufacturing__om-galaxy__bse-sme__2026-09__rhp.pdf pp.372-373',
+    'bookbuilt__engineering__maxwell-engineering__nse-emerge__2026-08__drhp.pdf',
+  ],
+  asks: {
+    'offer.issuePrice': 'Final issue price per Equity Share — fixed at the close of bidding',
+    'offer.anchorEscrowAccountResident':
+      'Name of the escrow account for resident Anchor Investors, exactly as opened with the bank',
+    'offer.anchorEscrowAccountNonResident':
+      'Name of the escrow account for non-resident Anchor Investors',
+  },
+  template: `
+## Terms of Payment
+
+The entire {{ terms.issueWord }} Price of Rs {{ offer.issuePrice }} per Equity Share is payable on
+application. Where a Bidder is allotted fewer Equity Shares than applied for, the Registrar to the
+{{ terms.issueWord }} shall instruct the SCSBs to unblock the excess amount on the application.
+
+The SCSBs will transfer the amount as per the instruction of the Registrar to the
+{{ terms.issueWord }} to the Public {{ terms.issueWord }} Account, and the balance amount after
+transfer will be unblocked by the SCSBs.
+
+Bidders should note that the arrangement with the Bankers to the {{ terms.issueWord }} and the
+Registrar to the {{ terms.issueWord }} is **not prescribed by SEBI**. It has been established as an
+arrangement between our Company, the Banker to the {{ terms.issueWord }} and the Registrar to the
+{{ terms.issueWord }} to facilitate collections from the Bidders.
+
+### Payment Mechanism
+
+Bidders shall specify their bank account number in the Bid cum Application Form, and the SCSB shall
+block an amount equivalent to the Application Amount in that account. The SCSB shall keep the
+Application Amount blocked until the finalisation of the Basis of Allotment and the consequent
+transfer of the amount against the allocated Equity Shares to the Public {{ terms.issueWord }}
+Account, or until the withdrawal or failure of the {{ terms.issueWord }}, or until the application
+is rejected, as the case may be.
+
+In terms of the SEBI ICDR Master Circular and the SEBI ICDR Regulations, all investors applying in a
+public issue shall use only the Application Supported by Blocked Amount process, providing details
+of the bank account to be blocked by the Self-Certified Syndicate Bank. Individual Investors may in
+addition use the UPI Mechanism together with ASBA.
+
+### Payment into the Escrow Account for Anchor Investors
+
+All investors other than Anchor Investors are required to bid through the ASBA process. Our Company,
+in consultation with the Book Running Lead Manager and in its absolute discretion, will decide the
+list of Anchor Investors to whom the confirmation of allocation note will be sent, pursuant to which
+the details of the Equity Shares allocated to them will be notified.
+
+Anchor Investors shall transfer the Bid Amount to the escrow accounts opened for the purpose:
+
+- **Resident Anchor Investors:** {{ offer.anchorEscrowAccountResident }}
+- **Non-resident Anchor Investors:** {{ offer.anchorEscrowAccountNonResident }}
+
+Bidders should note that the escrow mechanism is **not prescribed by SEBI**. It has been established
+as an arrangement between our Company, the Book Running Lead Manager, the Escrow Collection Bank and
+the Registrar to the {{ terms.issueWord }} to facilitate collections from Anchor Investors.
+`.trim(),
+};
+
+/**
+ * Electronic Registration of Applications.
+ *
+ * Extraction notes, 2026-09-10:
+ *   - Fifteen numbered clauses in Om Galaxy, corroborated against Maxwell,
+ *     Ideas and Axiom. Every clause below has at least three extraction
+ *     sources and appears in the held-out document.
+ *   - The schedule of fields the intermediaries forward to the SCSBs is a
+ *     numbered table in the corpus. It is a flat list of ten field names with
+ *     no second column of substance, so it renders as a list rather than a
+ *     table — unlike the price discovery illustration, which needed one.
+ *   - The liability split is the point of this subsection and is stated twice
+ *     from opposite directions: the Designated Intermediaries ARE responsible
+ *     for what they accept and upload, and the Company, the Book Running Lead
+ *     Manager and the Registrar are NOT. Both halves are kept.
+ */
+export const issueProcedureElectronicRegistration: SectionSpec = {
+  id: 'issueRelated.issueProcedure.electronicRegistration',
+  title: 'Electronic Registration of Applications',
+  producer: 'template',
+  order: 3130,
+  group: 'SECTION - ISSUE RELATED INFORMATION',
+  clause: 'SEBI ICDR Master Circular (bidding and upload)',
+  extractedFrom: [
+    'bookbuilt__manufacturing__om-galaxy__bse-sme__2026-09__rhp.pdf pp.373-374',
+    'bookbuilt__engineering__maxwell-engineering__nse-emerge__2026-08__drhp.pdf',
+    'bookbuilt__electricals__ideas-electricals__nse-emerge__2026-09__drhp.pdf',
+  ],
+  template: `
+## Electronic Registration of Applications
+
+The Designated Intermediaries will register the applications using the online facilities of the
+Stock Exchange, and will undertake modification of selected fields in the application details
+already uploaded before 5.00 p.m. on the Bid/{{ terms.issueWord }} Closing Date.
+
+The Stock Exchange offers an electronic facility for registering applications. This facility is
+available at the terminals of the Designated Intermediaries and their authorised agents during the
+Bid/{{ terms.issueWord }} Period, and the Designated Intermediaries may upload applications until
+such time as the Stock Exchange permits. This information is available with the Book Running Lead
+Manager on a regular basis.
+
+### Where responsibility sits
+
+The Designated Intermediaries shall be responsible for any acts, mistakes, errors or omissions in
+relation to the applications accepted by them, the applications uploaded by them, and the
+applications accepted but not uploaded by them. Where an application is accepted and uploaded by a
+Designated Intermediary other than a SCSB, the Bid cum Application Form along with the relevant
+schedules shall be sent to the Designated Branch of the relevant SCSB for blocking of funds.
+
+**Neither our Company, nor the Book Running Lead Manager, nor the Registrar to the
+{{ terms.issueWord }} shall be responsible** for any acts, mistakes, errors or omissions in relation
+to the applications accepted, uploaded, or accepted but not uploaded by any Designated Intermediary.
+
+The permission given by the Stock Exchange to use its network and software for the online IPO system
+should not in any way be deemed or construed to mean that compliance with the various statutory and
+other requirements by our Company or the Book Running Lead Manager has been cleared or approved by
+the Stock Exchange; nor does it warrant, certify or endorse the correctness or completeness of that
+compliance.
+
+### What is registered
+
+At the time of registering an application, the Syndicate Members, Depository Participants and RTAs
+shall forward a schedule to the Designated Branches of the SCSBs for blocking of funds, carrying the
+symbol, intermediary code, location code, application number, category, PAN, DP ID, Client ID,
+quantity and amount. The Stock Exchange prescribes a uniform character length for each of these
+fields.
+
+The Designated Intermediaries shall enter the following into the online system:
+
+- Name of the Bidder
+- Name of the issue
+- Bid cum Application Form number
+- Investor category
+- PAN, of the first Bidder where there is more than one
+- DP ID of the Bidder's demat account
+- Client identification number of the Bidder's demat account
+- Number of Equity Shares applied for
+- Bank account details, and the bank code of the SCSB branch where the ASBA Account is maintained
+- Location of the Banker to the {{ terms.issueWord }} or the Designated Branch, as applicable
+
+Where an application is submitted electronically, the Bidder completes these details and states the
+bank account number; the application form number is system generated.
+
+### Acknowledgement and rejection
+
+At the time of receipt of an application, the Designated Intermediary shall give the investor an
+acknowledgement, by counterfoil or by specifying the application number, as proof of having accepted
+the Bid cum Application Form in physical or electronic form. **That acknowledgement is
+non-negotiable and by itself creates no obligation of any kind.**
+
+Applications will not be rejected except on the technical grounds set out in this
+{{ terms.documentName }}. The Designated Intermediaries have no right to reject applications on any
+other basis.
+
+### After the closing date
+
+The Designated Intermediaries have until 5.00 p.m. on the Bid/{{ terms.issueWord }} Closing Date to
+verify the DP ID and Client ID uploaded during the Bid/{{ terms.issueWord }} Period, after which the
+Registrar to the {{ terms.issueWord }} receives that data from the Stock Exchange and validates it
+against the depository records. The SCSBs have one day after the Bid/{{ terms.issueWord }} Closing
+Date to send confirmation of funds blocked, the final certificate, to the Registrar to the
+{{ terms.issueWord }}.
+
+The details uploaded in the online IPO system shall be considered final, and Allotment will be based
+on those details.
+`.trim(),
+};
+
+/**
+ * General Instructions — the Do's and Don'ts, and the other instructions.
+ *
+ * Extraction notes, 2026-09-10:
+ *   - Om Galaxy lists 27 Do's and 17 Don'ts. **Only the items verified in at
+ *     least two extraction sources are reproduced here.** The rest are one
+ *     drafter's additions, and D26 is the record of what happens when those
+ *     get copied across. A merchant banker may add more; we do not invent
+ *     them.
+ *
+ *   - **TWO EXTRACTION SOURCES AGREE ON SOMETHING SELF-CONTRADICTORY, and it
+ *     is omitted.** Om Galaxy: "Do not Bid for a Bid Amount exceeding
+ *     Rs 200,000 for Bids by Individual Bidders". Maxwell: the same with
+ *     "and 2 lots". Both contradict the SME minimum application size stated
+ *     elsewhere in their OWN Issue Procedure — for an SME issue the Bid Amount
+ *     must EXCEED Rs 2,00,000 (R-006). It is main-board retail boilerplate
+ *     that survived a copy-paste.
+ *
+ *     The held-out document states the rule that actually exists: "Do not Bid
+ *     for a Bid Amount exceeding Rs 500,000 (for Bids by UPI Bidders)" — the
+ *     UPI ceiling, corroborated as a rule by all five extraction sources with
+ *     the circular reference. That is what is reproduced.
+ *
+ *     This is the strongest case yet for the corpus discipline: two sources
+ *     agreeing is not enough when both are copying the same wrong list.
+ *
+ *   - The cut-off Don't is phrased from the corroborated rule in
+ *     `issueProcedurePriceLevels` rather than from Om Galaxy's single-source
+ *     wording of it.
+ */
+export const issueProcedureGeneralInstructions: SectionSpec = {
+  id: 'issueRelated.issueProcedure.generalInstructions',
+  title: 'General Instructions',
+  producer: 'template',
+  order: 3155,
+  group: 'SECTION - ISSUE RELATED INFORMATION',
+  clause: 'R-006 (minimum application); SEBI ICDR Master Circular; Companies Act 2013, s.72',
+  extractedFrom: [
+    'bookbuilt__manufacturing__om-galaxy__bse-sme__2026-09__rhp.pdf pp.376-379',
+    'bookbuilt__engineering__maxwell-engineering__nse-emerge__2026-08__drhp.pdf',
+    'bookbuilt__electricals__ideas-electricals__nse-emerge__2026-09__drhp.pdf',
+  ],
+  template: `
+## General Instructions
+
+Non-Institutional Investors are not permitted to withdraw their Bids, or to lower the size of their
+Bids in terms of the quantity of Equity Shares or the Bid Amount, at any stage. Individual Investors
+may revise their Bids during the Bid/{{ terms.issueWord }} Period, but only upwards. Anchor
+Investors are not permitted to withdraw their Bids after the Anchor Investor Bidding Date.
+
+### Do's
+
+- Check that you are eligible to apply under the terms of this {{ terms.documentName }} and under applicable law, rules, regulations, guidelines and approvals
+- Ensure that you have Bid within the Price Band
+- Read all the instructions carefully and complete the Bid cum Application Form in the prescribed form
+- Ensure that the PAN, DP ID, Client ID and UPI ID are correct and that the depository account is active, as Allotment will be in dematerialised form only
+- Ensure that the Bid cum Application Form bearing the stamp of a Designated Intermediary is submitted to that Designated Intermediary at the Bidding Centre
+- In the case of joint Bids, ensure that the first Bidder is the ASBA Account holder, or the holder of the bank account linked to the UPI ID, and that the first Bidder has signed the form
+- Ensure that the names on the Bid cum Application Form are exactly the names in which the beneficiary account is held with the Depository Participant
+- Ensure that you have funds equal to the Bid Amount in the account maintained with the SCSB before submitting the form
+- Request and receive a stamped acknowledgement of the Bid cum Application Form for all your Bid options
+- Submit any revised Bid to the same Designated Intermediary through whom the original Bid was placed, and obtain a revised acknowledgement
+- Ensure that thumb impressions and signatures other than in the languages specified in the Eighth Schedule to the Constitution of India are attested by a Magistrate, a Notary Public or a Special Executive Magistrate under official seal
+- Ensure that the Demographic Details held with the depository are true, correct and current
+- Ensure that the investor category and status are indicated
+- Ensure that, where the Bid is under a power of attorney or by a company, body corporate or trust, the relevant documents are submitted
+- Ensure that the Bid cum Application Form is delivered within the time prescribed
+
+### Don'ts
+
+- Do not Bid for less than the minimum Bid size
+- Do not Bid, or revise a Bid Amount, to less than the Floor Price or higher than the Cap Price
+- Do not pay the Bid Amount in cash, by money order, cheque, demand draft, postal order or stock invest
+- Do not send Bid cum Application Forms by post; submit them to a Designated Intermediary
+- Do not submit the Bid cum Application Form to a non-SCSB bank or to our Company
+- Do not Bid on a form that does not bear the stamp of the relevant Designated Intermediary
+- Do not Bid at the Cut-off Price if you are a QIB or a Non-Institutional Investor; only Individual Bidders may do so
+- **Do not Bid for an amount exceeding Rs 5,00,000 through the UPI Mechanism**
+- Do not instruct your bank to release funds blocked in the ASBA Account
+- Do not submit the General Index Register number instead of the PAN
+- Do not submit a Bid without ensuring that funds equivalent to the entire Bid Amount are blocked in the ASBA Account
+- Do not submit Bids on plain paper, on incomplete or illegible forms, or on a form in a colour prescribed for another category of applicant
+- Do not submit a Bid if you are not eligible to acquire Equity Shares under applicable law or your constitutional documents
+- Do not Bid if you are not competent to contract under the Indian Contract Act, 1872, other than a minor holding a valid depository account
+- Do not withdraw or lower the size of your Bid at any stage if you are a QIB or a Non-Institutional Investor
+- **Do not submit a Bid using a third party's bank account, or a UPI ID linked to a third party's bank account.** Bids made in that way are liable to be rejected
+
+The Bid cum Application Form is liable to be rejected if these instructions, as applicable, are not
+complied with.
+
+## Other Instructions for Bidders
+
+### Joint Bids
+
+In the case of joint Bids, the Bid should be made in the name of the Bidder whose name appears first
+in the depository account. That name should be the same as it appears in the depository records.
+
+### Multiple Bids
+
+A Bidder should submit only one Bid cum Application Form. A Bidder may make a maximum of three Bids
+at different price levels within the same Bid cum Application Form, and those options are not
+treated as multiple Bids.
+
+### Nomination Facility
+
+A nomination facility is available in accordance with Section 72 of the Companies Act, 2013. Where
+Equity Shares are allotted in dematerialised form, there is no need to make a separate nomination
+with our Company — the nomination registered with the Depository Participant applies.
+
+### Investor Grievances
+
+For any pre-{{ terms.issueWordLower }} or post-{{ terms.issueWordLower }} problem regarding demat
+credit, refunds or unblocking, investors may contact the Company Secretary and Compliance Officer of
+our Company.
+`.trim(),
+};
+
+/**
+ * Information for the Bidders, and Submission of Bids.
+ *
+ * Extraction notes, 2026-09-10:
+ *   - Om Galaxy lists ten numbered items. **Two are its alone** — that the
+ *     opening and closing dates are declared in the document and advertised,
+ *     and that copies are available with the Registrar — so neither is
+ *     reproduced (D26). The second is in any case already covered by
+ *     `issueProcedureAvailability`, which has four sources.
+ *   - **Not reproduced:** "In case of Bidders (excluding NIIs and QIBs)
+ *     Bidding at cut-off price, the Bidders may instruct the SCSBs to block
+ *     Bid Amount based on the Cap Price less Discount". Om Galaxy is the only
+ *     extraction source; the held-out document also states it, but using the
+ *     held-out document as a source is what makes it stop being a check. The
+ *     substance is covered by `issueProcedurePriceLevels`, which says the same
+ *     thing from two sources.
+ */
+export const issueProcedureInformationForBidders: SectionSpec = {
+  id: 'issueRelated.issueProcedure.informationForBidders',
+  title: 'Information for the Bidders and Submission of Bids',
+  producer: 'template',
+  order: 3106,
+  group: 'SECTION - ISSUE RELATED INFORMATION',
+  clause: 'SEBI ICDR Master Circular (ASBA and bidding)',
+  extractedFrom: [
+    'bookbuilt__manufacturing__om-galaxy__bse-sme__2026-09__rhp.pdf pp.364-365',
+    'bookbuilt__engineering__maxwell-engineering__nse-emerge__2026-08__drhp.pdf',
+  ],
+  template: `
+## Information for the Bidders
+
+Bidders interested in subscribing for the Equity Shares should approach a Designated Intermediary to
+register their applications. During the Bid/{{ terms.issueWord }} Period, Bidders may approach any
+of the Designated Intermediaries for this purpose.
+
+The Bid cum Application Form may be submitted in physical or electronic mode, either to the SCSB
+with whom the ASBA Account is maintained or to another Designated Intermediary. SCSBs may provide an
+electronic mode of collecting applications.
+
+Bidders applying directly through a SCSB should ensure that the Bid cum Application Form is
+submitted to a Designated Branch of that SCSB where the ASBA Account is maintained. Forms submitted
+directly to a SCSB should bear the stamp of the SCSB or its Designated Branch; a form that does not
+is liable to be rejected.
+
+Where the PAN, DP ID and Client ID stated on the Bid cum Application Form, and entered into the
+electronic collecting system of the Stock Exchange by the Designated Intermediary, do not match
+those held in the depository's records, the application is liable to be rejected.
+`.trim(),
+};
+
+/**
+ * Bids by Anchor Investors.
+ *
+ * **This closes a gap carried in the handoff since the first Issue Procedure
+ * extraction** — the Anchor Investor subsection was listed as not extracted.
+ *
+ * Extraction notes, 2026-09-10:
+ *   - Unusually well corroborated: the 60% ceiling, the Rs 200.00 Lakhs
+ *     minimum bid, the one-working-day-early bidding window, the allottee
+ *     bands, the no-withdrawal rule and the two-working-day top-up all appear
+ *     in FIVE extraction sources, and most appear in the held-out document
+ *     too. The 40% reservation split appears in three.
+ *   - The allottee bands are stated in Lakhs exactly as the corpus states
+ *     them, rather than converted, because the bands are thresholds and
+ *     restating a threshold in different units invites an off-by-one.
+ */
+export const issueProcedureAnchorInvestors: SectionSpec = {
+  id: 'issueRelated.issueProcedure.anchorInvestors',
+  title: 'Bids by Anchor Investors',
+  producer: 'template',
+  order: 3112,
+  group: 'SECTION - ISSUE RELATED INFORMATION',
+  appliesIf: (facts) => facts.offer.issueType === 'BOOK_BUILT',
+  clause: 'R-024 (allocation); ICDR Reg 2(1)(ss) (QIB definition)',
+  extractedFrom: [
+    'bookbuilt__manufacturing__om-galaxy__bse-sme__2026-09__rhp.pdf pp.365-366',
+    'bookbuilt__engineering__maxwell-engineering__nse-emerge__2026-08__drhp.pdf',
+    'bookbuilt__watertech__photonics-watertech__nse-emerge__2026-06__drhp.pdf',
+  ],
+  template: `
+## Bids by Anchor Investors
+
+Our Company, in consultation with the Book Running Lead Manager, may consider participation by
+Anchor Investors in the {{ terms.issueWord }} for **up to 60% of the QIB Portion**, in accordance
+with the SEBI ICDR Regulations. Only QIBs as defined in Regulation 2(1)(ss) of the SEBI ICDR
+Regulations, and who meet the conditions specified for Anchor Investors, are eligible.
+
+Anchor Investor Application Forms will be made available at the offices of the Book Running Lead
+Manager.
+
+A Bid by an Anchor Investor must be for such number of Equity Shares that the **Bid Amount is at
+least Rs 200.00 Lakhs**, and no Bid may be submitted for more than 60% of the QIB Portion. In the
+case of a Mutual Fund, separate Bids by individual schemes of the same Mutual Fund are aggregated.
+
+**40% of the Anchor Investor Portion** is reserved as to 33.33% for domestic Mutual Funds and 6.67%
+for life insurance companies and pension funds, subject to valid Bids being received from them at or
+above the Anchor Investor Allocation Price.
+
+Bidding for Anchor Investors opens **one Working Day before the Bid/{{ terms.issueWord }} Opening
+Date** and is completed on the same day.
+
+### How many Anchor Investors
+
+Our Company, in consultation with the Book Running Lead Manager, will finalise allocation to Anchor
+Investors on a discretionary basis, subject to the following limits on the number of Allottees:
+
+- Where the allocation in the Anchor Investor Portion is **up to Rs 200.00 Lakhs**: a maximum of two Anchor Investors.
+- Where it is **more than Rs 200.00 Lakhs and up to Rs 2,500.00 Lakhs**: a minimum of two and a maximum of fifteen Anchor Investors, subject to a minimum Allotment of Rs 100.00 Lakhs per Anchor Investor.
+- Where it is **more than Rs 2,500.00 Lakhs**: a minimum of five and a maximum of fifteen Anchor Investors for allocation up to Rs 2,500.00 Lakhs, and an additional ten Anchor Investors for every additional Rs 2,500.00 Lakhs or part thereof, subject to a minimum Allotment of Rs 100.00 Lakhs per Anchor Investor.
+
+Allocation to Anchor Investors is completed on the Anchor Investor Bid/{{ terms.issueWord }} Period.
+The number of Equity Shares allocated to Anchor Investors, and the price at which the allocation is
+made, will be made available in the public domain by the Book Running Lead Manager before the
+Bid/{{ terms.issueWord }} Opening Date.
+
+### Terms binding on Anchor Investors
+
+**Anchor Investors cannot withdraw or lower the size of their Bids at any stage after submission.**
+
+Where the {{ terms.issueWord }} Price is higher than the Anchor Investor Allocation Price, the
+difference is payable by the Anchor Investors **within two Working Days** of the
+Bid/{{ terms.issueWord }} Closing Date. Where the {{ terms.issueWord }} Price is lower than the
+Anchor Investor Allocation Price, Allotment to successful Anchor Investors will be at the higher
+price, that is, at the Anchor Investor Allocation Price.
+
+The price at which Equity Shares are offered to an Anchor Investor shall not be lower than the price
+offered to other applicants.
+`.trim(),
+};
+
+/**
+ * Build of the Book, Withdrawal, Price Discovery and the illustration.
+ *
+ * COMPUTED rather than template, for one reason: the price discovery
+ * illustration is a table, and the template engine emits only headings,
+ * paragraphs and lists. The prose still comes from `renderTemplate` — the
+ * compute function assembles template output around a table node rather than
+ * building the paragraphs by hand, so the boilerplate stays editable as data.
+ *
+ * Extraction notes, 2026-09-10:
+ *   - Om Galaxy RHP (BSE SME) pp.374-375 diffed against Maxwell DRHP
+ *     (NSE Emerge), corroborated clause by clause against Photonics, Ideas and
+ *     Axiom. Every clause below carries at least two extraction sources;
+ *     Century Business Media is held out.
+ *   - The illustration is IDENTICAL in all five extraction sources, down to
+ *     the Rs 20 to Rs 24 band, the 3,000 Equity Shares and the five bid
+ *     quantities. It is deliberately generic in the real documents — "solely
+ *     for illustrative purposes and is not specific to the Issue" — so it is
+ *     literal text here rather than being derived from the issuer's own band.
+ *   - Withdrawal splits by investor category and that split is load-bearing:
+ *     individual investors may withdraw until the closing date, QIBs and NIIs
+ *     may neither withdraw nor lower their bids at any stage.
+ */
+export const issueProcedureBookBuilding: SectionSpec = {
+  id: 'issueRelated.issueProcedure.bookBuilding',
+  title: 'Build of the Book, Withdrawal and Price Discovery',
+  producer: 'computed',
+  order: 3150,
+  group: 'SECTION - ISSUE RELATED INFORMATION',
+  appliesIf: (facts) => facts.offer.issueType === 'BOOK_BUILT',
+  clause: 'R-024 (allocation); ICDR Reg 247, Reg 250',
+  extractedFrom: [
+    'bookbuilt__manufacturing__om-galaxy__bse-sme__2026-09__rhp.pdf pp.374-375',
+    'bookbuilt__engineering__maxwell-engineering__nse-emerge__2026-08__drhp.pdf',
+  ],
+  compute: ({ facts, provenance }) => {
+    const ctx = { facts: { ...facts, terms: derivedTerms(facts) }, provenance };
+
+    const before = renderTemplate(
+      `
+## Build of the Book
+
+Bids received from various Bidders through the Designated Intermediaries are electronically uploaded
+on the Bidding Platform of the Stock Exchange on a regular basis. The book gets built up at various
+price levels. This information is available with the Book Running Lead Manager at the end of the
+Bid/{{ terms.issueWord }} Period.
+
+Based on the aggregate demand and price for Bids registered on the Stock Exchange Platform, a
+graphical representation of consolidated demand and price, as available on the website of the Stock
+Exchange, is made available at the Bidding centres during the Bid/{{ terms.issueWord }} Period.
+
+## Withdrawal of Bids
+
+Individual Investors can withdraw their Bids until the Bid/{{ terms.issueWord }} Closing Date. Where
+an Individual Investor wishes to withdraw a Bid during the Bid/{{ terms.issueWord }} Period, this is
+done by submitting a request to the Designated Intermediary concerned, who shall do the requisite,
+including unblocking of the funds by the SCSB in the ASBA Account.
+
+The Registrar to the {{ terms.issueWord }} shall instruct the SCSB to unblock the ASBA Account on
+the Designated Date. **QIBs and Non-Institutional Investors can neither withdraw nor lower the size
+of their Bids at any stage.**
+
+## Price Discovery and Allocation
+
+Based on the demand generated at various price levels, our Company, in consultation with the Book
+Running Lead Manager, shall finalise the {{ terms.issueWord }} Price and the Anchor Investor
+{{ terms.issueWord }} Price.
+
+Under-subscription in any category, except the QIB Category, may be met with spillover from any
+other category or combination of categories at the discretion of our Company, in consultation with
+the Book Running Lead Manager and the Designated Stock Exchange, and in accordance with the SEBI
+ICDR Regulations. **The unsubscribed portion in the QIB Category is not available for subscription
+to other categories.**
+
+Where the Individual Investor category is entitled to more than the allocated portion on a
+proportionate basis, that category shall be allotted the higher percentage. Allocation to Anchor
+Investors shall be at the discretion of our Company, in consultation with the Book Running Lead
+Manager, subject to compliance with the SEBI ICDR Regulations.
+
+**Illustration of the book building and price discovery process.** This example is solely for
+illustrative purposes and is not specific to this {{ terms.issueWord }}; it also excludes Bidding by
+Anchor Investors. Bidders may bid at any price within the Price Band. Assume a Price Band of Rs 20
+to Rs 24 per share, an issue size of 3,000 Equity Shares, and receipt of five Bids, as below.
+`.trim(),
+      ctx,
+    );
+
+    const after = renderTemplate(
+      `
+The price discovery is a function of demand at various prices. The highest price at which our
+Company is able to issue the desired number of Equity Shares is the price at which the book cuts
+off — Rs 22.00 in the example above. Our Company, in consultation with the Book Running Lead
+Manager, may finalise the {{ terms.issueWord }} Price at or below that Cut-Off Price. All Bids at or
+above the {{ terms.issueWord }} Price, and cut-off Bids, are valid Bids and are considered for
+allocation in the respective categories.
+`.trim(),
+      ctx,
+    );
+
+    return [
+      ...before,
+      {
+        type: 'table',
+        caption: 'Illustrative book at five bid levels',
+        headers: ['Bid quantity', 'Bid amount (Rs)', 'Cumulative quantity', 'Subscription'],
+        numericColumns: [0, 1, 2, 3],
+        rows: [
+          ['500', '24', '500', '16.67%'],
+          ['1,000', '23', '1,500', '50.00%'],
+          ['1,500', '22', '3,000', '100.00%'],
+          ['2,000', '21', '5,000', '166.67%'],
+          ['2,500', '20', '7,500', '250.00%'],
+        ],
+        footnotes: [
+          'Illustrative only. The figures are identical in every corpus document and are not derived from this issuer\'s price band.',
+        ],
+      },
+      ...after,
+    ];
+  },
+};
+
+/**
+ * Withdrawal of the Issue, the underwriting agreement, RoC filing and the
+ * advertisements.
+ *
+ * Extraction notes, 2026-09-10:
+ *   - Om Galaxy pp.349-350 and 375-376, against Maxwell, Photonics, Ideas and
+ *     Axiom. The pre-issue advertisement clause cites Reg 247(2) in four
+ *     sources; the Part A of Schedule X format in five.
+ *   - The newspapers and the regional-language gloss reuse the same derived
+ *     terms as Application Size, including the Hindi-state suppression that
+ *     held-out verification produced (see the handoff).
+ */
+export const issueProcedureWithdrawalAndAdvertisement: SectionSpec = {
+  id: 'issueRelated.issueProcedure.withdrawalAndAdvertisement',
+  title: 'Withdrawal of the Issue, Underwriting and Advertisements',
+  producer: 'template',
+  order: 3180,
+  group: 'SECTION - ISSUE RELATED INFORMATION',
+  clause: 'ICDR Reg 247(2), Reg 250, Schedule X Part A; Companies Act 2013, s.26, s.30, s.32',
+  extractedFrom: [
+    'bookbuilt__manufacturing__om-galaxy__bse-sme__2026-09__rhp.pdf pp.349-350, 375-376',
+    'bookbuilt__engineering__maxwell-engineering__nse-emerge__2026-08__drhp.pdf',
+  ],
+  asks: {
+    'offer.underwritingAgreementDate': 'Date of the Underwriting Agreement',
+    'offer.englishNewspaper': 'English national daily with wide circulation',
+    'offer.hindiNewspaper': 'Hindi national daily with wide circulation',
+    'offer.regionalNewspaper': 'Regional daily in the language of the registered office state',
+  },
+  template: `
+## Withdrawal of the {{ terms.issueWord }}
+
+Our Company, in consultation with the Book Running Lead Manager, reserves the right not to proceed
+with the {{ terms.issueWord }} at any time before the {{ terms.issueWord }} Opening Date without
+assigning any reason. In such an event, our Company shall issue a public notice in the newspapers in
+which the pre-{{ terms.issueWordLower }} advertisements were published, within two days of the
+Bid/{{ terms.issueWord }} Closing Date or such other time as may be prescribed by SEBI, giving the
+reasons for not proceeding. The Book Running Lead Manager, through the Registrar to the
+{{ terms.issueWord }}, shall notify the SCSBs to unblock the bank accounts of the ASBA Bidders
+within one working day from the date of receipt of such notification. Our Company shall also inform
+the Stock Exchange on which the Equity Shares are proposed to be listed.
+
+If our Company, in consultation with the Book Running Lead Manager, withdraws the
+{{ terms.issueWord }} after the Bid/{{ terms.issueWord }} Closing Date and thereafter determines
+that it will proceed with a public offering of the Equity Shares, our Company shall file a fresh
+draft offer document with the Stock Exchange.
+
+Notwithstanding the foregoing, the {{ terms.issueWord }} is subject to obtaining the final listing
+and trading approvals of the Stock Exchange, which our Company shall apply for after Allotment, and
+to the filing of the Prospectus with the RoC.
+
+## Signing of the Underwriting Agreement and Filing with the RoC
+
+Our Company has entered into an Underwriting Agreement dated
+{{ offer.underwritingAgreementDate | date }}.
+
+A copy of this {{ terms.documentName }} has been filed with the RoC, and a copy of the Prospectus
+will be filed with the RoC in terms of Section 26 and Section 32 of the Companies Act, 2013.
+
+## Pre-{{ terms.issueWord }} Advertisement
+
+As required by Regulation 247(2) of the SEBI ICDR Regulations, our Company made a public
+announcement within two working days of filing the draft offer document with
+{{ terms.exchangeLongName }}, in all editions of the English national daily newspaper
+{{ offer.englishNewspaper }}, all editions of the Hindi national daily newspaper
+{{ offer.hindiNewspaper }}, and all editions of the {{ terms.regionalLanguage }} regional daily
+newspaper {{ offer.regionalNewspaper }}{{#unless terms.regionalLanguageIsHindi }}
+({{ terms.regionalLanguage }} being the regional language of {{ terms.registeredOfficeState }},
+where our Registered Office is located){{/unless}}, disclosing the fact of filing and inviting the
+public to provide their comments to the exchange, our Company or the Book Running Lead Manager in
+respect of the disclosures made.
+
+Subject to Section 30 of the Companies Act, 2013, our Company shall, after filing this
+{{ terms.documentName }} with the RoC, publish a pre-{{ terms.issueWordLower }} advertisement in the
+form prescribed by the SEBI ICDR Regulations, in the same newspapers, each with wide circulation. In
+that advertisement we shall state the Bid/{{ terms.issueWord }} Opening Date, the
+Bid/{{ terms.issueWord }} Closing Date and the floor price or price band, subject to Regulation 250
+of the SEBI ICDR Regulations. The advertisement shall be in the format prescribed in **Part A of
+Schedule X** of the SEBI ICDR Regulations.
+
+## Advertisement Regarding {{ terms.issueWord }} Price and Prospectus
+
+Our Company will issue a statutory advertisement after the filing of the Prospectus with the RoC.
+In addition to the information required in a statutory advertisement, it shall indicate the final
+derived {{ terms.issueWord }} Price. Any material updates between the date of this
+{{ terms.documentName }} and the date of the Prospectus will be included in that advertisement.
+`.trim(),
+};
+
 export const issueRelatedSections: SectionSpec[] = [
   issueProcedure,
+  issueProcedureUpi,
+  issueProcedureAvailability,
+  issueProcedureInformationForBidders,
   issueProcedureApplicationSize,
   issueProcedureBidsByCategory,
+  issueProcedureAnchorInvestors,
+  issueProcedurePriceLevels,
+  issueProcedureTermsOfPayment,
+  issueProcedureElectronicRegistration,
+  issueProcedureBookBuilding,
+  issueProcedureGeneralInstructions,
   issueProcedureTechnicalRejection,
+  issueProcedureWithdrawalAndAdvertisement,
   issueProcedureBasisOfAllotment,
   issueProcedureUndertakings,
 ];

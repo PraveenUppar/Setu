@@ -19,9 +19,13 @@ import { ABBREVIATIONS } from './abbreviations';
  * `template-extraction` skill). Saved to
  * `fixtures/definitions/om-galaxy-definitions.json`.
  *
- * STATUS: partial, and it says so through a gap. 78 entries are authored —
- * company and governance, issue mechanics, bidding process and intermediaries.
- * Roughly 130 remain, mostly conventional abbreviations and sector terms.
+ * STATUS, 2026-09-10: **129 entries authored** plus 129 conventional
+ * abbreviations. Company and governance, issue mechanics, the bidding process,
+ * intermediaries, and now the settlement machinery and the per-issuer
+ * appointments. What remains is the SECTOR glossary, which cannot come from
+ * another issuer's document at all, and a handful of entries that exist only
+ * in one issuer's document (its manufacturing units, its industry report, its
+ * disassociated promoter group) and are that issuer's alone.
  *
  * They are NOT a bulk import. Per D21, a filter that tried to separate
  * reusable glossary text from issuer-specific text passed 31 of 207 entries,
@@ -617,6 +621,364 @@ const COMPANY_DEFINITIONS: Definition[] = [
   },
 ];
 
+/**
+ * The bidding and settlement machinery: terms that describe the PROCESS
+ * rather than the issuer.
+ *
+ * Authored 2026-09-10 by diffing Om Galaxy's glossary against Maxwell's, both
+ * re-extracted with `pdftotext -table` and per-page column detection so the
+ * descriptions come out whole rather than one line at a time. The two agree
+ * almost word for word on this group, which is what makes it safe: these
+ * definitions describe SEBI's machinery, so there is nothing issuer-specific
+ * to leak (D21). Every entry below was still read in full and rewritten, not
+ * pasted — Om Galaxy's "Bidding Centers" description, for instance, ends by
+ * naming its own Registered Office.
+ *
+ * ONE CITATION IS DELIBERATELY OMITTED. Om Galaxy, Maxwell and Axiom define
+ * **Fraudulent Borrower** as Regulation 2(1)(lll) of the SEBI ICDR
+ * Regulations. Maxwell ALSO defines **Wilful Defaulter** as Regulation
+ * 2(1)(lll) — the same sub-regulation for two different terms, which cannot
+ * both be right. Fraudulent Borrower carries the citation here because three
+ * independent documents give it; Wilful Defaulter is defined without a
+ * sub-regulation number until the notified text settles which is which.
+ * Recorded as O-15.
+ */
+const PROCESS_DEFINITIONS: Definition[] = [
+  {
+    term: 'ASBA, Application Supported by Blocked Amount',
+    kind: 'standard',
+    describe: () =>
+      'An application, whether physical or electronic, used by ASBA Bidders to make a Bid and authorise an SCSB to block the Bid Amount in the ASBA Account, and including amounts blocked by the SCSB on a Mandate Request made by a UPI Bidder using the UPI Mechanism.',
+  },
+  {
+    term: 'ASBA Bid',
+    kind: 'standard',
+    describe: () => 'A Bid made by an ASBA Bidder.',
+  },
+  {
+    term: 'ASBA Bidder',
+    kind: 'standard',
+    describe: (ctx) =>
+      `Any prospective investor in the ${derivedTerms(ctx.facts).issueWord} who applies through the ASBA process, other than an Anchor Investor.`,
+  },
+  {
+    term: 'Bidding',
+    kind: 'standard',
+    describe: () => 'The process of making a Bid.',
+  },
+  {
+    term: 'Book Building Process',
+    kind: 'standard',
+    appliesIf: (ctx) => ctx.facts.offer.issueType === 'BOOK_BUILT',
+    describe: (ctx) =>
+      `The book building process as provided in Part A of Schedule XIII of the SEBI ICDR Regulations, in terms of which this ${derivedTerms(ctx.facts).issueWord} is being made.`,
+  },
+  {
+    term: 'Broker Centres',
+    kind: 'standard',
+    describe: () =>
+      'Broker centres notified by the Stock Exchange where investors can submit the Bid cum Application Form to a Registered Broker. The details of such centres, along with the names and contact details of the Registered Brokers, are available on the website of the Stock Exchange.',
+  },
+  {
+    term: 'Business Day',
+    kind: 'standard',
+    describe: () => 'Monday to Friday, except public holidays.',
+  },
+  {
+    term: 'CAN, Confirmation of Allocation Note',
+    kind: 'standard',
+    describe: () =>
+      'The note, advice or intimation sent to each successful Anchor Investor indicating the Equity Shares which will be allotted, after approval of the Basis of Allotment by the Designated Stock Exchange.',
+  },
+  {
+    term: 'Client ID',
+    kind: 'standard',
+    describe: () =>
+      'The client identification number maintained with one of the Depositories in relation to a demat account.',
+  },
+  {
+    term: 'CDP, Collecting Depository Participant',
+    kind: 'standard',
+    describe: () =>
+      'A depository participant as defined under the Depositories Act, 1996, registered with SEBI and eligible to procure applications at the Designated CDP Locations in terms of the circulars issued by SEBI.',
+  },
+  {
+    term: 'Controlling Branches of the SCSBs',
+    kind: 'standard',
+    describe: () =>
+      'Such branches of the SCSBs which coordinate Bids with the Book Running Lead Manager, the Registrar and the Stock Exchange, a list of which is available on the website of SEBI.',
+  },
+  {
+    term: 'Demographic Details',
+    kind: 'standard',
+    describe: () =>
+      "The details of a Bidder held with the Depository, being their address, PAN, name of the Bidder's father or husband, investor status, occupation and bank account details.",
+  },
+  {
+    term: 'Depositories, Depository',
+    kind: 'standard',
+    describe: () =>
+      'National Securities Depository Limited and Central Depository Services (India) Limited, being depositories registered with SEBI under the Securities and Exchange Board of India (Depositories and Participants) Regulations, 2018.',
+  },
+  {
+    term: 'Designated CDP Locations',
+    kind: 'standard',
+    describe: () =>
+      'Such locations of the CDPs where Bidders can submit the Bid cum Application Form. The details, with the names and contact details of the Collecting Depository Participants, are available on the website of the Stock Exchange.',
+  },
+  {
+    term: 'Designated RTA Locations',
+    kind: 'standard',
+    describe: () =>
+      'Such locations of the RTAs where Bidders can submit the Bid cum Application Form. The details, with the names and contact details of the RTAs, are available on the website of the Stock Exchange.',
+  },
+  {
+    term: 'DP ID',
+    kind: 'standard',
+    describe: () => "The identification number of the Bidder's Depository Participant.",
+  },
+  {
+    term: 'DP, Depository Participant',
+    kind: 'standard',
+    describe: () =>
+      'A depository participant as defined under the Depositories Act, 1996, registered with SEBI.',
+  },
+  {
+    term: 'Electronic Transfer of Funds',
+    kind: 'standard',
+    describe: () => 'Refunds through NACH, NEFT, direct credit or RTGS, as applicable.',
+  },
+  {
+    term: 'First Bidder',
+    kind: 'standard',
+    describe: () =>
+      'The Bidder whose name appears first in the Bid cum Application Form or the Revision Form and, in the case of joint Bids, whose name appears first in the depository account held in joint names.',
+  },
+  {
+    term: 'FPI, Foreign Portfolio Investor',
+    kind: 'standard',
+    describe: () =>
+      'A foreign portfolio investor as defined in, and registered with SEBI under, the Securities and Exchange Board of India (Foreign Portfolio Investors) Regulations, 2019.',
+  },
+  {
+    term: 'FVCI, Foreign Venture Capital Investor',
+    kind: 'standard',
+    describe: () =>
+      'A foreign venture capital investor registered with SEBI under the Securities and Exchange Board of India (Foreign Venture Capital Investors) Regulations, 2000.',
+  },
+  {
+    term: 'Fraudulent Borrower',
+    kind: 'standard',
+    describe: () =>
+      'A fraudulent borrower as defined under Regulation 2(1)(lll) of the SEBI ICDR Regulations.',
+  },
+  {
+    term: 'Fugitive Economic Offender',
+    kind: 'standard',
+    describe: () =>
+      'An individual declared a fugitive economic offender under Section 12 of the Fugitive Economic Offenders Act, 2018.',
+  },
+  {
+    term: 'General Corporate Purposes',
+    kind: 'standard',
+    describe: () =>
+      'Such identified purposes for which no specific amount is allocated, and any amount so specified towards general corporate purposes, subject to the limits in Regulation 230(2) of the SEBI ICDR Regulations.',
+  },
+  {
+    term: 'Mandate Request',
+    kind: 'standard',
+    describe: () =>
+      'A request initiated on a UPI Bidder by the Sponsor Bank to authorise blocking of funds equivalent to the Bid Amount, and the subsequent debit of those funds.',
+  },
+  {
+    term: 'Mutual Fund Portion',
+    kind: 'standard',
+    describe: () =>
+      'Five per cent of the Net QIB Portion, excluding the Anchor Investor Portion, available for allocation to Mutual Funds only on a proportionate basis, subject to valid Bids being received at or above the Issue Price.',
+  },
+  {
+    term: 'Mutual Funds',
+    kind: 'standard',
+    describe: () =>
+      'Mutual funds registered with SEBI under the Securities and Exchange Board of India (Mutual Funds) Regulations, 1996.',
+  },
+  {
+    term: 'Non-Resident',
+    kind: 'standard',
+    describe: () =>
+      'A person resident outside India as defined under FEMA, including NRIs, FPIs and FVCIs.',
+  },
+  {
+    term: 'Pay-in Period',
+    kind: 'standard',
+    describe: (ctx) =>
+      `The period commencing on the Bid/${derivedTerms(ctx.facts).issueWord} Opening Date and extending until the closure of the Anchor Investor Pay-in Date.`,
+  },
+  {
+    term: 'Pricing Date',
+    kind: 'standard',
+    appliesIf: (ctx) => ctx.facts.offer.issueType === 'BOOK_BUILT',
+    describe: (ctx) => {
+      const t = derivedTerms(ctx.facts);
+      return `The date on which our Company, in consultation with the Book Running Lead Manager, will finalise the ${t.issueWord} Price.`;
+    },
+  },
+  {
+    term: 'Prospectus',
+    kind: 'standard',
+    describe: (ctx) => {
+      const t = derivedTerms(ctx.facts);
+      return `The prospectus to be filed with the RoC in accordance with Section 26 of the Companies Act, 2013 and the SEBI ICDR Regulations, containing, among other things, the ${t.issueWord} Price, the size of the ${t.issueWord} and certain other information.`;
+    },
+  },
+  {
+    term: 'Public Issue Account Bank',
+    kind: 'standard',
+    describe: (ctx) =>
+      `The bank with which the Public ${derivedTerms(ctx.facts).issueWord} Account is opened for the collection of Bid Amounts from the ASBA Accounts on the Designated Date.`,
+  },
+  {
+    term: 'Red Herring Prospectus, RHP',
+    kind: 'standard',
+    appliesIf: (ctx) => ctx.facts.offer.issueType === 'BOOK_BUILT',
+    describe: (ctx) => {
+      const t = derivedTerms(ctx.facts);
+      return `The red herring prospectus issued in accordance with Section 32 of the Companies Act, 2013 and the SEBI ICDR Regulations, which does not have complete particulars of the price at which the Equity Shares will be allotted and the size of the ${t.issueWord}. It is filed with the RoC at least three Working Days before the Bid/${t.issueWord} Opening Date and becomes the Prospectus on filing with the RoC after the Pricing Date.`;
+    },
+  },
+  {
+    term: 'Refund Bank',
+    kind: 'standard',
+    describe: () =>
+      'The Banker to the Issue with whom the Refund Account is opened, being a bank registered with SEBI as a banker to an issue.',
+  },
+  {
+    term: 'Registrar Agreement',
+    kind: 'standard',
+    describe: (ctx) => {
+      const t = derivedTerms(ctx.facts);
+      return `The agreement between our Company and the Registrar to the ${t.issueWord} in relation to the responsibilities and obligations of the Registrar in respect of the ${t.issueWord}.`;
+    },
+  },
+  {
+    term: 'RTAs, Registrar and Share Transfer Agents',
+    kind: 'standard',
+    describe: () =>
+      'Registrar and share transfer agents registered with SEBI and eligible to procure applications at the Designated RTA Locations in terms of the circulars issued by SEBI.',
+  },
+  {
+    term: 'Regulation S',
+    kind: 'standard',
+    describe: () => 'Regulation S under the U.S. Securities Act of 1933, as amended.',
+  },
+  {
+    term: 'Resident Indian',
+    kind: 'standard',
+    describe: () => 'A person resident in India as defined under FEMA.',
+  },
+  {
+    term: 'Revision Form',
+    kind: 'standard',
+    appliesIf: (ctx) => ctx.facts.offer.issueType === 'BOOK_BUILT',
+    describe: (ctx) => {
+      const t = derivedTerms(ctx.facts);
+      return `The form used by Bidders to modify the quantity of Equity Shares or the Bid Amount in any of their Bid cum Application Forms or any previous Revision Form. QIBs and Non-Institutional Investors may not withdraw or lower the size of their Bids at any stage; Individual Investors may revise their Bids during the Bid/${t.issueWord} Period and may withdraw their Bids until the Bid/${t.issueWord} Closing Date.`;
+    },
+  },
+  {
+    term: 'SCSB, Self-Certified Syndicate Bank',
+    kind: 'standard',
+    describe: () =>
+      'A bank registered with SEBI which offers the ASBA facility, a list of which is available on the website of SEBI, and which acts as a Sponsor Bank or in any other capacity notified by SEBI from time to time.',
+  },
+  {
+    term: 'Securities Laws',
+    kind: 'standard',
+    describe: () =>
+      'The Securities and Exchange Board of India Act, 1992, the Securities Contracts (Regulation) Act, 1956, the Depositories Act, 1996, and the rules, regulations, circulars and guidelines issued thereunder.',
+  },
+  {
+    term: 'Specified Securities',
+    kind: 'standard',
+    describe: (ctx) =>
+      `The Equity Shares offered through this ${derivedTerms(ctx.facts).documentName}.`,
+  },
+  {
+    term: 'Systemically Important Non-Banking Financial Company',
+    kind: 'standard',
+    describe: () =>
+      'A systemically important non-banking financial company as defined under the SEBI ICDR Regulations.',
+  },
+  {
+    term: 'TRS, Transaction Registration Slip',
+    kind: 'standard',
+    describe: () =>
+      'The slip or document issued by a Designated Intermediary, only on demand, as proof of registration of the Bid.',
+  },
+  {
+    term: 'U.S. Securities Act',
+    kind: 'standard',
+    describe: () => 'The U.S. Securities Act of 1933, as amended.',
+  },
+  {
+    term: 'Wilful Defaulter',
+    kind: 'standard',
+    // No sub-regulation number: the corpus attributes 2(1)(lll) to Fraudulent
+    // Borrower in three documents and to Wilful Defaulter in one. See O-15.
+    describe: () => 'A wilful defaulter as defined under the SEBI ICDR Regulations.',
+  },
+];
+
+/**
+ * Intermediaries and instruments named per issuer.
+ *
+ * Every one of these is a fact, not text. Om Galaxy's glossary defines its
+ * Monitoring Agency, its Legal Advisor and its ISIN inline, and copying any of
+ * them into another issuer's document is precisely the failure D21 records.
+ */
+const APPOINTMENT_DEFINITIONS: Definition[] = [
+  {
+    term: 'ISIN',
+    kind: 'fact',
+    describe: (ctx) =>
+      ctx.facts.offer.isin
+        ? `International Securities Identification Number, in this case being ${ctx.facts.offer.isin}.`
+        : null,
+  },
+  {
+    term: 'Monitoring Agency',
+    kind: 'fact',
+    describe: (ctx) =>
+      ctx.facts.offer.monitoringAgency
+        ? `The monitoring agency appointed in respect of the ${derivedTerms(ctx.facts).issueWord}, being ${ctx.facts.offer.monitoringAgency}.`
+        : null,
+  },
+  {
+    term: 'Legal Advisor to the Issue',
+    kind: 'fact',
+    describe: (ctx) =>
+      ctx.facts.offer.legalAdvisor
+        ? `The legal advisor to the ${derivedTerms(ctx.facts).issueWord}, being ${ctx.facts.offer.legalAdvisor}.`
+        : null,
+  },
+  {
+    term: 'Escrow Collection Bank',
+    kind: 'fact',
+    describe: (ctx) =>
+      ctx.facts.offer.escrowCollectionBank
+        ? `The bank which is a clearing member and registered with SEBI as a banker to an issue, with which the Escrow Account is opened, being ${ctx.facts.offer.escrowCollectionBank}.`
+        : null,
+  },
+  {
+    term: 'Sponsor Bank',
+    kind: 'fact',
+    describe: (ctx) =>
+      ctx.facts.offer.sponsorBank
+        ? `The Banker to the Issue registered with SEBI and appointed to act as a conduit between the Stock Exchange and NPCI, in order to push the Mandate Request and receive the payment instructions of UPI Bidders, being ${ctx.facts.offer.sponsorBank}.`
+        : null,
+  },
+];
+
 function computeDefinitions(ctx: RenderContext): DocumentNode[] {
   const t = derivedTerms(ctx.facts);
 
@@ -625,6 +987,8 @@ function computeDefinitions(ctx: RenderContext): DocumentNode[] {
     ...ISSUE_DEFINITIONS,
     ...BIDDING_DEFINITIONS,
     ...COMPANY_DEFINITIONS,
+    ...PROCESS_DEFINITIONS,
+    ...APPOINTMENT_DEFINITIONS,
   ]
     .filter((d) => !d.appliesIf || d.appliesIf(ctx))
     .map((d) => ({ term: d.term, description: d.describe(ctx) }));

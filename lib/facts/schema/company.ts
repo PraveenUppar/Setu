@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { zAddress, zCIN, zDate, zSector } from './shared';
+import { zAddress, zCIN, zDate, zPercent, zSector } from './shared';
 
 /** Module M1 — Company & History. The simplest module; no repeaters beyond name changes. */
 
@@ -32,6 +32,34 @@ export const zCompany = z.object({
     .array(zNameChange)
     .default([])
     .describe('Every name change since incorporation, oldest first'),
+
+  /**
+   * E-09, S9's formulation: where the name changed within the last year, at
+   * least 50% of the preceding full year's restated revenue must come from the
+   * activity the new name indicates. Null where no name change is in the
+   * window, or where the figure has not been computed yet.
+   */
+  revenueShareFromNewNameActivity: zPercent
+    .nullable()
+    .default(null)
+    .describe(
+      'Percentage of the preceding full financial year restated revenue earned from the activity indicated by the new name',
+    ),
+
+  /**
+   * R-026 (Reg 229(4)): an issuer converted from a proprietorship, partnership
+   * firm or LLP must have existed as a company for at least one full financial
+   * year before filing. A very common SME path, and easy to miss because the
+   * company looks new while the business is old.
+   */
+  convertedFromFirmType: z
+    .enum(['NONE', 'PROPRIETORSHIP', 'PARTNERSHIP', 'LLP'])
+    .default('NONE')
+    .describe('What the business was before it became a company, if anything'),
+  conversionFromFirmDate: zDate
+    .nullable()
+    .default(null)
+    .describe('Date the company came into existence on conversion from the firm'),
 
   registeredOffice: zAddress,
   corporateOffice: zAddress.optional().describe('Omit if the same as the registered office'),

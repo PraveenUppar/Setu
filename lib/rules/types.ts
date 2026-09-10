@@ -99,6 +99,21 @@ export interface Rule {
   check: (facts: FactBase) => CheckResult | null;
 }
 
+/**
+ * One entry from `blocks`, resolved against the rendered document.
+ *
+ * A rule names the sections it holds up as plain titles, because a rule is
+ * written against the regulation and must not depend on which sections happen
+ * to be built yet. The engine resolves those titles afterwards: `anchor` is
+ * set where the section exists in this document and absent where it does not,
+ * so the dashboard can link the first and state the second honestly rather
+ * than offering a link that goes nowhere.
+ */
+export interface FindingLink {
+  label: string;
+  anchor?: string;
+}
+
 /** A rule that fired, with its metadata attached. */
 export interface Finding extends CheckResult {
   ruleId: string;
@@ -106,6 +121,8 @@ export interface Finding extends CheckResult {
   title: string;
   severity: Severity;
   category: Category;
+  /** Filled in by `linkFindings`, never by the rule itself. */
+  links?: FindingLink[];
 }
 
 export interface EvaluationOptions {

@@ -120,6 +120,19 @@ export const zCapital = z.object({
     .boolean()
     .default(false)
     .describe('Reg 230(1)(c) requires all present equity capital to be fully paid up'),
+
+  /**
+   * Reg 230(1)(b) requires an agreement with the depositories for
+   * dematerialisation. BSE goes further at E-15 and requires TRIPARTITE
+   * agreements with BOTH depositories and the registrar — so the two are
+   * tracked separately rather than as one "demat arranged" flag.
+   */
+  depositoryAgreements: z
+    .object({
+      nsdl: z.boolean().default(false).describe('Tripartite agreement executed with NSDL'),
+      cdsl: z.boolean().default(false).describe('Tripartite agreement executed with CDSL'),
+    })
+    .default({ nsdl: false, cdsl: false }),
 });
 
 export type Allotment = z.infer<typeof zAllotment>;

@@ -345,8 +345,254 @@ Our Company Secretary and Compliance Officer may be contacted at
 `.trim(),
 };
 
+/**
+ * Disclaimer in Respect of Jurisdiction, and Experts Opinion.
+ *
+ * Extraction notes, 2026-09-10:
+ *   - Om Galaxy RHP (BSE SME) pp.332-335 and Photonics Watertech DRHP
+ *     (NSE Emerge) p.262. The jurisdiction paragraph is WORD-FOR-WORD
+ *     IDENTICAL across both, down to the Rs 2,500.00 Lakhs corpus figures,
+ *     varying only in the document name, the issue/offer word and the court.
+ *   - "No action has been, or will be, taken to permit a public offering..."
+ *     appears in all six documents checked. Safe as literal text.
+ *   - **Held-out verification caught a defect here.** A fourth paragraph, "No
+ *     person outside India is eligible to bid ... unless that person has
+ *     received the preliminary offering memorandum", was drafted from Om
+ *     Galaxy and is in NO other document in the corpus — not Century, and not
+ *     the four NSE filings. One source is not extraction, it is copying, and
+ *     it was removed. See D26.
+ *   - The Experts list is entirely issuer-specific — auditor, chartered
+ *     engineer, practising company secretary, each with consent dates and the
+ *     certificates covered — so only the lead-in and the closing US Securities
+ *     Act sentence are template text. The closing sentence is corroborated by
+ *     Om Galaxy and Ideas Electricals.
+ */
+export const regulatoryJurisdiction: SectionSpec = {
+  id: 'regulatory.jurisdiction',
+  title: 'Jurisdiction and Experts',
+  producer: 'template',
+  order: 2960,
+  group: 'SECTION - OTHER REGULATORY AND STATUTORY DISCLOSURES',
+  clause: 'Companies Act 2013, s.26(5) and s.2(38)',
+  extractedFrom: [
+    'bookbuilt__manufacturing__om-galaxy__bse-sme__2026-09__rhp.pdf pp.332-335',
+    'bookbuilt__watertech__photonics-watertech__nse-emerge__2026-06__drhp.pdf p.262',
+    'bookbuilt__engineering__maxwell-engineering__nse-emerge__2026-08__drhp.pdf p.261',
+  ],
+  asks: {
+    'offer.jurisdiction':
+      'City and state of the courts having exclusive jurisdiction — the High Court seat, which is not always the registered office city',
+    'offer.expertConsents':
+      'Expert consents under Section 2(38) — each expert, the date of consent, the capacity, and the certificates covered',
+  },
+  template: `
+## Disclaimer in Respect of Jurisdiction
+
+This {{ terms.issueWord }} is being made in India to persons resident in India (including Indian
+nationals resident in India who are majors, HUFs, companies, corporate bodies and societies
+registered under applicable laws in India and authorized to invest in shares, Indian mutual funds
+registered with SEBI, Indian financial institutions, commercial banks, regional rural banks,
+cooperative banks (subject to RBI permission), or trusts under applicable trust law and who are
+authorized under their constitution to hold and invest in shares, public financial institutions as
+specified in Section 2(72) of the Companies Act, 2013, VCFs, state industrial development
+corporations, insurance companies registered with the Insurance Regulatory and Development
+Authority, provident funds (subject to applicable law) with a minimum corpus of Rs 2,500.00 Lakhs
+and pension funds with a minimum corpus of Rs 2,500.00 Lakhs, and permitted non-residents including
+FIIs, Eligible NRIs, multilateral and bilateral development financial institutions, FVCIs and
+eligible foreign investors, insurance funds set up and managed by army, navy or air force of the
+Union of India and insurance funds set up and managed by the Department of Posts, India provided
+that they are eligible under all applicable laws and regulations to hold Equity Shares of our
+Company. This {{ terms.documentName }} does not, however, constitute an offer to sell or an
+invitation to subscribe for Equity Shares offered hereby in any jurisdiction other than India to any
+person to whom it is unlawful to make an offer or invitation in such jurisdiction. Any person into
+whose possession this {{ terms.documentName }} comes is required to inform himself or herself about,
+and to observe, any such restrictions. Any dispute arising out of this {{ terms.issueWord }} will be
+subject to jurisdiction of the competent court(s) in {{ offer.jurisdiction }} only.
+
+No action has been, or will be, taken to permit a public offering in any jurisdiction where action
+would be required for that purpose except that this {{ terms.documentName }} has been filed with the
+RoC, and the Stock Exchange. Accordingly, the Equity Shares represented hereby may not be offered or
+sold, directly or indirectly, and this {{ terms.documentName }} may not be distributed in any
+jurisdiction, except in accordance with the legal requirements applicable in such jurisdiction.
+Neither the delivery of this {{ terms.documentName }} nor any sale hereunder shall, under any
+circumstances, create any implication that there has been no change in the affairs of our Company
+from the date hereof or that the information contained herein is correct as of any time subsequent
+to this date.
+
+## Experts Opinion
+
+Except as stated below, our Company has not obtained any expert opinions:
+
+{{ offer.expertConsents }}
+
+However, the term "expert" and consent thereof does not represent an expert or consent within the
+meaning under the U.S. Securities Act.
+`.trim(),
+};
+
+/**
+ * The run of short statutory statements that closes Other Regulatory and
+ * Statutory Disclosures.
+ *
+ * Extraction notes, 2026-09-10:
+ *   - Om Galaxy RHP (BSE SME) pp.335-336 and Maxwell Engineering DRHP
+ *     (NSE Emerge) pp.264-265, corroborated against Photonics, Ideas and
+ *     Axiom on a clause-by-clause basis. Century Business Media is held out.
+ *   - Every clause here was confirmed present in at least two extraction
+ *     sources before being written. "Fees Payable to Others" appears in
+ *     Maxwell alone and is therefore NOT included — see the handoff.
+ *   - Most of these are negative statements that are true for every
+ *     first-time issuer by definition ("no outstanding debentures", "not
+ *     listed, so no stock market data"). They are conditional on the facts
+ *     where a fact exists to condition on, and stated flatly where the
+ *     regulation makes them universal for an IPO.
+ */
+export const regulatoryStatutoryStatements: SectionSpec = {
+  id: 'regulatory.statutoryStatements',
+  title: 'Fees, Previous Issues and Other Statutory Statements',
+  producer: 'template',
+  order: 2970,
+  group: 'SECTION - OTHER REGULATORY AND STATUTORY DISCLOSURES',
+  clause: 'ICDR Schedule VI Part A',
+  extractedFrom: [
+    'bookbuilt__manufacturing__om-galaxy__bse-sme__2026-09__rhp.pdf pp.335-336',
+    'bookbuilt__engineering__maxwell-engineering__nse-emerge__2026-08__drhp.pdf pp.264-265',
+  ],
+  asks: {
+    'offer.registrarAgreementDate': 'Date of the agreement with the Registrar to the Issue',
+  },
+  template: `
+## Fees, Brokerage and Selling Commission Payable
+
+The total fees payable to the Book Running Lead Manager will be as per the
+{{ terms.issueWord }} Agreement with the Book Running Lead Manager, the Underwriting Agreement with
+the Underwriter and the Market Making Agreement with the Market Maker, copies of which are available
+for inspection at our Registered Office.
+
+### Fees Payable to the Registrar to the {{ terms.issueWord }}
+
+The fees payable to the Registrar to the {{ terms.issueWord }} for processing of applications, data
+entry, printing of CAN, tape and printing of bulk mailing register will be as per the agreement
+between our Company and the Registrar to the {{ terms.issueWord }} dated
+{{ offer.registrarAgreementDate | date }}, a copy of which is available for inspection at our
+Registered Office.
+
+The Registrar to the {{ terms.issueWord }} will be reimbursed for all out-of-pocket expenses
+including cost of stationery, postage, stamp duty and communication expenses. Adequate funds will be
+provided to the Registrar to the {{ terms.issueWord }} to enable it to send allotment advice by
+registered post or speed post.
+
+## Particulars Regarding Public or Rights Issues During the Last Five Years
+
+Except as disclosed under "Capital Structure", our Company has not made any previous public or
+rights issue in India or abroad in the five years preceding the date of this
+{{ terms.documentName }}, and this {{ terms.issueWord }} is an "Initial Public Offer" in terms of
+the SEBI ICDR Regulations.
+
+### Underwriting Commission, Brokerage and Selling Commission on Previous Issues
+
+Since this is the initial public offering of our Company's Equity Shares, no sum has been paid or
+has been payable as commission or brokerage for subscribing for or procuring, or agreeing to procure
+subscription for, any of the Equity Shares since our incorporation.
+
+### Performance vis-a-vis Objects
+
+Our Company is an "Unlisted Issuer" in terms of the SEBI ICDR Regulations, and this
+{{ terms.issueWord }} is an "Initial Public Offer" in terms of the SEBI ICDR Regulations. Therefore,
+data regarding promise versus performance is not applicable to us.
+
+## Outstanding Instruments
+
+### Outstanding Debentures, Bonds or Redeemable Preference Shares
+
+As on the date of this {{ terms.documentName }}, our Company has no outstanding debentures, bonds or
+redeemable preference shares.
+
+### Partly Paid-Up Shares
+
+{{#if capital.hasPartlyPaidShares }}
+Partly paid-up Equity Shares are outstanding as on the date of this {{ terms.documentName }}. Note
+that Regulation 230(1)(c) requires all present equity share capital to be fully paid up before the
+{{ terms.issueWordLower }}, so these must be made fully paid up or forfeited before filing.
+{{/if}}
+{{#unless capital.hasPartlyPaidShares }}
+As on the date of this {{ terms.documentName }}, there are no partly paid-up Equity Shares of our
+Company.
+{{/unless}}
+
+### Outstanding Convertible Instruments
+
+{{#if capital.hasOutstandingConvertibles }}
+Our Company has outstanding convertible instruments as on the date of this
+{{ terms.documentName }}. Note that Regulation 228(e) makes an issuer with outstanding convertible
+securities ineligible, so these must be converted or extinguished before filing.
+{{/if}}
+{{#unless capital.hasOutstandingConvertibles }}
+Our Company does not have any outstanding convertible instruments as on the date of filing this
+{{ terms.documentName }}.
+{{/unless}}
+
+## Option to Subscribe
+
+Investors will get the allotment of specified securities in dematerialised form only. The Equity
+Shares, on allotment, shall be traded on the Stock Exchange in the demat segment only.
+
+## Stock Market Data for our Equity Shares
+
+This being an initial public offer of the Equity Shares of our Company, the Equity Shares are not
+listed on any stock exchange and accordingly, no stock market data is available for the Equity
+Shares.
+
+## Tax Implications
+
+Investors who are allotted Equity Shares in the {{ terms.issueWord }} will be subject to capital
+gains tax on any resale of the Equity Shares at applicable rates, depending on the duration for
+which the investors have held the Equity Shares prior to such resale and whether the Equity Shares
+are sold on the Stock Exchange. For details, see "Statement of Special Tax Benefits".
+
+## Capitalization of Reserves or Profits
+
+Save and except as stated in "Capital Structure", our Company has not capitalized its reserves or
+profits at any time since inception.
+
+## Revaluation of Assets
+
+There has not been any revaluation of assets since incorporation of our Company.
+
+## Purchase of Property
+
+Other than as disclosed in "Our Business", there is no property which has been purchased or acquired
+or is proposed to be purchased or acquired which is to be paid for wholly or partly from the
+proceeds of the present {{ terms.issueWord }}, or the purchase or acquisition of which has not been
+completed on the date of this {{ terms.documentName }}. Except as stated elsewhere in this
+{{ terms.documentName }}, our Company has not purchased any property in which the Promoters or
+Directors have any direct or indirect interest in any payment made thereunder.
+
+## Payment or Benefit to Officers of our Company
+
+Except statutory benefits upon termination of their employment in our Company or superannuation, no
+officer of our Company is entitled to any benefit upon termination of his employment in our Company
+or superannuation. Except as disclosed in "Our Promoters and Promoter Group", "Our Management" and
+"Restated Financial Information", none of the beneficiaries of loans and advances and sundry debtors
+are related to the Directors of our Company.
+
+## Exemption from Complying with any Provisions of Securities Laws Granted by SEBI
+
+{{#if offer.exemptionApplicationDetails }}
+{{ offer.exemptionApplicationDetails }}
+{{/if}}
+{{#unless offer.exemptionApplicationDetails }}
+Our Company has not made any application under Regulation 300(1)(c) of the SEBI ICDR Regulations for
+seeking an exemption from complying with any provisions of securities laws by SEBI as on the date of
+this {{ terms.documentName }}.
+{{/unless}}
+`.trim(),
+};
+
 export const regulatorySections: SectionSpec[] = [
   regulatoryAuthority,
   regulatoryConsents,
   regulatoryDisclaimers,
+  regulatoryJurisdiction,
+  regulatoryStatutoryStatements,
 ];

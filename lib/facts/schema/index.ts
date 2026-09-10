@@ -38,8 +38,36 @@ export const zPromoters = z.object({
   anyDebarredBySebi: z.boolean().default(false),
   anyWilfulDefaulterOrFraudulentBorrower: z.boolean().default(false),
   anyFugitiveEconomicOffender: z.boolean().default(false),
-  /** E-08 / N-08 style conditions on control changes in the preceding year. */
+  /** E-08: no change in promoters having significant control in the preceding year. */
   controlChangedInPastYear: z.boolean().default(false),
+
+  /**
+   * R-027 (Reg 229(5)): a complete change of promoter, or new promoters
+   * acquiring more than 50% of the shareholding, starts a one-year clock
+   * before the draft offer document may be filed. A regulation rather than an
+   * exchange criterion, so it binds at both venues — and distinct from
+   * `controlChangedInPastYear`, which is BSE's softer "significant control"
+   * test with no numeric trigger.
+   */
+  majorityPromoterChangeDate: zDate
+    .nullable()
+    .default(null)
+    .describe(
+      'Date of the final change where promoters changed completely or new promoters acquired more than 50%',
+    ),
+  /**
+   * E-16 / N-11, settled by R-031: the test EXCLUDES independent directors at
+   * both exchanges. Only a promoter, an executive director or a non-executive
+   * non-independent director counts, so the flag is defined to exclude
+   * independent directorships rather than leaving the rule to subtract them
+   * from a wider answer it cannot see.
+   */
+  anyAssociatedWithDelistedCompany: z
+    .boolean()
+    .default(false)
+    .describe(
+      'Any promoter, executive director or non-executive non-independent director is a promoter or director of a compulsorily delisted or trading-suspended company. Independent directorships are excluded (R-031)',
+    ),
 });
 
 /** M4 — Board & Management. */
@@ -89,9 +117,67 @@ export const zLegal = z.object({
       }),
     )
     .default([]),
+  /** E-11 (BSE) / N-06 (NSE): reference to NCLT under the IBC. */
   referredToNCLT: z.boolean().default(false),
+  /**
+   * N-06 extends the IBC test to the PROMOTING companies as well as the
+   * issuer. E-11 asks only about the issuer, so this is NSE-only.
+   */
+  ibcProceedingsAgainstPromotingCompanies: z
+    .boolean()
+    .default(false)
+    .describe('IBC proceedings admitted against any company promoting the issuer'),
+  /** E-12 (BSE) / N-07 (NSE): admitted winding-up petition or a liquidator. */
   windingUpPetitionAdmitted: z.boolean().default(false),
+  /** E-17 (BSE) / N-06 (NSE). */
   referredToBIFR: z.boolean().default(false),
+
+  /**
+   * E-13 and N-09 — regulatory or disciplinary action, by DATE rather than a
+   * boolean, because the two exchanges apply different windows to different
+   * subjects: BSE looks back 3 years at the company and 1 year at the
+   * promoters; NSE states no window at all but widens the subject to promoting
+   * and group companies. A boolean could not answer either question.
+   *
+   * Null means none, which is the ordinary case.
+   */
+  regulatoryActionAgainstCompanySince: zDate
+    .nullable()
+    .default(null)
+    .describe('Date of the most recent regulatory or disciplinary action against the company'),
+  regulatoryActionAgainstPromotersSince: zDate
+    .nullable()
+    .default(null)
+    .describe('Date of the most recent regulatory or disciplinary action against a promoter'),
+  regulatoryActionAgainstGroupCompaniesSince: zDate
+    .nullable()
+    .default(null)
+    .describe(
+      'Date of the most recent regulatory or disciplinary action against a promoting or group company',
+    ),
+
+  /** N-10: trading suspended against promoters or promoted companies. */
+  tradingSuspendedForPromoterCompanies: z
+    .boolean()
+    .default(false)
+    .describe('Any nationwide exchange has suspended trading against a promoter or promoted company'),
+
+  /** E-18: pending defaults to debenture, bond or fixed deposit holders. */
+  pendingDebtSecurityDefaults: z
+    .boolean()
+    .default(false)
+    .describe('Any pending default on interest or principal to debenture, bond or fixed deposit holders'),
+
+  /**
+   * E-20: the directors must not be associated with the securities market in
+   * any manner, and no action may be outstanding against them from the Board
+   * in the past five years. Stated at both exchanges (S2, S9, S8) and missed
+   * entirely on the first pass through the criteria.
+   */
+  sebiActionAgainstDirectorsSince: zDate
+    .nullable()
+    .default(null)
+    .describe('Date of the most recent SEBI action initiated against a director'),
 });
 
 /** M8 — Approvals & Licences. Sector-switched checklist. */

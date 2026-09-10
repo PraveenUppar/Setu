@@ -296,3 +296,298 @@ They slipped through because issuer specifics are **not always capitalised prope
 `build-glossary.mjs` is kept as a **triage tool** — it says which entries need attention and why. Its output is a review queue, not a product artifact, and is named so.
 
 **Rules out:** copying glossary text from one issuer's prospectus into another's. The same caution applies to any section where the corpus text embeds issuer facts inline rather than in a table.
+
+---
+
+## D22 — The document keeps its section boundaries, and every link resolves or does not render
+
+**Problem, 2026-09-10.** The gap dashboard listed what was wrong; the document rendered the same gaps highlighted; nothing connected them. A finding said "Holds up: Issue Structure" and left the reader to scroll 23 pages — later 280 — to find the sentence it was about.
+
+Connecting them needs the section boundary, and `renderDocument` had already thrown it away by flattening every section into one `DocumentNode[]`. There is nothing in a flat tree to point at.
+
+### Consequence
+
+**`renderSections` is the primary output; the flat tree is derived from it.** `RenderedSection` carries `{ id, title, group, anchor, nodes }`, and `flattenSections` produces exactly what `renderDocument` produced before, so the DOCX renderer is unaffected — the boundaries exist for navigation, not for rendering.
+
+**Three anchor namespaces, all derived from one identifier** (`lib/anchors.ts`): `sec-` from a section spec id, `gap-` from a fact path, `finding-` from a rule id. The dashboard and the document agree on where to point only because neither invents its own id. The prefixes are load-bearing: a completeness rule id embeds its fact path (`CM-company.website`), so without them the gap and its finding slug to the same string.
+
+**One gap has exactly one anchor**, on its first occurrence in the document (`gapAnchorKeys`). A fact used in nine sections is one thing to provide and one finding, and duplicate DOM ids would send the link to whichever the browser found first.
+
+**A finding links to the placeholder, not the top of the section.** Landing the reader at a section heading and leaving them to hunt for the highlight is barely better than not linking.
+
+**A `blocks` entry that names a section which is not built stays plain text.** Rules name sections from the regulation, and 24 of 37 do not exist yet; a link that scrolls nowhere teaches the reader that the links do not work. The difference in appearance is the statement about which sections exist. `linkFindings` matches by subsection title, then by numbered-section group, then gives up.
+
+**Rules out:** rules naming sections by spec id, which would bind a regulatory citation to the build order. `blocks` stays a list of human titles and is resolved afterwards.
+
+### Second finding: a gap inside a table cannot report itself
+
+Table cells are plain strings in the AST, so `[TO BE PROVIDED]` in one is invisible to `collectPlaceholders` and never becomes a finding. Issue Structure is right only because it also carries a placeholder in the paragraph above the table (D20). Nothing enforced that. A test now does: any section whose table holds a gap must also produce a placeholder. The alternative — placeholders inside cells — waits until a section actually needs it.
+
+---
+
+## D23 — Exchange criteria are seventeen separate rules, not one shared check
+
+**Problem, 2026-09-10.** E-05 to E-18 (BSE SME) and N-05 to N-11 (NSE Emerge) sit on top of SEBI's requirements under Reg 229(3), and they overlap heavily. The tempting shape is one rule per *subject* — one insolvency rule, one regulatory-action rule, one six-month rule — switched internally by exchange.
+
+That shape is wrong, and the six-month rule shows why. **E-10 asks whether the ISSUER's own application was rejected by the exchange in the last six months. N-08 asks whether the MERCHANT BANKER has had a draft offer document returned by NSE in the last six months.** Same window, different party, different fix — and the second is not even answerable at pre-check time, because there is no banker yet. Collapsed into one rule they would share a fact, and feeding one exchange the other's fact would produce a confident wrong answer.
+
+### Consequence
+
+**One rule per criterion per exchange**, each with its own `appliesTo`, its own citation and its own fact. EL-022 to EL-038. Where the two exchanges genuinely ask the same question — NCLT, winding-up, BIFR, delisted-company association — one rule serves both and says so in its clause.
+
+**Facts follow the criterion's own shape.** The regulatory-action tests are DATES, not booleans, because BSE looks back three years at the company and one year at the promoters while NSE states no window at all and reaches group companies. A boolean could not answer either question, and inventing NSE a three-year window to match BSE would put a limit in the tool that is not in the source.
+
+**Windows are measured from `offer.intendedFilingDate`, not from today.** An issuer planning to file in four months needs to know whether the window will still be open then.
+
+**Three criteria deliberately have no rule:**
+
+| Criterion | Why not |
+|---|---|
+| E-07 promoter shares in demat | Restates Reg 230(1)(d), already EL-014. Two findings for one defect teaches the reader the list is padded. |
+| N-05 no promoter loan repayment | Restates Reg 230(1)(h), already EL-015. |
+| E-14 board composition | "Compliant with Companies Act 2013" states no threshold, no citation row exists, and SME-listed entities are exempted from parts of LODR. Rule zero: no citation, no rule. Recorded as O-11. |
+
+### The conversion trap
+
+E-09 requires no change of name in the year before the application. **Every SME issuer changes its name in that year**, because s.23 requires converting to a public limited company first, and "Private Limited" becomes "Limited".
+
+A blocker firing on the mandatory step is one no issuer can ever clear — the pattern that teaches a reader to skip the dashboard. Silently excluding conversions is worse: if BSE does read it as a change of name, the issuer hears that from the exchange instead of from us.
+
+So it is **two rules**: EL-025 blocks on a genuine name change, and EL-038 reports the conversion at `minor` severity with what to confirm and why. Whether BSE reads it as a change of status or of name is O-12, and EL-038 is what that answer will settle.
+
+**Rules out:** a check returning its own severity. The engine merges rule metadata into the finding precisely so a check cannot report a clause or a severity other than the one it is registered under, and needing two severities is a sign of needing two rules.
+
+### The pre-check grew, and stayed short
+
+24 of the 50 rules are now pre-check rules, but no issuer answers 24 questions: the exchange criteria diverge, so a BSE issuer never sees N-06 or N-10 and an NSE issuer never sees E-08, E-09, E-10 or E-18. The form gained a sixth step and shows only the criteria that govern the exchange selected in step one.
+
+`preCheck` marks what a promoter can answer on day one — not everything that could be asked. E-05 needs a balance sheet, E-13 turns on whether an action was *material*, and N-08 is about a banker who has not been appointed. Those stay out.
+
+---
+
+## D24 — Close the corpus at 8, and corroborate every criterion before shipping it
+
+**Decision, 2026-09-10.** The corpus target drops from 25 prospectuses to **8** (7 on disk plus the missing fixed-price document). MCA21 document sets are dropped entirely; annual reports stop at 4.
+
+The reason is not budget. It is that reading the documents we already had, properly, was worth more than adding more of them — and we had not done that.
+
+### What re-reading the corpus found
+
+The exchange criteria were recorded from **one prospectus per exchange**. Reading a second BSE document (Century) and a second NSE document (Photonics) changed **five** criteria and added **four** that were missing:
+
+| Criterion | Was recorded as | Actually |
+|---|---|---|
+| **E-09** name change | "No name change in the last 1 year" — a flat bar | One BSE source says that; the other applies a **50% revenue test** on the activity the new name indicates. Two documents, same vintage, different rules |
+| **E-05** net tangible assets | "Positive" | One source says positive, the other says **"more than Rs 3 Crore"** |
+| **E-13** regulatory action, 1 year | promoters only | promoters, **group companies and companies promoted by the promoters** |
+| **N-06** IBC against promoting companies | NSE only | **stated at BSE too** — a BSE issuer would have been told nothing |
+| **N-10** trading suspension | NSE only | **stated at BSE too** |
+| **E-16 / N-11** delisted companies | BSE reaches every director, NSE carves out independent directors | The carve-out **varies by drafter, not by exchange** — two of four documents have it, one on each platform |
+| **E-19, E-20** | missing | Trading suspension and the five-year SEBI-action test, both stated at both exchanges |
+| **R-026, R-027** | missing | **Reg 229(4)** (a converted firm needs one full financial year) and **Reg 229(5)** (a majority promoter change starts a one-year wait) — two regulations nobody had read |
+
+Photonics also quotes **Reg 229(6)** and **Reg 230(2)** by number, which turned R-002's operating profit threshold and R-010's GCP cap from "as-applied by two bankers" into actual sub-regulation citations. O-1 closed as a result.
+
+### Consequence
+
+**A single-sourced criterion does not ship.** Where the corpus disagrees with itself the rule says so in the finding text rather than picking a side — see EL-025 (name change), EL-039 (net tangible assets) and EL-033 (independent directors). An issuer being told "two documents state this differently, confirm with the exchange" is better served than one told a confident wrong thing.
+
+**The corpus is closed because it did its job**, not because it is complete. What remains open — Schedule VI Part A (O-5), the amendment notification date (O-7), and the three formulation disputes — needs SEBI's or BSE's own text, and no number of additional prospectuses will settle them.
+
+### The paired dataset
+
+`fixtures/corpus/` splits each prospectus into restated financials (INPUT) and Capital Structure (TRUTH): the expensive half of an extraction test set, free, already reconciled by a merchant banker. All 7 documents yield both halves.
+
+Building it taught three things now recorded in `fixtures/corpus/README.md`: section headings are not stable across drafters, **the auditor's examination report is a far more reliable anchor than the section heading above it** (it took the build from 4 of 7 to 7 of 7), and four of seven documents spell it "Authorized Share Capital" where the regulations say "Authorised".
+
+---
+
+## D25 — A resolved dispute becomes a decision, not a warning
+
+**Decision, 2026-09-10.** The four open questions left by D24 are settled against the underlying rulebooks, and the rules that were hedging now give a clean pass or fail.
+
+| Was | Now | Authority |
+|---|---|---|
+| **E-14** unruled — "compliant with the Companies Act" states no threshold | **EL-044.** Minimum 3 directors; at least one third independent once post-issue capital reaches Rs 10 crore or turnover Rs 100 crore | Companies Act s.149(1), s.149(4) and Rule 4. **LODR Reg 15(2)(b) exempts SME-listed entities from Reg 17–27**, which is what makes the Companies Act the whole test (R-028) |
+| **E-05** "positive net tangible assets", with a minor finding about a disputed Rs 3 crore figure | **EL-022 blocks below Rs 3 crore**, and **EL-039 blocks where more than half of it is monetary assets** | BSE SME revised entry norms, January 2024 (R-029) |
+| **E-09** major finding stating two readings and asking the issuer to confirm | **EL-025 blocks** on failing the 50% revenue test. The flat-bar reading is gone | BSE SME criteria, per ICDR Reg 5(1)(e) (R-030) |
+| **E-16 / N-11** finding saying the independent-director carve-out was unsettled | **EL-033 states the carve-out.** The fact itself is now defined to exclude independent directorships | BSE SME disciplinary criteria (R-031) |
+
+**EL-038 is deleted.** It existed to flag that the private-to-public conversion might count as a change of name. Under the revenue test the question dissolves: a conversion changes the name but not the activity the name indicates, so it passes by definition. The exclusion moved into `nameChangesInWindow` with a comment explaining why.
+
+### Why hedging was the wrong output
+
+A finding that says "two sources disagree, ask the exchange" is honest about our evidence and useless to the reader. The issuer still does not know whether they pass, and the one thing they came for is that answer. Hedging is the right position while a dispute is genuinely open; it is the wrong position the moment it is not.
+
+**`DETERMINED` is a new confidence level** in `05-rule-sources.md` for exactly this: a criterion that two corpus documents stated differently and that has since been settled against the rulebook, with the clause recorded. The superseded reading stays in the row, so the change is auditable rather than silently overwritten — which is also why the file's append-only discipline still holds.
+
+### What did not change
+
+**Rule zero still applies.** Each of these got a citation row (R-028 to R-031) before the rule was written, and the row names the specific provision — not "the BSE rulebook" but s.149(4), Reg 15(2)(b), the January 2024 revision. **E-14 was unruled for a week precisely because it had no such row**, and that was the correct behaviour until one existed.
+
+**Two limitations are recorded rather than papered over.** The woman-director requirement is not ruled: Rule 3 triggers at Rs 100 crore paid-up capital, four times the SME ceiling, so it cannot bind through capital, and the fact base carries no director gender for the turnover limb. The monetary-assets test is silent where the split has not been disclosed, since a default of zero would silently pass a test that never ran.
+
+---
+
+## D26 — Held-out verification has to check WHERE a match sits, not just whether it matches
+
+**Two findings from verifying the Wave 1 sections added on 2026-09-10.**
+
+### One paragraph was single-sourced, and only the held-out check caught it
+
+The Disclaimer in Respect of Jurisdiction was extracted from Om Galaxy and Photonics, which are word-for-word identical for three paragraphs. Om Galaxy carries a **fourth**:
+
+> "No person outside India is eligible to bid for Equity Shares in the Issue unless that person has received the preliminary offering memorandum..."
+
+It is in **Om Galaxy alone** — not in Century, not in any of the four NSE filings. It had been written into the template because the surrounding paragraphs matched so cleanly that the block read as one unit.
+
+**Removed.** One source is not extraction, it is copying, and copying one issuer's paragraph into another issuer's offer document is D21's finding wearing different clothes.
+
+### The mirror-image mistake: a match that proves nothing
+
+Checking the withdrawal rules, Century appeared to **contradict** both extraction sources. They say Individual Investors may withdraw until the closing date and QIBs and NIIs may not withdraw at all; Century appeared to say "Any of the Bidders are not permitted to withdraw or lower their Bids at any stage".
+
+That sentence is **risk factor 58**, about price movement between bidding and allotment. Century's actual Issue Procedure text says exactly what the extraction sources say.
+
+**A grep hit is not a verification.** The same phrase carries different meaning in the risk factors, the definitions and the procedure, and "present in the held-out document" is only evidence when it is present *in the same section*. The first pass over the exchange criteria made the same class of error in reverse — concluding E-09 and E-10 had no corpus support because they sit in Om Galaxy's *second* eligibility list rather than its Reg 229(3) list (D24).
+
+**Both directions are now part of the checklist**: a clause needs two extraction sources before it is written, and a held-out mismatch needs its context read before it is believed.
+
+---
+
+## D27 — The held-out document is a question, not a verdict
+
+**Finding, 2026-09-10, extracting the UPI subsection.** Century Business Media describes UPI Phase III as a future timeline, "as may be prescribed by SEBI". Five other documents state it as **mandatory for public issues opening on or after December 1, 2023**.
+
+The held-out document is the one that is wrong. Its banker used boilerplate written before the phase was notified, exactly as Shakti Polytarp carries pre-amendment allottee figures (D16).
+
+**So the rule is not "the held-out document decides".** It is:
+
+1. A clause needs **two extraction sources** before it is written.
+2. A **held-out mismatch is a question**, and the question has to be answered by reading the context and weighing the sources — not by deferring to the held-out document.
+
+Both failure modes are now on record. D26 caught the first: believing a mismatch without reading it, when Century's apparent contradiction on withdrawal rights turned out to be a risk factor. This is the opposite one: a genuine mismatch where the held-out document loses 5 to 1.
+
+### Single-source sentences cluster in one document
+
+Three sentences have now been caught being drafted from a single source, and **all three were Om Galaxy's**:
+
+| Sentence | Section |
+|---|---|
+| "No person outside India is eligible to bid..." | Jurisdiction disclaimer |
+| The four entity types with whom a UPI ID may be lodged | UPI |
+| "All SCSBs offering the facility ... shall also provide the facility to apply using the UPI Mechanism" | UPI |
+
+That is not chance. Om Galaxy is the longest document in the corpus at 509 pages and the primary BSE extraction source, so it carries more text that no one else carries, and its extra sentences sit inside blocks whose other paragraphs match word for word. **The risk is concentrated, not evenly spread**, and every extraction from it needs the per-clause source count run explicitly rather than eyeballed.
+
+### What was deliberately left out, and why
+
+The UPI Phase I and Phase II history — three paragraphs of 2019 and 2020 circular numbers and extended deadlines — is **omitted**. It has no effect on an issue opening in 2026, since every such issue is Phase III mandatory, and the circular numbers are corroborated by only two documents. Omitting is safe; quoting a circular number that may be wrong is not. A merchant banker who wants the history can add it.
+
+---
+
+## D28 — A convention that varies is a fact, not a derivation
+
+**Finding, 2026-09-10, extracting Terms of Payment.** Anchor Investors pay into named escrow accounts, and the document states the names. The obvious move is to build them from the company name, the way the corpus appears to:
+
+> "OM GALAXY LIMITED-ANCHOR RESIDENT ACCOUNT"
+
+Three corpus documents state it three different ways:
+
+| Document | Resident anchor escrow account |
+|---|---|
+| Om Galaxy | `OM GALAXY LIMITED-ANCHOR RESIDENT ACCOUNT` |
+| Axiom Gas | `AXIOM GAS ENGINEERING LIMITED - ANCHOR R ACCOUNT` |
+| Century Business Media | `CENTURY BUSINESS MEDIA LIMITED-ANCHOR ACCOUNT-R` |
+| Ideas Electricals | `[dot]` — blank at draft stage |
+
+Hyphen, spaced hyphen, suffix order, "RESIDENT" versus "R" — no two agree, and the fourth document tells us why: **the name is whatever the bank actually opened the account as**, which at draft stage nobody knows yet.
+
+**So both names are facts and render as gaps.** Deriving them would produce a string that reads perfectly and matches no bank's records — and a wrong account name in a prospectus misdirects anchor money.
+
+This is D20's finding in a new place. There, the category allotment counts looked computable and were a banker's judgement. Here the account name looks derivable and is a bank's record. **The tell is the same both times: several documents, several answers, no rule that reproduces any of them.** When that happens, stop deriving and ask.
+
+The issue price in the same subsection is the honest version of the same shape: all four documents print "[dot]" because the price is not fixed until the book closes, so it is a gap that closes at pricing rather than a number to invent.
+
+---
+
+## D29 — Two sources agreed, both were wrong, and it had already shipped
+
+**The most serious extraction defect found so far, 2026-09-10.**
+
+Extracting the Do's and Don'ts turned up this item:
+
+| Document | Wording |
+|---|---|
+| Om Galaxy | "Do not Bid for a Bid Amount exceeding Rs 200,000 for Bids by Individual Bidders" |
+| Maxwell | "Do not Bid for a Bid Amount exceeding Rs 200,000 and 2 lots (for Bids by IIs)" |
+| Century (held out) | "Do not Bid for a Bid Amount exceeding Rs 500,000 (for Bids by UPI Bidders)" |
+
+Two extraction sources agree on a Rs 2,00,000 cap for individual bidders. **Both are wrong for an SME issue**, and they contradict their own documents: R-006 requires the Bid Amount to EXCEED Rs 2,00,000, which both state elsewhere in the same Issue Procedure. It is main-board retail boilerplate that survived a copy-paste into an SME document.
+
+The held-out document has the rule that actually exists — the **UPI ceiling**, Rs 5,00,000, which all five extraction sources state with the circular reference (SEBI/HO/CFD/DIL2/CIR/P/2022/45, applications up to Rs 5,00,000 must use UPI). It is a threshold at which UPI becomes mandatory, not a cap on what an individual may bid.
+
+### It had already shipped
+
+Checking the rendered document rather than the new section, the same wrong figure was **already in Grounds for Technical Rejection**, extracted in an earlier session:
+
+> "Bids by Individual Bidders with a Bid Amount exceeding Rs 2,00,000."
+
+As a REJECTION ground that is materially worse than as a Don't. Followed literally it tells the issuer to reject **every valid SME retail bid**, because every one of them exceeds Rs 2,00,000 by definition. It has no support in any rejection-grounds list in the corpus — three documents state only the generic "amounts greater than the maximum permissible amounts prescribed by the regulations". It was carried across from the Don'ts list during that earlier extraction.
+
+**Removed.** This is the second time this exact failure mode has been caught in this one section: the cut-off price ground had the same shape, where following Maxwell would have rejected valid retail bids.
+
+### What changes
+
+**Section-local assertions are not enough.** Every test written for these sections checked the section under test, and the defect sat in a different section rendering into the same document. The guard is now a whole-document check: R-006 says the Bid Amount must exceed Rs 2,00,000, so nothing anywhere in the document may cap or reject an individual bid at that figure.
+
+**Two extraction sources is a floor, not a proof.** The rule has always been "two sources agreeing is not enough" — three of the earlier held-out findings were cases where both sources agreed and were wrong. This is the first where both sources were wrong *and internally inconsistent with their own documents*, which is a signal worth looking for directly: **when an extracted clause contradicts a figure the same document states elsewhere, the clause is copied, not drafted.**
+
+---
+
+## D30 — Do not promote the held-out document to a source, even for one clause
+
+**Decision, 2026-09-10, finishing Issue Procedure.** Two clauses came up with exactly one extraction source plus the held-out document:
+
+- "In case of Bidders (excluding NIIs and QIBs) Bidding at cut-off price, the Bidders may instruct the SCSBs to block Bid Amount based on the Cap Price less Discount" — Om Galaxy and Century.
+- The Rs 5,00,000 UPI ceiling *as a Don't* — Century's phrasing, though the underlying rule has five extraction sources.
+
+Two independent documents state each. The temptation is to count Century and move on, since holding it out is a methodology choice rather than a claim that it is unreliable.
+
+**The answer is no, and the reason is that the check is worth more than the clause.** Using the held-out document as a source for a clause means that clause has no independent verifier, permanently — and Century has now caught a real defect six times. Spending that on a sentence about discount mechanics, in an issue with no discount, is a bad trade.
+
+Both were handled by looking for the substance elsewhere. The cut-off blocking rule is already covered by `issueProcedurePriceLevels` from two extraction sources. The UPI ceiling is stated from the five sources that carry the underlying rule, phrased as a Don't — which is a different thing from copying Century's sentence.
+
+**The rule stands as: two EXTRACTION sources, and the held-out document only ever votes against.**
+
+### While there: caught myself inventing
+
+The anchor investor draft carried "the allotment is made at the Anchor Investor Allocation Price **and the excess is not refunded**". The first half is in three documents. The second half was an inference — plausible, unstated, and exactly the kind of sentence that MM4 exists to stop. Replaced with what the three sources actually say: "Allotment to successful Anchor Investors will be at the higher price, that is, at the Anchor Investor Allocation Price."
+
+The inference may even be correct. It is still not extraction.
+
+---
+
+## D31 — Re-extract before authoring, and diff the glossaries rather than the entries
+
+**2026-09-10, taking the Definitions glossary from 79 authored entries to 130.**
+
+The stored fixture, `fixtures/definitions/om-galaxy-definitions.json`, turned out to be **one entry per LINE** rather than per term — every description truncated at the first line wrap. It was fine as the review queue it was built to be, and useless for authoring.
+
+Re-extracting with the `-table` recipe plus **continuation merging** — an empty left column continues the previous description, and a term with no description at all is a wrapped term — produced 220 whole pairs from Om Galaxy and 436 from Maxwell.
+
+**Diffing the two glossaries is what made the batch safe.** The 46 settlement-machinery definitions agree almost word for word across both documents, which is the signal that they describe SEBI's process rather than the issuer. That is a much stronger test than reading one document carefully: D21's filter failed precisely because issuer facts hide as bare numbers, and a second document makes them visible as differences.
+
+Every entry was still rewritten rather than pasted. Om Galaxy's "Bidding Centers" description ends by naming its own Registered Office; its "Chairman", "ISIN", "Banker to our Company", "Material Subsidiary" and "Auditor" entries are pure issuer facts — those became fact-driven entries that render a gap when the appointment has not been made.
+
+### A citation conflict the glossary surfaced
+
+Om Galaxy, Maxwell and Axiom define **Fraudulent Borrower** as Regulation 2(1)(lll) of the SEBI ICDR Regulations. Maxwell **also** defines **Wilful Defaulter** as Regulation 2(1)(lll), and so does Century. The same sub-regulation cannot define both.
+
+The glossary cites it for Fraudulent Borrower, where three independent documents agree, and defines Wilful Defaulter **without a sub-regulation number**. Recorded as O-15. No rule depends on it — EL-010 cites Reg 228(c) — so this is a disclosure-accuracy question rather than an engine one, but shipping a confident wrong citation in a glossary that a merchant banker will read is not free.
+
+### What the tests now hold
+
+- **No term is defined twice.** 130 entries across six arrays; a term in two of them renders twice in one alphabetical table.
+- **No other issuer's name, auditor registration number or ISIN appears in any description** — the specific strings D21's filter let through.
+- **Book-building terms disappear from a fixed-price issue** while the ASBA machinery stays.

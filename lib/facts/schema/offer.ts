@@ -75,6 +75,36 @@ export const zOffer = z.object({
   floorPrice: zMoney.nullable().describe('Null until the price band is determined'),
   capPrice: zMoney.nullable(),
 
+  /**
+   * The final price, fixed at the close of bidding. Every corpus document
+   * prints it as "[dot]" at draft and red herring stage, so null is the
+   * ordinary state and it renders as a gap — which is honest: the price IS
+   * outstanding until the book closes.
+   */
+  issuePrice: zMoney
+    .nullable()
+    .default(null)
+    .describe('Final issue price per Equity Share, fixed at pricing'),
+
+  /**
+   * Anchor Investors pay into escrow rather than through ASBA, and the escrow
+   * accounts are named in the document. The naming convention is NOT derivable
+   * — three corpus documents use three different forms of it:
+   *   "OM GALAXY LIMITED-ANCHOR RESIDENT ACCOUNT"
+   *   "AXIOM GAS ENGINEERING LIMITED - ANCHOR R ACCOUNT"
+   *   "CENTURY BUSINESS MEDIA LIMITED-ANCHOR ACCOUNT-R"
+   * A fourth prints it blank at draft stage. Deriving it from the company name
+   * would produce a string that looks right and matches no bank's records.
+   */
+  anchorEscrowAccountResident: z
+    .string()
+    .optional()
+    .describe('Name of the escrow account for resident Anchor Investors, as opened with the bank'),
+  anchorEscrowAccountNonResident: z
+    .string()
+    .optional()
+    .describe('Name of the escrow account for non-resident Anchor Investors'),
+
   lotSize: zShares.describe('Shares per lot; minimum application is two lots above Rs 2,00,000'),
 
   objects: z.array(zObjectOfIssue).describe('Objects of the issue with amounts'),
@@ -124,6 +154,73 @@ export const zOffer = z.object({
 
   bookRunningLeadManager: z.string().optional(),
   registrarToIssue: z.string().optional(),
+
+  /**
+   * One of the SCSBs, appointed to act as the conduit between the Stock
+   * Exchange and NPCI for UPI mandates. Named in the document — Maxwell prints
+   * it as "[dot]" at draft stage, which is what a placeholder is for.
+   */
+  sponsorBank: z.string().optional().describe('SCSB appointed as Sponsor Bank for the UPI Mechanism'),
+
+  /**
+   * Intermediaries named in the Definitions glossary. Each is a per-issuer
+   * appointment, so each renders as a gap until made — which is correct: an
+   * issuer that has not appointed a monitoring agency needs to know.
+   */
+  monitoringAgency: z.string().optional().describe('Monitoring Agency appointed for the issue'),
+  legalAdvisor: z.string().optional().describe('Legal Advisor to the Issue'),
+  escrowCollectionBank: z.string().optional().describe('Escrow Collection Bank'),
+  isin: z.string().optional().describe('International Securities Identification Number of the Equity Shares'),
+
+  /** Quoted in "Fees Payable to the Registrar to the Issue". */
+  registrarAgreementDate: zDate
+    .optional()
+    .describe('Date of the agreement between the Company and the Registrar to the Issue'),
+
+  /**
+   * The Experts Opinion subsection names every person giving a consent as an
+   * "expert" under s.2(38) of the Companies Act — typically the statutory
+   * auditor, a chartered engineer where there is a capex object, and the
+   * practising company secretary — each with a consent date and the specific
+   * certificates covered. Entirely issuer-specific, so it renders as a gap
+   * until supplied.
+   */
+  expertConsents: z
+    .string()
+    .optional()
+    .describe('Expert consents obtained, with dates, capacities and the certificates covered'),
+
+  /**
+   * Reg 300(1)(c) lets an issuer apply to SEBI for exemption from a disclosure
+   * requirement. Most do not; Om Galaxy did, and had it refused. Null is the
+   * ordinary case and prints the standard negative statement.
+   */
+  exemptionApplicationDetails: z
+    .string()
+    .nullable()
+    .default(null)
+    .describe('Details of any application under Regulation 300(1)(c), including SEBI\'s response'),
+
+  /**
+   * The six-month rule, which differs in SUBJECT between the exchanges and is
+   * easy to collapse into one field by mistake:
+   *
+   *   E-10 (BSE) — the ISSUER's own application must not have been rejected by
+   *                the exchange in the last 6 complete months.
+   *   N-08 (NSE) — none of the MERCHANT BANKERS involved may have had a draft
+   *                offer document returned by NSE in the past 6 months.
+   *
+   * Two different rules about two different parties. Null means neither has
+   * happened, which is the ordinary case.
+   */
+  exchangeApplicationRejectedSince: zDate
+    .nullable()
+    .default(null)
+    .describe("Date the exchange last rejected this company's own listing application"),
+  brlmDraftReturnedSince: zDate
+    .nullable()
+    .default(null)
+    .describe('Date the exchange last returned a draft offer document filed by this merchant banker'),
 
   /**
    * Price band, bid period and any revision must be advertised in an English

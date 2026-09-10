@@ -48,7 +48,10 @@ The six proposal-only entries — issue size, OFS caps, promoter lock-in, GCP ca
 | `CONFIRMED` | Notified regulation text read verbatim | Yes |
 | `CORROBORATED` | 2+ independent secondary sources agree | Yes, with the caveat noted |
 | `AS-APPLIED` | A real prospectus states it as a condition it had to meet | Yes for exchange criteria; it is what an issuer was actually held to |
+| `DETERMINED` | Two corpus documents stated it differently, and the position was settled against the underlying rulebook with the clause recorded | Yes — and firmly. A `DETERMINED` row exists precisely so the rule can give a clean pass or fail instead of hedging |
 | `PROPOSAL-ONLY` | SEBI board memo proposal; final notification unverified | **No.** Do not build a rule. |
+
+**On `DETERMINED`.** A rule that reports "two sources disagree, ask the exchange" is honest but it is not a check — the issuer still does not know whether they pass. Where the dispute has been resolved against the rulebook, the finding states the threshold and the clause and decides. The superseded reading stays recorded in the row so the change is auditable.
 
 ### Sources used
 
@@ -61,6 +64,10 @@ The six proposal-only entries — issue size, OFS caps, promoter lock-in, GCP ca
 | **S5** | Maxwell Engineering DRHP, **NSE Emerge**, dated 2026-08-15, "Eligibility for the Issue" pp.295–300 — same file. **As-applied**, and the NSE Emerge counterpart to S2. |
 | **S6** | Ideas Electricals & Engineers DRHP, **NSE Emerge**, dated 2026-09-02, "Eligibility for the Issue" pp.269–271 — `corpus/prospectus/bookbuilt__electricals__ideas-electricals__nse-emerge__2026-09__drhp.pdf`. Second NSE source. |
 | **S7** | Shakti Polytarp RHP, **BSE SME**, dated 2026-09-08, eligibility + "BSE Eligibility Norms" pp.322–325 — `corpus/prospectus/bookbuilt__plastics__shakti-polytarp__bse-sme__2026-09__rhp.pdf`. Second BSE source — **and a PRE-AMENDMENT vintage document.** See CRITICAL FINDING. |
+| **S8** | Photonics Watertech DRHP, **NSE Emerge**, dated 2026-06-29, "Eligibility for the Issue" pp.257–261 — `corpus/prospectus/bookbuilt__watertech__photonics-watertech__nse-emerge__2026-06__drhp.pdf`. **The only OFS document**, and the only one that quotes Reg 229(4), 229(5), 229(6) and 230(2) by number. Added to this key 2026-09-10; it was already cited above before it was listed. |
+| **S9** | Century Business Media RHP, **BSE SME**, dated 2026-09, "Eligibility for the Issue" pp.228–230 — `corpus/prospectus/bookbuilt__media__century-business-media__bse-sme__2026-09__rhp.pdf`. **Third BSE source, and the fullest BSE criteria list in the corpus** — 21 lettered items against S2's 14. Held out from template extraction, so it is also the verification document (see the handoff). |
+| **S10** | Axiom Gas Engineering RHP, **NSE Emerge**, dated 2026-09 — `corpus/prospectus/bookbuilt__gas-engineering__axiom-gas__nse-emerge__2026-09__rhp.pdf`. Fourth NSE source. |
+| **S11** | **Project determination, 2026-09-10.** Where two corpus documents stated a criterion differently, the position was settled against the underlying rulebook and recorded here with the clause. Resolves O-11 to O-14. Each row below carries the specific authority relied on. |
 
 ### The discrepancy that proves the gate's worth
 
@@ -133,13 +140,14 @@ The 200 figure is solid; **the consequence timeline is not.** Do not encode 4 da
 ### R-002 — Operating profit track record
 
 - **threshold:** Operating profit (EBITDA) of **at least Rs 1 crore from operations in at least 2 of the 3 preceding financial years**
-- **clause:** Chapter IX eligibility — exact sub-regulation TBC
+- **clause:** ICDR **Reg 229(6)** — **found 2026-09-10**, was "exact sub-regulation TBC"
+- **verbatim (S8, quoting the regulation):** "In accordance with Regulation 229 (6) of the SEBI (ICDR) Regulations, an issuer may make an initial public offer, only if the issuer had minimum operating profits (earnings before interest, depreciation and tax) of 1 crore from operations for at least two out of the three previous financial years."
 - **verbatim (S2):** "Our Company is having operating profit of at least 1 crore from operation for at least 2 (Two) out of 3 (Three) financial years"
 - **verbatim (S5, NSE Emerge):** "Our Company has operating profits (earnings before interest, depreciation and tax) of 1 Crore from operations for at least two out of three previous financial years preceding the application date"
 - **CONFLICT (S1):** board memo proposed **Rs 3 crore** — "operating profit (earnings before interest, depreciation and tax) of Rs. 3 crore from operations for any 2 out of 3 financial years preceding the application", and rejected reduction requests
-- **confidence:** `CORROBORATED` at **Rs 1 crore** — three independent sources (S2 BSE SME, S5 NSE Emerge, S3 commentary)
-- **notes:** **O-1 substantially resolved.** Both exchanges state Rs 1 crore under Reg 229(3), and both are 2026 filings. The board memo's Rs 3 crore was either not notified or was reduced before notification. Real 2026 issuers are held to Rs 1 crore at both venues. Still worth confirming against notified text, but no longer blocking.
-- **checked:** 2026-09-09
+- **confidence:** `CORROBORATED` at **Rs 1 crore** — four sources (S2 BSE SME, S5 NSE Emerge, S8 quoting Reg 229(6) directly, S3 commentary)
+- **notes:** **O-1 RESOLVED.** S8 quotes the sub-regulation itself, so this is no longer an inference from what two bankers wrote — the Rs 1 crore sits in Reg 229(6). The board memo's Rs 3 crore was not notified at that level. Note the test is on the ISSUER's operating profit and Reg 229(3) carries a proviso for issuers converted from a partnership or LLP: that track record counts only if the pre-conversion financial statements are recast to Schedule III and certified by a peer-reviewed auditor.
+- **checked:** 2026-09-10
 
 ### R-003 — Underwriting
 
@@ -245,6 +253,8 @@ The 200 figure is solid; **the consequence timeline is not.** Do not encode 4 da
 ### R-010 — General Corporate Purposes cap
 
 - **threshold:** GCP shall not exceed **15% of the gross proceeds of the issue, or Rs 10 crore, whichever is lower**
+- **clause:** ICDR **Reg 230(2)** — **found 2026-09-10**, previously recorded with no sub-regulation
+- **verbatim (S8, quoting the regulation):** "In accordance with Regulation 230(2) of the SEBI (ICDR) Regulations, the amount for general corporate purposes, as mentioned in objects of the issue in the draft offer document and the offer document shall not exceed fifteen per cent. of the amount being raised by the issuer or 10 crores, whichever is less."
 - **verbatim (S2):** "the total amount to be utilized towards general corporate purposes will not exceed 15% of the Gross Proceeds from the Issue or Rs 1,000.00 Lakhs, whichever is lower, in accordance with the SEBI ICDR Regulations"
 - **corroboration (S5):** "the amount for general corporate purposes ... shall not exceed fifteen percent of the amount being raised by our Company or Rs 10 Crores, whichever is less"
 - **confidence:** `AS-APPLIED` — **upgraded from PROPOSAL-ONLY.** Both exchanges agree.
@@ -322,6 +332,65 @@ The 200 figure is solid; **the consequence timeline is not.** Do not encode 4 da
 - **notes:** Distinct from R-019 (Companies Act s.39, the 60-day full-subscription refund). This is the ICDR floor on how much of the issue must be taken up.
 - **checked:** 2026-09-10
 
+### R-026 — Issuers converted from a proprietorship, partnership or LLP
+
+- **threshold:** An issuer that was a **proprietorship, partnership firm or LLP before conversion** may make an initial public offer only if the issuer company **has been in existence for at least one full financial year** before filing the draft offer document. The restated financial statements prepared post-conversion must be in accordance with Schedule III of the Companies Act 2013.
+- **clause:** ICDR **Reg 229(4)**
+- **verbatim (S8):** "In accordance with Regulation 229 (4) of the SEBI (ICDR) Regulations, in case of an issuer, which had been a proprietorship or a partnership firm or a limited liability partnership before conversion to a company or body corporate, such issuer may make an initial public offer only if the issuer company has been in existence for at least one full financial year before filing of draft offer document: Provided that the restated financial statements of the issuer company prepared post conversion shall be in accordance with Schedule III of the Companies Act, 2013."
+- **corroboration:** S9 (Century Business Media, BSE SME) restates it as an exchange criterion, item (h)
+- **confidence:** `AS-APPLIED` — the sub-regulation is quoted directly, and a second document on the other exchange restates it
+- **notes:** **New row, 2026-09-10.** This was missing entirely, and it bites hard: a very common SME path is an LLP or family partnership incorporating shortly before the IPO. Related to but distinct from R-002's track-record proviso, which governs whether the PRE-conversion operating profit counts.
+- **checked:** 2026-09-10
+
+### R-027 — Change of promoter before filing
+
+- **threshold:** Where there is a **complete change of promoter**, or **new promoters have acquired more than 50% of the shareholding**, the issuer may file the draft offer document **only after one year** from the date of the final change.
+- **clause:** ICDR **Reg 229(5)**
+- **verbatim (S8):** "In accordance with Regulation 229 (5) of the SEBI (ICDR) Regulations, in cases where there is a complete change of promoter of the issuer or there are new promoter(s) of the issuer who have acquired more than fifty per cent of the shareholding of the issuer, the issuer shall file draft offer document only after a period of one year from the date of such final change(s)."
+- **corroboration:** S9 (Century, BSE SME) item (i) and S8's own exchange-criteria item 5 both restate it
+- **confidence:** `AS-APPLIED`
+- **notes:** **New row, 2026-09-10.** Distinct from E-08, which asks about a change in the promoters *having significant control* in the preceding year. R-027 has a hard numeric trigger (>50% of shareholding, or complete change) and is a SEBI regulation rather than an exchange criterion, so it binds at both venues.
+- **checked:** 2026-09-10
+
+### R-028 — Board composition for an SME issuer
+
+- **threshold:** SME-listed entities are **exempt from LODR Reg 17 to 27** by **Reg 15(2)(b)**, so board composition is tested against the **Companies Act 2013 alone**:
+  - **Minimum 3 directors** for a public company — **s.149(1)**
+  - **At least one woman director** where paid-up capital ≥ Rs 100 crore or turnover ≥ Rs 300 crore — **Rule 3, Companies (Appointment and Qualification of Directors) Rules 2014**
+  - **At least one-third independent directors** where paid-up capital ≥ Rs 10 crore or turnover ≥ Rs 100 crore — **s.149(4) and Rule 4**
+- **clause:** Companies Act 2013 s.149(1), s.149(4); Rules 3 and 4 of the Companies (Appointment and Qualification of Directors) Rules 2014; SEBI LODR **Reg 15(2)(b)** for the exemption
+- **corroboration:** S2 states the criterion tested "as on the date of this Red Herring Prospectus", S9 "at the time of in-principle approval" — neither states a threshold, which is what left it unruled until now
+- **confidence:** `DETERMINED` (S11)
+- **notes:** **New row, 2026-09-10, closing O-11.** The LODR exemption is the load-bearing part: without it an SME issuer would appear to be held to Reg 17's board requirements, which is the confusion that stopped this being ruled earlier. **The woman-director limb cannot bind through paid-up capital** — Rule 3's Rs 100 crore floor is four times the Rs 25 crore SME ceiling — so only the turnover limb could ever apply, and an issuer at Rs 300 crore turnover is well outside SME territory.
+- **checked:** 2026-09-10
+
+### R-029 — Net tangible assets, BSE SME
+
+- **threshold:** **Net tangible assets of at least Rs 3 crore** as per the latest audited financial results, with **not more than 50% held in monetary assets**
+- **clause:** BSE SME revised entry norms, January 2024
+- **verbatim (S9, as applied):** "the Company has net tangible assets of 1802.20 Lakhs as on March 31, 2026 respectively which is more than 300 lakhs (Rs. 3 Crore)"
+- **confidence:** `DETERMINED` (S11), corroborated as-applied by S9
+- **notes:** **Closes O-13.** S2 discloses a three-year net tangible assets table without stating any threshold, which is why the first pass recorded E-05 as merely "positive" — the weaker reading. The pre-2024 norms did require only positive assets, or Rs 1.5 crore; the January 2024 revision set Rs 3 crore, and every corpus document post-dates it. **SUPERSEDES the "positive" reading of E-05.**
+- **checked:** 2026-09-10
+
+### R-030 — Name change within the preceding year
+
+- **threshold:** A name change in the last year is **not a bar**. Where one has occurred, **at least 50% of the revenue** for the preceding full financial year, restated and consolidated, must have been earned **from the activity indicated by the new name**.
+- **clause:** BSE SME revised listing criteria, aligned with **SEBI ICDR Reg 5(1)(e)**
+- **verbatim (S9):** "In case of name change within the last one year, at least 50% of the revenue calculated on a restated and basis for the preceding 1 full financial year has been earned by our Company from the activity indicated by our new name"
+- **confidence:** `DETERMINED` (S11), corroborated as-applied by S9
+- **notes:** **Closes O-12.** S2 states the criterion as a flat bar — "There has not been any change in its name in last 1 year" — which is a banker's shorthand for a test their issuer did not have to take, not the rule. **SUPERSEDES the flat-bar reading of E-09.** It also disposes of the conversion question: a private-to-public conversion does not change the activity the name indicates, so the revenue test is satisfied by definition and the conversion needs no separate treatment.
+- **checked:** 2026-09-10
+
+### R-031 — The delisted-company test excludes independent directors
+
+- **threshold:** Promoters and directors must not be promoters or directors of compulsorily delisted companies, or of companies suspended from trading for non-compliance — **"other than independent directors"**. Only a promoter, executive director or non-executive non-independent director triggers it.
+- **clause:** BSE SME disciplinary criteria
+- **verbatim:** "The Promoter(s) or directors shall not be promoter(s) or directors (other than independent directors) of compulsory delisted companies by the Exchange... or companies suspended from trading on account of non-compliance."
+- **confidence:** `DETERMINED` (S11), corroborated as-applied by S9 and S5
+- **notes:** **Closes O-14.** S2 and S10 omit the carve-out; S9 and S5 include it. The rulebook has it, so the omission is drafting shorthand rather than a stricter venue. **SUPERSEDES the "varies by drafter, treat as unsettled" position.**
+- **checked:** 2026-09-10
+
 ---
 
 ## Reg 230(1) — the complete general conditions list
@@ -349,30 +418,36 @@ Recovered in full from S8. This is the backbone of the eligibility engine.
 
 ---
 
-## BSE SME exchange criteria — from S2, as-applied
+## BSE SME exchange criteria — S2, corroborated against S9 (2026-09-10)
 
-Stated under Reg 229(3) ("track record and/or other eligibility conditions of SME Platform"). These sit **on top of** SEBI's requirements. NSE Emerge criteria differ and are not yet captured.
+Stated under Reg 229(3) ("track record and/or other eligibility conditions of SME Platform"). These sit **on top of** SEBI's requirements.
 
-| # | Condition | Confidence |
-|---|---|---|
-| E-01 | Net worth **at least Rs 1 crore in 2 of 3 financial years** | `AS-APPLIED` |
-| E-02 | **Track record of more than 3 years** | `AS-APPLIED` |
-| E-03 | Operating profit **Rs 1 crore in 2 of 3 FYs** (see R-002) | `AS-APPLIED` |
-| E-04 | **Leverage ratio (total debt to equity) not more than 3:1** | `AS-APPLIED` |
-| E-05 | Positive net tangible assets (disclosed as a 3-year table) | `AS-APPLIED` |
-| E-06 | Functional website | `AS-APPLIED` |
-| E-07 | Promoter shareholding in dematerialised form | `AS-APPLIED` |
-| E-08 | **No change in promoters having significant control in the 1 year preceding** | `AS-APPLIED` |
-| E-09 | No name change in the last 1 year | `AS-APPLIED` |
-| E-10 | Application not rejected by the exchange in the last 6 complete months | `AS-APPLIED` |
-| E-11 | Not referred to NCLT under the Insolvency and Bankruptcy Code | `AS-APPLIED` |
-| E-12 | No admitted winding-up petition; no liquidator appointed | `AS-APPLIED` |
-| E-13 | No material regulatory/disciplinary action by an exchange or regulator in past **3 years** (company) / **1 year** (promoters) | `AS-APPLIED` |
-| E-14 | Board composition compliant with Companies Act 2013 | `AS-APPLIED` |
-| E-15 | Tripartite agreements with **both** NSDL and CDSL plus the RTA | `AS-APPLIED` |
-| E-16 | Promoters/directors not promoters or directors of compulsorily delisted companies | `AS-APPLIED` |
-| E-17 | Not referred to BIFR | `AS-APPLIED` |
-| E-18 | No pending defaults on interest/principal to debenture, bond or fixed deposit holders | `AS-APPLIED` |
+**S2 states 14 items in its 229(3) list plus a second 15-item list immediately before it. S9 states 21 lettered items (a)–(u) in one list.** Reading both is what produced the corrections below — three of the criteria as originally recorded were wrong or incomplete, and two more turned out not to split by exchange at all.
+
+| # | Condition | Sources | Confidence |
+|---|---|---|---|
+| E-01 | Net worth **at least Rs 1 crore in 2 of 3 financial years** | S2 explicit | `AS-APPLIED`, **but see O-9** — S9 states only that net worth "is positive" |
+| E-02 | Track record of at least 3 years | S2, S9 | `CORROBORATED` |
+| E-03 | Operating profit **Rs 1 crore in 2 of 3 FYs** | S2, S9, and R-002 now has Reg 229(6) | `CORROBORATED` |
+| E-04 | **Leverage ratio (total debt to equity) not more than 3:1** | S2 (0.47:1), S9 (0.44:1, with the working) | `CORROBORATED` |
+| E-05 | **Net tangible assets of at least Rs 3 crore**, not more than 50% in monetary assets, disclosed as a 3-year table | S9; **R-029 settles the threshold** | `DETERMINED` — O-13 closed |
+| E-06 | Functional website | S2; **also S8 for NSE** | `AS-APPLIED` |
+| E-07 | Promoter shareholding in dematerialised form | S2; **also S8 for NSE** | `AS-APPLIED` |
+| E-08 | **No change in promoters having significant control in the 1 year preceding** | S2, S9 | `CORROBORATED` |
+| E-09 | Name change in the last 1 year triggers a **50% revenue test**, not a bar | S9; **R-030 settles the formulation** | `DETERMINED` — O-12 closed |
+| E-10 | Application not rejected by the exchange in the last 6 complete months | S2 only (its second list, item 12) | `AS-APPLIED`, single-source |
+| E-11 | Not referred to NCLT under the IBC | S2, S9 | `CORROBORATED` |
+| E-12 | No admitted winding-up petition; no liquidator appointed | S2, S9 | `CORROBORATED` |
+| E-13 | No material regulatory/disciplinary action by an exchange or regulator: **3 years** for the company, **1 year** for **promoters, group companies AND companies promoted by the promoters** | S2, S9, and S8 states the same 1-year limb for NSE | `CORROBORATED`. **The 1-year subject is wider than first recorded** — it was written as promoters only |
+| E-14 | Board composition compliant with Companies Act 2013 | S2, S9 for the timing; **R-028 supplies the thresholds** | `DETERMINED` — O-11 closed |
+| E-15 | Tripartite agreements with **both** NSDL and CDSL plus the RTA | S2 (CDSL 2025-09-23, NSDL 2025-07-30), S9 (both 2024-09-27) | `CORROBORATED` |
+| E-16 | Promoters/directors, **other than independent directors**, not promoters or directors of compulsorily delisted companies | S9, S5; **R-031 settles the carve-out** | `DETERMINED` — O-14 closed |
+| E-17 | Not referred to BIFR; **S9 adds "or no proceedings admitted under IBC against the issuer AND promoting companies"** | S2, S9 | `CORROBORATED` |
+| E-18 | No pending defaults on interest/principal to debenture, bond or fixed deposit holders — **S2: by the company and promoters. S9: by the company, promoters/promoting companies and subsidiaries** | S2, S9 | `CORROBORATED`, subject wider than first recorded |
+| **E-19** | **No regulatory action of suspension of trading against the promoters or companies promoted by them, by any nationwide exchange** | S2 (second list, item 3), S9 (j) | `CORROBORATED`. **NEW 2026-09-10** — this was recorded as NSE-only (N-10). It is stated at both exchanges. |
+| **E-20** | **Directors not associated with the securities market in any manner, and no outstanding action initiated against them by the Board in the past 5 years** | S2 (item 8), S9 (s), S8 (item 12, NSE) | `CORROBORATED`. **NEW 2026-09-10** — missing entirely from the first pass, and stated at both exchanges. |
+
+**Rule coverage.** E-01 to E-04 are EL-006, EL-005, EL-004 and EL-007. E-05, E-06, E-08 to E-13 and E-15 to E-20 are EL-022 to EL-041 (see `lib/rules/eligibility.ts`). **E-07 has no rule of its own** — it restates Reg 230(1)(d), already checked by EL-014, and two findings for one defect teaches the reader the list is padded. **E-14 has no rule** — see O-11.
 
 ### R-015 — SEBI does not vet SME offer documents
 
@@ -416,41 +491,49 @@ Stated under Reg 229(3) ("track record and/or other eligibility conditions of SM
 
 ---
 
-## NSE Emerge exchange criteria — from S5, as-applied
+## NSE Emerge exchange criteria — S5, corroborated against S8 and S10 (2026-09-10)
 
-Stated under Reg 229(3). **These differ materially from BSE SME's.** Any eligibility rule must be exchange-switched.
+Stated under Reg 229(3). Several differ from BSE SME's, but **fewer than the first pass concluded** — two criteria recorded here as NSE-only are stated at BSE too.
 
-| # | Condition | Confidence |
-|---|---|---|
-| N-01 | Post-issue capital **below Rs 2,500 lakhs** (Rs 25 crore) | `AS-APPLIED` |
-| N-02 | **Track record of at least 3 years** as on the date of filing | `AS-APPLIED` |
-| N-03 | Operating profit (EBITDA) **Rs 1 crore from operations in at least 2 of 3 preceding FYs** | `AS-APPLIED` |
-| N-04 | **Positive Free Cash Flow to Equity (FCFE) in at least 2 of 3 immediately preceding FYs** | `AS-APPLIED` |
-| N-05 | No repayment of promoter / promoter group / related party loans from issue proceeds | `AS-APPLIED` |
-| N-06 | Not referred to BIFR; no IBC proceedings admitted against the company **or promoting companies** | `AS-APPLIED` |
-| N-07 | No winding-up petition admitted by NCLT or a competent court; no liquidator appointed | `AS-APPLIED` |
-| N-08 | **None of the merchant bankers involved has had an IPO draft offer document returned by NSE in the past 6 months** | `AS-APPLIED` |
-| N-09 | No regulatory or disciplinary action by an exchange or regulator against promoters, promoting companies, or group companies | `AS-APPLIED` |
-| N-10 | No suspension of trading against promoters or promoted companies by any nationwide exchange | `AS-APPLIED` |
-| N-11 | Promoters/directors (other than independent directors) not promoters or directors of compulsorily delisted companies | `AS-APPLIED` |
+| # | Condition | Sources | Confidence |
+|---|---|---|---|
+| N-01 | Post-issue capital below Rs 25 crore | S5, S8 | `CORROBORATED` |
+| N-02 | Track record of at least 3 years as on the date of filing | S5, S8 | `CORROBORATED` |
+| N-03 | Operating profit (EBITDA) **Rs 1 crore from operations in at least 2 of 3 preceding FYs** | S5, S8, and Reg 229(6) itself | `CORROBORATED` |
+| N-04 | **Positive Free Cash Flow to Equity in at least 2 of 3 preceding FYs** | S5, S8 (with the full working) | `CORROBORATED` |
+| N-05 | No repayment of promoter / promoter group / related party loans from issue proceeds | S5, S8 | `CORROBORATED` — restates Reg 230(1)(h) |
+| N-06 | Not referred to BIFR; no IBC proceedings admitted against the company **or promoting companies** | S5, S8; **also S9 for BSE** | `CORROBORATED`. **Not NSE-only** — S9 states the promoting-company limb at BSE too |
+| N-07 | No winding-up petition admitted; no liquidator appointed | S5, S8 | `CORROBORATED` |
+| N-08 | **None of the merchant bankers involved has had an IPO draft offer document returned by NSE in the past 6 months** | **S5 only** — absent from S8, S6 and S10 | `AS-APPLIED`, **single-source** |
+| N-09 | No regulatory or disciplinary action against promoters, promoting companies or group companies | S5, S8 (which puts it at **one year**, matching BSE's E-13) | `CORROBORATED`. **S8 states a 1-year window**, where S5 stated none |
+| N-10 | No suspension of trading against promoters or promoted companies by any nationwide exchange | S5; **also S2 and S9 for BSE** | `CORROBORATED`. **Not NSE-only** — now recorded as E-19 as well |
+| N-11 | Promoters/directors, **other than independent directors**, not promoters or directors of compulsorily delisted companies | S5, S10; **R-031** | `DETERMINED` — O-14 closed |
+| **N-12** | **Net worth positive** (no Rs 1 crore floor stated) | S8 | `AS-APPLIED`. Relevant to O-9: NSE asks for positive net worth where BSE's S2 states Rs 1 crore |
+
+**Rule coverage.** N-01 to N-04 are EL-002, EL-005, EL-004 and EL-008. N-06 to N-11 are EL-026 to EL-036 (see `lib/rules/eligibility.ts`). **N-05 has no rule of its own** — it restates Reg 230(1)(h), already checked by EL-015.
 
 ### BSE SME vs NSE Emerge — the material differences
 
+**Revised 2026-09-10 after reading S8, S9 and S10.** Four rows in the previous version of this table were wrong — they said "not stated" for NSE on the strength of a single NSE document.
+
 | Criterion | BSE SME | NSE Emerge |
 |---|---|---|
-| Positive **FCFE**, 2 of 3 FYs | not required | **required** (N-04) |
-| **Leverage ratio** debt:equity | **max 3:1** (E-04) | not stated |
+| Positive **FCFE**, 2 of 3 FYs | not stated | **required** (N-04) |
+| **Leverage ratio** debt:equity | **max 3:1** (E-04, two sources with workings) | not stated |
 | **Net tangible assets** table | **required** (E-05) | not stated |
-| Functional website | **required** (E-06) | not stated |
-| Promoter shares in demat | **required** (E-07) | not stated |
-| No promoter control change, 1 yr | **required** (E-08) | not stated |
-| No name change, 1 yr | **required** (E-09) | not stated |
+| Functional website | **required** (E-06) | **also stated** (S8 item 2) — was recorded as "not stated" |
+| Promoter shares in demat | **required** (E-07) | **also stated** (S8 item 3) — was recorded as "not stated" |
+| No promoter control change, 1 yr | **required** (E-08) | not stated as an exchange criterion, but **Reg 229(5) (R-027) binds both venues** on a >50% change |
+| Name change, 1 yr | **required** (E-09), formulation disputed | not stated |
 | The 6-month rule | **the company's** application not rejected by the exchange (E-10) | **the merchant banker's** draft documents not returned by NSE (N-08) |
-| Net worth Rs 1 cr, 2 of 3 FYs | **required** (E-01) | net worth disclosed but no stated threshold |
+| Net worth | **Rs 1 crore in 2 of 3 FYs** (E-01, S2) — but S9 says only "positive" | **positive** (N-12) |
+| Trading suspension against promoters | **also required** (E-19) — was recorded as NSE-only | **required** (N-10) |
+| IBC against **promoting companies** | **also required** (E-17 via S9) — was recorded as NSE-only | **required** (N-06) |
+| Directors and the securities market, 5 yrs | **required** (E-20) | **required** (S8 item 12) |
 
-**The 6-month rule differs in subject**, which is easy to get wrong: BSE looks at the issuer, NSE looks at the banker. Two different rules, not one.
+**The 6-month rule genuinely differs in subject**, and this is the one asymmetry that survived corroboration: BSE looks at the issuer, NSE looks at the banker. Two different rules, not one. Note that N-08 is single-source.
 
-**Caveat:** each list comes from one prospectus per exchange. A second document per exchange should corroborate before these ship. "Not stated" means absent from that issuer's list, not proven inapplicable.
+**Caveat, revised.** BSE now rests on S2 + S9 (+ S7 for vintage), NSE on S5 + S8 (+ S6, S10). Where a row above is still single-source it says so. "Not stated" continues to mean absent from the documents read, not proven inapplicable — the first pass shows how easily that becomes a false distinction.
 
 ---
 
@@ -458,24 +541,31 @@ Stated under Reg 229(3). **These differ materially from BSE SME's.** Any eligibi
 
 | # | Status | Question | Blocks |
 |---|---|---|---|
-| **O-1** | **Largely resolved** | Operating profit is **Rs 1 crore**, confirmed at both exchanges by 2026 filings. The board memo's Rs 3 crore was not notified at that level. Worth a final check against notified text, no longer blocking. | — |
+| **O-1** | **RESOLVED 2026-09-10** | Operating profit is **Rs 1 crore**, and S8 quotes the sub-regulation — **Reg 229(6)**. No longer an inference from two bankers' wording. | — |
 | **O-2** | Open | What was **notified** vs merely proposed? Still `PROPOSAL-ONLY`: R-007 issue size, R-008 OFS caps, R-009 lock-in, R-010 GCP cap, R-012 migration compliance, R-013 face value. (R-005 and R-006 resolved.) | 6 rules |
 | **O-3** | Open | Do the S3 tiered OFS caps (50% / 10%) apply to SME, or only main board? They contradict S1's flat 20%. | R-008 |
 | **O-4** | **Resolved** | NSE Emerge criteria captured from S5 (N-01 to N-11) with a BSE/NSE difference table. | — |
 | **O-5** | Open | **Part A of Schedule VI full text** — the disclosure specification the section registry must satisfy. Highest-value remaining item. | Section registry, completeness rules |
-| **O-6** | **Resolved** | Corroborated: NSE against S6 (Ideas), BSE against S7 (Shakti). Yielded R-020 (Reg 228) and R-021 (Reg 230(1)), and surfaced the effective-date problem. | — |
+| **O-6** | **Resolved, then extended** | Corroborated: NSE against S6 (Ideas), BSE against S7 (Shakti). Yielded R-020 (Reg 228) and R-021 (Reg 230(1)), and surfaced the effective-date problem. **Extended 2026-09-10** to the exchange criteria themselves — BSE against S9, NSE against S8 and S10 — which is what produced O-12, O-13, O-14, E-19, E-20, N-12, R-026 and R-027. | — |
 | **O-7** | **New, blocking** | **What is the notification date of the 2025 SME amendment?** It is the pivot that decides whether an issuer gets 200 allottees or 50, Rs 1 crore operating profit or none. Every `effectiveFrom` depends on it. | Whole eligibility engine |
 | **O-8** | New | Reg 268 consequence timeline: **4 days vs 8 working days**, and **15% p.a. vs Companies Act s.40 rate**. Three formulations across three documents. | R-005 consequence text |
-| **O-9** | New | Does the Rs 1 crore attach to **operating profit**, **net worth**, or both? Om Galaxy says both; Maxwell says operating profit; Shakti (pre-amendment) says net worth only, with operating profit unquantified. | R-002, E-01, E-03 |
+| **O-9** | **Narrowed 2026-09-10** | Does the Rs 1 crore attach to **operating profit**, **net worth**, or both? **Operating profit is settled** — Reg 229(6), Rs 1 crore, both venues. **Net worth is not:** S2 states "minimum net worth of Rs 1 Crore for 2 out of 3 financial years"; S9 (BSE) and S8 (NSE) require only that net worth be **positive**. EL-006 applies the Rs 1 crore floor at BSE, which is the stricter reading and the one a BSE issuer was actually held to — but it may over-report. | E-01 |
 | **O-10** | New | **Site Visit Report** annexed to the due diligence certificate (R-016) appears in S5 only. S6, S7 and S2 describe Reg 246 without it. Single-source. | R-016 |
+| **O-11** | **CLOSED 2026-09-10 — R-028, rule EL-044** | ~~E-14 board composition~~ — "compliant with Companies Act 2013" states no threshold, and no citation row exists for the composition requirements. SME-listed entities are exempted from parts of LODR, so which test applies pre-listing is genuinely unsettled. **No rule written** (rule zero). Needs Companies Act s.149 and s.152, plus LODR Reg 15(2), read against an SME issuer. **What the corpus does settle is WHEN:** S2 tests it "as on the date of this Red Herring Prospectus", S9 "at the time of in-principle approval". | E-14 |
+| **O-12** | **CLOSED 2026-09-10 — R-030, rule EL-025** | ~~Which formulation of E-09 applies.~~ **The 50% revenue test applies; the flat bar does not.** Formerly: **which formulation of E-09 applies at all.** S2: a flat bar, "There has not been any change in its name in last 1 year". S9: the main-board-style revenue test, "at least 50% of the revenue ... for the preceding 1 full financial year has been earned ... from the activity indicated by our new name". Two BSE documents of the same vintage, two different rules. **Corpus evidence on the conversion sub-question:** no BSE issuer in the corpus converted within 12 months of filing (S2 21 months, S9 24 months), while the two issuers that converted within 5 months (S8 March 2026, Ideas April 2026) are both **NSE**, which states no name-change criterion. Consistent with BSE issuers converting early on purpose. EL-025 now applies the revenue test with the flat bar as a stated caution. | EL-025, EL-038 |
+| **O-13** | **CLOSED 2026-09-10 — R-029, rules EL-022 and EL-043** | **Yes — Rs 3 crore, plus a 50% cap on monetary assets.** Formerly: S9 states "net tangible assets of ₹1802.20 Lakhs ... which is more than ₹300 lakhs (Rs. 3 Crore)". S2 discloses a three-year NTA table with **no threshold at all**. Rs 3 crore is also the main-board NTA figure, so S9's banker may be importing it. EL-022 requires positive NTA and reports the disputed Rs 3 crore as a caution in between. | EL-022 |
+| **O-15** | **New 2026-09-10** | **Which term is Regulation 2(1)(lll) of the SEBI ICDR Regulations?** Om Galaxy, Maxwell and Axiom define **Fraudulent Borrower** as Reg 2(1)(lll). Maxwell ALSO defines **Wilful Defaulter** as Reg 2(1)(lll), and Century defines Wilful Defaulter that way too — the same sub-regulation for two different terms, which cannot both be right. The glossary cites it for Fraudulent Borrower, where three independent documents agree, and defines Wilful Defaulter without a sub-regulation number until the notified text settles it. **No rule depends on this** — EL-010 cites Reg 228(c), not 2(1)(lll). | Definitions glossary |
+| **O-14** | **CLOSED 2026-09-10 — R-031, rule EL-033** | **Yes, at both exchanges.** Formerly: S9 (BSE) and S5 (NSE) say "other than independent directors"; S2 (BSE) and S10 (NSE) do not. **It does not split by exchange** — it splits by drafter, which is exactly the trap the first pass fell into by assigning the carve-out to NSE. EL-033 now states the carve-out as unsettled at both venues. | EL-033 |
 
 ---
 
 ## Next research actions
 
-1. **Corroborate the exchange criteria** — second document per exchange. No web access needed. Cheapest remaining win. (O-6)
-2. **Retrieve the notified ICDR text** for the six remaining `PROPOSAL-ONLY` entries. The consolidated regulations page did not render in WebFetch. **Technique that works: download the PDF to disk, then `pdftotext` locally** — that is how the board memo was read. Try gazette notification PDFs for the 2025 amendments, or a law-database mirror. (O-2, O-3)
-3. **Locate Part A of Schedule VI.** (O-5)
+1. ~~Corroborate the exchange criteria~~ — **done 2026-09-10.** BSE against S9, NSE against S8 and S10. It changed five criteria and added four rows, which is a good argument for never shipping a single-sourced criterion.
+2. **Retrieve the notified ICDR text** for R-007 (minimum issue size) and R-012 (migration compliance), the last two `PROPOSAL-ONLY` entries, and for the notification date behind O-7. The consolidated regulations page did not render in WebFetch. **Technique that works: download the PDF to disk, then `pdftotext` locally** — that is how the board memo was read. Try gazette notification PDFs for the 2025 amendments, or a law-database mirror.
+3. **Locate Part A of Schedule VI.** (O-5) Still the highest-value item — it is the specification the section registry must satisfy.
+4. **Settle O-12, O-13, O-14** — these need BSE's own rulebook page rather than a prospectus, since they are places where two bankers wrote the same criterion differently.
+5. **Companies Act s.149 / s.152 and LODR Reg 15(2)** for O-11, the one exchange criterion with no rule.
 
 ---
 

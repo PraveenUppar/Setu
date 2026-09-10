@@ -33,9 +33,17 @@ The issue type leads because it is the critical discriminator — see D15.
 | `bookbuilt__plastics__shakti-polytarp__bse-sme__2026-09__rhp.pdf` | Shakti Polytarp Limited | 415 | **PRE-AMENDMENT VINTAGE.** States 50 allottees, not 200. Do not use for rule values — template text only. See D16. |
 | `bookbuilt__gas-engineering__axiom-gas__nse-emerge__2026-09__rhp.pdf` | Axiom Gas Engineering Limited | 382 | Rs 5 face value; evidence the Rs 10 mandate is not in force |
 | `bookbuilt__media__century-business-media__bse-sme__2026-09__rhp.pdf` | Century Business Media Limited | 303 | Smallest; ToC source for the section map |
-| `fixedprice__agro__quanto-agroworld__bse-sme__2026-09__prospectus.pdf` | Quanto Agroworld Limited | 377 | **Only fixed-price document.** Four more needed before that branch can be built. |
+All seven are text-layer PDFs — `pdftotext` reads them cleanly, no OCR required.
 
-All eight are text-layer PDFs — `pdftotext` reads them cleanly, no OCR required.
+### Missing from disk
+
+| File | Company | Why it matters |
+|---|---|---|
+| `fixedprice__agro__quanto-agroworld__bse-sme__2026-09__prospectus.pdf` | Quanto Agroworld Limited, 377pp | **The only fixed-price document.** Listed in this inventory but **not present on disk** as of 2026-09-10 — the directory holds seven prospectuses, not eight. Re-download before the fixed-price branch is built (D15), since nothing else in the corpus shows that document flow. |
+
+## Derived from these — `fixtures/corpus/`
+
+Each prospectus is split into a paired extraction fixture: the restated financial information as INPUT, the Capital Structure section as TRUTH. The text is committed even though the PDFs are not. See `fixtures/corpus/README.md`.
 
 ## Annual reports (`corpus/annual-reports/`)
 
@@ -48,12 +56,18 @@ Extraction test inputs for S7.
 | `ar__realestate__kontor-space__nse-emerge__fy2025-26.pdf` | Kontor Space Limited | 100 |
 | `ar__steel__aditya-ultra-steel__nse-emerge__fy2025-26.pdf` | Aditya Ultra Steel Limited | 63 |
 
-## Gaps
+## Target
 
-- 17 more prospectuses to reach the target of 25
-- Missing sectors: IT/software services, trading and distribution, textiles, chemicals, pharma
-- Only one OFS example
-- Only one fixed-price document
+**The corpus is closed at 8 prospectuses** (decision 2026-09-10, superseding the original 25). Seven are on disk; the eighth is the Quanto fixed-price document listed above, which needs re-downloading.
+
+Eight documents were enough to do the job the corpus exists for. Corroborating the exchange eligibility criteria across three BSE and four NSE documents corrected five criteria and added four that a single document per exchange had missed — see `.claude/context/05-rule-sources.md`, O-6. A larger corpus would keep finding things, but with sharply diminishing returns against the cost of reading each one.
+
+## Known gaps, accepted
+
+- Missing sectors: IT/software services, trading and distribution, textiles, chemicals, pharma. Matters most for the sector glossary (D21) and the risk archetypes (S10), which cannot be generalised from engineering and manufacturing alone.
+- **Only one OFS example** (Photonics Watertech). Every OFS rule — Reg 230(1)(f) and (g) — rests on it.
+- **Only one fixed-price document, and it is the one missing from disk.**
+- Annual reports stop at 4 against an original target of 10. They are S7 extraction inputs, and `fixtures/corpus/` now supplies a better-paired dataset for that purpose.
 
 ## Provenance and ethics
 

@@ -1,11 +1,22 @@
 import { describe, it, expect } from 'vitest';
-import { derivedTerms, renderSection, renderDocument } from './section';
-import { issueProcedure, issueProcedureApplicationSize, issueProcedureBidsByCategory, issueProcedureTechnicalRejection, issueProcedureBasisOfAllotment, issueProcedureUndertakings } from './sections/issue-procedure';
+import {
+  collectGaps,
+  derivedTerms,
+  flattenSections,
+  gapAnchorKeys,
+  renderDocument,
+  renderSection,
+  renderSections,
+  runKey,
+  type RenderedSection,
+  type SectionSpec,
+} from './section';
+import { issueProcedure, issueProcedureUpi, issueProcedureAvailability, issueProcedurePriceLevels, issueProcedureTermsOfPayment, issueProcedureElectronicRegistration, issueProcedureGeneralInstructions, issueProcedureAnchorInvestors, issueProcedureInformationForBidders, issueProcedureApplicationSize, issueProcedureBidsByCategory, issueProcedureBookBuilding, issueProcedureTechnicalRejection, issueProcedureWithdrawalAndAdvertisement, issueProcedureBasisOfAllotment, issueProcedureUndertakings } from './sections/issue-procedure';
 import { sectionRegistry } from './sections';
 import { issueStructure } from './sections/issue-structure';
 import { termsOfIssue } from './sections/terms-of-issue';
 import { definitions } from './sections/definitions';
-import { regulatoryDisclaimers, regulatoryAuthority, regulatoryConsents } from './sections/regulatory-disclosures';
+import { regulatoryDisclaimers, regulatoryAuthority, regulatoryConsents, regulatoryJurisdiction, regulatoryStatutoryStatements } from './sections/regulatory-disclosures';
 import { collectPlaceholders } from './nodes';
 import { vardhman } from '../seed/vardhman';
 import { money } from '../facts/money';
@@ -822,6 +833,83 @@ describe('Terms of the Issue', () => {
   });
 });
 
+describe('Definitions — the settlement machinery and appointments', () => {
+  const glossary = (facts: FactBase) => {
+    const tables = renderSection(definitions, { facts }).filter((n) => n.type === 'table');
+    if (tables[0]?.type !== 'table') throw new Error('no glossary table');
+    return tables[0].rows;
+  };
+
+  it('defines no term twice', () => {
+    // 130 entries across six arrays now. A term defined in two of them renders
+    // twice in one alphabetical table, which reads as sloppy drafting.
+    const rows = glossary(vardhman);
+    const seen = new Map<string, string>();
+    const collisions: string[] = [];
+    for (const [term] of rows) {
+      for (const alias of term.split(',').map((a) => a.trim().toLowerCase())) {
+        if (seen.has(alias) && seen.get(alias) !== term) {
+          collisions.push(`${alias}: "${seen.get(alias)}" vs "${term}"`);
+        }
+        seen.set(alias, term);
+      }
+    }
+    expect(collisions).toEqual([]);
+  });
+
+  it('carries no other issuer inside a description', () => {
+    // D21: the failure mode is borrowed text that reads perfectly. These are
+    // the specifics that leaked through a regex filter last time.
+    const descriptions = glossary(vardhman).map(([, d]) => d).join('\n');
+    for (const leak of ['Om Galaxy', 'Maxwell', 'Century', 'Photonics', 'Axiom', 'Ideas Electricals', '124851W', 'INE2D0Q01019', 'Ken Research']) {
+      expect(descriptions, leak).not.toContain(leak);
+    }
+  });
+
+  it('cites the sub-regulation only where the corpus agrees', () => {
+    // Three documents put Fraudulent Borrower at Reg 2(1)(lll); Maxwell puts
+    // Wilful Defaulter there too, which cannot both be right. O-15.
+    const rows = glossary(vardhman);
+    const fraudulent = rows.find(([t]) => t.startsWith('Fraudulent Borrower'))![1];
+    const wilful = rows.find(([t]) => t.startsWith('Wilful Defaulter'))![1];
+    expect(fraudulent).toContain('Regulation 2(1)(lll)');
+    expect(wilful).not.toContain('2(1)');
+  });
+
+  it('renders the per-issuer appointments from facts', () => {
+    const rows = glossary(vardhman);
+    expect(rows.find(([t]) => t === 'ISIN')![1]).toContain('INE9V8K01015');
+    expect(rows.find(([t]) => t === 'Monitoring Agency')![1]).toContain('Brickwork');
+  });
+
+  it('raises a gap for an appointment not yet made, rather than inventing one', () => {
+    const noAgency: FactBase = {
+      ...vardhman,
+      offer: { ...vardhman.offer, monitoringAgency: undefined, legalAdvisor: undefined },
+    };
+    const paths = collectPlaceholders(renderSection(definitions, { facts: noAgency })).map(
+      (g) => g.factPath,
+    );
+    expect(paths).toContain('definitions.Monitoring Agency');
+    expect(paths).toContain('definitions.Legal Advisor to the Issue');
+    // And the term is absent from the table rather than shown blank.
+    expect(glossary(noAgency).some(([t]) => t === 'Monitoring Agency')).toBe(false);
+  });
+
+  it('drops the book-building terms from a fixed-price issue', () => {
+    const fixedPrice: FactBase = {
+      ...vardhman,
+      offer: { ...vardhman.offer, issueType: 'FIXED_PRICE' },
+    };
+    const terms = glossary(fixedPrice).map(([t]) => t);
+    expect(terms).not.toContain('Book Building Process');
+    expect(terms).not.toContain('Revision Form');
+    expect(terms).not.toContain('Pricing Date');
+    // But the ASBA machinery still applies.
+    expect(terms.some((t) => t.startsWith('ASBA,'))).toBe(true);
+  });
+});
+
 describe('Definitions and Abbreviations', () => {
   const nodes = renderSection(definitions, { facts: vardhman });
   const table = nodes.find((n) => n.type === 'table') as { rows: string[][] };
@@ -1033,5 +1121,635 @@ describe('document assembly', () => {
   it('surfaces gaps from across the whole document', () => {
     const gaps = collectPlaceholders(renderDocument(sectionRegistry, { facts: vardhman }));
     expect(gaps.map((g) => g.factPath)).toContain('riskFactors.summaryOfMaterialFactors');
+  });
+});
+
+describe('UPI, availability and price levels', () => {
+  const text = (spec: SectionSpec, facts: FactBase) =>
+    renderSection(spec, { facts })
+      .flatMap((n) =>
+        n.type === 'paragraph'
+          ? [n.runs.map((r) => r.text).join('')]
+          : n.type === 'list'
+            ? n.items.map((i) => i.map((r) => r.text).join(''))
+            : n.type === 'heading'
+              ? [n.text]
+              : [],
+      )
+      .join('\n');
+
+  it('states the mandatory UPI phase and names the sponsor bank', () => {
+    const out = text(issueProcedureUpi, vardhman);
+    expect(out).toContain('mandatory for public issues opening on or after December 1, 2023');
+    expect(out).toContain('HDFC Bank Limited');
+  });
+
+  it('omits the superseded Phase I and Phase II history', () => {
+    // Three paragraphs of 2019-2020 circular history with no effect on a 2026
+    // issue, corroborated by only two documents. Left to the banker to add.
+    const out = text(issueProcedureUpi, vardhman);
+    expect(out).not.toContain('Phase I:');
+    expect(out).not.toContain('January 1, 2019');
+  });
+
+  it('omits the two sentences that appear in one document only', () => {
+    // Both are Om Galaxy's alone. The longest document in the corpus is also
+    // the primary extraction source, so single-source sentences cluster there
+    // and have to be checked for rather than assumed absent. D26.
+    const out = text(issueProcedureUpi, vardhman);
+    expect(out).not.toContain('All SCSBs offering the facility');
+    expect(out).not.toContain('a stockbroker registered with a recognised stock exchange');
+  });
+
+  it('keeps the UPI grievance requirements, which five documents state', () => {
+    const out = text(issueProcedureUpi, vardhman);
+    expect(out).toContain('appointment of a nodal officer');
+    expect(out).toContain('SMS alerts for the blocking and unblocking');
+  });
+
+  it('raises a gap for the sponsor bank when it is not yet appointed', () => {
+    const noBank: FactBase = { ...vardhman, offer: { ...vardhman.offer, sponsorBank: undefined } };
+    const paths = collectPlaceholders(renderSection(issueProcedureUpi, { facts: noBank })).map(
+      (g) => g.factPath,
+    );
+    expect(paths).toContain('offer.sponsorBank');
+  });
+
+  it('routes each investor category to the right intermediary', () => {
+    const out = text(issueProcedureAvailability, vardhman);
+    expect(out).toContain('3 in 1 type accounts');
+    expect(out).toContain('QIBs and Non-Institutional Investors');
+    expect(out).toContain('State of Sikkim');
+    // The one asymmetry: the anchor form is not available at the Bidding Centres.
+    expect(out).toContain('Anchor Investor Application Form will be available only at the offices');
+  });
+
+  it('confines cut-off price bids to individual bidders', () => {
+    // The finding held-out verification produced earlier: following Maxwell
+    // alone would have told issuers to reject valid retail bids.
+    const out = text(issueProcedurePriceLevels, vardhman);
+    expect(out).toContain('Only Individual Bidders may Bid at the Cut-off Price');
+  });
+
+  it('lets the price band be revised without telling the bidders', () => {
+    expect(text(issueProcedurePriceLevels, vardhman)).toContain(
+      'without the prior approval of, or intimation to, the Bidders',
+    );
+  });
+
+  it('does not apply the price-level rules to a fixed-price issue', () => {
+    const fixedPrice: FactBase = {
+      ...vardhman,
+      offer: { ...vardhman.offer, issueType: 'FIXED_PRICE' },
+    };
+    expect(renderSection(issueProcedurePriceLevels, { facts: fixedPrice })).toHaveLength(0);
+    // UPI and availability are not book-building specific and still render.
+    expect(renderSection(issueProcedureUpi, { facts: fixedPrice }).length).toBeGreaterThan(0);
+  });
+
+  it('leaves no unresolved syntax in any of the three', () => {
+    for (const spec of [issueProcedureUpi, issueProcedureAvailability, issueProcedurePriceLevels]) {
+      expect(text(spec, vardhman), spec.id).not.toMatch(/\{\{|\}\}|\*\*/);
+      expect(text(spec, variant({ exchange: 'NSE_EMERGE' })), spec.id).not.toMatch(/\{\{|\}\}|\*\*/);
+    }
+  });
+});
+
+describe('Anchor Investors and Information for Bidders', () => {
+  const text = (spec: SectionSpec, facts: FactBase) =>
+    renderSection(spec, { facts })
+      .flatMap((n) =>
+        n.type === 'paragraph'
+          ? [n.runs.map((r) => r.text).join('')]
+          : n.type === 'list'
+            ? n.items.map((i) => i.map((r) => r.text).join(''))
+            : n.type === 'heading'
+              ? [n.text]
+              : [],
+      )
+      .join('\n');
+
+  it('states the anchor ceiling, floor and window', () => {
+    const out = text(issueProcedureAnchorInvestors, vardhman);
+    expect(out).toContain('up to 60% of the QIB Portion');
+    expect(out).toContain('Bid Amount is at least Rs 200.00 Lakhs');
+    expect(out).toContain('one Working Day before the Bid/Issue Opening Date');
+  });
+
+  it('states the allottee bands in the units the corpus uses', () => {
+    // Restating a threshold in different units invites an off-by-one, so the
+    // bands stay in Lakhs exactly as five sources state them.
+    const out = text(issueProcedureAnchorInvestors, vardhman);
+    expect(out).toContain('up to Rs 200.00 Lakhs');
+    expect(out).toContain('more than Rs 200.00 Lakhs and up to Rs 2,500.00 Lakhs');
+    expect(out).toContain('additional ten Anchor Investors for every additional Rs 2,500.00 Lakhs');
+    expect(out).toContain('minimum Allotment of Rs 100.00 Lakhs');
+  });
+
+  it('resolves the price gap in both directions, as the corpus does', () => {
+    const out = text(issueProcedureAnchorInvestors, vardhman);
+    expect(out).toContain('within two Working Days');
+    // Three sources: allotment is at the HIGHER price. The rule is asymmetric,
+    // and stating only the top-up half would mislead.
+    expect(out).toContain('Allotment to successful Anchor Investors will be at the higher price');
+  });
+
+  it('binds anchors to their bids', () => {
+    expect(text(issueProcedureAnchorInvestors, vardhman)).toContain(
+      'cannot withdraw or lower the size of their Bids at any stage after submission',
+    );
+  });
+
+  it('does not apply to a fixed-price issue', () => {
+    const fixedPrice: FactBase = {
+      ...vardhman,
+      offer: { ...vardhman.offer, issueType: 'FIXED_PRICE' },
+    };
+    expect(renderSection(issueProcedureAnchorInvestors, { facts: fixedPrice })).toHaveLength(0);
+  });
+
+  it('omits the two single-sourced items from Information for Bidders', () => {
+    const out = text(issueProcedureInformationForBidders, vardhman);
+    expect(out).not.toContain('declared the Bid/Issue Opening Date');
+    expect(out).not.toContain('Cap Price less Discount');
+  });
+
+  it('keeps the submission routes that four sources state', () => {
+    const out = text(issueProcedureInformationForBidders, vardhman);
+    expect(out).toContain('physical or electronic mode');
+    expect(out).toContain('Designated Branch of that SCSB where the ASBA Account is maintained');
+  });
+
+  it('leaves no unresolved syntax in either, on either exchange', () => {
+    for (const spec of [issueProcedureAnchorInvestors, issueProcedureInformationForBidders]) {
+      expect(text(spec, vardhman), spec.id).not.toMatch(/\{\{|\}\}|\*\*/);
+      expect(text(spec, variant({ exchange: 'NSE_EMERGE' })), spec.id).not.toMatch(/\{\{|\}\}|\*\*/);
+    }
+  });
+});
+
+describe('General instructions, the Do\'s and the Don\'ts', () => {
+  const render = (facts: FactBase) =>
+    renderSection(issueProcedureGeneralInstructions, { facts })
+      .flatMap((n) =>
+        n.type === 'paragraph'
+          ? [n.runs.map((r) => r.text).join('')]
+          : n.type === 'list'
+            ? n.items.map((i) => i.map((r) => r.text).join(''))
+            : n.type === 'heading'
+              ? [n.text]
+              : [],
+      )
+      .join('\n');
+
+  it('omits the Rs 2,00,000 cap that two sources state and both get wrong', () => {
+    // Om Galaxy: "Do not Bid for a Bid Amount exceeding Rs 200,000 for Bids by
+    // Individual Bidders". Maxwell says the same with "and 2 lots". Both
+    // contradict the SME minimum application size stated elsewhere in their
+    // own Issue Procedure, where the Bid Amount must EXCEED Rs 2,00,000.
+    const out = render(vardhman);
+    expect(out).not.toMatch(/exceeding Rs 2,00,000/);
+    expect(out).not.toMatch(/exceeding Rs 200,000/);
+  });
+
+  it('states the UPI ceiling instead, which is the rule that exists', () => {
+    expect(render(vardhman)).toContain('Do not Bid for an amount exceeding Rs 5,00,000 through the UPI Mechanism');
+  });
+
+  it('does not contradict the Application Size section, anywhere in the document', () => {
+    // Section-local assertions missed this once already: the same wrong cap
+    // was sitting in Grounds for Technical Rejection, where it told issuers to
+    // reject every valid SME retail bid. The check has to run over the WHOLE
+    // rendered document, not the section under test. D29.
+    const doc = renderDocument(sectionRegistry, { facts: vardhman })
+      .flatMap((n) =>
+        n.type === 'paragraph'
+          ? [n.runs.map((r) => r.text).join('')]
+          : n.type === 'list'
+            ? n.items.map((i) => i.map((r) => r.text).join(''))
+            : [],
+      )
+      .join('\n');
+
+    // R-006: for an SME issue the Bid Amount must EXCEED Rs 2,00,000...
+    expect(doc).toContain('Bid Amount exceeds Rs 2,00,000');
+    // ...so nothing may cap or reject an individual bid at that figure.
+    expect(doc).not.toMatch(/exceeding Rs 2,00,000|exceeding Rs 200,000/);
+  });
+
+  it('confines cut-off bids consistently with the price levels section', () => {
+    expect(render(vardhman)).toContain('only Individual Bidders may do so');
+  });
+
+  it('keeps the third-party account prohibition, which all five sources state', () => {
+    expect(render(vardhman)).toContain("third party's bank account");
+  });
+
+  it('carries the other instructions', () => {
+    const out = render(vardhman);
+    expect(out).toContain('Section 72 of the Companies Act, 2013');
+    expect(out).toContain('three Bids at different price levels');
+    expect(out).toContain('whose name appears first in the depository account');
+  });
+
+  it('leaves no unresolved syntax on either exchange', () => {
+    expect(render(vardhman)).not.toMatch(/\{\{|\}\}|\*\*/);
+    expect(render(variant({ exchange: 'NSE_EMERGE' }))).not.toMatch(/\{\{|\}\}|\*\*/);
+  });
+});
+
+describe('Terms of payment and electronic registration', () => {
+  const text = (spec: SectionSpec, facts: FactBase) =>
+    renderSection(spec, { facts })
+      .flatMap((n) =>
+        n.type === 'paragraph'
+          ? [n.runs.map((r) => r.text).join('')]
+          : n.type === 'list'
+            ? n.items.map((i) => i.map((r) => r.text).join(''))
+            : n.type === 'heading'
+              ? [n.text]
+              : [],
+      )
+      .join('\n');
+
+  it('says twice that the SEBI does not prescribe these arrangements', () => {
+    // Both the banker arrangement and the anchor escrow carry the disclaimer,
+    // and both are in four extraction sources plus the held-out document.
+    const out = text(issueProcedureTermsOfPayment, vardhman);
+    expect(out).toContain('is not prescribed by SEBI');
+    expect(out).toContain('escrow mechanism is not prescribed by SEBI');
+  });
+
+  it('treats the anchor escrow account names as facts, not a derived string', () => {
+    // Three corpus documents, three different naming conventions. Building it
+    // from the company name would look right and match no bank's records.
+    const paths = collectPlaceholders(
+      renderSection(issueProcedureTermsOfPayment, { facts: vardhman }),
+    ).map((g) => g.factPath);
+    expect(paths).toContain('offer.anchorEscrowAccountResident');
+    expect(paths).toContain('offer.anchorEscrowAccountNonResident');
+
+    const named: FactBase = {
+      ...vardhman,
+      offer: {
+        ...vardhman.offer,
+        anchorEscrowAccountResident: 'VARDHMAN PRECISION COMPONENTS LIMITED-ANCHOR ACCOUNT-R',
+        anchorEscrowAccountNonResident: 'VARDHMAN PRECISION COMPONENTS LIMITED-ANCHOR ACCOUNT-NR',
+      },
+    };
+    expect(text(issueProcedureTermsOfPayment, named)).toContain('ANCHOR ACCOUNT-R');
+  });
+
+  it('raises a gap for the issue price, which is not fixed until pricing', () => {
+    const paths = collectPlaceholders(
+      renderSection(issueProcedureTermsOfPayment, { facts: vardhman }),
+    ).map((g) => g.factPath);
+    expect(paths).toContain('offer.issuePrice');
+  });
+
+  it('states the liability split from both directions', () => {
+    const out = text(issueProcedureElectronicRegistration, vardhman);
+    expect(out).toContain('Designated Intermediaries shall be responsible');
+    expect(out).toContain('nor the Registrar to the Issue shall be responsible');
+  });
+
+  it('keeps the exchange disclaimer about its own network', () => {
+    expect(text(issueProcedureElectronicRegistration, vardhman)).toContain(
+      'should not in any way be deemed or construed to mean that compliance',
+    );
+  });
+
+  it('lists the fields registered into the online system', () => {
+    const out = text(issueProcedureElectronicRegistration, vardhman);
+    expect(out).toContain('Bid cum Application Form number');
+    expect(out).toContain("DP ID of the Bidder's demat account");
+    expect(out).toContain('acknowledgement is non-negotiable');
+  });
+
+  it('leaves no unresolved syntax in either, on either exchange', () => {
+    for (const spec of [issueProcedureTermsOfPayment, issueProcedureElectronicRegistration]) {
+      expect(text(spec, vardhman), spec.id).not.toMatch(/\{\{|\}\}|\*\*/);
+      expect(text(spec, variant({ exchange: 'NSE_EMERGE' })), spec.id).not.toMatch(/\{\{|\}\}|\*\*/);
+    }
+  });
+});
+
+describe('Build of the Book, withdrawal and price discovery', () => {
+  const nodes = (facts: FactBase) => renderSection(issueProcedureBookBuilding, { facts });
+  const render = (facts: FactBase) =>
+    nodes(facts)
+      .map((n) => (n.type === 'paragraph' ? n.runs.map((r) => r.text).join('') : n.type === 'heading' ? n.text : ''))
+      .join('\n');
+
+  it('emits the illustration as a real table, which is why it is computed', () => {
+    const table = nodes(vardhman).find((n) => n.type === 'table');
+    expect(table).toBeDefined();
+    if (table?.type !== 'table') throw new Error('unreachable');
+    expect(table.rows).toHaveLength(5);
+    // The cut-off row: 1,500 at Rs 22 takes cumulative demand to exactly 3,000.
+    expect(table.rows[2]).toEqual(['1,500', '22', '3,000', '100.00%']);
+  });
+
+  it('keeps the illustration generic rather than using the issuer price band', () => {
+    // Every corpus document says "solely for illustrative purposes and is not
+    // specific to the Issue", so deriving it from this issuer's band would be
+    // inventing a disclosure none of them makes.
+    const out = render(vardhman);
+    expect(out).toContain('solely for illustrative purposes');
+    expect(out).toContain('Rs 20');
+    expect(out).toContain('the book cuts off — Rs 22.00');
+  });
+
+  it('splits withdrawal rights by investor category', () => {
+    const out = render(vardhman);
+    expect(out).toContain('Individual Investors can withdraw their Bids until the Bid/Issue Closing Date');
+    expect(out).toContain('neither withdraw nor lower the size of their Bids at any stage');
+  });
+
+  it('states that QIB under-subscription cannot spill over', () => {
+    expect(render(vardhman)).toContain(
+      'unsubscribed portion in the QIB Category is not available for subscription to other categories',
+    );
+  });
+
+  it('does not apply to a fixed-price issue', () => {
+    const fixedPrice: FactBase = {
+      ...vardhman,
+      offer: { ...vardhman.offer, issueType: 'FIXED_PRICE' },
+    };
+    expect(nodes(fixedPrice)).toHaveLength(0);
+  });
+
+  it('leaves no unresolved syntax', () => {
+    expect(render(vardhman)).not.toMatch(/\{\{|\}\}|\*\*/);
+  });
+});
+
+describe('Withdrawal of the Issue and the advertisements', () => {
+  const render = (facts: FactBase) =>
+    renderSection(issueProcedureWithdrawalAndAdvertisement, { facts })
+      .map((n) => (n.type === 'paragraph' ? n.runs.map((r) => r.text).join('') : n.type === 'heading' ? n.text : ''))
+      .join('\n');
+
+  it('cites Reg 247(2) and the Schedule X Part A format', () => {
+    const out = render(vardhman);
+    expect(out).toContain('Regulation 247(2)');
+    expect(out).toContain('Part A of Schedule X');
+    expect(out).toContain('Regulation 250');
+  });
+
+  it('names the three newspapers from the facts', () => {
+    const out = render(vardhman);
+    expect(out).toContain(vardhman.offer.englishNewspaper!);
+    expect(out).toContain(vardhman.offer.hindiNewspaper!);
+    expect(out).toContain(vardhman.offer.regionalNewspaper!);
+  });
+
+  it('suppresses the regional-language gloss in a Hindi-speaking state', () => {
+    // The same rule held-out verification produced for Application Size:
+    // Century, in Bihar, names its regional paper without the gloss, because
+    // it reads oddly straight after naming a Hindi national daily.
+    expect(render(vardhman)).toContain('Marathi being the regional language of Maharashtra');
+
+    const bihar: FactBase = {
+      ...vardhman,
+      company: {
+        ...vardhman.company,
+        registeredOffice: { ...vardhman.company.registeredOffice, state: 'Bihar' },
+      },
+    };
+    expect(render(bihar)).not.toContain('being the regional language of Bihar');
+  });
+
+  it('raises a gap for the underwriting agreement date when absent', () => {
+    const undated: FactBase = {
+      ...vardhman,
+      offer: { ...vardhman.offer, underwritingAgreementDate: undefined },
+    };
+    const paths = collectPlaceholders(
+      renderSection(issueProcedureWithdrawalAndAdvertisement, { facts: undated }),
+    ).map((g) => g.factPath);
+    expect(paths).toContain('offer.underwritingAgreementDate');
+  });
+
+  it('leaves no unresolved syntax on either exchange', () => {
+    expect(render(vardhman)).not.toMatch(/\{\{|\}\}|\*\*/);
+    expect(render(variant({ exchange: 'NSE_EMERGE' }))).not.toMatch(/\{\{|\}\}|\*\*/);
+  });
+});
+
+describe('Other Regulatory — jurisdiction and experts', () => {
+  const render = (facts: FactBase) =>
+    renderSection(regulatoryJurisdiction, { facts })
+      .map((n) => (n.type === 'paragraph' ? n.runs.map((r) => r.text).join('') : n.type === 'heading' ? n.text : ''))
+      .join('\n');
+
+  it('names the court from the jurisdiction fact, not the registered office', () => {
+    // Om Galaxy is registered in Thane and names Mumbai; the two are not the
+    // same question, which is why jurisdiction is asked rather than derived.
+    expect(render(vardhman)).toContain('competent court(s) in Mumbai, Maharashtra only');
+  });
+
+  it('switches the document name and the issue word together', () => {
+    const rhp = render(variant({ documentStage: 'RHP', terminology: 'OFFER' }));
+    expect(rhp).toContain('This Offer is being made in India');
+    expect(rhp).toContain('This Red Herring Prospectus does not, however, constitute an offer');
+    expect(rhp).not.toContain('Draft Red Herring Prospectus');
+  });
+
+  it('raises a gap for the expert consents, which are wholly issuer-specific', () => {
+    const paths = collectPlaceholders(renderSection(regulatoryJurisdiction, { facts: vardhman })).map(
+      (g) => g.factPath,
+    );
+    expect(paths).toContain('offer.expertConsents');
+  });
+
+  it('omits the single-sourced paragraph held-out verification rejected', () => {
+    // "No person outside India is eligible to bid ... unless that person has
+    // received the preliminary offering memorandum" is in Om Galaxy alone —
+    // not in Century, and not in any of the four NSE filings. D26.
+    expect(render(vardhman)).not.toContain('No person outside India');
+  });
+
+  it('leaves no unresolved syntax', () => {
+    expect(render(vardhman)).not.toMatch(/\{\{|\}\}|\*\*/);
+  });
+});
+
+describe('Other Regulatory — statutory statements', () => {
+  const render = (facts: FactBase) =>
+    renderSection(regulatoryStatutoryStatements, { facts })
+      .map((n) => (n.type === 'paragraph' ? n.runs.map((r) => r.text).join('') : n.type === 'heading' ? n.text : ''))
+      .join('\n');
+
+  it('states the standard negatives for a first-time issuer', () => {
+    const out = render(vardhman);
+    expect(out).toContain('no outstanding debentures, bonds or redeemable preference shares');
+    expect(out).toContain('no stock market data is available');
+    expect(out).toContain('has not capitalized its reserves or profits');
+    expect(out).toContain('no property which has been purchased or acquired');
+  });
+
+  it('formats the registrar agreement date as the corpus does', () => {
+    expect(render(vardhman)).toContain('dated July 14, 2026');
+  });
+
+  it('flips the partly paid and convertible statements on the facts', () => {
+    // These read as flat negatives for a clean issuer, but an issuer who has
+    // either would have the section assert something false about them.
+    const messy = {
+      ...vardhman,
+      capital: { ...vardhman.capital, hasPartlyPaidShares: true, hasOutstandingConvertibles: true },
+    };
+    const out = render(messy);
+    expect(out).toContain('Partly paid-up Equity Shares are outstanding');
+    expect(out).toContain('Regulation 230(1)(c)');
+    expect(out).toContain('Our Company has outstanding convertible instruments');
+    expect(out).toContain('Regulation 228(e)');
+    expect(out).not.toContain('there are no partly paid-up Equity Shares');
+  });
+
+  it('prints the Reg 300(1)(c) negative unless an exemption was sought', () => {
+    expect(render(vardhman)).toContain('has not made any application under Regulation 300(1)(c)');
+
+    const applied = {
+      ...vardhman,
+      offer: {
+        ...vardhman.offer,
+        exemptionApplicationDetails:
+          'Our Company filed an exemption application dated October 6, 2026 under Regulation 300(1)(c).',
+      },
+    };
+    expect(render(applied)).toContain('filed an exemption application dated October 6, 2026');
+    expect(render(applied)).not.toContain('has not made any application under Regulation 300(1)(c)');
+  });
+
+  it('leaves no unresolved syntax on either exchange', () => {
+    expect(render(vardhman)).not.toMatch(/\{\{|\}\}|\*\*/);
+    expect(render(variant({ exchange: 'NSE_EMERGE' }))).not.toMatch(/\{\{|\}\}|\*\*/);
+  });
+});
+
+describe('section anchors', () => {
+  it('gives every rendered section a unique anchor', () => {
+    const sections = renderSections(sectionRegistry, { facts: vardhman });
+    const anchors = sections.map((s) => s.anchor);
+    expect(anchors.length).toBeGreaterThan(0);
+    expect(new Set(anchors).size).toBe(anchors.length);
+    expect(anchors.every((a) => /^sec-[a-z0-9-]+$/.test(a))).toBe(true);
+  });
+
+  it('leaves out sections that render nothing', () => {
+    // A "Holds up" link pointing at a section switched off by appliesIf would
+    // scroll nowhere, and the reader would assume they had missed it.
+    const off: SectionSpec = {
+      id: 'test.notApplicable',
+      title: 'Not Applicable Here',
+      producer: 'template',
+      order: 9000,
+      group: 'SECTION I - GENERAL',
+      appliesIf: () => false,
+      template: '## Never rendered',
+    };
+    const ids = renderSections([off, termsOfIssue], { facts: vardhman }).map((s) => s.id);
+    expect(ids).not.toContain('test.notApplicable');
+    expect(ids).toContain('issueRelated.termsOfIssue');
+  });
+
+  it('flattens back to exactly what renderDocument produces', () => {
+    // The DOCX renderer consumes the flat tree; the section boundaries only
+    // exist so the gap list has somewhere to point.
+    const ctx = { facts: vardhman };
+    expect(flattenSections(renderSections(sectionRegistry, ctx))).toEqual(
+      renderDocument(sectionRegistry, ctx),
+    );
+  });
+});
+
+describe('gap collection across sections', () => {
+  const gapSection = (id: string, title: string, factPath: string): RenderedSection => ({
+    id,
+    title,
+    group: 'SECTION I - GENERAL',
+    anchor: `sec-${id}`,
+    nodes: [
+      {
+        type: 'paragraph',
+        runs: [
+          { text: 'Registered with ' },
+          { text: '[TO BE PROVIDED: Registrar]', placeholder: { factPath, ask: 'Registrar' } },
+        ],
+      },
+    ],
+  });
+
+  it('reports one gap naming every section that renders it', () => {
+    // The registrar's address appears in Definitions, General Information and
+    // Terms of the Issue. It is ONE thing for the issuer to provide, so it is
+    // one finding — but the reader still needs to know where it all lands.
+    const gaps = collectGaps([
+      gapSection('a', 'Definitions', 'registrar.address'),
+      gapSection('b', 'Terms of the Issue', 'registrar.address'),
+    ]);
+
+    expect(gaps).toHaveLength(1);
+    expect(gaps[0].sections.map((s) => s.title)).toEqual(['Definitions', 'Terms of the Issue']);
+  });
+
+  it('anchors only the first occurrence of a gap', () => {
+    // Two elements with the same id is not a near-miss: the browser jumps to
+    // whichever it finds first, so the link silently lands in the wrong place.
+    const keys = gapAnchorKeys([
+      gapSection('a', 'Definitions', 'registrar.address'),
+      gapSection('b', 'Terms of the Issue', 'registrar.address'),
+    ]);
+    expect([...keys.values()]).toEqual(['registrar.address']);
+    expect(keys.get(runKey(0, 0, 1))).toBe('registrar.address');
+  });
+
+  it('addresses gaps inside list items', () => {
+    const section: RenderedSection = {
+      id: 'c',
+      title: 'Consents',
+      group: 'SECTION I - GENERAL',
+      anchor: 'sec-c',
+      nodes: [
+        {
+          type: 'list',
+          ordered: false,
+          items: [
+            [{ text: 'Named consent' }],
+            [{ text: '[TO BE PROVIDED: Auditor]', placeholder: { factPath: 'auditor.name', ask: 'Auditor' } }],
+          ],
+        },
+      ],
+    };
+    expect(gapAnchorKeys([section]).get(runKey(0, 0, 1, 0))).toBe('auditor.name');
+  });
+
+  it('never leaves a table gap without a placeholder to report it', () => {
+    // Table cells are plain strings, so "[TO BE PROVIDED]" inside one is
+    // invisible to collectPlaceholders and would never reach the gap list —
+    // it would sit in the document unreported, which is exactly what MM4
+    // forbids. Issue Structure pairs its uncomputable allotment cells with a
+    // placeholder in the paragraph above; any new table must do the same.
+    for (const section of renderSections(sectionRegistry, { facts: vardhman })) {
+      const inTable = section.nodes.some(
+        (n) => n.type === 'table' && n.rows.flat().some((cell) => cell.includes('[TO BE PROVIDED')),
+      );
+      if (!inTable) continue;
+      expect(
+        collectPlaceholders(section.nodes).length,
+        `${section.id} has a table gap that raises no finding`,
+      ).toBeGreaterThan(0);
+    }
+  });
+
+  it('gives each gap in the real document exactly one anchor', () => {
+    const sections = renderSections(sectionRegistry, { facts: vardhman });
+    const keys = gapAnchorKeys(sections);
+    const paths = [...keys.values()];
+    expect(new Set(paths).size).toBe(paths.length);
+    expect(paths).toContain('riskFactors.summaryOfMaterialFactors');
   });
 });

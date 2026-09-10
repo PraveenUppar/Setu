@@ -1,10 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { allRules, assess, eligibilityRules, evaluate, summarise, operatingProfit, freeCashFlowToEquity } from './index';
+import { allRules, assess, completenessFindings, eligibilityRules, evaluate, linkFindings, summarise, operatingProfit, freeCashFlowToEquity } from './index';
 import { vardhman } from '../seed/vardhman';
 import { money } from '../facts/money';
-import { renderDocument } from '../document/section';
+import { gapAnchor, sectionAnchor } from '../anchors';
+import { renderSections } from '../document/section';
 import { sectionRegistry } from '../document/sections';
 import type { FactBase } from '../facts/schema';
+import type { Finding } from './types';
 
 /** Deep-ish clone with one branch replaced. */
 function broken(mutate: (f: FactBase) => void): FactBase {
@@ -18,6 +20,16 @@ const fires = (ruleId: string, facts: FactBase) =>
 
 const findingFor = (ruleId: string, facts: FactBase) =>
   evaluate(allRules, facts).find((x) => x.ruleId === ruleId);
+
+/** Metadata a rule would have supplied, for exercising the linking pass alone. */
+const stubFinding: Finding = {
+  ruleId: 'TEST-1',
+  clause: 'R-000',
+  title: 'Stub',
+  severity: 'major',
+  category: 'consistency',
+  detail: 'Stub',
+};
 
 describe('the clean seed passes every rule', () => {
   it('produces no findings at all', () => {
@@ -204,6 +216,370 @@ describe('eligibility rules each fire on their own breach', () => {
   });
 });
 
+/**
+ * The exchange criteria stated under Reg 229(3). Vardhman is BSE SME with an
+ * intended filing date of 2026-11-15, so every look-back window in these tests
+ * is measured from that date, not from today — which is the point of measuring
+ * from the filing date at all.
+ */
+describe('exchange criteria fire on their own breach and only at their own exchange', () => {
+  const onNSE = (mutate: (f: FactBase) => void = () => {}) =>
+    broken((x) => {
+      x.offer.exchange = 'NSE_EMERGE';
+      mutate(x);
+    });
+
+  it('EL-022 net tangible assets below Rs 3 crore, BSE only', () => {
+    // 42.60 - 22.90 - 0.18 - 0.12 = 19.40 crore for FY2026.
+    expect(fires('EL-022', vardhman)).toBe(false);
+
+    // R-029, closing O-13: the floor is Rs 3 crore, not merely positive. An
+    // issuer at 2 crore is POSITIVE and still fails.
+    const thin = (x: FactBase) => { x.financials.years[0].totalLiabilities = money('40.30', 'crores'); };
+    expect(fires('EL-022', broken(thin))).toBe(true);
+    expect(findingFor('EL-022', broken(thin))!.detail).toContain('shortfall of Rs 1.00 Crores');
+
+    const negative = (x: FactBase) => { x.financials.years[0].totalLiabilities = money('45', 'crores'); };
+    expect(findingFor('EL-022', broken(negative))!.detail).toContain('Rs -2.70 Crores');
+
+    // NSE Emerge does not state a net tangible assets test.
+    expect(fires('EL-022', onNSE(thin))).toBe(false);
+  });
+
+  it('EL-023 website missing or malformed, BSE only', () => {
+    expect(fires('EL-023', vardhman)).toBe(false);
+    expect(fires('EL-023', broken((x) => { x.company.website = ''; }))).toBe(true);
+    const bad = broken((x) => { x.company.website = 'vardhmanprecision'; });
+    expect(fires('EL-023', bad)).toBe(true);
+    expect(findingFor('EL-023', bad)!.severity).toBe('major');
+    expect(fires('EL-023', onNSE((x) => { x.company.website = ''; }))).toBe(false);
+  });
+
+  it('EL-024 promoter control changed in the past year, BSE only', () => {
+    expect(fires('EL-024', vardhman)).toBe(false);
+    const changed = (x: FactBase) => { x.promoters.controlChangedInPastYear = true; };
+    expect(fires('EL-024', broken(changed))).toBe(true);
+    expect(fires('EL-024', onNSE(changed))).toBe(false);
+  });
+
+  it('EL-025 a genuine change of name inside the one-year window', () => {
+    expect(fires('EL-025', vardhman)).toBe(false);
+
+    // Filing 2026-11-15; a rebrand in June 2026 is five months before it.
+    const rebrand = (x: FactBase) => {
+      x.company.nameChanges.push({
+        previousName: 'Vardhman Precision Components Limited',
+        newName: 'Vardhman Precision Industries Limited',
+        date: '2026-06-01',
+        reason: 'Rebranding',
+      });
+    };
+    const f = broken(rebrand);
+    expect(fires('EL-025', f)).toBe(true);
+    expect(findingFor('EL-025', f)!.detail).toContain('June 1, 2026');
+    expect(findingFor('EL-025', f)!.detail).toContain('lapses once the change is a year old, on June 1, 2027');
+    // R-030 closed O-12: the revenue test is the rule, and failing it is a
+    // hard entry-norm failure rather than something to raise with the exchange.
+    expect(findingFor('EL-025', f)!.severity).toBe('blocker');
+
+    // The same change two years earlier is outside the window.
+    const old = broken((x) => {
+      x.company.nameChanges.push({
+        previousName: 'A', newName: 'B', date: '2024-06-01',
+      });
+    });
+    expect(fires('EL-025', old)).toBe(false);
+  });
+
+  it('EL-025 clears once half the revenue comes from the new activity', () => {
+    // S9's formulation: a name change inside the window is not a bar, it is a
+    // revenue test. Without a pass state this rule could never be cleared.
+    const withShare = (share: number | null) =>
+      broken((x) => {
+        x.company.nameChanges.push({
+          previousName: 'Old Name Limited',
+          newName: 'New Name Limited',
+          date: '2026-06-01',
+        });
+        x.company.revenueShareFromNewNameActivity = share;
+      });
+
+    expect(fires('EL-025', withShare(null))).toBe(true);
+    expect(findingFor('EL-025', withShare(null))!.detail).toContain('NOT YET COMPUTED');
+
+    expect(fires('EL-025', withShare(42))).toBe(true);
+    expect(findingFor('EL-025', withShare(42))!.detail).toContain('short by 8.00 percentage points');
+
+    expect(fires('EL-025', withShare(50))).toBe(false);
+    expect(fires('EL-025', withShare(88))).toBe(false);
+  });
+
+  it('EL-025 does not fire on the conversion to public limited', () => {
+    // Every SME issuer converts shortly before filing, and Section 23 requires
+    // it. A blocker that fires on the mandatory step is one nobody can clear.
+    const f = broken((x) => {
+      x.company.conversionToPublicDate = '2026-08-01';
+      x.company.nameChanges = [
+        {
+          previousName: 'Vardhman Precision Components Private Limited',
+          newName: 'Vardhman Precision Components Limited',
+          date: '2026-08-01',
+          reason: 'Conversion to public limited company',
+        },
+      ];
+    });
+    // And nothing else fires either. Under R-030 the test is about the
+    // ACTIVITY the new name indicates, which a conversion does not change, so
+    // the conversion needs no separate rule — EL-038 was deleted when O-12
+    // closed.
+    expect(fires('EL-025', f)).toBe(false);
+    expect(evaluate(allRules, f).map((x) => x.ruleId)).not.toContain('EL-038');
+  });
+
+  it('EL-026, EL-027 and EL-028 fire at both exchanges', () => {
+    for (const [id, mutate] of [
+      ['EL-026', (x: FactBase) => { x.legal.referredToNCLT = true; }],
+      ['EL-027', (x: FactBase) => { x.legal.windingUpPetitionAdmitted = true; }],
+      ['EL-028', (x: FactBase) => { x.legal.referredToBIFR = true; }],
+    ] as const) {
+      expect(fires(id, vardhman)).toBe(false);
+      expect(fires(id, broken(mutate))).toBe(true);
+      expect(fires(id, onNSE(mutate))).toBe(true);
+      expect(findingFor(id, broken(mutate))!.severity).toBe('blocker');
+    }
+  });
+
+  it('EL-029 IBC against promoting companies fires at both exchanges', () => {
+    // Corrected 2026-09-10. This was scoped to NSE on the strength of one BSE
+    // document that asks only about the issuer; S9 states the promoting-company
+    // limb at BSE too, so scoping it to NSE told a BSE issuer nothing at all.
+    const mutate = (x: FactBase) => { x.legal.ibcProceedingsAgainstPromotingCompanies = true; };
+    expect(fires('EL-029', vardhman)).toBe(false);
+    expect(fires('EL-029', onNSE(mutate))).toBe(true);
+    expect(fires('EL-029', broken(mutate))).toBe(true);
+  });
+
+  it('EL-030 applies BSE windows: 3 years for the company, 1 for promoters', () => {
+    expect(fires('EL-030', vardhman)).toBe(false);
+
+    // Filing 2026-11-15. Company action 2 years back is inside the 3-year window.
+    const company = broken((x) => { x.legal.regulatoryActionAgainstCompanySince = '2024-11-15'; });
+    expect(fires('EL-030', company)).toBe(true);
+    expect(findingFor('EL-030', company)!.detail).toContain('inside the 3-year window');
+
+    // Four years back is outside it.
+    expect(fires('EL-030', broken((x) => { x.legal.regulatoryActionAgainstCompanySince = '2022-11-15'; }))).toBe(false);
+
+    // A promoter action gets one year, not three: two years back is outside.
+    expect(fires('EL-030', broken((x) => { x.legal.regulatoryActionAgainstPromotersSince = '2024-11-15'; }))).toBe(false);
+    expect(fires('EL-030', broken((x) => { x.legal.regulatoryActionAgainstPromotersSince = '2026-06-01'; }))).toBe(true);
+
+    expect(fires('EL-030', onNSE((x) => { x.legal.regulatoryActionAgainstCompanySince = '2024-11-15'; }))).toBe(false);
+  });
+
+  it('EL-031 applies NSE subjects with no stated window', () => {
+    // N-09 reaches group companies and states no look-back period, so an old
+    // action still reports rather than being filtered out by a date we invented.
+    const old = onNSE((x) => { x.legal.regulatoryActionAgainstGroupCompaniesSince = '2015-01-01'; });
+    expect(fires('EL-031', old)).toBe(true);
+    expect(findingFor('EL-031', old)!.detail).toContain('states no look-back period');
+    // BSE does not reach group companies at all.
+    expect(fires('EL-031', broken((x) => { x.legal.regulatoryActionAgainstGroupCompaniesSince = '2015-01-01'; }))).toBe(false);
+  });
+
+  it('EL-032 trading suspension fires at both exchanges', () => {
+    // Also corrected 2026-09-10 — both BSE documents state it (E-19).
+    const mutate = (x: FactBase) => { x.legal.tradingSuspendedForPromoterCompanies = true; };
+    expect(fires('EL-032', vardhman)).toBe(false);
+    expect(fires('EL-032', onNSE(mutate))).toBe(true);
+    expect(fires('EL-032', broken(mutate))).toBe(true);
+  });
+
+  it('EL-033 carves out independent directors at both exchanges', () => {
+    // R-031 closed O-14: the rulebook says "other than independent directors",
+    // and the two documents that omit it are using shorthand. The rule states
+    // the carve-out rather than hedging about which venue applies it.
+    const mutate = (x: FactBase) => { x.promoters.anyAssociatedWithDelistedCompany = true; };
+    expect(fires('EL-033', vardhman)).toBe(false);
+    for (const facts of [broken(mutate), onNSE(mutate)]) {
+      const detail = findingFor('EL-033', facts)!.detail;
+      expect(detail).toContain('An INDEPENDENT directorship in such a company does not count');
+      expect(detail).not.toMatch(/unsettled|not by exchange|worth putting to the exchange/);
+    }
+  });
+
+  it('EL-034 pending debt security defaults, BSE only', () => {
+    const mutate = (x: FactBase) => { x.legal.pendingDebtSecurityDefaults = true; };
+    expect(fires('EL-034', vardhman)).toBe(false);
+    expect(fires('EL-034', broken(mutate))).toBe(true);
+    expect(fires('EL-034', onNSE(mutate))).toBe(false);
+  });
+
+  it('EL-035 and EL-036 are the same six months about different parties', () => {
+    // The trap this pair exists to avoid: BSE looks at the ISSUER's rejected
+    // application, NSE at the MERCHANT BANKER's returned drafts. Feeding each
+    // exchange the other's fact must produce nothing.
+    const rejected = (x: FactBase) => { x.offer.exchangeApplicationRejectedSince = '2026-09-01'; };
+    const returned = (x: FactBase) => { x.offer.brlmDraftReturnedSince = '2026-09-01'; };
+
+    expect(fires('EL-035', broken(rejected))).toBe(true);
+    expect(fires('EL-035', broken(returned))).toBe(false);
+    expect(fires('EL-036', onNSE(returned))).toBe(true);
+    expect(fires('EL-036', onNSE(rejected))).toBe(false);
+
+    // Neither rule governs the other exchange.
+    expect(fires('EL-035', onNSE(rejected))).toBe(false);
+    expect(fires('EL-036', broken(returned))).toBe(false);
+  });
+
+  it('EL-035 says when the six-month window clears', () => {
+    const f = broken((x) => { x.offer.exchangeApplicationRejectedSince = '2026-09-01'; });
+    const detail = findingFor('EL-035', f)!.detail;
+    expect(detail).toContain('September 1, 2026');
+    expect(detail).toContain('clears on March 1, 2027');
+    // Seven months before filing is outside the window.
+    expect(fires('EL-035', broken((x) => { x.offer.exchangeApplicationRejectedSince = '2026-04-01'; }))).toBe(false);
+  });
+
+  it('EL-036 names the banker and says the fix is a different one', () => {
+    const f = onNSE((x) => { x.offer.brlmDraftReturnedSince = '2026-09-01'; });
+    const detail = findingFor('EL-036', f)!.detail;
+    expect(detail).toContain('Indorient Financial Services Limited');
+    expect(detail).toContain('attaches to the BANKER');
+  });
+
+  it('EL-037 needs one depository agreement everywhere and two at BSE', () => {
+    expect(fires('EL-037', vardhman)).toBe(false);
+
+    // One depository: enough for Reg 230(1)(b), not enough for BSE's E-15.
+    const oneOnly = (x: FactBase) => { x.capital.depositoryAgreements = { nsdl: true, cdsl: false }; };
+    expect(fires('EL-037', broken(oneOnly))).toBe(true);
+    expect(findingFor('EL-037', broken(oneOnly))!.detail).toContain('No tripartite agreement with CDSL');
+    expect(fires('EL-037', onNSE(oneOnly))).toBe(false);
+
+    // Neither depository fails the regulation itself, at either exchange.
+    const neither = (x: FactBase) => { x.capital.depositoryAgreements = { nsdl: false, cdsl: false }; };
+    expect(fires('EL-037', broken(neither))).toBe(true);
+    expect(fires('EL-037', onNSE(neither))).toBe(true);
+    expect(findingFor('EL-037', onNSE(neither))!.detail).toContain('Regulation 230(1)(b)');
+
+    // BSE also requires the registrar, since the agreements are tripartite.
+    expect(fires('EL-037', broken((x) => { x.offer.registrarToIssue = undefined; }))).toBe(true);
+  });
+
+  it('EL-039 caps monetary assets at half the net tangible assets', () => {
+    // Vardhman: 4.20 crore monetary against 19.40 crore NTA.
+    expect(fires('EL-039', vardhman)).toBe(false);
+
+    // Clearing Rs 3 crore by sitting on cash does not satisfy the criterion.
+    const cashHeavy = (x: FactBase) => { x.financials.years[0].monetaryAssets = money('12', 'crores'); };
+    expect(fires('EL-039', broken(cashHeavy))).toBe(true);
+    expect(findingFor('EL-039', broken(cashHeavy))!.detail).toContain('61.86% of them');
+    expect(findingFor('EL-039', broken(cashHeavy))!.severity).toBe('blocker');
+
+    // Exactly half passes — "not more than 50%".
+    expect(fires('EL-039', broken((x) => { x.financials.years[0].monetaryAssets = money('9.70', 'crores'); }))).toBe(false);
+
+    // Silent where the split was never disclosed, and at NSE, which does not
+    // state a net tangible assets test at all.
+    expect(fires('EL-039', broken((x) => { x.financials.years[0].monetaryAssets = null; }))).toBe(false);
+    expect(fires('EL-039', onNSE(cashHeavy))).toBe(false);
+  });
+
+  it('EL-044 tests the board against the Companies Act, not LODR', () => {
+    // Vardhman: 4 directors, 2 independent, post-issue capital 16.5 crore.
+    expect(fires('EL-044', vardhman)).toBe(false);
+
+    // s.149(1): a public company needs three directors.
+    const twoDirectors = broken((x) => { x.management.directors = x.management.directors.slice(0, 2); });
+    expect(fires('EL-044', twoDirectors)).toBe(true);
+    expect(findingFor('EL-044', twoDirectors)!.detail).toContain('Section 149(1) requires at least 3');
+
+    // s.149(4): one third independent once post-issue capital reaches Rs 10
+    // crore. Four directors need two; one is short.
+    const oneIndependent = broken((x) => { x.management.directors[3].isIndependent = false; });
+    expect(fires('EL-044', oneIndependent)).toBe(true);
+    expect(findingFor('EL-044', oneIndependent)!.detail).toContain('Independent directors: 1 of 4');
+    expect(findingFor('EL-044', oneIndependent)!.detail).toContain('at or above Rs 10.00 Crores');
+
+    // Below both triggers, only s.149(1) applies — three directors, none of
+    // whom need be independent.
+    const small = broken((x) => {
+      x.offer.freshIssueShares = 300000;
+      x.capital.paidUpShares = 500000;
+      x.financials.years[0].revenue = money('20', 'crores');
+      x.management.directors = x.management.directors.slice(0, 3).map((d) => ({ ...d, isIndependent: false }));
+    });
+    expect(fires('EL-044', small)).toBe(false);
+  });
+
+  it('EL-040 counts a full financial year, not twelve months from conversion', () => {
+    expect(fires('EL-040', vardhman)).toBe(false);
+
+    // Converted from an LLP in February 2026: the first FULL financial year
+    // ends 31 March 2027, so a November 2026 filing is too early even though
+    // that is more than twelve months after the business started trading.
+    const february = broken((x) => {
+      x.company.convertedFromFirmType = 'LLP';
+      x.company.conversionFromFirmDate = '2026-02-10';
+    });
+    expect(fires('EL-040', february)).toBe(true);
+    expect(findingFor('EL-040', february)!.detail).toContain('March 31, 2027');
+
+    // Converted in April 2024: the year to 31 March 2025 is complete.
+    const earlier = broken((x) => {
+      x.company.convertedFromFirmType = 'PARTNERSHIP';
+      x.company.conversionFromFirmDate = '2024-04-20';
+    });
+    expect(fires('EL-040', earlier)).toBe(false);
+
+    // A company that was never a firm is not governed by Reg 229(4) at all.
+    expect(fires('EL-040', broken((x) => { x.company.conversionFromFirmDate = '2026-02-10'; }))).toBe(false);
+  });
+
+  it('EL-041 starts a one-year clock on a majority promoter change, at both exchanges', () => {
+    expect(fires('EL-041', vardhman)).toBe(false);
+    const recent = (x: FactBase) => { x.promoters.majorityPromoterChangeDate = '2026-03-01'; };
+    expect(fires('EL-041', broken(recent))).toBe(true);
+    expect(fires('EL-041', onNSE(recent))).toBe(true);
+    expect(findingFor('EL-041', broken(recent))!.detail).toContain('earliest filing date is March 1, 2027');
+    // Reg 229(5) is a regulation, so switching exchange does not escape it.
+    expect(findingFor('EL-041', onNSE(recent))!.detail).toContain('switching platforms does not avoid it');
+
+    expect(fires('EL-041', broken((x) => { x.promoters.majorityPromoterChangeDate = '2024-03-01'; }))).toBe(false);
+  });
+
+  it('EL-042 applies a five-year window to SEBI action against directors', () => {
+    expect(fires('EL-042', vardhman)).toBe(false);
+    // Filing 2026-11-15; action in 2023 is inside five years.
+    const inside = (x: FactBase) => { x.legal.sebiActionAgainstDirectorsSince = '2023-01-10'; };
+    expect(fires('EL-042', broken(inside))).toBe(true);
+    expect(fires('EL-042', onNSE(inside))).toBe(true);
+    expect(findingFor('EL-042', broken(inside))!.severity).toBe('major');
+    expect(fires('EL-042', broken((x) => { x.legal.sebiActionAgainstDirectorsSince = '2019-01-10'; }))).toBe(false);
+  });
+
+  it('measures every window from the intended filing date, not from today', () => {
+    // An issuer planning to file in four months needs to know whether the
+    // window will still be open THEN, not whether it is open now.
+    // One rejection date, two filing plans. The same fact clears in the first
+    // and does not in the second.
+    const rejected = '2026-06-01';
+
+    const patient = broken((x) => {
+      x.offer.intendedFilingDate = '2026-12-15';
+      x.offer.exchangeApplicationRejectedSince = rejected;
+    });
+    expect(fires('EL-035', patient)).toBe(false); // 6 months and 14 days by then
+
+    const hurried = broken((x) => {
+      x.offer.intendedFilingDate = '2026-10-15';
+      x.offer.exchangeApplicationRejectedSince = rejected;
+    });
+    expect(fires('EL-035', hurried)).toBe(true); // only 4 months and 14 days
+  });
+});
+
 describe('consistency rules each fire on their own breach', () => {
   it('CO-001 allotments not summing to paid-up shares', () => {
     const f = broken((x) => { x.capital.allotments[0].shares = 9000; });
@@ -290,8 +666,8 @@ describe('scoring', () => {
 
 describe('assessment over the whole document', () => {
   it('merges document gaps into the findings list', () => {
-    const nodes = renderDocument(sectionRegistry, { facts: vardhman });
-    const { findings, summary } = assess(vardhman, nodes);
+    const sections = renderSections(sectionRegistry, { facts: vardhman });
+    const { findings, summary } = assess(vardhman, sections);
     const completeness = findings.filter((f) => f.category === 'completeness');
     expect(completeness.length).toBeGreaterThan(0);
     expect(completeness.map((f) => f.fix?.factPath)).toContain('riskFactors.summaryOfMaterialFactors');
@@ -302,8 +678,8 @@ describe('assessment over the whole document', () => {
     // A rules-only score beside a longer findings list reads as a
     // contradiction. "100 / 100 ready" above three outstanding items tells
     // the issuer something false, and the score is what they look at first.
-    const nodes = renderDocument(sectionRegistry, { facts: vardhman });
-    const { findings, summary } = assess(vardhman, nodes);
+    const sections = renderSections(sectionRegistry, { facts: vardhman });
+    const { findings, summary } = assess(vardhman, sections);
     expect(findings.length).toBeGreaterThan(0);
     expect(summary.score).toBeLessThan(100);
   });
@@ -323,6 +699,81 @@ describe('assessment over the whole document', () => {
     const order = findings.map((x) => x.severity);
     expect(order[0]).toBe('blocker');
     expect(order.indexOf('major')).toBeGreaterThan(order.indexOf('blocker'));
+  });
+});
+
+describe('linking findings to the document', () => {
+  const sections = () => renderSections(sectionRegistry, { facts: vardhman });
+
+  it('links a gap to the placeholder itself, not the top of the section', () => {
+    // Landing the reader at the start of a 30-page section and leaving them to
+    // find the highlight is barely better than not linking at all.
+    const gap = completenessFindings(sections()).find(
+      (f) => f.fix?.factPath === 'riskFactors.summaryOfMaterialFactors',
+    );
+    expect(gap?.links?.[0]).toEqual({
+      label: 'Forward Looking Statements',
+      anchor: gapAnchor('riskFactors.summaryOfMaterialFactors'),
+    });
+  });
+
+  it('names the section a gap sits in', () => {
+    const gap = completenessFindings(sections()).find(
+      (f) => f.fix?.factPath === 'offer.categoryAllocation',
+    );
+    expect(gap?.blocks).toEqual(['Issue Structure']);
+  });
+
+  it('resolves a rule that names a built section', () => {
+    const [linked] = linkFindings(
+      [{ ...stubFinding, blocks: ['Issue Structure'] }],
+      sections(),
+    );
+    expect(linked.links).toEqual([
+      { label: 'Issue Structure', anchor: sectionAnchor('issueRelated.issueStructure') },
+    ]);
+  });
+
+  it('resolves a rule that names a whole numbered section', () => {
+    // Rules cite "Other Regulatory and Statutory Disclosures", which is a
+    // group of five subsections rather than one. The first is where a reader
+    // following the link would start.
+    const [linked] = linkFindings(
+      [{ ...stubFinding, blocks: ['Other Regulatory and Statutory Disclosures'] }],
+      sections(),
+    );
+    expect(linked.links?.[0].anchor).toBe(sectionAnchor('regulatory.authority'));
+  });
+
+  it('leaves a section that is not drafted yet as a plain label', () => {
+    // 13 of 37 sections exist. A link that scrolls nowhere teaches the reader
+    // that the links do not work.
+    const [linked] = linkFindings(
+      [{ ...stubFinding, blocks: ['Capital Structure', 'The entire filing'] }],
+      sections(),
+    );
+    expect(linked.links).toEqual([{ label: 'Capital Structure' }, { label: 'The entire filing' }]);
+  });
+
+  it('points every link at something that exists in the document', () => {
+    const rendered = sections();
+    const { findings } = assess(vardhman, rendered);
+
+    const sectionAnchors = new Set(rendered.map((s) => s.anchor));
+    const gapAnchors = new Set(
+      findings.filter((f) => f.fix?.factPath).map((f) => gapAnchor(f.fix!.factPath!)),
+    );
+
+    const dangling = findings
+      .flatMap((f) => f.links ?? [])
+      .filter((l) => l.anchor && !sectionAnchors.has(l.anchor) && !gapAnchors.has(l.anchor));
+
+    expect(dangling).toEqual([]);
+  });
+
+  it('does not overwrite links a finding already carries', () => {
+    const already = { ...stubFinding, blocks: ['Issue Structure'], links: [{ label: 'kept' }] };
+    expect(linkFindings([already], sections())[0].links).toEqual([{ label: 'kept' }]);
   });
 });
 

@@ -25,14 +25,59 @@ const vardhmanInput: PreCheckInput = {
   anyFugitiveEconomicOffender: false,
   hasOutstandingConvertibles: false,
   hasPartlyPaidShares: false,
+
+  referredToNCLT: false,
+  windingUpPetitionAdmitted: false,
+  referredToBIFR: false,
+  anyAssociatedWithDelistedCompany: false,
+
+  // Vardhman converted on 2025-02-18, well outside E-09's one-year window.
+  conversionToPublicDate: '2025-02-18',
+  lastNameChangeDate: null,
+  controlChangedInPastYear: false,
+  exchangeApplicationRejectedSince: null,
+  pendingDebtSecurityDefaults: false,
+
+  ibcProceedingsAgainstPromotingCompanies: false,
+  tradingSuspendedForPromoterCompanies: false,
 };
 
 const withInput = (o: Partial<PreCheckInput>): PreCheckInput => ({ ...vardhmanInput, ...o });
 
 describe('pre-check scope', () => {
   it('runs only rules a promoter can answer on day one', () => {
-    expect(preCheckRules.length).toBe(13);
+    expect(preCheckRules.length).toBe(26);
     expect(preCheckRules.every((r) => r.preCheck)).toBe(true);
+  });
+
+  it('shows an issuer only the criteria their own exchange applies', () => {
+    // No issuer faces all 26 questions: the exchange criteria diverge, and a
+    // rule that does not govern this issuer must be silent rather than asked
+    // about.
+    const forBSE = preCheckRules.filter((r) => !r.appliesTo || r.appliesTo(toFactBase(vardhmanInput)));
+    const forNSE = preCheckRules.filter(
+      (r) => !r.appliesTo || r.appliesTo(toFactBase(withInput({ exchange: 'NSE_EMERGE' }))),
+    );
+
+    const bseIds = forBSE.map((r) => r.id);
+    const nseIds = forNSE.map((r) => r.id);
+
+    // E-08, E-09, E-10 and E-18 are BSE's alone.
+    for (const bseOnly of ['EL-024', 'EL-025', 'EL-034', 'EL-035']) {
+      expect(bseIds).toContain(bseOnly);
+      expect(nseIds).not.toContain(bseOnly);
+    }
+    // The free cash flow test is NSE's alone.
+    expect(nseIds).toContain('EL-008');
+    expect(bseIds).not.toContain('EL-008');
+
+    // EL-029 and EL-032 were listed here as NSE-only until corroboration
+    // against a second BSE document showed both criteria stated at BSE too.
+    // They now govern everyone, which is why they are asserted on both sides.
+    for (const both of ['EL-026', 'EL-027', 'EL-028', 'EL-029', 'EL-032', 'EL-033', 'EL-041']) {
+      expect(bseIds).toContain(both);
+      expect(nseIds).toContain(both);
+    }
   });
 
   it('excludes rules that need a banker or a drafted document', () => {

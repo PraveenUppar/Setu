@@ -1,0 +1,128 @@
+[
+  {
+    "company": "axiom-gas",
+    "totalPages": 383,
+    "truth": {
+      "pages": [
+        76,
+        88
+      ],
+      "chars": 37012
+    },
+    "input": {
+      "pages": [
+        200,
+        225
+      ],
+      "chars": 67018
+    }
+  },
+  {
+    "company": "century-business-media",
+    "totalPages": 304,
+    "truth": {
+      "pages": [
+        65,
+        78
+      ],
+      "chars": 41126
+    },
+    "input": {
+      "pages": [
+        155,
+        199
+      ],
+      "chars": 112583
+    }
+  },
+  {
+    "company": "ideas-electricals",
+    "totalPages": 346,
+    "truth": {
+      "pages": [
+        73,
+        84
+      ],
+      "chars": 36728
+    },
+    "input": {
+      "pages": [
+        178,
+        228
+      ],
+      "chars": 151259
+    }
+  },
+  {
+    "company": "maxwell-engineering",
+    "totalPages": 382,
+    "truth": {
+      "pages": [
+        80,
+        91
+      ],
+      "chars": 40509
+    },
+    "input": {
+      "pages": [
+        234,
+        270
+      ],
+      "chars": 110330
+    }
+  },
+  {
+    "company": "om-galaxy",
+    "totalPages": 510,
+    "truth": {
+      "pages": [
+        92,
+        109
+      ],
+      "chars": 55790
+    },
+    "input": {
+      "pages": [
+        268,
+        330
+      ],
+      "chars": 168309
+    }
+  },
+  {
+    "company": "photonics-watertech",
+    "totalPages": 392,
+    "truth": {
+      "pages": [
+        86,
+        108
+      ],
+      "chars": 63280
+    },
+    "input": {
+      "pages": [
+        223,
+        270
+      ],
+      "chars": 144432
+    }
+  },
+  {
+    "company": "shakti-polytarp",
+    "totalPages": 416,
+    "truth": {
+      "pages": [
+        85,
+        101
+      ],
+      "chars": 36882
+    },
+    "input": {
+      "pages": [
+        242,
+        305
+      ],
+      "chars": 141351
+    }
+  }
+]
