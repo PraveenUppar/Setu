@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { derivedTerms, renderSection, renderDocument } from './section';
-import { issueProcedure } from './sections/issue-procedure';
+import { issueProcedure, issueProcedureBidsByCategory } from './sections/issue-procedure';
 import { sectionRegistry } from './sections';
 import { collectPlaceholders } from './nodes';
 import { vardhman } from '../seed/vardhman';
@@ -141,6 +141,68 @@ describe('Issue Procedure section', () => {
 
   it('leaves no unresolved template syntax', () => {
     expect(plain(vardhman)).not.toMatch(/\{\{|\}\}/);
+  });
+});
+
+describe('Bids by investor category', () => {
+  const out = renderSection(issueProcedureBidsByCategory, { facts: vardhman })
+    .map((n) =>
+      n.type === 'paragraph' ? n.runs.map((r) => r.text).join('') : n.type === 'heading' ? n.text : '',
+    )
+    .join('\n');
+
+  it('covers all twelve investor categories', () => {
+    for (const category of [
+      'Hindu Undivided Families',
+      'Mutual Funds',
+      'Eligible NRIs',
+      'Bids by FPIs',
+      'AIFs, VCFs and FVCIs',
+      'Limited Liability Partnerships',
+      'Banking Companies',
+      'Bids by SCSBs',
+      'Systemically Important Non-Banking Financial Companies',
+      'Insurance Companies',
+      'Provident Funds and Pension Funds',
+      'Power of Attorney',
+    ]) {
+      expect(out).toContain(category);
+    }
+  });
+
+  it('reproduces the investment limits the corpus states', () => {
+    // These belong to other regulations (SEBI MF/VCF/FPI, FEMA, Banking
+    // Regulation Act) and are quoted, not authored by us.
+    expect(out).toContain('10% of its net asset value'); // Mutual Funds
+    expect(out).toContain('25% of the corpus of the VCF'); // VCF
+    expect(out).toContain('33.33% of their investible funds'); // VCF in an IPO
+    expect(out).toContain('24% of the paid-up equity share capital'); // FPI aggregate
+    expect(out).toContain('5% of the total paid-up equity share capital'); // single NRI
+    expect(out).toContain('Rs 2,500 lakhs'); // provident and pension fund corpus
+  });
+
+  it('follows house style for Issue vs Offer', () => {
+    const asOffer = renderSection(issueProcedureBidsByCategory, {
+      facts: variant({ terminology: 'OFFER' }),
+    })
+      .map((n) => (n.type === 'paragraph' ? n.runs.map((r) => r.text).join('') : ''))
+      .join('\n');
+    expect(out).toContain('Participation of Eligible NRIs in the Issue');
+    expect(asOffer).toContain('Participation of Eligible NRIs in the Offer');
+  });
+
+  it('does not apply to a fixed-price issue', () => {
+    const fixedPrice: FactBase = {
+      ...vardhman,
+      offer: { ...vardhman.offer, issueType: 'FIXED_PRICE' },
+    };
+    expect(renderSection(issueProcedureBidsByCategory, { facts: fixedPrice })).toHaveLength(0);
+  });
+
+  it('leaves no unresolved template syntax and raises no gaps', () => {
+    expect(out).not.toMatch(/\{\{|\}\}/);
+    expect(collectPlaceholders(renderSection(issueProcedureBidsByCategory, { facts: vardhman })))
+      .toHaveLength(0);
   });
 });
 

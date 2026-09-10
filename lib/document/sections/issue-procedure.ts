@@ -127,4 +127,201 @@ The Book Running Lead Manager to the {{ terms.issueWord }} is
 `.trim(),
 };
 
-export const issueRelatedSections: SectionSpec[] = [issueProcedure];
+/**
+ * Bids by investor category — twelve subsections, the bulk of Issue Procedure
+ * and the most invariant material in it.
+ *
+ * Extraction notes, 2026-09-10:
+ *   Om Galaxy RHP (BSE SME) pp.436-437 and Maxwell DRHP (NSE Emerge) pp.333-338.
+ *   Substance is identical throughout. Differences are ordering (Om Galaxy puts
+ *   the mutual fund NAV limit before the registration requirement, Maxwell after),
+ *   "10%" vs "10.00%", and "Bids" vs "Applications" phrasing.
+ *
+ *   The numeric limits quoted here belong to OTHER regulations — SEBI Mutual Fund,
+ *   VCF, FVCI, AIF and FPI Regulations, FEMA Non-debt Instrument Rules, the Banking
+ *   Regulation Act, IRDAI Investment Regulations. They are reproduced as the corpus
+ *   states them, not authored by us, so they are not rule-pack entries.
+ *
+ * Still to extract: the full IRDAI exposure-norms list (only the first limb is
+ * verified so far) and the Anchor Investor subsection.
+ */
+export const issueProcedureBidsByCategory: SectionSpec = {
+  id: 'issueRelated.issueProcedure.bidsByCategory',
+  title: 'Bids by Investor Category',
+  producer: 'template',
+  order: 3110,
+  group: 'SECTION - ISSUE RELATED INFORMATION',
+  appliesIf: (facts) => facts.offer.issueType === 'BOOK_BUILT',
+  extractedFrom: [
+    'bookbuilt__manufacturing__om-galaxy__bse-sme__2026-09__rhp.pdf pp.436-437',
+    'bookbuilt__engineering__maxwell-engineering__nse-emerge__2026-08__drhp.pdf pp.333-338',
+  ],
+  template: `
+### Bids by Hindu Undivided Families
+
+Bids by Hindu Undivided Families or HUFs should be made in the individual name of the Karta. The
+Bidder should specify that the Bid is being made in the name of the HUF in the Bid cum Application
+Form as follows: "Name of sole or first Bidder: XYZ Hindu Undivided Family applying through XYZ",
+where XYZ is the name of the Karta. Bids by HUFs will be considered at par with Bids from
+individuals.
+
+### Bids by Mutual Funds
+
+With respect to Bids by Mutual Funds, a certified copy of their SEBI registration certificate must
+be lodged along with the Bid cum Application Form. Failing this, our Company, in consultation with
+the Book Running Lead Manager, reserves the right to reject any Bid without assigning any reason
+thereof.
+
+Bids made by asset management companies or custodians of Mutual Funds shall specifically state the
+names of the concerned schemes for which such Bids are made.
+
+In the case of a Mutual Fund, a separate Bid can be made in respect of each scheme of the Mutual
+Fund registered with SEBI, and such Bids in respect of more than one scheme of the Mutual Fund will
+not be treated as multiple Bids, provided that the Bids clearly indicate the scheme concerned for
+which the Bid has been made.
+
+No Mutual Fund scheme shall invest more than 10% of its net asset value in equity shares or equity
+related instruments of any single company, provided that the limit of 10% shall not be applicable
+for investments in index funds or sector or industry specific schemes. No Mutual Fund under all its
+schemes should own more than 10% of any company's paid-up share capital carrying voting rights.
+
+### Bids by Eligible NRIs
+
+Eligible NRIs may obtain copies of the Bid cum Application Form from the Designated Intermediaries.
+Only Bids accompanied by payment in Indian Rupees or freely convertible foreign exchange will be
+considered for Allotment.
+
+Eligible NRIs Bidding on a repatriation basis, using the Non-Resident Form, should authorise their
+SCSB or confirm or accept the UPI Mandate Request, in the case of Individual Investors using the
+UPI Mechanism, to block their Non-Resident External ("NRE") accounts or Foreign Currency
+Non-Resident ("FCNR") ASBA Accounts. Eligible NRIs Bidding on a non-repatriation basis, using
+Resident Forms, should authorise their SCSB or confirm or accept the UPI Mandate Request to block
+their Non-Resident Ordinary ("NRO") accounts for the full Bid Amount at the time of submission of
+the Bid cum Application Form.
+
+Participation of Eligible NRIs in the {{ terms.issueWord }} shall be subject to the Foreign Exchange
+Management Act ("FEMA") Non-debt Instrument Rules. In accordance with those Rules, the total holding
+by any individual NRI on a repatriation basis shall not exceed 5% of the total paid-up equity share
+capital on a fully diluted basis, and the total holdings of all NRIs and Overseas Citizens of India
+("OCI") put together shall not exceed 10% of the total paid-up equity share capital on a fully
+diluted basis.
+
+Eligible NRIs Bidding on a non-repatriation basis are advised to use the Bid cum Application Form
+for residents (white in colour). Eligible NRIs Bidding on a repatriation basis are advised to use
+the Bid cum Application Form meant for non-residents (blue in colour).
+
+### Bids by FPIs
+
+In terms of the SEBI FPI Regulations, any qualified foreign investor or FII holding a valid
+certificate of registration from SEBI shall be deemed to be an FPI until the expiry of the block of
+three years for which fees have been paid under the SEBI FII Regulations.
+
+In the case of Bids made by FPIs, a certified copy of the certificate of registration issued by the
+designated depository participant under the SEBI FPI Regulations is required to be attached to the
+Bid cum Application Form, failing which our Company reserves the right to reject any Bid without
+assigning any reason.
+
+In terms of the SEBI FPI Regulations, the {{ terms.issueWord }} of Equity Shares to a single FPI or
+an investor group, meaning the same set of ultimate beneficial owners investing through multiple
+entities, must be below 10% of our post-{{ terms.issueWord }} equity share capital. Further, in
+terms of the FEMA Regulations, the total holding by each FPI shall be below 10% of the total paid-up
+equity share capital of our Company, and the total holdings of all FPIs put together shall not
+exceed 24% of the paid-up equity share capital of our Company.
+
+### Bids by SEBI-registered AIFs, VCFs and FVCIs
+
+The Securities and Exchange Board of India (Venture Capital Funds) Regulations, 1996, as amended
+(the "SEBI VCF Regulations") and the Securities and Exchange Board of India (Foreign Venture Capital
+Investor) Regulations, 2000, as amended, prescribe, among other things, the investment restrictions
+on VCFs and FVCIs registered with SEBI. Further, the Securities and Exchange Board of India
+(Alternative Investment Funds) Regulations, 2012 (the "SEBI AIF Regulations") prescribe, amongst
+others, the investment restrictions on AIFs.
+
+The holding by any individual VCF or FVCI registered with SEBI in one venture capital undertaking
+should not exceed 25% of the corpus of the VCF. Further, VCFs and FVCIs can invest only up to 33.33%
+of their investible funds by way of subscription to an initial public offering.
+
+### Bids by Limited Liability Partnerships
+
+In the case of Bids made by limited liability partnerships registered under the Limited Liability
+Partnership Act, 2008, a certified copy of the certificate of registration issued under that Act
+must be attached to the Bid cum Application Form. Failing this, our Company, in consultation with
+the Book Running Lead Manager, reserves the right to reject any Bid without assigning any reason
+thereof.
+
+### Bids by Banking Companies
+
+In the case of Bids made by banking companies registered with the RBI, certified copies of (i) the
+certificate of registration issued by the RBI and (ii) the approval of such banking company's
+investment committee are required to be attached to the Bid cum Application Form. Failing this, our
+Company, in consultation with the Book Running Lead Manager, reserves the right to reject any Bid
+without assigning any reason thereof.
+
+The investment limit for banking companies in non-financial services companies, as prescribed by the
+Banking Regulation Act, the Reserve Bank of India (Financial Services provided by Banks) Directions,
+2016, as amended, and the Master Circular on Basel III Capital Regulations, is 10% of the paid-up
+share capital of the investee company, not being its subsidiary engaged in non-financial services,
+or 10% of the bank's own paid-up share capital and reserves, whichever is lower.
+
+### Bids by SCSBs
+
+SCSBs participating in the {{ terms.issueWord }} are required to comply with the terms of the
+circulars issued by SEBI dated September 13, 2012 and January 2, 2013. Such SCSBs are required to
+ensure that, for making applications on their own account using ASBA, they have a separate account
+in their own name with any other SEBI-registered SCSB. Further, such account shall be used solely
+for the purpose of making applications in public issues, and clear demarcated funds should be
+available in such account for such applications.
+
+### Bids by Systemically Important Non-Banking Financial Companies
+
+In the case of Bids made by Systemically Important Non-Banking Financial Companies registered with
+the RBI, certified copies of (i) the certificate of registration issued by the RBI, (ii) the last
+audited financial statements on a standalone basis, (iii) a net worth certificate from its statutory
+auditors, and (iv) such other approval as may be required, are required to be attached to the Bid
+cum Application Form. Failing this, our Company, in consultation with the Book Running Lead Manager,
+reserves the right to reject any Bid without assigning any reason thereof.
+
+Systemically Important Non-Banking Financial Companies participating in the {{ terms.issueWord }}
+shall comply with all applicable regulations, directions, guidelines and circulars issued by the RBI
+from time to time. The investment limit for Systemically Important Non-Banking Financial Companies
+shall be as prescribed by the RBI from time to time.
+
+### Bids by Insurance Companies
+
+In the case of Bids made by insurance companies registered with the IRDAI, a certified copy of the
+certificate of registration issued by the IRDAI must be attached to the Bid cum Application Form.
+Failing this, our Company reserves the right to reject any Bid by an insurance company without
+assigning any reason thereof.
+
+The exposure norms for insurers prescribed under the Insurance Regulatory and Development Authority
+(Investment) Regulations, as amended, provide in respect of equity shares of a company for the least
+of 10% of the investee company's subscribed capital at face value, or 10% of the respective fund in
+the case of a life insurer, or 10% of investment assets in the case of a general insurer or
+reinsurer.
+
+### Bids by Provident Funds and Pension Funds
+
+In the case of Bids made by provident funds or pension funds with a minimum corpus of Rs 2,500 lakhs,
+subject to applicable laws, a certified copy of a certificate from a chartered accountant certifying
+the corpus of the provident fund or pension fund must be attached to the Bid cum Application Form.
+Failing this, our Company, in consultation with the Book Running Lead Manager, reserves the right to
+reject any Bid without assigning any reason thereof.
+
+### Bids under Power of Attorney
+
+In the case of Bids made pursuant to a power of attorney by limited companies, corporate bodies,
+registered societies, eligible FPIs, AIFs, Mutual Funds, insurance companies, insurance funds set up
+by the army, navy or air force of the Union of India, insurance funds set up by the Department of
+Posts, India, the National Investment Fund, and provident funds and pension funds with a minimum
+corpus of Rs 2,500 lakhs, subject to applicable laws, a certified copy of the power of attorney or
+the relevant resolution or authority, as the case may be, along with a certified copy of the
+memorandum of association and articles of association or bye-laws, as applicable, must be lodged
+along with the Bid cum Application Form. Failing this, our Company reserves the right to accept or
+reject any Bid in whole or in part, in either case without assigning any reason therefor.
+`.trim(),
+};
+
+export const issueRelatedSections: SectionSpec[] = [
+  issueProcedure,
+  issueProcedureBidsByCategory,
+];
