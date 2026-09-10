@@ -172,6 +172,7 @@ export function derivedTerms(facts: FactBase) {
       .toFixed(2),
     issueWordLower: issueWord.toLowerCase(),
     exchangeName: facts.offer.exchange === 'BSE_SME' ? 'BSE SME' : 'NSE Emerge',
+    isBSE: facts.offer.exchange === 'BSE_SME',
     exchangeLongName:
       facts.offer.exchange === 'BSE_SME'
         ? 'the SME Platform of BSE Limited'

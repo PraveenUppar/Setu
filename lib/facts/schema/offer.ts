@@ -98,6 +98,20 @@ export const zOffer = z.object({
    * wide circulation, at least two working days before the bid opening date.
    * Named in the Method of Bidding and Pre-Issue Advertisement subsections.
    */
+  /**
+   * The BRLM furnishes SEBI a due diligence certificate in the Schedule V(A)
+   * format, with the site visit report annexed (R-016). Its date is quoted in
+   * the SEBI disclaimer clause.
+   */
+  dueDiligenceCertificateDate: zDate
+    .optional()
+    .describe("Date of the Book Running Lead Manager's due diligence certificate"),
+
+  /** The exchange's letter permitting use of its name, quoted in its disclaimer. */
+  inPrincipleApprovalDate: zDate
+    .optional()
+    .describe('Date of the exchange letter granting in-principle approval'),
+
   englishNewspaper: z.string().optional().describe('English national daily with wide circulation'),
   hindiNewspaper: z.string().optional().describe('Hindi national daily with wide circulation'),
   regionalNewspaper: z

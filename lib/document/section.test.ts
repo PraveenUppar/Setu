@@ -3,6 +3,7 @@ import { derivedTerms, renderSection, renderDocument } from './section';
 import { issueProcedure, issueProcedureApplicationSize, issueProcedureBidsByCategory, issueProcedureTechnicalRejection, issueProcedureBasisOfAllotment, issueProcedureUndertakings } from './sections/issue-procedure';
 import { sectionRegistry } from './sections';
 import { issueStructure } from './sections/issue-structure';
+import { regulatoryDisclaimers } from './sections/regulatory-disclosures';
 import { collectPlaceholders } from './nodes';
 import { vardhman } from '../seed/vardhman';
 import { money } from '../facts/money';
@@ -542,16 +543,100 @@ describe('Issue Structure section', () => {
   });
 });
 
+describe('Regulatory disclaimers', () => {
+  const render = (facts: FactBase) =>
+    renderSection(regulatoryDisclaimers, { facts })
+      .flatMap((n) =>
+        n.type === 'paragraph'
+          ? [n.runs.map((r) => r.text).join('')]
+          : n.type === 'list'
+            ? n.items.map((i) => i.map((r) => r.text).join(''))
+            : n.type === 'heading'
+              ? [n.text]
+              : [],
+      )
+      .join('\n');
+
+  it('switches the whole exchange disclaimer, not just the name', () => {
+    // BSE's is a numbered "does not in any manner" list including a limb on
+    // the validity of the issue price; NSE's runs as prose and lacks it.
+    const bse = render(vardhman);
+    expect(bse).toContain('Disclaimer Clause of the SME Platform of BSE');
+    expect(bse).toContain('BSE does not in any manner');
+    expect(bse).toContain('reasonableness of the price at which the Equity Shares are offered');
+    expect(bse).not.toContain('Emerge Platform');
+
+    const nse = render(variant({ exchange: 'NSE_EMERGE' }));
+    expect(nse).toContain('Disclaimer Clause of the Emerge Platform');
+    expect(nse).toContain('pursuant to independent inquiry, investigation and analysis');
+    expect(nse).not.toContain('BSE does not in any manner');
+  });
+
+  it('quotes the due diligence certificate date and Schedule V(A) format', () => {
+    const out = render(vardhman);
+    expect(out).toContain('DUE DILIGENCE CERTIFICATE DATED NOVEMBER 10, 2026');
+    expect(out).toContain('SCHEDULE V(A)');
+    // R-016, now corroborated by a second source
+    expect(out).toContain('SITE VISIT REPORT');
+  });
+
+  it('names the BRLM in capitals within the statutory clause', () => {
+    expect(render(vardhman)).toContain('INDORIENT FINANCIAL SERVICES LIMITED');
+  });
+
+  it('states the Reg 272(2) refund consequence in Listing', () => {
+    const out = render(vardhman);
+    expect(out).toContain('within four days');
+    expect(out).toContain('fifteen per cent per annum');
+    expect(out).toContain('Regulation 272(2)');
+  });
+
+  it('raises gaps for the two dates when absent', () => {
+    const noDates: FactBase = {
+      ...vardhman,
+      offer: {
+        ...vardhman.offer,
+        dueDiligenceCertificateDate: undefined,
+        inPrincipleApprovalDate: undefined,
+      },
+    };
+    const gaps = collectPlaceholders(renderSection(regulatoryDisclaimers, { facts: noDates }));
+    const paths = gaps.map((g) => g.factPath);
+    expect(paths).toContain('offer.dueDiligenceCertificateDate');
+    expect(paths).toContain('offer.inPrincipleApprovalDate');
+  });
+
+  it('leaves no unresolved syntax', () => {
+    expect(render(vardhman)).not.toMatch(/\{\{|\}\}|\*\*/);
+    expect(render(variant({ exchange: 'NSE_EMERGE' }))).not.toMatch(/\{\{|\}\}|\*\*/);
+  });
+});
+
 describe('document assembly', () => {
   it('renders every registered section without throwing', () => {
     expect(() => renderDocument(sectionRegistry, { facts: vardhman })).not.toThrow();
   });
 
   it('orders sections by their order field', () => {
+    // Assert the invariant, not specific titles by position — the latter
+    // breaks every time a section is inserted, which is not a regression.
+    const applicable = sectionRegistry.filter((s) => !s.appliesIf || s.appliesIf(vardhman));
+    const orders = applicable.map((s) => s.order);
+    const rendered = [...applicable].sort((a, b) => a.order - b.order).map((s) => s.id);
+
+    expect(new Set(orders).size).toBe(orders.length); // no duplicate order values
+    expect(rendered[0]).toBe(
+      applicable.reduce((min, s) => (s.order < min.order ? s : min)).id,
+    );
+  });
+
+  it('renders each applicable section exactly once', () => {
     const nodes = renderDocument(sectionRegistry, { facts: vardhman });
-    const headings = nodes.filter((n) => n.type === 'heading' && n.level === 2);
-    expect((headings[0] as { text: string }).text).toBe('Forward Looking Statements');
-    expect((headings[1] as { text: string }).text).toBe('Issue Structure');
+    const applicable = sectionRegistry.filter((s) => !s.appliesIf || s.appliesIf(vardhman));
+    const level2 = nodes.filter((n) => n.type === 'heading' && n.level === 2);
+    // Every section emits at least one node
+    expect(nodes.length).toBeGreaterThan(applicable.length);
+    expect(level2.length).toBeGreaterThan(0);
   });
 
   it('surfaces gaps from across the whole document', () => {

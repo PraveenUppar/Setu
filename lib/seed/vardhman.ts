@@ -459,6 +459,9 @@ export const vardhman: FactBase = {
     bookRunningLeadManager: 'Indorient Financial Services Limited',
     registrarToIssue: 'Bigshare Services Private Limited',
 
+    dueDiligenceCertificateDate: '2026-11-10',
+    inPrincipleApprovalDate: '2026-10-22',
+
     englishNewspaper: 'Business Standard',
     hindiNewspaper: 'Business Standard (Hindi)',
     regionalNewspaper: 'Navshakti',
