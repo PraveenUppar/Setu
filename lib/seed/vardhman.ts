@@ -460,6 +460,9 @@ export const vardhman: FactBase = {
     registrarToIssue: 'Bigshare Services Private Limited',
 
     jurisdiction: 'Mumbai, Maharashtra',
+    bidOpeningDate: '2026-12-08',
+    bidClosingDate: '2026-12-10',
+    underwritingAgreementDate: '2026-11-28',
     boardResolutionDate: '2026-08-14',
     shareholderResolutionDate: '2026-08-28',
     boardApprovalOfDocumentDate: '2026-11-12',

@@ -95,6 +95,13 @@ export const zOffer = z.object({
     .optional()
     .describe('City and state of the courts having exclusive jurisdiction for the issue'),
 
+  /** The bid period. Minimum three Working Days, maximum ten (R-006 vicinity). */
+  bidOpeningDate: zDate.optional().describe('Bid/Issue Opening Date'),
+  bidClosingDate: zDate.optional().describe('Bid/Issue Closing Date'),
+
+  /** Reg 260 requires 100% underwriting; the agreement is dated and quoted. */
+  underwritingAgreementDate: zDate.optional().describe('Date of the Underwriting Agreement'),
+
   /** Reg 261(1): compulsory market making for a minimum of 3 years. */
   marketMakerName: z.string().optional(),
   marketMakingYears: z.number().int().default(3),

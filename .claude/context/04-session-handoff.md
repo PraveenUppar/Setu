@@ -6,8 +6,10 @@
 
 **Last updated:** 2026-09-10
 **Current stage:** S4 — Wave 1 template extraction
-**Status:** **124 tests passing, tsc clean, dev server runs.** Document renders **9 sections, 13 estimated pages, 1 table, 2 gaps.**
+**Status:** **166 tests passing, tsc clean, dev server runs.** Document renders **13 sections, 23 estimated pages, 3 tables, 3 gaps.**
 **Scope:** FULL BUILD, S0 through S13. No deadline pressure.
+
+**Standing instruction: do not commit or push unless the user asks.**
 
 ---
 
@@ -45,6 +47,10 @@ Next.js 16.3.4, React 19.2.8, Tailwind 4, Zod 4.5.4, vitest 5. Dev server on :30
 | Issue Procedure — Grounds for Technical Rejection | template | 25+ grounds |
 | Issue Procedure — Basis of Allotment | template | |
 | Issue Procedure — Impersonation, Undertakings, Utilisation | template | |
+| Definitions and Abbreviations | **computed** | 79 authored + 129 generated |
+| Terms of the Issue | template | |
+| Other Regulatory — Authority and Confirmations | template | |
+| Other Regulatory — Consents and Grievances | template | |
 
 ---
 
@@ -63,16 +69,22 @@ Every section is diffed across two sources then checked against **Century Busine
 
 ## Next action
 
-Continue Wave 1 extraction. In descending value:
+**Recommendation: stop extracting and build S6.** Wave 1 has proven the engine and produced 23 pages; the remaining template work is more of the same and can resume any time. S6 is the product's differentiator, is fully unblocked, and needs no API credits.
 
-1. **Other Regulatory and Statutory Disclosures — remaining chunks.** Authority for the issue, lender NOC, prohibition by SEBI/RBI, confirmations, caution, disclaimer in respect of jurisdiction, consents, experts opinion, stock market data, investor grievance mechanism, fees payable, purchase of property, revaluation. ~12 subsections, ~90% invariant.
-2. **Definitions and Abbreviations** (~17pp) — sector-varied, high page count.
-3. **Terms of the Issue** (~10pp) — completes the Issue Related group.
-4. **Issue Procedure remainder** — UPI implementation, availability of forms, bids at different price levels, terms of payment, electronic registration, build of the book, withdrawal of bids, price discovery, underwriting agreement and RoC filing, pre-issue advertisement, general instructions.
+**S6 — rule engine, eligibility pre-check, gap dashboard.** Everything it needs exists:
+- 25 rule-source entries (R-001..R-025) plus 18 BSE and 11 NSE criteria
+- a seed whose arithmetic ties, so consistency rules have something real to check
+- `collectPlaceholders` already surfaces document gaps; the dashboard groups them by severity with clause citations
+- **D16: add `effectiveFrom` to the `Rule` type at the outset.** Retrofitting means re-auditing every rule.
+- **D20's applicability lesson carries over:** the gap list must separate NOT APPLICABLE from MISSING, as `Definition.appliesIf` now does. A dashboard full of inapplicable items is one nobody reads.
 
-**Main Provisions of AoA (~38pp) is the largest remaining section but is blocked** — it is extracted per-issuer from the company's own articles, so it needs S7 upload and extraction, not templating.
+If continuing Wave 1 instead, in descending value:
 
-Then **S6** (rule engine, eligibility pre-check, gap dashboard), which is fully unblocked and needs no API credits.
+1. **Other Regulatory remainder** — caution, jurisdiction disclaimer, experts opinion (needs M6 auditor facts), stock market data, fees payable, purchase of property, revaluation. ~8 subsections.
+2. **Issue Procedure remainder** — UPI implementation, availability of forms, bids at different price levels, terms of payment, electronic registration, build of the book, withdrawal, price discovery, underwriting agreement and RoC filing, pre-issue advertisement, general instructions.
+3. **Definitions remainder** — ~130 entries, but see D21: each must be READ and authored, not filtered. The sector glossary cannot come from the corpus at all.
+
+**Main Provisions of AoA (~38pp) is the largest remaining section but is blocked** — extracted per-issuer from the company's own articles, so it needs S7 upload and extraction, not templating.
 
 ---
 

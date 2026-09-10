@@ -877,11 +877,129 @@ describe('Definitions and Abbreviations', () => {
     );
   });
 
-  it('declares the standard glossary as not yet loaded', () => {
-    // ~190 static entries are a mechanical bulk import and are NOT present.
-    // A 17-page section must not quietly render as one page.
+  it('strips the corpus issuer facts that a regex filter let through (D21)', () => {
+    // These three passed an automated filter as "safe to reuse" while still
+    // carrying Om Galaxy's data. Reading them caught it; assert they stay out.
+    const all = table.rows.map((r) => r.join(' ')).join('\n');
+    expect(all).not.toContain('124851W'); // Om Galaxy's auditor registration
+    expect(all).not.toContain('1,600'); // Om Galaxy's bid lot
+    expect(all).not.toMatch(/face value of Rs 5\b/); // Om Galaxy's face value
+  });
+
+  it('substitutes rather than copies the entries that carried issuer facts', () => {
+    expect(find('Bid Lot')).toBe('3000 Equity Shares, and in multiples of 3000 Equity Shares thereafter');
+    expect(find('Price Band')).toContain('Rs 47');
+    expect(find('Price Band')).toContain('Rs 49');
+    // Working Day is scoped to the issuer's own jurisdiction, not Om Galaxy's
+    expect(find('Working Day')).toContain('Mumbai, Maharashtra');
+  });
+
+  it('keeps the cut-off rule that three sources agree on', () => {
+    const cutOff = find('Cut-off Price')!;
+    expect(cutOff).toContain('Only Individual Investors are entitled to Bid at the Cut-off Price');
+    expect(cutOff).toContain('Non-Institutional Investors are not');
+  });
+
+  it('carries the Section 40(3) reference that corroborated the undertakings', () => {
+    expect(find('Public Issue Account')).toContain('Section 40(3) of the Companies Act, 2013');
+  });
+
+  it('does not reproduce the error in the source document', () => {
+    // Om Galaxy's own glossary defines the Individual Investor Portion as
+    // "not less than 15% of the Issue". That is wrong — 15% is the
+    // Non-Institutional Portion; Individual Investors get not less than 35%
+    // (R-024), which its own Issue Structure table states correctly.
+    expect(find('Individual Investor Portion')).toContain('not less than 35%');
+    expect(find('Individual Investor Portion')).not.toContain('15%');
+    expect(find('Non-Institutional Portion')).toContain('not less than 15%');
+    expect(find('QIB Portion')).toContain('not more than 50%');
+  });
+
+  it('states portion percentages but not share counts (D20)', () => {
+    for (const t of ['Individual Investor Portion', 'Non-Institutional Portion', 'QIB Portion']) {
+      // The corpus states counts here; they are the banker's call at pricing
+      expect(find(t)).not.toMatch(/\d{2},\d{2},\d{3}/);
+    }
+  });
+
+  it('lists terms alphabetically, as a glossary does', () => {
+    const terms = table.rows.map((r) => r[0].replace(/^["']/, ''));
+    const sorted = [...terms].sort((a, b) => a.localeCompare(b, 'en'));
+    expect(terms).toEqual(sorted);
+  });
+
+  it('substitutes governance entries from the fact base', () => {
+    expect(find('CIN')).toContain('U29253MH2016PLC098765');
+    expect(find('Managing Director')).toContain('Rajesh Vardhman');
+    expect(find('Chief Financial Officer, CFO')).toContain('Sunita Vardhman');
+    expect(find('Group Companies')).toContain('Vardhman Tooling Private Limited');
+  });
+
+  it('cites the statute or regulation for governance terms', () => {
+    expect(find('Independent Director')).toContain('Section 2(47)');
+    expect(find('Key Managerial Personnel, KMP')).toContain('Regulation 2(1)(bb)');
+    expect(find('Senior Management, SMP')).toContain('Regulation 2(1)(bbbb)');
+    expect(find('Promoter Group')).toContain('Regulation 2(1)(pp)');
+    expect(find('Audit Committee')).toContain('Section 177');
+    expect(find('Nomination and Remuneration Committee')).toContain('Section 178');
+  });
+
+  it('distinguishes inapplicable from missing', () => {
+    // Vardhman has no separate corporate office. The term should be ABSENT,
+    // not listed as a gap — telling an issuer to supply a corporate office it
+    // does not have sends them looking for one.
+    expect(vardhman.company.corporateOffice).toBeUndefined();
+    expect(table.rows.find((r) => r[0] === 'Corporate Office')).toBeUndefined();
+    expect(collectPlaceholders(nodes).map((g) => g.factPath)).not.toContain(
+      'definitions.Corporate Office',
+    );
+
+    // Whereas a fact we expect and do not have IS a gap
+    const noRegistrar: FactBase = {
+      ...vardhman,
+      offer: { ...vardhman.offer, registrarToIssue: undefined },
+    };
+    expect(
+      collectPlaceholders(renderSection(definitions, { facts: noRegistrar })).map((g) => g.factPath),
+    ).toContain('definitions.Registrar to the Issue');
+  });
+
+  it('drops Net Issue when there is no market maker portion', () => {
+    const noMM: FactBase = {
+      ...vardhman,
+      offer: { ...vardhman.offer, marketMakerReservationShares: undefined },
+    };
+    const t = renderSection(definitions, { facts: noMM }).find((n) => n.type === 'table') as {
+      rows: string[][];
+    };
+    expect(t.rows.find((r) => r[0] === 'Net Issue')).toBeUndefined();
+    expect(find('Net Issue')).toBeDefined();
+  });
+
+  it('renders the abbreviations as their own table', () => {
+    const tables = nodes.filter((n) => n.type === 'table') as { headers: string[]; rows: string[][] }[];
+    const abbr = tables.find((t) => t.headers[0] === 'Abbreviation');
+    expect(abbr).toBeDefined();
+    expect(abbr!.rows.length).toBeGreaterThan(100);
+    // Expansions carry no issuer facts by construction
+    const all = abbr!.rows.map((r) => r.join(' ')).join('\n');
+    expect(all).not.toMatch(/Om Galaxy|Baddhan|124851W|Mumbai II/);
+  });
+
+  it('excludes the KPI ratio definitions swept in from the adjacent table', () => {
+    const tables = nodes.filter((n) => n.type === 'table') as { headers: string[]; rows: string[][] }[];
+    const abbr = tables.find((t) => t.headers[0] === 'Abbreviation')!;
+    const all = abbr.rows.map((r) => r[1]).join('\n');
+    // These belong with Basis for Issue Price, not the abbreviations
+    expect(all).not.toMatch(/is calculated as Restated/);
+    expect(all).not.toMatch(/RoCE is an indicator/);
+  });
+
+  it('declares the sector glossary as still outstanding', () => {
+    // Technical and industry terms are sector-specific and CANNOT come from
+    // another issuer's glossary at all, however carefully filtered.
     const paths = collectPlaceholders(nodes).map((g) => g.factPath);
-    expect(paths).toContain('definitions.standardGlossary');
+    expect(paths).toContain('definitions.sectorGlossary');
   });
 });
 

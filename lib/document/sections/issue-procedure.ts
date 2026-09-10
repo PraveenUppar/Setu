@@ -423,11 +423,15 @@ accept Bids from Bidders during the Bid/{{ terms.issueWord }} Period.
  *   defaulter declaration); both are standard and are included.
  *
  * Held-out verification against Century Business Media: 14 of 15 checks matched.
- * The exception is the Section 40(3) separate-bank-account bullet under
+ * The exception was the Section 40(3) separate-bank-account bullet under
  * Utilisation of Proceeds — Century references Section 40 only in a penalties
- * context, so that ONE bullet rests on Maxwell alone. The other four bullets of
- * that subsection matched. Worth re-confirming against a third document before
- * this ships.
+ * context, so that ONE bullet rested on Maxwell alone.
+ *
+ * RESOLVED 2026-09-10. Om Galaxy's own glossary defines "Public Issue Account"
+ * as "the bank account opened with the Public Issue Account Bank under Section
+ * 40(3) of the Companies Act, to receive monies from the Escrow Accounts and
+ * from the ASBA Accounts on the Designated Date" — an independent second
+ * source, in a different part of a different document. The bullet stands.
  */
 export const issueProcedureUndertakings: SectionSpec = {
   id: 'issueRelated.issueProcedure.undertakings',

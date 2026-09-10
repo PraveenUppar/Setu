@@ -1,0 +1,566 @@
+[
+ {
+  "a": "Rs./ Rupees/ INR/",
+  "f": "Indian Rupees"
+ },
+ {
+  "a": "AAEC",
+  "f": "Appreciable adverse effect on competition"
+ },
+ {
+  "a": "AS / Accounting Standard",
+  "f": "Accounting Standards as issued by the Institute of Chartered Accountants of India"
+ },
+ {
+  "a": "A/c",
+  "f": "Account"
+ },
+ {
+  "a": "AGM",
+  "f": "Annual General Meeting"
+ },
+ {
+  "a": "ASBA",
+  "f": "Applications Supported by Blocked Amount"
+ },
+ {
+  "a": "Amt.",
+  "f": "Amount"
+ },
+ {
+  "a": "AIF",
+  "f": "Alternative Investment Funds registered under the Securities and Exchange Board of India (Alternative Investment Funds) Regulations, 2012, as amended"
+ },
+ {
+  "a": "AY",
+  "f": "Assessment Year"
+ },
+ {
+  "a": "AOA",
+  "f": "Articles of Association"
+ },
+ {
+  "a": "Approx",
+  "f": "Approximately"
+ },
+ {
+  "a": "Bn",
+  "f": "Billion"
+ },
+ {
+  "a": "BG/LC",
+  "f": "Bank Guarantee / Letter of Credit"
+ },
+ {
+  "a": "BIFR",
+  "f": "Board for Industrial and Financial Reconstruction"
+ },
+ {
+  "a": "BNSS",
+  "f": "Bhartiya Nagrik Suraksha Sanhita, 2023"
+ },
+ {
+  "a": "BRLM",
+  "f": "Book Running Lead Manager"
+ },
+ {
+  "a": "CDSL",
+  "f": "Central Depository Services (India) Limited"
+ },
+ {
+  "a": "CAN",
+  "f": "Confirmation of Allocation Note"
+ },
+ {
+  "a": "Companies Act, 2013",
+  "f": "Companies Act, 2013 to the extent in force pursuant to the notification of sections of the Companies Act, 2013 along with the relevant rules made thereunder as amended"
+ },
+ {
+  "a": "Companies Act, 1956",
+  "f": "Companies Act, 1956 (without reference to the provisions that have ceased upon notification of the Companies Act, 2013) along with the relevant rules made thereunder"
+ },
+ {
+  "a": "CA",
+  "f": "Chartered Accountant"
+ },
+ {
+  "a": "Client ID",
+  "f": "Client identification number of the Bidder's beneficiary account"
+ },
+ {
+  "a": "CC",
+  "f": "Cash Credit"
+ },
+ {
+  "a": "CCI",
+  "f": "Competition Commission of India"
+ },
+ {
+  "a": "CIN",
+  "f": "Corporate Identity Number"
+ },
+ {
+  "a": "CS",
+  "f": "Company Secretary"
+ },
+ {
+  "a": "CFO",
+  "f": "Chief Financial Officer"
+ },
+ {
+  "a": "CSR",
+  "f": "Corporate Social Responsibility"
+ },
+ {
+  "a": "C.P.C.",
+  "f": "Code of Civil Procedure, 1908"
+ },
+ {
+  "a": "CENVAT",
+  "f": "Central Value Added Tax"
+ },
+ {
+  "a": "CST",
+  "f": "Central Sales Tax"
+ },
+ {
+  "a": "CWA/ICWA",
+  "f": "Cost and Works Accountant"
+ },
+ {
+  "a": "CMD",
+  "f": "Chairman and Managing Director"
+ },
+ {
+  "a": "DIN",
+  "f": "Director Identification Number"
+ },
+ {
+  "a": "DP",
+  "f": "Depository Participant"
+ },
+ {
+  "a": "Depositories Act",
+  "f": "The Depositories Act, 1996, read with the rules, regulations, clarifications and modifications thereunder"
+ },
+ {
+  "a": "Depository",
+  "f": "A depository registered with the SEBI under the Securities and Exchange Board of India (Depositories and Participants) Regulations, 2018"
+ },
+ {
+  "a": "DP ID",
+  "f": "Depository Participant's Identification Number"
+ },
+ {
+  "a": "EBITDA",
+  "f": "Earnings Before Interest, Taxes, Depreciation & Amortization"
+ },
+ {
+  "a": "EGM /EOGM",
+  "f": "Extraordinary General Meeting"
+ },
+ {
+  "a": "EXIM/ EXIM Policy",
+  "f": "Export � Import Policy"
+ },
+ {
+  "a": "FCNR Account",
+  "f": "Foreign Currency Non-Resident (Bank) account established in accordance with the provisions of FEMA"
+ },
+ {
+  "a": "FY / Fiscal/Financial Year",
+  "f": "Period of twelve months ended March 31 of that particular year, unless otherwise stated"
+ },
+ {
+  "a": "FEMA",
+  "f": "Foreign Exchange Management Act, 1999 as amended from time to time, and the regulations framed there under."
+ },
+ {
+  "a": "FDI",
+  "f": "Foreign Direct Investment"
+ },
+ {
+  "a": "FIs",
+  "f": "Financial Institutions"
+ },
+ {
+  "a": "FIIs",
+  "f": "Foreign Institutional Investors (as defined under Foreign Exchange Management (Transfer or Issue of Security by a Person Resident outside India) Regulations, 2000) registered with SEBI under applicable laws in India"
+ },
+ {
+  "a": "FTA",
+  "f": "Foreign Trade (Development and Regulation) Act, 1992"
+ },
+ {
+  "a": "FVCI/ Foreign Venture Capital",
+  "f": "Foreign Venture Capital Investors registered with SEBI under the Securities"
+ },
+ {
+  "a": "Investors",
+  "f": "and Exchange Board of India (Foreign Venture Capital Investors) Regulations,"
+ },
+ {
+  "a": "FEMA Rules",
+  "f": "Foreign Exchange Management (Non-debt Instruments) Rules, 2019"
+ },
+ {
+  "a": "FV",
+  "f": "Face Value"
+ },
+ {
+  "a": "GoI/Government",
+  "f": "Government of India"
+ },
+ {
+  "a": "GDP",
+  "f": "Gross Domestic Product"
+ },
+ {
+  "a": "GIR Number",
+  "f": "General Index Registry Number"
+ },
+ {
+  "a": "GST",
+  "f": "Goods and Services Tax"
+ },
+ {
+  "a": "GVA",
+  "f": "Gross Value Added"
+ },
+ {
+  "a": "IBC",
+  "f": "The Insolvency and Bankruptcy Code, 2016"
+ },
+ {
+  "a": "ICAI",
+  "f": "The Institute of Chartered Accountants of India"
+ },
+ {
+  "a": "ISIN",
+  "f": "International Securities Identification Number"
+ },
+ {
+  "a": "IST",
+  "f": "Indian Standard Time"
+ },
+ {
+  "a": "ICWAI",
+  "f": "The Institute of Cost Accountants of India"
+ },
+ {
+  "a": "IPO",
+  "f": "Initial Public Offer"
+ },
+ {
+  "a": "ICSI",
+  "f": "The Institute of Company Secretaries of India"
+ },
+ {
+  "a": "IT Act",
+  "f": "The Information Technology Act, 2000"
+ },
+ {
+  "a": "IFRS",
+  "f": "International Financial Reporting Standards"
+ },
+ {
+  "a": "INR / / Rupees",
+  "f": "Indian Rupees, the legal currency of the Republic of India"
+ },
+ {
+  "a": "I.T. Act",
+  "f": "Income Tax Act, 1961, as amended from time to time"
+ },
+ {
+  "a": "IT Authorities",
+  "f": "Income Tax Authorities"
+ },
+ {
+  "a": "IT Rules",
+  "f": "Income Tax Rules, 1962, as amended, except as stated otherwise"
+ },
+ {
+  "a": "Indian GAAP",
+  "f": "Generally Accepted Accounting Principles in India notified under Section 133 of the CompaniesAct 2013 and read together with paragraph 7 of the Companies (Accounts) Rules, 2014 and Companies (Accounting Standards) Amendment Rules, 2016"
+ },
+ {
+  "a": "IRDA",
+  "f": "Insurance Regulatory and Development Authority"
+ },
+ {
+  "a": "JV/ Joint Venture",
+  "f": "A commercial enterprise undertaken jointly by two or more parties which otherwise retain their distinct identities"
+ },
+ {
+  "a": "KMP",
+  "f": "Key Managerial Personnel"
+ },
+ {
+  "a": "Ltd.",
+  "f": "Limited"
+ },
+ {
+  "a": "LLP",
+  "f": "Limited Liability Partnership"
+ },
+ {
+  "a": "MoU",
+  "f": "Memorandum of Understanding"
+ },
+ {
+  "a": "Mn",
+  "f": "Million"
+ },
+ {
+  "a": "Merchant Banker",
+  "f": "Merchant Banker as defined under the Securities and Exchange Board of India (Merchant Bankers) Regulations, 1992"
+ },
+ {
+  "a": "MSMED Act",
+  "f": "Micro, Small and Medium Enterprises Development Act, 2006"
+ },
+ {
+  "a": "NA",
+  "f": "Not Applicable"
+ },
+ {
+  "a": "NCLT",
+  "f": "National Company Law Tribunal"
+ },
+ {
+  "a": "NACH",
+  "f": "National Automated Clearing House"
+ },
+ {
+  "a": "NEFT",
+  "f": "National Electronic Funds Transfer"
+ },
+ {
+  "a": "NECS",
+  "f": "National Electronic Clearing System"
+ },
+ {
+  "a": "NAV",
+  "f": "Net Asset Value"
+ },
+ {
+  "a": "NPV",
+  "f": "Net Present Value"
+ },
+ {
+  "a": "NRIs",
+  "f": "Non-Resident Indians"
+ },
+ {
+  "a": "NSE",
+  "f": "National Stock Exchange of India Limited"
+ },
+ {
+  "a": "NOC",
+  "f": "No Objection Certificate"
+ },
+ {
+  "a": "NSDL",
+  "f": "National Securities Depository Limited"
+ },
+ {
+  "a": "P.A.",
+  "f": "Per Annum"
+ },
+ {
+  "a": "PF",
+  "f": "Provident Fund"
+ },
+ {
+  "a": "P/E Ratio",
+  "f": "Price/Earnings Ratio"
+ },
+ {
+  "a": "PAN",
+  "f": "Permanent Account Number"
+ },
+ {
+  "a": "PAT",
+  "f": "Profit After Tax"
+ },
+ {
+  "a": "PBT",
+  "f": "Profit Before Tax"
+ },
+ {
+  "a": "POA",
+  "f": "Power of Attorney"
+ },
+ {
+  "a": "PSU",
+  "f": "Public Sector Undertaking(s)"
+ },
+ {
+  "a": "Pvt.",
+  "f": "Private"
+ },
+ {
+  "a": "RBI",
+  "f": "The Reserve Bank of India"
+ },
+ {
+  "a": "Registration Act",
+  "f": "Registration Act, 1908"
+ },
+ {
+  "a": "ROE",
+  "f": "Return on Equity"
+ },
+ {
+  "a": "RONW",
+  "f": "Return on Net Worth"
+ },
+ {
+  "a": "RTGS",
+  "f": "Real Time Gross Settlement"
+ },
+ {
+  "a": "SCSB",
+  "f": "Self-Certified Syndicate Banks"
+ },
+ {
+  "a": "SCRR",
+  "f": "Securities Contracts (Regulation) Rules, 1957, as amended from time to time"
+ },
+ {
+  "a": "SEBI Act/ SEBI",
+  "f": "Securities and Exchange Board of India Act, 1992, as amended from time to time"
+ },
+ {
+  "a": "SEBI AIF Regulations",
+  "f": "Securities and Exchange Board of India (Alternative Investment Funds) Regulations, 2012, as amended"
+ },
+ {
+  "a": "SEBI FPI Regulations",
+  "f": "Securities and Exchange Board of India (Foreign Portfolio Investors) Regulations, 2019, as amended from time to time"
+ },
+ {
+  "a": "SEBI FVCI Regulations",
+  "f": "Securities and Exchange Board of India (Foreign Venture Capital Investor) Regulations, 2000, as amended from time to time"
+ },
+ {
+  "a": "SEBI ICDR Regulation",
+  "f": "Securities and Exchange Board of India (Issue of Capital and Disclosure Requirements) Regulations, 2018, as amended from time to time"
+ },
+ {
+  "a": "SEBI ICDR Master",
+  "f": "SEBI master circular bearing reference number HO/49/14/14(2)2026-"
+ },
+ {
+  "a": "Circular",
+  "f": "CFD-POD2/I/4518/2026 dated February 9, 2026"
+ },
+ {
+  "a": "SEBI LODR Regulations",
+  "f": "The Securities and Exchange Board of India (Listing Obligation and Disclosure Requirements) Regulations, 2015, as amended, including instructions and clarifications issued by SEBI from time to time"
+ },
+ {
+  "a": "SEBI PIT Regulations",
+  "f": "The Securities and Exchange Board of India (Prohibition of Insider Trading) Regulations, 2015, as amended from time to time including instructions and clarifications issued by SEBI from time to time"
+ },
+ {
+  "a": "SEBI RTA Master Circular",
+  "f": "SEBI master circular no. SEBI/HO/38/13/(4)2026-MIRSD-POD/I/4298/2026 dated February 6, 2026"
+ },
+ {
+  "a": "SEBI (SAST) Regulations",
+  "f": "and Takeover) Regulations, 2011, as amended from time to time."
+ },
+ {
+  "a": "Sec.",
+  "f": "Section"
+ },
+ {
+  "a": "SIDBI",
+  "f": "Small Industries Development Bank of India"
+ },
+ {
+  "a": "SME",
+  "f": "Small and Medium Enterprises"
+ },
+ {
+  "a": "STT",
+  "f": "Securities Transaction Tax"
+ },
+ {
+  "a": "TAN",
+  "f": "Tax Deduction Account Number"
+ },
+ {
+  "a": "TDS",
+  "f": "Tax Deducted at Source"
+ },
+ {
+  "a": "Trade Marks Act",
+  "f": "Trade Marks Act, 1999"
+ },
+ {
+  "a": "U.S. GAAP",
+  "f": "Generally Accepted Accounting Principles in the United States of America"
+ },
+ {
+  "a": "U.S. Securities Act",
+  "f": "United States Securities Act of 1933"
+ },
+ {
+  "a": "VCF/ Venture Capital Fund",
+  "f": "Venture capital funds as defined in and registered with SEBI under the SEBI VCF Regulations and the SEBI AIF Regulations"
+ },
+ {
+  "a": "WACA",
+  "f": "Weighted average cost of acquisition"
+ },
+ {
+  "a": "w.e.f.",
+  "f": "With effect from"
+ },
+ {
+  "a": "- ()",
+  "f": "Represent Outflow"
+ },
+ {
+  "a": "KPI",
+  "f": "Explanation"
+ },
+ {
+  "a": "Revenue from operations",
+  "f": "Revenue from operations represents the total turnover of the business from the operating activities (Net of Returns) as well as it provides information regarding the year-over-year growth of our Company"
+ },
+ {
+  "a": "EBITDA",
+  "f": "EBITDA is calculated as Restated Earnings before interest, tax, depreciation and amortisation as stated in the Consolidated Statement of Profit and Loss, as Restated. EBITDA provides information regarding the operational efficiency of the business of our Company"
+ },
+ {
+  "a": "EBITDA margin",
+  "f": "EBITDA Margin is the percentage of EBITDA divided by Total Income and is an indicator of the operational profitability of our business before interest, depreciation, amortization, and taxes"
+ },
+ {
+  "a": "Profit After Tax (\"PAT\")",
+  "f": "Restated profit for the year represents the profit that our Company makes for the financial year. It provides information regarding the profitability of the business of our Company"
+ },
+ {
+  "a": "PAT Margin",
+  "f": "PAT Margin is the ratio of Restated profit for the year to the Revenue from operations (Net of returns) of the Company. It provides information regarding the profitability of the business of our Company as well as to compare against the historical performance of our business"
+ },
+ {
+  "a": "Return on Equity (\"RoE\")",
+  "f": "RoE refers to Restated profit attributable to owners of the company for the year divided by Average Equity for the year. Average Shareholder's fund is calculated as average of the total equity at the beginning and ending of the year [Equity excludes minority interest]. RoE is an indicator of our Company's efficiency as it measures our Company's profitability. RoE is indicative of the profit generation by our Company against the equity contribution"
+ },
+ {
+  "a": "(\"RoCE\")",
+  "f": "Capital Employed by the Company for the year. RoCE is an indicator of our Company's efficiency as it measures our Company's profitability. RoCE is indicative of the profit generation by our Company against the capital employed"
+ },
+ {
+  "a": "Net Debt/Equity",
+  "f": "Net Debt / Equity Ratio refers to the ratio of the Company's Net total debt to its total equity (which is excluding Minority Interest). Total Net debt includes long- term borrowings and short-term borrowings after reducing the cash & cash equivalent as on the respective year. This ratio indicates the degree to which the Company is financing its operations through debt (net) versus wholly-owned funds. A lower ratio generally reflects lower financial risk, while a higher ratio signifies higher leverage"
+ },
+ {
+  "a": "Net Working Capital (days)",
+  "f": "Calculated as Net Working Capital divided by Revenue from Operations, multiplied by the number of days in the year. Net Working Capital is defined as Current Assets (excluding Cash and Cash Equivalents and Bank Balances) minus Current Liabilities (excluding Short-Term Borrowings and Current Maturities of Long-Term Debt). It signifies the Operating Working Capital in Days of the group"
+ }
+]
