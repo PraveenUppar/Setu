@@ -173,6 +173,14 @@ export function derivedTerms(facts: FactBase) {
     issueWordLower: issueWord.toLowerCase(),
     exchangeName: facts.offer.exchange === 'BSE_SME' ? 'BSE SME' : 'NSE Emerge',
     isBSE: facts.offer.exchange === 'BSE_SME',
+    /**
+     * Lender NOCs are only relevant where there are secured borrowings, so the
+     * subsection is conditional rather than always printed. Read off the most
+     * recent financial year.
+     */
+    hasSecuredBorrowings:
+      facts.financials.years.length > 0 &&
+      new Decimal(facts.financials.years[0].totalBorrowings).greaterThan(0),
     exchangeLongName:
       facts.offer.exchange === 'BSE_SME'
         ? 'the SME Platform of BSE Limited'

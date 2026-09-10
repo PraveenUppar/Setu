@@ -244,3 +244,27 @@ The installed Zod is **4.5.4**, which has native `z.toJSONSchema()`. The separat
 For extraction we want **input semantics** — a field with a default must not be `required`, or the model is forced to invent values it could not find. So `extractionSchemaFor()` generates in input mode and then walks the tree adding `additionalProperties: false` to every object node, which Claude's strict tool use requires.
 
 Covered by `lib/facts/schema.test.ts`.
+
+---
+
+## D20 — Computed sections must be verified against published ground truth, and some figures are not computable at all
+
+**Evidence, 2026-09-10.** Building Issue Structure, I inferred a rule for the QIB / NII / Individual share counts from Om Galaxy's own figures: NII and Individual round UP to a whole lot (they are "not less than"), QIB absorbs the remainder (it is "not more than"). It was plausible and it summed correctly.
+
+Tested against Om Galaxy's published table, **it missed by one lot.**
+
+Its net issue of 1,10,83,200 splits as QIB 55,37,600 / NII 16,64,000 / Individual 38,81,600 — 49.96% / 15.01% / 35.02%, with QIB sitting **2.5 lots below** an exact 50% and Individual 1.5 lots above. Ceiling, flooring and rounding to the lot were each tried; each missed.
+
+**There is no rule.** The split is a discretionary judgement the merchant banker makes at pricing, within the R-024 bounds.
+
+### Two standing consequences
+
+**1. Every computed section gets a ground-truth test.** Feed a corpus issuer its own inputs and assert we reproduce its published table exactly. "Close" is a failure — a number that looks right and is wrong is worse than a visible gap, especially in an allotment table.
+
+**2. Distinguish derived from discretionary.** Some figures follow deterministically from facts (net issue = issue less market maker reservation; issue as a percentage of post-issue capital). Others are professional judgement inside regulatory bounds. **Only the first may be computed.** The second is a gap, however tempting it is to fill because the corpus leaves it blank too.
+
+The pull here is real and worth naming: computing something the published documents show as `[dot]` makes our output look better than theirs. That is exactly when to check whether it is computable at all.
+
+**Rules out:** deriving category allotment counts. A test asserts `derivedTerms` does not expose them, so it cannot creep back.
+
+**Note:** the same conclusion was reached for Basis of Allotment one commit earlier and then talked out of. The ground-truth test is what held the line.

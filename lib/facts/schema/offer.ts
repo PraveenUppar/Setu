@@ -99,6 +99,21 @@ export const zOffer = z.object({
    * Named in the Method of Bidding and Pre-Issue Advertisement subsections.
    */
   /**
+   * Authority for the issue. The board authorises it, the shareholders approve
+   * it by special resolution under Companies Act s.62(1)(c), and the board then
+   * approves the text of the offer document itself. All three dates are stated.
+   */
+  boardResolutionDate: zDate
+    .optional()
+    .describe('Date of the Board resolution authorising the issue'),
+  shareholderResolutionDate: zDate
+    .optional()
+    .describe('Date of the shareholders special resolution under Section 62(1)(c)'),
+  boardApprovalOfDocumentDate: zDate
+    .optional()
+    .describe('Date of the Board resolution approving this offer document'),
+
+  /**
    * The BRLM furnishes SEBI a due diligence certificate in the Schedule V(A)
    * format, with the site visit report annexed (R-016). Its date is quoted in
    * the SEBI disclaimer clause.

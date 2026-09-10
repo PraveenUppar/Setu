@@ -153,4 +153,115 @@ and commencement of trading at the Stock Exchange are taken within three Working
 `.trim(),
 };
 
-export const regulatorySections: SectionSpec[] = [regulatoryDisclaimers];
+/**
+ * Authority for the issue, prohibitions and confirmations.
+ *
+ * Extraction notes, 2026-09-10:
+ *   Om Galaxy RHP (BSE SME) pp.391-394 and Maxwell DRHP (NSE Emerge) pp.294-297.
+ *   Structurally identical. Every difference is a date or a name.
+ *
+ *   The CONFIRMATIONS list maps one-to-one onto Reg 228(a)-(e), already
+ *   recorded as R-020, so the template states the clause explicitly rather
+ *   than reciting the conditions loosely.
+ *
+ *   Lender NOC applies only where the company has secured borrowings, so it is
+ *   conditional on the most recent year's total borrowings rather than always
+ *   printed.
+ */
+export const regulatoryAuthority: SectionSpec = {
+  id: 'regulatory.authority',
+  title: 'Authority for the Issue and Confirmations',
+  producer: 'template',
+  order: 2850,
+  group: 'SECTION - OTHER REGULATORY AND STATUTORY DISCLOSURES',
+  clause: 'R-020',
+  requiredFacts: [
+    'offer.boardResolutionDate',
+    'offer.shareholderResolutionDate',
+    'offer.boardApprovalOfDocumentDate',
+  ],
+  asks: {
+    'offer.boardResolutionDate': 'Date of the Board resolution authorising the issue',
+    'offer.shareholderResolutionDate':
+      'Date of the shareholders special resolution under Section 62(1)(c)',
+    'offer.boardApprovalOfDocumentDate':
+      'Date of the Board resolution approving this offer document',
+  },
+  extractedFrom: [
+    'bookbuilt__manufacturing__om-galaxy__bse-sme__2026-09__rhp.pdf pp.391-394',
+    'bookbuilt__engineering__maxwell-engineering__nse-emerge__2026-08__drhp.pdf pp.294-297',
+  ],
+  template: `
+### Authority for the Issue
+
+The Board of Directors has, pursuant to a resolution passed at its meeting held on
+{{ offer.boardResolutionDate | date }}, authorised the {{ terms.issueWord }}, subject to the
+approval of the shareholders of our Company under Section 62(1)(c) and all other applicable
+provisions of the Companies Act, 2013.
+
+The shareholders of our Company have, pursuant to a special resolution passed at an Extraordinary
+General Meeting held on {{ offer.shareholderResolutionDate | date }}, authorised the
+{{ terms.issueWord }} under Section 62(1)(c) and all other applicable provisions of the Companies
+Act, 2013.
+
+Our Board has approved this {{ terms.documentName }} through its resolution dated
+{{ offer.boardApprovalOfDocumentDate | date }}.
+
+{{#if terms.hasSecuredBorrowings }}
+### Lender No Objection Certificates
+
+Our Company has obtained No Objection Certificates from all of its existing secured lenders in
+connection with the proposed initial public offering. These confirm that the secured lenders have no
+objection to our Company proceeding with the {{ terms.issueWord }}.
+{{/if}}
+
+### In-Principle Approval
+
+Our Company has received an in-principle approval letter dated
+{{ offer.inPrincipleApprovalDate | date }} from {{ terms.designatedStockExchange }} for the use of
+its name in this {{ terms.documentName }} for the listing of our Equity Shares on
+{{ terms.exchangeLongName }}. {{ terms.designatedStockExchange }} is the Designated Stock Exchange
+for the purpose of this {{ terms.issueWord }}.
+
+### Prohibition by SEBI, RBI or Other Governmental Authorities
+
+Our Company, our Promoters, the members of our Promoter Group and our Directors are not prohibited
+from accessing the capital market, and are not debarred from buying, selling or dealing in
+securities, under any order or direction passed by SEBI or any securities market regulator in any
+other jurisdiction, or by any other authority or court.
+
+None of the companies with which our Promoters and Directors are associated as promoters, directors
+or persons in control have been debarred from accessing the capital markets under any order or
+direction passed by SEBI or any other authority.
+
+None of our Directors is associated with securities market related business in any manner, and there
+have been no outstanding actions initiated by SEBI against our Directors in the five years preceding
+the date of this {{ terms.documentName }}.
+
+Our Company, our Promoters and our Directors have not been declared as wilful defaulters or
+fraudulent borrowers by any bank or financial institution or consortium thereof, in accordance with
+the guidelines on wilful defaulters or fraudulent borrowers issued by the RBI. Neither our Company
+nor any of our Promoters or Directors has been declared a fraudulent borrower in terms of the Master
+Directions on Frauds - Classification and Reporting by Commercial Banks and Select FIs, as amended,
+issued by the Reserve Bank of India.
+
+None of our Promoters or Directors has been declared a fugitive economic offender under Section 12
+of the Fugitive Economic Offenders Act, 2018.
+
+All the Equity Shares are fully paid up and there are no partly paid-up Equity Shares as on the date
+of this {{ terms.documentName }}.
+
+### Confirmations
+
+Our Company is not ineligible in terms of Regulation 228 of the SEBI ICDR Regulations for this
+{{ terms.issueWord }}, as:
+
+- neither our Company nor any of its Promoters, members of the Promoter Group or Directors is debarred from accessing the capital market by the Board;
+- neither our Promoters nor any of our Directors is a promoter or director of any other company which is debarred from accessing the capital market by the Board;
+- neither our Company nor any of our Promoters or Directors is a wilful defaulter or a fraudulent borrower;
+- none of our Promoters or Directors is declared a fugitive economic offender; and
+- there are no outstanding convertible securities or any other right which would entitle any person to an option to receive Equity Shares of our Company.
+`.trim(),
+};
+
+export const regulatorySections: SectionSpec[] = [regulatoryAuthority, regulatoryDisclaimers];

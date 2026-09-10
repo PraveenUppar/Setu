@@ -4,10 +4,10 @@
 
 ---
 
-**Last updated:** 2026-09-09
-**Current stage:** S4 — Document engine
-**Status:** Engine proven end to end. **61 tests passing, tsc clean, dev server runs.** Two commits pushed to `origin/main`.
-**Scope:** FULL BUILD, S0 through S13 (~24 working days). No deadline pressure — user confirmed 2026-09-09. Do not apply the thin-slice or 10-day compression in `TODO.md`.
+**Last updated:** 2026-09-10
+**Current stage:** S4 — Wave 1 template extraction
+**Status:** **124 tests passing, tsc clean, dev server runs.** Document renders **9 sections, 13 estimated pages, 1 table, 2 gaps.**
+**Scope:** FULL BUILD, S0 through S13. No deadline pressure.
 
 ---
 
@@ -15,118 +15,95 @@
 
 ### S0 — Research (mostly complete)
 
-- **Corpus:** 8 prospectuses + 4 SME annual reports in `corpus/`, renamed to
-  `<issuetype>__<sector>__<company>__<exchange>__<date>__<doctype>.pdf`. All text-layer, no OCR.
-  PDFs are gitignored; `corpus/README.md` records the full inventory and sources.
-- **7 of 8 prospectuses are book-built** — this reversed D1 to D15.
-- **Section map** (`07-section-map.md`) from 5 real ToCs. 37 subsections, measured page ranges,
-  producer classes. Boilerplate measured at **140pp (32%)**, higher than the 110pp estimated.
-- **Rule sources** (`05-rule-sources.md`): 18 regulations plus 18 BSE SME and 11 NSE Emerge criteria.
-  **SEBI's own board memo was wrong on 5 of 6 figures** versus what was notified.
+- **Corpus:** 8 prospectuses + 4 SME annual reports in `corpus/` (PDFs gitignored; `corpus/README.md` has the inventory). 7 of 8 are book-built, which reversed D1 to D15.
+- **Section map** (`07-section-map.md`) from 5 real ToCs. Boilerplate measured at **140pp (32%)**.
+- **Rule sources** (`05-rule-sources.md`): **R-001 to R-025** plus 18 BSE SME and 11 NSE Emerge criteria.
+  Two entries remain `PROPOSAL-ONLY` (R-007 minimum issue size, R-012 migration compliance); both peripheral.
 
-### S1 — Skeleton (done)
+### S1 — Skeleton, S2 — Fact base (done)
 
-Next.js 16.3.4, React 19.2.8, Tailwind 4, Zod 4.5.4, vitest 5. Dev server runs on :3000.
-**Not deployed** — no Vercel account yet.
+Next.js 16.3.4, React 19.2.8, Tailwind 4, Zod 4.5.4, vitest 5. Dev server on :3000. **Not deployed** — no Vercel account.
 
-### S2 — Fact base (done)
+`lib/facts/` — money (decimal strings), provenance (D18), Zod schemas, `zFactBase`.
+`lib/seed/vardhman.ts` — complete synthetic BSE SME issuer whose arithmetic ties.
 
-```
-lib/facts/
-  money.ts          Decimal strings in rupees; Indian units and 2,22,10,824 grouping
-  provenance.ts     Provenance beside facts (D18); getFact/setFact/listPaths; isUsable()
-  schema/           shared, company, capital, financials, offer, index (zFactBase)
-lib/seed/
-  vardhman.ts       Complete synthetic BSE SME issuer whose arithmetic ties
-```
+### S4 — Document engine and Wave 1 (in progress)
 
-### S4 — Document engine (core done)
+`lib/document/` — `nodes.ts` (AST), `template.ts` (substitution, filters, conditionals, bold),
+`section.ts` (SectionSpec + `derivedTerms`), `sections/` (the registry).
 
-```
-lib/document/
-  nodes.ts          The AST both renderers consume; placeholders are inline runs
-  template.ts       {{ fact }}, filters, {{#if}}/{{#unless}}; missing fact -> gap
-  section.ts        SectionSpec; subsection is the atomic unit
-  sections/general.ts   Forward Looking Statements — the first extracted template
-components/document-view.tsx   HTML renderer
-app/page.tsx                   Preview page with gap list and watermark
-```
+**Sections built:**
+
+| Section | Producer | Notes |
+|---|---|---|
+| Forward Looking Statements | template | first extraction |
+| Other Regulatory and Statutory Disclosures — disclaimers and listing | template | per-exchange branch |
+| Issue Structure | **computed** | first table |
+| Issue Procedure — Book Building Procedure | template | |
+| Issue Procedure — Application Size and Method of Bidding | template | |
+| Issue Procedure — Bids by Investor Category | template | 12 subsections |
+| Issue Procedure — Grounds for Technical Rejection | template | 25+ grounds |
+| Issue Procedure — Basis of Allotment | template | |
+| Issue Procedure — Impersonation, Undertakings, Utilisation | template | |
+
+---
+
+## What held-out verification has caught
+
+Every section is diffed across two sources then checked against **Century Business Media**, which is never used for extraction. It has found a real defect four times:
+
+1. **Reg 229(1) vs 229(2)** — hardcoded 229(2) would have cited the wrong regulation for every issuer under Rs 10 crore post-issue capital. Now derived.
+2. **Regional-language gloss** — Century omits it; it is in Bihar, where the regional language is Hindi and the gloss reads oddly after naming a Hindi national daily. Now conditional.
+3. **Cut-off price bids** — Maxwell says rejected for "any category", Om Galaxy and Century confine it to NIIs and QIBs. Following Maxwell would have told issuers to reject valid retail bids.
+4. **Category allotment counts are not computable at all** — see D20.
+
+**Do not skip it.** Two extraction sources agreeing is not enough; three of the four above were cases where both sources agreed and were still wrong or incomplete.
 
 ---
 
 ## Next action
 
-**Issue Procedure is in progress** — `lib/document/sections/issue-procedure.ts`.
+Continue Wave 1 extraction. In descending value:
 
-Done: **Book Building Procedure** subsection, extracted by diffing Om Galaxy (BSE) against
-Maxwell (NSE), then verified against Century Business Media as a held-out document —
-13 of 16 invariant phrases matched verbatim.
+1. **Other Regulatory and Statutory Disclosures — remaining chunks.** Authority for the issue, lender NOC, prohibition by SEBI/RBI, confirmations, caution, disclaimer in respect of jurisdiction, consents, experts opinion, stock market data, investor grievance mechanism, fees payable, purchase of property, revaluation. ~12 subsections, ~90% invariant.
+2. **Definitions and Abbreviations** (~17pp) — sector-varied, high page count.
+3. **Terms of the Issue** (~10pp) — completes the Issue Related group.
+4. **Issue Procedure remainder** — UPI implementation, availability of forms, bids at different price levels, terms of payment, electronic registration, build of the book, withdrawal of bids, price discovery, underwriting agreement and RoC filing, pre-issue advertisement, general instructions.
 
-**Held-out verification earned its keep on the first run.** Century cites **Reg 229(1)** where both
-extraction sources cite **229(2)**, because its post-issue capital is under Rs 10 crore. The
-template had it hardcoded. Now derived from post-issue capital in `derivedTerms()`, with tests
-covering both bands and the Rs 10 crore boundary. **Never hardcode a regulation reference that
-depends on issuer facts.**
+**Main Provisions of AoA (~38pp) is the largest remaining section but is blocked** — it is extracted per-issuer from the company's own articles, so it needs S7 upload and extraction, not templating.
 
-Remaining Issue Procedure subsections, in document order: phased UPI implementation, availability
-of the RHP and forms, maximum and minimum application size, method of bidding, bids at different
-price levels, **bids by 12 investor categories** (the bulk, and highly invariant), terms of payment,
-electronic registration, build of the book, withdrawal of bids, price discovery and allocation,
-underwriting agreement and RoC filing, pre-issue advertisement, general instructions, grounds for
-technical rejection, basis of allotment, impersonation, undertakings, utilisation of proceeds.
+Then **S6** (rule engine, eligibility pre-check, gap dashboard), which is fully unblocked and needs no API credits.
 
-Then, in descending order of page count:
+---
 
-1. **Main Provisions of AoA** (~38pp) — per-issuer extraction from the uploaded AoA
-2. **Definitions and Abbreviations** (~17pp) — sector-varied
-3. **Other Regulatory and Statutory Disclosures** (~17pp)
+## Known gaps carried
 
-Use the `template-extraction` skill. Diff the same subsection across 5 corpus documents; identical
-text becomes literal, differing values become `{{ variables }}`, present-in-some becomes conditional.
-**Verify by rendering against a held-out prospectus's facts.**
-
-Then **S6** (rule engine + eligibility + gap dashboard), which is fully unblocked — the rule sources
-support it and no API credits are needed.
-
-**S3 (module engine UI) stays deferred** until Wave 1 is substantially done.
+- IRDAI exposure-norms list — only the first limb verified
+- Anchor Investor subsection of Issue Procedure — not extracted
+- Section 40(3) separate-bank-account bullet — rests on Maxwell alone
+- R-007, R-012 still `PROPOSAL-ONLY`
+- Part A of Schedule VI full text (O-5) — the disclosure spec the registry must satisfy
 
 ---
 
 ## Gotchas discovered
 
-- **`create-next-app` overwrites `CLAUDE.md`** with a stub pointing at its own `AGENTS.md`. Restored;
-  the `@AGENTS.md` import is kept at the top so both load.
-- **Directory name `Setu` has a capital letter**, which npm rejects as a package name. Scaffolded in a
-  temp directory and moved the files in.
-- **`@types/node` shipped as ^20** while Node is v22 — vitest would not install. Bumped to ^22.
-- **Zod 4 `io: 'input'` omits `additionalProperties: false`**, which Claude strict tool use requires.
-  `extractionSchemaFor()` adds it back on every object node. Covered by a test (D19).
-- **The `s` regex flag** needs an es2018 target; use `[\s\S]` instead.
-- **ToC page numbers are not physical PDF pages** — there is a cover-page offset. Find sections by
-  searching text, not by the ToC number.
-- **`pdftotext` beats WebFetch for SEBI PDFs.** Download to disk, extract locally. WebFetch returned
-  only navigation chrome for the regulations page and could not parse the board-memo PDF.
-
----
-
-## Open questions
-
-| # | Question | Blocks |
-|---|---|---|
-| Q1 | How deep does M2 go? Full allotment history is the most laborious module. May deserve a PAS-3 import path. | S5 |
-| Q2 | Who sets the issue price — promoter or merchant banker? Basis for Issue Price needs a valuation, realistically the MB's work. | S8 |
-| Q3 | Do we attempt Industry Overview at all? Normally a commissioned CRISIL/CARE/D&B report. | S9 |
-| Q4 | Can a real merchant-banker Due Diligence Questionnaire be obtained? It is effectively the intake wizard's spec. | S3, S8 |
-| O-2 | 2 rules still `PROPOSAL-ONLY` — minimum issue size, migration compliance. Both peripheral. | 2 rules |
-| O-5 | Part A of Schedule VI full text — the disclosure spec the section registry must satisfy. | Completeness rules |
+- **`create-next-app` overwrites `CLAUDE.md`** with a stub pointing at its `AGENTS.md`. Restored; the `@AGENTS.md` import is kept at the top.
+- **Directory name `Setu` has a capital letter** — npm rejects it as a package name. Scaffold elsewhere and move.
+- **`@types/node` shipped as ^20** while Node is v22; vitest would not install. Bumped to ^22.
+- **Zod 4 `io: 'input'` omits `additionalProperties: false`**, which Claude strict tool use needs. `extractionSchemaFor()` adds it back (D19).
+- **The `s` regex flag** needs an es2018 target; use `[\s\S]`.
+- **Bold must be split BEFORE `{{ }}` substitution**, or `**{{ x }}**` leaves orphaned asterisks.
+- **ToC page numbers are not physical PDF pages** — search the text, do not trust the ToC number.
+- **`pdftotext` to a file, then node, beats shell pipelines.** `grep`/`tr` on a whole prospectus collapsed to one line either crashes or hangs; a 120s timeout was hit that way. WebFetch also fails on SEBI PDFs — download and extract locally.
+- **Filters chain** (`| date | upper`), which matters inside the capitalised statutory clauses.
+- **Browser screenshots sometimes return blank** at certain scroll positions while the DOM is correct. Verify content through `javascript_tool`, not screenshots alone.
 
 ---
 
 ## Environment notes
 
-- **No Anthropic API credits.** Not blocking: S3, S4, S5, S6, S11 need none. Only S7 (extraction),
-  S9 (narrative) and S10 (risk narrative) do.
-- Supabase: not created. Deferred to S7 when uploads need storage; local JSON until then.
+- **No Anthropic API credits.** Not blocking: S3, S4, S5, S6, S11 need none. Only S7 (extraction), S9 (narrative) and S10 (risk narrative) do.
+- Supabase: not created. Local JSON until S7.
 - Vercel: not created.
-- Corpus gaps: 17 more prospectuses; missing sectors (IT/services, trading, textiles, chemicals,
-  pharma); only 1 OFS example; 5+ fixed-price documents needed before that branch.
+- Corpus gaps: 17 more prospectuses; missing sectors (IT/services, trading, textiles, chemicals, pharma); only 1 OFS example; 5+ fixed-price documents needed before that branch.

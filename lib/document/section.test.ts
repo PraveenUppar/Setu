@@ -3,7 +3,7 @@ import { derivedTerms, renderSection, renderDocument } from './section';
 import { issueProcedure, issueProcedureApplicationSize, issueProcedureBidsByCategory, issueProcedureTechnicalRejection, issueProcedureBasisOfAllotment, issueProcedureUndertakings } from './sections/issue-procedure';
 import { sectionRegistry } from './sections';
 import { issueStructure } from './sections/issue-structure';
-import { regulatoryDisclaimers } from './sections/regulatory-disclosures';
+import { regulatoryDisclaimers, regulatoryAuthority } from './sections/regulatory-disclosures';
 import { collectPlaceholders } from './nodes';
 import { vardhman } from '../seed/vardhman';
 import { money } from '../facts/money';
@@ -609,6 +609,84 @@ describe('Regulatory disclaimers', () => {
   it('leaves no unresolved syntax', () => {
     expect(render(vardhman)).not.toMatch(/\{\{|\}\}|\*\*/);
     expect(render(variant({ exchange: 'NSE_EMERGE' }))).not.toMatch(/\{\{|\}\}|\*\*/);
+  });
+});
+
+describe('Authority for the issue and confirmations', () => {
+  const render = (facts: FactBase) =>
+    renderSection(regulatoryAuthority, { facts })
+      .flatMap((n) =>
+        n.type === 'paragraph'
+          ? [n.runs.map((r) => r.text).join('')]
+          : n.type === 'list'
+            ? n.items.map((i) => i.map((r) => r.text).join(''))
+            : n.type === 'heading'
+              ? [n.text]
+              : [],
+      )
+      .join('\n');
+
+  it('states all three corporate approval dates', () => {
+    const out = render(vardhman);
+    expect(out).toContain('meeting held on August 14, 2026');
+    expect(out).toContain('Extraordinary General Meeting held on August 28, 2026');
+    expect(out).toContain('resolution dated November 12, 2026');
+  });
+
+  it('cites Section 62(1)(c) for the shareholder authority', () => {
+    expect(render(vardhman)).toContain('Section 62(1)(c)');
+  });
+
+  it('includes the lender NOC subsection only when there are secured borrowings', () => {
+    expect(derivedTerms(vardhman).hasSecuredBorrowings).toBe(true);
+    expect(render(vardhman)).toContain('Lender No Objection Certificates');
+
+    const debtFree: FactBase = {
+      ...vardhman,
+      financials: {
+        ...vardhman.financials,
+        years: vardhman.financials.years.map((y) => ({ ...y, totalBorrowings: money('0') })),
+      },
+    };
+    expect(derivedTerms(debtFree).hasSecuredBorrowings).toBe(false);
+    expect(render(debtFree)).not.toContain('Lender No Objection Certificates');
+  });
+
+  it('recites Regulation 228 as five confirmations (R-020)', () => {
+    const nodes = renderSection(regulatoryAuthority, { facts: vardhman });
+    const list = nodes.filter((n) => n.type === 'list').at(-1) as { items: unknown[] };
+    expect(render(vardhman)).toContain('not ineligible in terms of Regulation 228');
+    expect(list.items).toHaveLength(5);
+    expect(render(vardhman)).toContain('no outstanding convertible securities');
+  });
+
+  it('names the designated stock exchange per exchange', () => {
+    expect(render(vardhman)).toContain('from BSE Limited for the use of its name');
+    expect(render(variant({ exchange: 'NSE_EMERGE' }))).toContain(
+      'from National Stock Exchange of India Limited for the use of its name',
+    );
+  });
+
+  it('raises gaps for each missing approval date', () => {
+    const noDates: FactBase = {
+      ...vardhman,
+      offer: {
+        ...vardhman.offer,
+        boardResolutionDate: undefined,
+        shareholderResolutionDate: undefined,
+        boardApprovalOfDocumentDate: undefined,
+      },
+    };
+    const paths = collectPlaceholders(
+      renderSection(regulatoryAuthority, { facts: noDates }),
+    ).map((g) => g.factPath);
+    expect(paths).toContain('offer.boardResolutionDate');
+    expect(paths).toContain('offer.shareholderResolutionDate');
+    expect(paths).toContain('offer.boardApprovalOfDocumentDate');
+  });
+
+  it('leaves no unresolved syntax', () => {
+    expect(render(vardhman)).not.toMatch(/\{\{|\}\}|\*\*/);
   });
 });
 
