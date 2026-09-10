@@ -84,6 +84,17 @@ export const zOffer = z.object({
   underwritingPercent: zPercent.default(100),
   brlmUnderwritingPercent: zPercent.describe('Must be at least 15'),
 
+  /**
+   * Courts having exclusive jurisdiction for the issue. This is the relevant
+   * High Court seat, NOT the registered office city — Om Galaxy is registered
+   * in Thane and names Mumbai. Asked rather than derived, since the mapping
+   * from state to bench is not one we should guess at.
+   */
+  jurisdiction: z
+    .string()
+    .optional()
+    .describe('City and state of the courts having exclusive jurisdiction for the issue'),
+
   /** Reg 261(1): compulsory market making for a minimum of 3 years. */
   marketMakerName: z.string().optional(),
   marketMakingYears: z.number().int().default(3),

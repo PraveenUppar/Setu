@@ -165,6 +165,8 @@ export function derivedTerms(facts: FactBase) {
 
     marketMakerShares,
     netIssueShares,
+    /** Minimum bid is two lots (R-006), alongside the Rs 2,00,000 floor. */
+    minimumBidShares: facts.offer.lotSize * 2,
     marketMakerPercentOfIssue: percentOfIssue(marketMakerShares),
     netIssuePercentOfPostIssueCapital: new Decimal(netIssueShares)
       .dividedBy(facts.capital.paidUpShares + facts.offer.freshIssueShares)

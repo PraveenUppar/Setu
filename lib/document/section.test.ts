@@ -3,6 +3,7 @@ import { derivedTerms, renderSection, renderDocument } from './section';
 import { issueProcedure, issueProcedureApplicationSize, issueProcedureBidsByCategory, issueProcedureTechnicalRejection, issueProcedureBasisOfAllotment, issueProcedureUndertakings } from './sections/issue-procedure';
 import { sectionRegistry } from './sections';
 import { issueStructure } from './sections/issue-structure';
+import { termsOfIssue } from './sections/terms-of-issue';
 import { regulatoryDisclaimers, regulatoryAuthority, regulatoryConsents } from './sections/regulatory-disclosures';
 import { collectPlaceholders } from './nodes';
 import { vardhman } from '../seed/vardhman';
@@ -736,6 +737,83 @@ describe('Consents and investor grievances', () => {
       renderSection(regulatoryConsents, { facts: noRegistrar }),
     ).map((g) => g.factPath);
     expect(paths).toContain('offer.registrarToIssue');
+  });
+
+  it('leaves no unresolved syntax', () => {
+    expect(render(vardhman)).not.toMatch(/\{\{|\}\}|\*\*/);
+  });
+});
+
+describe('Terms of the Issue', () => {
+  const render = (facts: FactBase) =>
+    renderSection(termsOfIssue, { facts })
+      .flatMap((n) =>
+        n.type === 'paragraph'
+          ? [n.runs.map((r) => r.text).join('')]
+          : n.type === 'list'
+            ? n.items.map((i) => i.map((r) => r.text).join(''))
+            : n.type === 'heading'
+              ? [n.text]
+              : [],
+      )
+      .join('\n');
+
+  it('states the face value and both ends of the price band', () => {
+    const out = render(vardhman);
+    expect(out).toContain('face value of each Equity Share is Rs 10');
+    expect(out).toContain('Rs 47 per Equity Share (the "Floor Price")');
+    expect(out).toContain('Rs 49 per Equity Share (the "Cap Price")');
+  });
+
+  it('computes the minimum bid as two lots', () => {
+    expect(derivedTerms(vardhman).minimumBidShares).toBe(6000);
+    expect(render(vardhman)).toContain('being 6,000 Equity Shares');
+    expect(render(vardhman)).toContain('Bid Amount exceeds Rs 2,00,000');
+  });
+
+  it('states the 200 allottee minimum and its consequence (R-005)', () => {
+    const out = render(vardhman);
+    expect(out).toContain('Regulation 268');
+    expect(out).toContain('minimum number of Allottees in the Issue shall be 200');
+    expect(out).toContain('unblocked forthwith');
+  });
+
+  it('uses jurisdiction as a fact, not the registered office city', () => {
+    // Om Galaxy is registered in Thane and names Mumbai - the High Court seat.
+    expect(render(vardhman)).toContain('competent courts and authorities in Mumbai, Maharashtra');
+    expect(vardhman.company.registeredOffice.city).toBe('Pune');
+  });
+
+  it('describes a fresh issue only when there is no OFS', () => {
+    expect(render(vardhman)).toContain('comprises a Fresh Issue by our Company.');
+    expect(render(variant({ withOFS: true }))).toContain(
+      'Fresh Issue by our Company and an Offer for Sale by the Selling Shareholders',
+    );
+  });
+
+  it('repeats the approval dates rather than cross-referencing', () => {
+    // Both Terms of the Issue and the regulatory section state them; that is
+    // how the corpus reads, and a reader of either gets the dates in place.
+    expect(render(vardhman)).toContain('meeting held on August 14, 2026');
+    expect(render(vardhman)).toContain('Section 62(1)(c)');
+  });
+
+  it('raises gaps for a missing price band and jurisdiction', () => {
+    const bare: FactBase = {
+      ...vardhman,
+      offer: {
+        ...vardhman.offer,
+        floorPrice: null,
+        capPrice: null,
+        jurisdiction: undefined,
+      },
+    };
+    const paths = collectPlaceholders(renderSection(termsOfIssue, { facts: bare })).map(
+      (g) => g.factPath,
+    );
+    expect(paths).toContain('offer.floorPrice');
+    expect(paths).toContain('offer.capPrice');
+    expect(paths).toContain('offer.jurisdiction');
   });
 
   it('leaves no unresolved syntax', () => {
