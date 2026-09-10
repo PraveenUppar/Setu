@@ -746,13 +746,21 @@ describe('linking findings to the document', () => {
   });
 
   it('leaves a section that is not drafted yet as a plain label', () => {
-    // 13 of 37 sections exist. A link that scrolls nowhere teaches the reader
-    // that the links do not work.
+    // Most of the 37 subsections do not exist yet. A link that scrolls nowhere
+    // teaches the reader that the links do not work.
     const [linked] = linkFindings(
-      [{ ...stubFinding, blocks: ['Capital Structure', 'The entire filing'] }],
+      [{ ...stubFinding, blocks: ['Objects of the Issue', 'The entire filing'] }],
       sections(),
     );
-    expect(linked.links).toEqual([{ label: 'Capital Structure' }, { label: 'The entire filing' }]);
+    expect(linked.links).toEqual([{ label: 'Objects of the Issue' }, { label: 'The entire filing' }]);
+  });
+
+  it('links Capital Structure now that it is built', () => {
+    // The rules have named it since D23; it resolved to a plain label until
+    // the section existed, and resolves to an anchor now. Nothing in the rules
+    // changed — which is the point of resolving blocks at render time.
+    const [linked] = linkFindings([{ ...stubFinding, blocks: ['Capital Structure'] }], sections());
+    expect(linked.links?.[0].anchor).toBe(sectionAnchor('capital.structure'));
   });
 
   it('points every link at something that exists in the document', () => {

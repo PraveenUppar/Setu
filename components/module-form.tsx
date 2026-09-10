@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react';
 import { saveField } from '@/app/intake/actions';
 import type { FieldView } from '@/lib/modules/types';
+import { Repeater } from './repeater';
 
 /**
  * ONE renderer for every module (MM2).
@@ -206,9 +207,21 @@ function FieldRow({ field, moduleId }: { field: FieldView; moduleId: string }) {
 export function ModuleForm({ moduleId, fields }: { moduleId: string; fields: FieldView[] }) {
   return (
     <div>
-      {fields.map((f) => (
-        <FieldRow key={f.path} field={f} moduleId={moduleId} />
-      ))}
+      {fields.map((f) =>
+        f.type === 'table' && f.columns ? (
+          <Repeater
+            key={f.path}
+            moduleId={moduleId}
+            path={f.path}
+            label={f.label}
+            helpText={f.helpText}
+            columns={f.columns}
+            initial={Array.isArray(f.value) ? (f.value as Record<string, unknown>[]) : []}
+          />
+        ) : (
+          <FieldRow key={f.path} field={f} moduleId={moduleId} />
+        ),
+      )}
     </div>
   );
 }

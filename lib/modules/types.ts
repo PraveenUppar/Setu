@@ -1,6 +1,7 @@
 import type { z } from 'zod';
 import type { FactPath } from '../facts/provenance';
 import type { FactBase, PartialFactBase } from '../facts/schema';
+import type { RepeaterColumn } from './repeater-spec';
 
 /**
  * The intake module engine.
@@ -29,7 +30,9 @@ export type FieldType =
   | 'percent'
   | 'date'
   | 'select'
-  | 'boolean';
+  | 'boolean'
+  /** The repeater. ~60% of all data volume goes through this one type. */
+  | 'table';
 
 export interface SelectOption {
   value: string;
@@ -119,6 +122,8 @@ export interface FieldView {
   suffix?: string;
   value: unknown;
   issues: string[];
+  /** Set for `type: 'table'` — the repeater's columns, as plain data. */
+  columns?: RepeaterColumn[];
 }
 
 export function toFieldView(
@@ -126,6 +131,7 @@ export function toFieldView(
   value: unknown,
   feedsInto: string[],
   issues: string[],
+  columns?: RepeaterColumn[],
 ): FieldView {
   return {
     path: field.path,
@@ -139,6 +145,7 @@ export function toFieldView(
     suffix: field.suffix,
     value: value ?? null,
     issues,
+    columns,
   };
 }
 
@@ -222,3 +229,4 @@ export function isComplete(progress: ModuleProgress): boolean {
 }
 
 export type { FactBase, PartialFactBase };
+export type { RepeaterColumn };

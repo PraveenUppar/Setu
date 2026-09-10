@@ -40,7 +40,14 @@ export async function saveField(
    * the document needs to show the difference.
    */
   const written = writeFacts({ [path]: raw }, 'issuer');
-  revalidatePath('/intake');
+
+  /**
+   * 'layout' revalidates the nested module pages too, not just /intake itself.
+   * Without it the live consistency banner on /intake/m2 — the one that says
+   * the register reaches 99.4% — would only appear after a manual reload, and
+   * a consistency check the issuer has to go looking for is not live.
+   */
+  revalidatePath('/intake', 'layout');
   revalidatePath('/');
 
   return { ok: status.issues.length === 0, issues: status.issues, version: written.version };

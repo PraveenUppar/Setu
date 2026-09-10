@@ -8,13 +8,13 @@ Each stage ends with something demoable and a manual test gate. **Do not advance
 
 | S0 | S1 | S2 | S3 | S4 | S5 | S6 | S7 | S8 | S9 | S10 | S11 | S12 | S13 |
 |----|----|----|----|----|----|----|----|----|----|-----|-----|-----|-----|
-| [x] | [x] | [x] | [ ] | [~] | [ ] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| [x] | [x] | [x] | [x] | [~] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
 
 **Tests, tsc and dev-server status live in `.claude/context/04-session-handoff.md`** — this table is stage-level only, so the two cannot contradict each other.
 
 - **S0 closed 2026-09-10** at 8 prospectuses rather than 25. Criteria corroborated across documents, paired fixtures built. 2 of 27 rule rows remain `PROPOSAL-ONLY` and carry no rules; O-5 (Schedule VI Part A) and O-7 (notification date) need SEBI's own text and stay open.
-- **S4 partial:** engine complete and proven end to end; **13 of 37 sections** written.
-- **S3 deliberately deferred** until after S4 — Wave 1 templates need only seed facts, so the document is visible before any form exists.
+- **S4 partial:** engine complete; **11 of the 37 numbered subsections** built, as 30 registry sections. Wave 1 extraction is finished — what remains is computed (S8), narrative (S9/S10), the AoA (S7) or external.
+- **S3 and S5 done 2026-09-10** — module engine, M1, M2, the repeater with spreadsheet paste, and the computed capital tables. A real issuer's answers now replace the seed.
 - **S6 closed 2026-09-10:** rule engine, gap dashboard, standalone `/eligibility` pre-check, finding-to-document links, and all 32 exchange criteria ruled. Every finding gives a firm pass or fail with a clause — no rule hedges. Remaining consistency rules wait on M2 and M6 data (S5, S8).
 
 ---

@@ -1,6 +1,7 @@
 import type { SectionSpec } from '../section';
 import { generalSections } from './general';
 import { conventionsSections } from './conventions';
+import { capitalStructure } from './capital-structure';
 import { definitions } from './definitions';
 import { issueRelatedSections } from './issue-procedure';
 import { issueStructure } from './issue-structure';
@@ -23,6 +24,7 @@ export const sectionRegistry: SectionSpec[] = [
   definitions,
   ...generalSections,
   ...conventionsSections,
+  capitalStructure,
   ...regulatorySections,
   termsOfIssue,
   issueStructure,

@@ -1770,6 +1770,7 @@ describe('progress counting', () => {
     expect(subsections.size).toBeLessThanOrEqual(37);
     expect([...subsections].sort()).toEqual([
       '1. Definitions and Abbreviations',
+      '10. Capital Structure',
       '2. Certain Conventions, Presentation of Financial, Industry and Market Data',
       '22. Dividend Policy',
       '3. Forward Looking Statements',

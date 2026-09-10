@@ -1,20 +1,23 @@
 import { sectionRegistry } from '../document/sections';
 import { m1Company } from './m1-company';
+import { m2Capital } from './m2-capital';
 import { moduleProgress, type Module, type ModuleProgress, type PartialFactBase } from './types';
 import { getFact, type FactPath } from '../facts/provenance';
 
 export * from './types';
 export { m1Company } from './m1-company';
+export { m2Capital, ALLOTMENT_COLUMNS, SHAREHOLDER_COLUMNS, PROMOTER_HOLDING_COLUMNS } from './m2-capital';
+export type { RepeaterColumn } from './repeater-spec';
 
 /**
  * The module registry.
  *
- * Ten modules are planned (02-architecture.md); M1 is built. The rest are
- * content against the same engine, in the order the dependency graph allows:
- * M1 gates M2, and M2 gates the capital tables that most of the computed
- * sections read.
+ * Ten modules are planned (02-architecture.md); M1 and M2 are built. The rest
+ * are content against the same engine, in the order the dependency graph
+ * allows: M1 gates M2, and M2 feeds the capital tables that most of the
+ * computed sections read.
  */
-export const moduleRegistry: Module[] = [m1Company];
+export const moduleRegistry: Module[] = [m1Company, m2Capital];
 
 export function findModule(id: string): Module | undefined {
   return moduleRegistry.find((m) => m.id.toLowerCase() === id.toLowerCase());

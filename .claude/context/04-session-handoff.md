@@ -5,8 +5,8 @@
 ---
 
 **Last updated:** 2026-09-10
-**Current stage:** S0, S3 and S6 CLOSED. **S4 Wave 1 extraction finished; S5 next.**
-**Status:** **352 tests passing, tsc clean, dev server runs.** Document renders **10 of the 37 numbered subsections**, drafted as **29 registry sections**, **42 estimated pages** of a measured ~280. **S3 is done** — the module engine, M1, and a real issuer's answers replacing the seed. **Issue Procedure is COMPLETE**, and the glossary is at **130 definitions plus 129 abbreviations**.
+**Current stage:** S0, S3, S5 and S6 CLOSED. **S4 Wave 1 extraction finished.**
+**Status:** **385 tests passing, tsc clean, dev server runs.** Document renders **11 of the 37 numbered subsections**, drafted as **30 registry sections**, **44 estimated pages** of a measured ~280. **S3 and S5 are done** — the module engine, M1, M2, the repeater, and the computed capital tables. **Issue Procedure is COMPLETE**, and the glossary is at **130 definitions plus 129 abbreviations**.
 
 **The progress indicator said "25 of 37" until 2026-09-10 and was wrong** — it counted registry entries against numbered subsections, and Issue Procedure alone is one subsection and sixteen entries. Every spec now carries `partOf`, the header counts distinct values, and a test holds it. Same principle as the readiness score: a number the reader trusts must not flatter.
 **Rules: 55** — 43 eligibility, 12 consistency. The pre-check runs 26; no issuer sees 26 questions, since the criteria diverge by exchange.
@@ -50,6 +50,31 @@ typing one company name gives 56 findings and 29/100, which is the honest state 
 ask" with its clause and where it appears; declaring an LLP conversion revealed the conversion-date
 field (13 fields to 14); an invalid website saved AND reported "Invalid URL. This does not look
 like a usable web address."
+
+### S5 — Repeater, M2 and the capital tables — **DONE 2026-09-10**
+
+`lib/capital/tables.ts` computes the build-up, the shareholding pattern before and after the issue,
+the top-ten holders, the promoter contribution and the full lock-in ladder (R-009), plus the two
+live consistency checks. `lib/document/sections/capital-structure.ts` renders them — five tables,
+entirely computed, nothing typed twice.
+
+`components/repeater.tsx` is the workhorse: add, remove, reorder, running totals, and **paste
+straight from a spreadsheet**. The parser lives in `lib/modules/paste.ts` as pure logic, because it
+is the highest-risk code in the intake — nobody types an allotment history, and a silent misparse
+corrupts the build-up while producing rows that look right.
+
+**Gate passed:** Vardhman's history in gives correct tables; the **ground-truth pair reproduces Om
+Galaxy's published build-up row for row** (`lib/capital/tables.test.ts`); breaking the register to
+99.4% fires the banner live, without a reload; 20 vitest cases on build-up, lock-in and
+capitalisation.
+
+Two things browser verification caught that the unit tests could not:
+- **Pasting over existing rows appended instead of overwriting**, so an issuer pasting their full
+  history over a partly typed list got every row twice and a doubled cumulative total. `applyPaste`
+  now follows spreadsheet semantics. The paste parser's own tests were all green — the bug was in
+  the splice, not the parse.
+- `revalidatePath('/intake')` does not reach nested module pages; it needs `'layout'`, or the live
+  consistency banner only appears after a manual reload.
 
 ### S1 — Skeleton, S2 — Fact base (done)
 

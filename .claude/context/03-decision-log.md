@@ -639,3 +639,35 @@ So `withAnswers` lays the issuer's answers over `emptyFactBase()`. Everything un
 **Zod schemas and functions cannot cross the server/client boundary.** Passing a `Field` to the form is a runtime error, not a type error, so it reached the browser before it failed. The fix is a `FieldView` of plain data built on the server — which is the better shape anyway: validation and `showIf` both run where the schema and the whole fact base already are, and the browser carries neither Zod nor the section registry.
 
 **React's `onBlur` listens for `focusout`, not `blur`.** `blur` does not bubble, so a synthetic one never reaches the handler. Worth knowing for any future browser verification of a form.
+
+---
+
+## D34 — The bug the unit tests could not see
+
+**2026-09-10, building the repeater.** `parsePaste` had eight passing tests: tab separation, grouping separators stripped, empty numeric cells left undefined rather than zero, short rows padded instead of shifted, Windows line endings, single-cell pastes ignored. All green.
+
+The bug was one line away, in the code that put the parsed rows into the list:
+
+```ts
+const before = rows.slice(0, i);
+const after = rows.slice(i + 1);          // wrong
+commit([...before, ...parsed, ...after]);
+```
+
+Pasting five rows into row 0 of a five-row table gave **nine rows** — the pasted five, plus the four the paste should have covered. An issuer pasting their full allotment history over a partly typed list gets every row twice and a cumulative total that silently doubles.
+
+Only the browser found it. The parser was never wrong; the splice was, and no test of the parser could have reached it.
+
+**`applyPaste` now follows spreadsheet semantics:** pasting N rows at row i overwrites rows i through i+N-1 and leaves anything beyond intact. Pasting the same block twice is now idempotent, which is the property that actually matters — a nervous issuer will paste again to be sure.
+
+### The general lesson, which has now appeared twice in this session
+
+D29 was the same shape: every test written for a section checked that section, and the defect sat one section away in the same document. Here every test written for the parser checked the parser, and the defect sat one function away in the caller.
+
+**Test the seam, not just the part.** Where a pure function feeds a stateful caller, the caller is where the interesting mistakes live.
+
+### Two smaller things worth keeping
+
+**`revalidatePath('/intake')` does not reach `/intake/m2`.** It needs `revalidatePath('/intake', 'layout')`. Without it the live consistency banner appears only after a manual reload — and a consistency check the issuer has to go looking for is not live.
+
+**The running total is a mitigation, not a fix.** It made the doubled figure visible immediately, which is why the bug was caught in seconds rather than in week nine. But a mistake the issuer has to notice is worse than one that cannot happen, and the fix was still the right call.
