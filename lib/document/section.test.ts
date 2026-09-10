@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { derivedTerms, renderSection, renderDocument } from './section';
-import { issueProcedure, issueProcedureApplicationSize, issueProcedureBidsByCategory, issueProcedureTechnicalRejection, issueProcedureUndertakings } from './sections/issue-procedure';
+import { issueProcedure, issueProcedureApplicationSize, issueProcedureBidsByCategory, issueProcedureTechnicalRejection, issueProcedureBasisOfAllotment, issueProcedureUndertakings } from './sections/issue-procedure';
 import { sectionRegistry } from './sections';
 import { collectPlaceholders } from './nodes';
 import { vardhman } from '../seed/vardhman';
@@ -392,6 +392,57 @@ describe('Grounds for technical rejection', () => {
     const list = nodes.find((n) => n.type === 'list') as { items: { text: string; bold?: boolean }[][] };
     const cutOff = list.items.find((runs) => runs.some((r) => r.text.includes('Cut-off Price')));
     expect(cutOff?.some((r) => r.bold)).toBe(true);
+  });
+
+  it('leaves no unresolved syntax and raises no gaps', () => {
+    expect(out).not.toMatch(/\{\{|\}\}|\*\*/);
+    expect(collectPlaceholders(nodes)).toHaveLength(0);
+  });
+});
+
+describe('Basis of allotment', () => {
+  const nodes = renderSection(issueProcedureBasisOfAllotment, { facts: vardhman });
+  const out = nodes
+    .flatMap((n) =>
+      n.type === 'paragraph'
+        ? [n.runs.map((r) => r.text).join('')]
+        : n.type === 'list'
+          ? n.items.map((i) => i.map((r) => r.text).join(''))
+          : n.type === 'heading'
+            ? [n.text]
+            : [],
+    )
+    .join('\n');
+
+  it('states the 90% minimum subscription (R-025)', () => {
+    expect(out).toContain('minimum subscription of 90% of the Issue');
+  });
+
+  it('keeps the offer-for-sale carve-out even for a pure fresh issue', () => {
+    // Om Galaxy is a pure fresh issue and states it anyway, so making this
+    // conditional would deviate from the corpus without evidence.
+    expect(vardhman.offer.sellingShareholders).toHaveLength(0);
+    expect(out).toContain('in the nature of an offer for sale only');
+  });
+
+  it('describes the T-day flow through to the list of allottees', () => {
+    expect(out).toContain('On T Day, the Registrar validates');
+    expect(out).toContain('Third party confirmation of applications is to be completed by the SCSBs on T+1 Day');
+    expect(out).toContain('Designated Stock Exchange');
+  });
+
+  it('keeps the worked allotment-ratio example intact', () => {
+    expect(out).toContain('78654321');
+    expect(out).toContain('12345687');
+    expect(out).toContain('ratio of Allottees to applicants in a category is 2:7');
+  });
+
+  it('does NOT assert per-category share counts', () => {
+    // Category portions are percentages of the NET issue, and net issue depends
+    // on the market maker reservation, which is not yet a fact-base field.
+    // Stating a count derived from the gross issue would be quietly wrong.
+    expect(out).not.toMatch(/\d{2},\d{2},\d{3} Equity Shares at or above/);
+    expect(out).toContain('Equity Shares available for that category');
   });
 
   it('leaves no unresolved syntax and raises no gaps', () => {

@@ -313,6 +313,15 @@ The 200 figure is solid; **the consequence timeline is not.** Do not encode 4 da
 - **notes:** Under-subscription in any category **except the QIB portion** may be met by spill-over from another category, at the discretion of the company in consultation with the BRLM and the designated stock exchange. Under-subscription in the QIB portion may **not** be met by spill-over. Under-subscription in the anchor portion returns to the QIB portion. Under-subscription in the life-insurance and pension reservation may go to domestic mutual funds.
 - **checked:** 2026-09-09
 
+### R-025 — Minimum subscription
+
+- **threshold:** The issuer must receive a **minimum subscription of 90% of the issue**. Minimum subscription does **not** apply where the issue is in the nature of an offer for sale only.
+- **verbatim (S2):** "Our Company is required to receive a minimum subscription of 90% of the Issue. However, in case the Issue is in the nature of offer for sale only, then minimum subscription may not be applicable."
+- **corroboration:** S5 (Maxwell, NSE Emerge) and Century Business Media state the same, near-verbatim
+- **confidence:** `AS-APPLIED` — **three independent sources across both exchanges**
+- **notes:** Distinct from R-019 (Companies Act s.39, the 60-day full-subscription refund). This is the ICDR floor on how much of the issue must be taken up.
+- **checked:** 2026-09-10
+
 ---
 
 ## Reg 230(1) — the complete general conditions list

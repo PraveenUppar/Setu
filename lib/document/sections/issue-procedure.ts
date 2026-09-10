@@ -567,10 +567,84 @@ in a fair and proper manner in accordance with the procedure specified in the SE
 `.trim(),
 };
 
+/**
+ * Allotment procedure and basis of allotment.
+ *
+ * Extraction notes, 2026-09-10:
+ *   Om Galaxy RHP (BSE SME) pp.448-450 and Maxwell DRHP (NSE Emerge) pp.344-346.
+ *   Near-identical, down to the worked allotment-ratio example. Om Galaxy adds
+ *   the minimum-bid-lot sentence for Non-Institutional Investors; included.
+ *
+ *   The 90% minimum subscription (R-025) is stated in both plus Century, so it
+ *   rests on three sources across both exchanges.
+ *
+ *   The corpus leaves the per-category share counts as "[dot]" because they are
+ *   fixed at pricing. They are NOT computed here: the category portions are
+ *   percentages of the NET issue, and net issue is the issue less the market
+ *   maker reservation, which is not yet a fact-base field. Stating a count
+ *   derived from the gross issue would be quietly wrong. The method is stated
+ *   without asserting counts, and the counts belong to Issue Structure.
+ */
+export const issueProcedureBasisOfAllotment: SectionSpec = {
+  id: 'issueRelated.issueProcedure.basisOfAllotment',
+  title: 'Allotment Procedure and Basis of Allotment',
+  producer: 'template',
+  order: 3170,
+  group: 'SECTION - ISSUE RELATED INFORMATION',
+  appliesIf: (facts) => facts.offer.issueType === 'BOOK_BUILT',
+  clause: 'R-024, R-025',
+  extractedFrom: [
+    'bookbuilt__manufacturing__om-galaxy__bse-sme__2026-09__rhp.pdf pp.448-450',
+    'bookbuilt__engineering__maxwell-engineering__nse-emerge__2026-08__drhp.pdf pp.344-346',
+  ],
+  template: `
+### Allotment Procedure and Basis of Allotment
+
+The Allotment of Equity Shares to Bidders other than Individual Investors, Non-Institutional
+Investors and Anchor Investors may be on a proportionate basis. No Individual Investor will be
+Allotted less than the minimum Bid Lot, subject to availability of Equity Shares in the Individual
+Investor category, and the remaining available Equity Shares, if any, will be Allotted on a
+proportionate basis. No Non-Institutional Investor will be Allotted less than the minimum Bid Lot,
+subject to availability of Equity Shares in the Non-Institutional Investor category, and the
+remaining available Equity Shares, if any, will be Allotted on a proportionate basis.
+
+**Our Company is required to receive a minimum subscription of 90% of the
+{{ terms.issueWord }}.** However, where the {{ terms.issueWord }} is in the nature of an offer for
+sale only, minimum subscription may not be applicable.
+
+**Flow of events from the closure of the Bidding period (T Day) until Allotment:**
+
+- On T Day, the Registrar validates the electronic Bid details against the depository records, and reconciles the final certificates received from the Sponsor Bank for the UPI process and from the SCSBs for the ASBA and Syndicate ASBA processes against the electronic Bid details.
+- The Registrar identifies cases where the account number per the Bid file or final certificate does not match the Bidder's bank account linked to the depository demat account, and seeks clarification from the SCSB to identify applications made through third party accounts for rejection.
+- Third party confirmation of applications is to be completed by the SCSBs on T+1 Day.
+- The Registrar prepares the list of final rejections and circulates it to the Book Running Lead Manager and our Company for review and comment.
+- Following rejections, the Registrar submits the Basis of Allotment to the Designated Stock Exchange.
+- The Designated Stock Exchange, after verification, approves the Basis of Allotment and generates the drawal of lots wherever applicable, through random number generation software.
+- The Registrar uploads the drawal numbers into its system and generates the final list of Allottees.
+
+**Process for generating the list of Allottees:**
+
+- The Registrar instructs its system to reverse, category-wise, all application numbers in ascending order and to generate buckets according to the allotment ratio. For example, if the application number is 78654321 the system reverses it to 12345687; and if the ratio of Allottees to applicants in a category is 2:7, the system creates lots of seven. If the drawal of lots provided by the Designated Stock Exchange is three and five, the system picks every third and fifth application in each lot of that category, and those applications are Allotted Equity Shares in that category.
+- In categories where allotment is proportionate, the Registrar prepares the proportionate working based on the number of times the category is oversubscribed.
+- In categories where there is under-subscription, the Registrar makes full Allotment for all valid applications.
+- On this basis the Registrar works out the Allottees, partial Allottees and non-Allottees, prepares the fund transfer letters, and advises the SCSBs to debit or unblock the respective accounts.
+
+**Basis of Allotment by category.** Bids received at or above the Issue Price within each of the
+Individual Investor, Non-Institutional Investor and QIB categories are grouped together to determine
+the total demand in that category. Allotment to all successful Bidders in a category is made at the
+Issue Price. Where the aggregate demand in a category is less than or equal to the Equity Shares
+available for that category, full Allotment is made to the extent of valid Bids. Where the aggregate
+demand exceeds the Equity Shares available, Allotment is made on a proportionate basis, subject to a
+minimum Allotment of one Bid Lot and in multiples of {{ offer.lotSize | number }} Equity Shares
+thereafter.
+`.trim(),
+};
+
 export const issueRelatedSections: SectionSpec[] = [
   issueProcedure,
   issueProcedureApplicationSize,
   issueProcedureBidsByCategory,
   issueProcedureTechnicalRejection,
+  issueProcedureBasisOfAllotment,
   issueProcedureUndertakings,
 ];
