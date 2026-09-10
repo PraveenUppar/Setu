@@ -52,6 +52,25 @@ The S0 corpus must exist: **book-built** SME prospectuses (D15 — the corpus is
 
 **~4 days for all of Wave 1**, buying ~123 pages.
 
+## Table-heavy sections need `-table` mode
+
+`pdftotext -layout` **interleaves the columns of a two-column table out of sync** — you get the term column and the description column shuffled, silently, so the pairs look plausible and are wrong. `-raw` is worse: it batches every term, then every description.
+
+This build ships **Xpdf's pdftotext 4.00**, not Poppler, so `-bbox` and `-bbox-layout` are unavailable. It does have `-table`, which is the right tool:
+
+```
+pdftotext -f <page> -l <page> -table <pdf> -
+```
+
+Working recipe for a Term/Description glossary:
+
+1. Extract **one page at a time** — the column boundary shifts between pages.
+2. Find that page's header row (`/^\s*Terms?\s{2,}Description\s*$/`) and take the column boundary from `indexOf("Description")`.
+3. Collect only lines **after** the header — intro prose sits above it and spans the full width, so applying a column split to it cuts words in half.
+4. A non-empty left column starts a new term; an empty left column continues the previous description.
+
+Applies to Definitions, Capital Structure, Our Management, Litigation, Approvals, and Issue Structure — every table in the document.
+
 ## Using an LLM here
 
 An LLM does the paragraph alignment grunt work well — feed it the same section from 5 documents and ask where they differ. **A human confirms the output.** A mangled boilerplate clause is a real legal defect, not a typo.

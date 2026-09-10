@@ -4,6 +4,7 @@ import { issueProcedure, issueProcedureApplicationSize, issueProcedureBidsByCate
 import { sectionRegistry } from './sections';
 import { issueStructure } from './sections/issue-structure';
 import { termsOfIssue } from './sections/terms-of-issue';
+import { definitions } from './sections/definitions';
 import { regulatoryDisclaimers, regulatoryAuthority, regulatoryConsents } from './sections/regulatory-disclosures';
 import { collectPlaceholders } from './nodes';
 import { vardhman } from '../seed/vardhman';
@@ -818,6 +819,69 @@ describe('Terms of the Issue', () => {
 
   it('leaves no unresolved syntax', () => {
     expect(render(vardhman)).not.toMatch(/\{\{|\}\}|\*\*/);
+  });
+});
+
+describe('Definitions and Abbreviations', () => {
+  const nodes = renderSection(definitions, { facts: vardhman });
+  const table = nodes.find((n) => n.type === 'table') as { rows: string[][] };
+  const find = (term: string) => table.rows.find((r) => r[0] === term)?.[1];
+
+  it('emits a glossary table', () => {
+    expect(table).toBeDefined();
+    expect(table.rows.length).toBeGreaterThan(10);
+  });
+
+  it('derives the issuer entry from the fact base, address and all', () => {
+    const entry = find('Our Company, the Company, the Issuer')!;
+    expect(entry).toContain('Vardhman Precision Components Limited');
+    expect(entry).toContain('Companies Act, 2013');
+    expect(entry).toContain('Chakan Industrial Area');
+    expect(entry).toContain('410501');
+  });
+
+  it('lists the promoters by name', () => {
+    const entry = find('Promoters')!;
+    expect(entry).toContain('Rajesh Vardhman');
+    expect(entry).toContain('Sunita Vardhman');
+  });
+
+  it('states the face value in the Equity Shares definition', () => {
+    expect(find('Equity Shares')).toBe('Equity shares of our Company of face value of Rs 10 each');
+  });
+
+  it('resolves the price band into Floor and Cap definitions', () => {
+    expect(find('Floor Price')).toContain('Rs 47');
+    expect(find('Cap Price')).toContain('Rs 49');
+  });
+
+  it('switches the designated stock exchange definition', () => {
+    expect(find('Stock Exchange, Designated Stock Exchange')).toBe('BSE Limited');
+    const nse = renderSection(definitions, { facts: variant({ exchange: 'NSE_EMERGE' }) });
+    const nseTable = nse.find((n) => n.type === 'table') as { rows: string[][] };
+    expect(nseTable.rows.find((r) => r[0].startsWith('Stock Exchange'))?.[1]).toBe(
+      'National Stock Exchange of India Limited',
+    );
+  });
+
+  it('omits an entry whose underlying fact is missing, and gaps it instead', () => {
+    const noRegistrar: FactBase = {
+      ...vardhman,
+      offer: { ...vardhman.offer, registrarToIssue: undefined },
+    };
+    const out = renderSection(definitions, { facts: noRegistrar });
+    const t = out.find((n) => n.type === 'table') as { rows: string[][] };
+    expect(t.rows.find((r) => r[0] === 'Registrar to the Issue')).toBeUndefined();
+    expect(collectPlaceholders(out).map((g) => g.factPath)).toContain(
+      'definitions.Registrar to the Issue',
+    );
+  });
+
+  it('declares the standard glossary as not yet loaded', () => {
+    // ~190 static entries are a mechanical bulk import and are NOT present.
+    // A 17-page section must not quietly render as one page.
+    const paths = collectPlaceholders(nodes).map((g) => g.factPath);
+    expect(paths).toContain('definitions.standardGlossary');
   });
 });
 

@@ -1,5 +1,6 @@
 import type { SectionSpec } from '../section';
 import { generalSections } from './general';
+import { definitions } from './definitions';
 import { issueRelatedSections } from './issue-procedure';
 import { issueStructure } from './issue-structure';
 import { regulatorySections } from './regulatory-disclosures';
@@ -18,6 +19,7 @@ import { termsOfIssue } from './terms-of-issue';
  * (17pp), Other Regulatory and Statutory Disclosures (17pp).
  */
 export const sectionRegistry: SectionSpec[] = [
+  definitions,
   ...generalSections,
   ...regulatorySections,
   termsOfIssue,
