@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { derivedTerms, renderSection, renderDocument } from './section';
 import { issueProcedure, issueProcedureApplicationSize, issueProcedureBidsByCategory, issueProcedureTechnicalRejection, issueProcedureBasisOfAllotment, issueProcedureUndertakings } from './sections/issue-procedure';
 import { sectionRegistry } from './sections';
+import { issueStructure } from './sections/issue-structure';
 import { collectPlaceholders } from './nodes';
 import { vardhman } from '../seed/vardhman';
 import { money } from '../facts/money';
@@ -451,6 +452,96 @@ describe('Basis of allotment', () => {
   });
 });
 
+describe('Issue Structure allocation arithmetic', () => {
+  /**
+   * GROUND TRUTH. Om Galaxy's published Issue Structure table, fed its own
+   * inputs. If our rounding rule is right we reproduce its figures exactly;
+   * if it is wrong the numbers will be close but not equal, which is the
+   * failure mode that would otherwise ship unnoticed.
+   *
+   * Source: bookbuilt__manufacturing__om-galaxy__bse-sme__2026-09__rhp.pdf p.418
+   */
+  const omGalaxy: FactBase = {
+    ...vardhman,
+    capital: { ...vardhman.capital, paidUpShares: 22210824, faceValue: money('5') },
+    offer: {
+      ...vardhman.offer,
+      freshIssueShares: 11667200,
+      marketMakerReservationShares: 584000,
+      lotSize: 1600,
+    },
+  };
+
+  it("reproduces Om Galaxy's published net issue", () => {
+    expect(derivedTerms(omGalaxy).netIssueShares).toBe(11083200);
+  });
+
+  it('does NOT compute per-category share counts, because they are not computable', () => {
+    // Om Galaxy publishes QIB 55,37,600 / NII 16,64,000 / Individual 38,81,600
+    // on a net issue of 1,10,83,200 - that is 49.96% / 15.01% / 35.02%, with
+    // QIB 2.5 lots BELOW an exact 50%. Ceiling, flooring and rounding to the
+    // lot were each tried against these figures and each missed. The split is
+    // a banker's judgement at pricing within the R-024 bounds, not arithmetic.
+    const t = derivedTerms(omGalaxy) as Record<string, unknown>;
+    expect(t.qibPortionShares).toBeUndefined();
+    expect(t.niiPortionShares).toBeUndefined();
+    expect(t.individualPortionShares).toBeUndefined();
+  });
+
+  it('computes net issue and the market maker percentage for Vardhman', () => {
+    const t = derivedTerms(vardhman);
+    expect(t.marketMakerShares).toBe(225000);
+    expect(t.netIssueShares).toBe(4275000);
+    expect(t.marketMakerPercentOfIssue).toBe('5.00');
+  });
+});
+
+describe('Issue Structure section', () => {
+  const nodes = renderSection(issueStructure, { facts: vardhman });
+
+  it('emits a real table, not prose', () => {
+    const table = nodes.find((n) => n.type === 'table');
+    expect(table).toBeDefined();
+    expect((table as { rows: unknown[] }).rows.length).toBeGreaterThanOrEqual(6);
+  });
+
+  it('states the market maker portion but leaves the rest to be provided', () => {
+    const table = nodes.find((n) => n.type === 'table') as { rows: string[][] };
+    const allotmentRow = table.rows[0];
+    // Market maker portion IS a fact, so it is stated
+    expect(allotmentRow[1]).toContain('2,25,000');
+    // The other three are the banker's call at pricing
+    expect(allotmentRow[2]).toBe('[TO BE PROVIDED]');
+    expect(allotmentRow[3]).toBe('[TO BE PROVIDED]');
+    expect(allotmentRow[4]).toBe('[TO BE PROVIDED]');
+    // but the percentage bounds from R-024 are stated
+    expect(table.rows[1][2]).toContain('Not more than 50% of the Net Issue');
+    expect(table.rows[1][3]).toContain('Not less than 15% of the Net Issue');
+    expect(table.rows[1][4]).toContain('Not less than 35% of the Net Issue');
+  });
+
+  it('raises a gap when the market maker reservation is missing', () => {
+    // Every SME issue has one (R-004), so absence is a gap, not a valid nil —
+    // and without it the Net Issue cannot be computed at all.
+    const noMM: FactBase = {
+      ...vardhman,
+      offer: { ...vardhman.offer, marketMakerReservationShares: undefined },
+    };
+    const gaps = collectPlaceholders(renderSection(issueStructure, { facts: noMM }));
+    expect(gaps.map((g) => g.factPath)).toContain('offer.marketMakerReservationShares');
+    // and no table is emitted from unknowable numbers
+    expect(renderSection(issueStructure, { facts: noMM }).find((n) => n.type === 'table')).toBeUndefined();
+  });
+
+  it('does not apply to a fixed-price issue', () => {
+    const fixedPrice: FactBase = {
+      ...vardhman,
+      offer: { ...vardhman.offer, issueType: 'FIXED_PRICE' },
+    };
+    expect(renderSection(issueStructure, { facts: fixedPrice })).toHaveLength(0);
+  });
+});
+
 describe('document assembly', () => {
   it('renders every registered section without throwing', () => {
     expect(() => renderDocument(sectionRegistry, { facts: vardhman })).not.toThrow();
@@ -460,7 +551,7 @@ describe('document assembly', () => {
     const nodes = renderDocument(sectionRegistry, { facts: vardhman });
     const headings = nodes.filter((n) => n.type === 'heading' && n.level === 2);
     expect((headings[0] as { text: string }).text).toBe('Forward Looking Statements');
-    expect((headings[1] as { text: string }).text).toBe('Issue Procedure');
+    expect((headings[1] as { text: string }).text).toBe('Issue Structure');
   });
 
   it('surfaces gaps from across the whole document', () => {

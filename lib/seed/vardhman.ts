@@ -406,6 +406,8 @@ export const vardhman: FactBase = {
     terminology: 'ISSUE',
 
     freshIssueShares: 4500000,
+    // 5.00% of the issue, and an exact 75 lots at 3,000 per lot
+    marketMakerReservationShares: 225000,
     sellingShareholders: [],
 
     floorPrice: money('47'),

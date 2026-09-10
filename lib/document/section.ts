@@ -135,9 +135,41 @@ export function derivedTerms(facts: FactBase) {
   const state = facts.company.registeredOffice.state;
   const regionalLanguage = REGIONAL_LANGUAGE[state] ?? 'the regional language';
 
+  /**
+   * Net issue IS deterministic: the issue less the market maker reservation.
+   *
+   * The QIB / NII / Individual SHARE COUNTS ARE NOT, and must not be computed.
+   * Tested against Om Galaxy's published table and no rule reproduces it. Its
+   * net issue of 1,10,83,200 splits as QIB 55,37,600 / NII 16,64,000 /
+   * Individual 38,81,600 — that is 49.96% / 15.01% / 35.02%, with QIB sitting
+   * 2.5 lots BELOW an exact 50% and Individual 1.5 lots above. Ceiling,
+   * flooring and rounding to the lot were each tried and each missed.
+   *
+   * The figures are a discretionary judgement made by the merchant banker at
+   * pricing, within the "not more than 50%" and "not less than 15% / 35%"
+   * bounds of R-024. Deriving them would produce numbers that look right and
+   * are wrong, in an allotment table. The percentages are stated; the counts
+   * are a gap for the banker to supply.
+   */
+  const marketMakerShares = facts.offer.marketMakerReservationShares ?? 0;
+  const netIssueShares = facts.offer.freshIssueShares - marketMakerShares;
+
+  const percentOfIssue = (n: number) =>
+    facts.offer.freshIssueShares === 0
+      ? '0.00'
+      : new Decimal(n).dividedBy(facts.offer.freshIssueShares).times(100).toFixed(2);
+
   return {
     documentName,
     issueWord,
+
+    marketMakerShares,
+    netIssueShares,
+    marketMakerPercentOfIssue: percentOfIssue(marketMakerShares),
+    netIssuePercentOfPostIssueCapital: new Decimal(netIssueShares)
+      .dividedBy(facts.capital.paidUpShares + facts.offer.freshIssueShares)
+      .times(100)
+      .toFixed(2),
     issueWordLower: issueWord.toLowerCase(),
     exchangeName: facts.offer.exchange === 'BSE_SME' ? 'BSE SME' : 'NSE Emerge',
     exchangeLongName:

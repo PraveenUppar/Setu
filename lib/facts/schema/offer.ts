@@ -54,6 +54,18 @@ export const zOffer = z.object({
   freshIssueShares: zShares.describe('Shares being freshly issued; 0 for a pure OFS'),
 
   /**
+   * Every SME issue carves out a portion for the market maker, who must
+   * provide liquidity for three years (R-004). The Net Issue is the issue less
+   * this reservation, and the QIB / NII / Individual portions are percentages
+   * of the NET issue, not the gross.
+   *
+   * Observed at roughly 5% of issue size, rounded to a whole number of lots.
+   */
+  marketMakerReservationShares: zShares
+    .optional()
+    .describe('Shares reserved for subscription by the Market Maker'),
+
+  /**
    * Reg 230(1)(f): total OFS may not exceed 20% of total issue size.
    * Leave empty for a pure fresh issue.
    */
