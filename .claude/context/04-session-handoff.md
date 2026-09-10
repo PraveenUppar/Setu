@@ -5,8 +5,8 @@
 ---
 
 **Last updated:** 2026-09-10
-**Current stage:** S0 and S6 CLOSED. **S4 Wave 1 in progress.**
-**Status:** **336 tests passing, tsc clean, dev server runs.** Document renders **10 of the 37 numbered subsections**, drafted as **29 registry sections**, **42 estimated pages** of a measured ~280. **Issue Procedure is COMPLETE**, and the glossary is at **130 definitions plus 129 abbreviations**.
+**Current stage:** S0, S3 and S6 CLOSED. **S4 Wave 1 extraction finished; S5 next.**
+**Status:** **352 tests passing, tsc clean, dev server runs.** Document renders **10 of the 37 numbered subsections**, drafted as **29 registry sections**, **42 estimated pages** of a measured ~280. **S3 is done** — the module engine, M1, and a real issuer's answers replacing the seed. **Issue Procedure is COMPLETE**, and the glossary is at **130 definitions plus 129 abbreviations**.
 
 **The progress indicator said "25 of 37" until 2026-09-10 and was wrong** — it counted registry entries against numbered subsections, and Issue Procedure alone is one subsection and sixteen entries. Every spec now carries `partOf`, the header counts distinct values, and a test holds it. Same principle as the readiness score: a number the reader trusts must not flatter.
 **Rules: 55** — 43 eligibility, 12 consistency. The pre-check runs 26; no issuer sees 26 questions, since the criteria diverge by exchange.
@@ -28,6 +28,28 @@
 - **Paired extraction dataset built** — `fixtures/corpus/`, restated financials as input and Capital Structure as truth, both halves for all 7 documents, guarded by `lib/corpus/fixtures.test.ts`.
 - **Dropped:** MCA21 document sets (needs a paid account; the prospectus build-up gives the same allotment history). Annual reports stay at 4.
 - **Still open, and not answerable from prospectuses:** O-5 Schedule VI Part A text, O-7 the amendment notification date, and the three formulation disputes O-12 to O-14.
+
+### S3 — Module engine and M1 — **DONE 2026-09-10**
+
+`lib/modules/` — `types.ts` (Module, Field, FieldView, progress), `m1-company.ts` (13 fields
+growing to 15 by `showIf`), `index.ts` (registry, progress, feedsInto resolution).
+`components/module-form.tsx` is ONE renderer for all ten modules (MM2); adding M2 adds no UI code.
+
+`lib/store/fact-store.ts` — append-only local JSON. Every write is a numbered version and
+`current.json` is a pointer; nothing is overwritten, because "who changed this figure, and when" is
+a question a merchant banker asks about a document carrying their signature. A write that changes
+nothing is not versioned, since autosave fires on every blur.
+
+**A real issuer now replaces the seed.** `/` reads the store: with no answers it shows the demo
+issuer, and once anything is typed it lays the answers over an EMPTY fact base rather than over
+Vardhman. Merging onto the seed would have produced a document that reads as complete while
+carrying another company's figures in every unanswered place — D21 as a product decision. Verified:
+typing one company name gives 56 findings and 29/100, which is the honest state of a blank document.
+
+**Gate passed in the browser:** filled M1, reloaded, answers persisted; every field shows "Why we
+ask" with its clause and where it appears; declaring an LLP conversion revealed the conversion-date
+field (13 fields to 14); an invalid website saved AND reported "Invalid URL. This does not look
+like a usable web address."
 
 ### S1 — Skeleton, S2 — Fact base (done)
 

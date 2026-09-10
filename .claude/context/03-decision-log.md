@@ -613,3 +613,29 @@ The glossary cites it for Fraudulent Borrower, where three independent documents
 Dividend Policy carried "all Equity Shareholders whose names appear in the register of members on the record date are entitled to be paid". Om Galaxy alone; Maxwell's only mention of a record date is in an unrelated context.
 
 That is now **four for four** — every single-sourced sentence caught across four separate sections has been Om Galaxy's. At 509 pages it is the longest document in the corpus and the primary BSE extraction source, so it carries more text nobody else carries, and that text sits inside blocks whose other paragraphs match word for word. **Running the per-clause source count is no longer a precaution when extracting from it; it is the method.**
+
+---
+
+## D33 — An invalid answer is saved, and a real issuer never starts from the seed
+
+**Two decisions from building S3, both about what honesty means in a form.**
+
+### An invalid value is stored, not rejected
+
+`saveField` writes whatever the issuer typed and reports the problems alongside it. Refusing to store a value that fails its schema would lose their work every time they typed a half-finished date — and it would make the gap dashboard lie by omission.
+
+**A field that is WRONG is a different state from a field that is EMPTY**, and the document has to be able to show the difference. An empty field is a question nobody has answered; a wrong one is an answer somebody needs to look at again. Collapsing them into "not answered" hides the second.
+
+### A real issuer's answers go over an EMPTY fact base, never over the demo seed
+
+The obvious implementation is to start every issuer on the Vardhman seed and let them overwrite it field by field. It renders beautifully from the first keystroke.
+
+It is also the exact failure D21 records, moved from text into product: a document that reads as complete while carrying another company's face value, another company's auditor, another company's registered office in every place the issuer has not reached yet. The reader cannot tell which figures are theirs.
+
+So `withAnswers` lays the issuer's answers over `emptyFactBase()`. Everything unanswered renders as a visible gap and appears in the findings list. Typing one company name produces **56 findings and 29/100 readiness**, which looks discouraging and is correct — that IS the state of a document with one fact in it.
+
+### While there: two things the browser found that types did not
+
+**Zod schemas and functions cannot cross the server/client boundary.** Passing a `Field` to the form is a runtime error, not a type error, so it reached the browser before it failed. The fix is a `FieldView` of plain data built on the server — which is the better shape anyway: validation and `showIf` both run where the schema and the whole fact base already are, and the browser carries neither Zod nor the section registry.
+
+**React's `onBlur` listens for `focusout`, not `blur`.** `blur` does not bubble, so a synthetic one never reaches the handler. Worth knowing for any future browser verification of a form.

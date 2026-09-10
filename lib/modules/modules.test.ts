@@ -1,0 +1,178 @@
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { listVersions, readFactBase, readVersion, writeFacts } from '../store/fact-store';
+import {
+  allProgress,
+  applicableFields,
+  feedsIntoTitles,
+  fieldStatus,
+  findModule,
+  isAnswered,
+  m1Company,
+  moduleRegistry,
+} from './index';
+import { sectionRegistry } from '../document/sections';
+import { vardhman } from '../seed/vardhman';
+import type { PartialFactBase } from '../facts/schema';
+
+describe('the module spec', () => {
+  it('addresses every field by a fact path, so a question is asked once', () => {
+    // "Ask once" is structural, not a discipline: the company name is one path
+    // read ~200 times, not one question repeated.
+    const paths = moduleRegistry.flatMap((m) => m.fields.map((f) => f.path));
+    expect(new Set(paths).size).toBe(paths.length);
+    for (const p of paths) expect(p).toMatch(/^[a-z][A-Za-z]*\./);
+  });
+
+  it('gives every field a reason and a destination', () => {
+    // A field with no helpText is a form; a field with helpText is a teacher.
+    for (const field of m1Company.fields) {
+      expect(field.helpText.length, field.path).toBeGreaterThan(40);
+      expect(field.feedsInto.length, field.path).toBeGreaterThan(0);
+    }
+  });
+
+  it('points feedsInto at sections that exist', () => {
+    const ids = new Set(sectionRegistry.map((s) => s.id));
+    const dangling = moduleRegistry
+      .flatMap((m) => m.fields.flatMap((f) => f.feedsInto))
+      .filter((id) => !ids.has(id));
+    expect([...new Set(dangling)]).toEqual([]);
+  });
+
+  it('resolves feedsInto to titles a person recognises', () => {
+    const titles = feedsIntoTitles(['general.definitions', 'not.a.section']);
+    expect(titles).toEqual(['Definitions and Abbreviations']);
+  });
+});
+
+describe('showIf keeps the form as short as the issuer is simple', () => {
+  it('hides the conversion date until a firm conversion is declared', () => {
+    const none: PartialFactBase = { company: { convertedFromFirmType: 'NONE' } as never };
+    const llp: PartialFactBase = { company: { convertedFromFirmType: 'LLP' } as never };
+
+    const hidden = applicableFields(m1Company, none).map((f) => f.path);
+    const shown = applicableFields(m1Company, llp).map((f) => f.path);
+
+    expect(hidden).not.toContain('company.conversionFromFirmDate');
+    expect(shown).toContain('company.conversionFromFirmDate');
+  });
+
+  it('asks the name-change revenue test only where a name change exists', () => {
+    const clean: PartialFactBase = { company: { nameChanges: [] } as never };
+    const renamed: PartialFactBase = {
+      company: { nameChanges: [{ previousName: 'A', newName: 'B', date: '2026-06-01' }] } as never,
+    };
+    expect(applicableFields(m1Company, clean).map((f) => f.path)).not.toContain(
+      'company.revenueShareFromNewNameActivity',
+    );
+    expect(applicableFields(m1Company, renamed).map((f) => f.path)).toContain(
+      'company.revenueShareFromNewNameActivity',
+    );
+  });
+});
+
+describe('answered versus empty', () => {
+  it('counts false and zero as answers', () => {
+    // The commonest bug in a form like this: an issuer with no partly paid
+    // shares gets asked forever because `false` reads as blank.
+    expect(isAnswered(false)).toBe(true);
+    expect(isAnswered(0)).toBe(true);
+    expect(isAnswered('')).toBe(false);
+    expect(isAnswered(undefined)).toBe(false);
+    expect(isAnswered(null)).toBe(false);
+  });
+
+  it('validates only what has been answered', () => {
+    const field = m1Company.fields.find((f) => f.path === 'company.website')!;
+    expect(fieldStatus(field, {}, undefined).issues).toEqual([]);
+    expect(fieldStatus(field, {}, 'not-a-url').issues.length).toBeGreaterThan(0);
+    expect(fieldStatus(field, {}, 'https://www.example.in').issues).toEqual([]);
+  });
+
+  it('runs the live consistency check alongside the schema', () => {
+    const field = m1Company.fields.find(
+      (f) => f.path === 'company.revenueShareFromNewNameActivity',
+    )!;
+    expect(fieldStatus(field, {}, 42).issues[0]).toContain('Below 50%');
+    expect(fieldStatus(field, {}, 72).issues).toEqual([]);
+  });
+});
+
+describe('progress', () => {
+  it('reports nothing answered for a new issuer', () => {
+    const [p] = allProgress({});
+    expect(p.answered).toBe(0);
+    expect(p.percent).toBe(0);
+    expect(p.unlocked).toBe(true); // M1 depends on nothing
+  });
+
+  it('reports M1 complete for the seeded issuer', () => {
+    const [p] = allProgress(vardhman);
+    expect(p.withIssues).toBe(0);
+    expect(p.answered).toBe(p.applicable);
+    expect(p.percent).toBe(100);
+  });
+
+  it('counts a field with an issue as unanswered', () => {
+    const broken: PartialFactBase = {
+      ...vardhman,
+      company: { ...vardhman.company, website: 'not-a-url' },
+    };
+    const [p] = allProgress(broken);
+    expect(p.withIssues).toBe(1);
+    expect(p.answered).toBeLessThan(p.applicable);
+  });
+
+  it('finds a module case-insensitively, since the URL is lowercase', () => {
+    expect(findModule('m1')?.id).toBe('M1');
+    expect(findModule('M1')?.id).toBe('M1');
+    expect(findModule('M99')).toBeUndefined();
+  });
+});
+
+describe('the fact store', () => {
+  let dir: string;
+
+  beforeEach(() => {
+    dir = mkdtempSync(join(tmpdir(), 'setu-store-'));
+    // The store resolves its paths per call, so pointing it at a temporary
+    // directory needs no module-cache surgery.
+    process.env.SETU_DATA_DIR = dir;
+  });
+
+  afterEach(() => {
+    delete process.env.SETU_DATA_DIR;
+    rmSync(dir, { recursive: true, force: true });
+  });
+
+  it('appends a version per write and never overwrites', () => {
+    expect(readFactBase().version).toBe(0);
+
+    writeFacts({ 'company.name': 'First Name Limited' }, 'issuer');
+    writeFacts({ 'company.name': 'Second Name Limited' }, 'issuer');
+
+    expect(listVersions()).toEqual([1, 2]);
+    // The earlier value is still readable — "who changed this, and when" is a
+    // question a merchant banker will ask.
+    expect(readVersion(1).facts.company?.name).toBe('First Name Limited');
+    expect(readFactBase().facts.company?.name).toBe('Second Name Limited');
+  });
+
+  it('does not version a write that changes nothing', () => {
+    writeFacts({ 'company.name': 'Same Limited' }, 'issuer');
+    const before = readFactBase().version;
+    writeFacts({ 'company.name': 'Same Limited' }, 'issuer');
+    // Autosave fires on every blur; a version per blur would bury real edits.
+    expect(readFactBase().version).toBe(before);
+  });
+
+  it('records who supplied each fact', () => {
+    writeFacts({ 'company.cin': 'U29253MH2016PLC098765' }, 'issuer');
+    const p = readFactBase().provenance['company.cin'];
+    expect(p.source).toBe('user');
+    expect(p.updatedBy).toBe('issuer');
+  });
+});

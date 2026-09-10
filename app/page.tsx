@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { DocumentView } from '@/components/document-view';
 import { GapDashboard } from '@/components/gap-dashboard';
 import { renderSections, flattenSections, derivedTerms } from '@/lib/document/section';
@@ -5,9 +6,24 @@ import { sectionRegistry } from '@/lib/document/sections';
 import { estimatePages } from '@/lib/document/nodes';
 import { assess } from '@/lib/rules';
 import { vardhman } from '@/lib/seed/vardhman';
+import { withAnswers } from '@/lib/seed/empty';
+import { readFactBase } from '@/lib/store/fact-store';
+
+export const dynamic = 'force-dynamic';
 
 export default function Home() {
-  const facts = vardhman;
+  /**
+   * The issuer's own answers if they have started, the demo seed if not.
+   *
+   * Once a real issuer has typed anything, their answers are laid over an
+   * EMPTY fact base rather than over the seed. Merging onto the seed would
+   * produce a document that reads as complete while carrying Vardhman's
+   * figures in every unanswered place — D21's finding as a product decision.
+   * Unanswered facts render as gaps instead, which is what the gap list is for.
+   */
+  const stored = readFactBase();
+  const isDemo = stored.version === 0;
+  const facts = isDemo ? vardhman : withAnswers(stored.facts);
   const terms = derivedTerms(facts);
   const sections = renderSections(sectionRegistry, { facts });
 
@@ -25,6 +41,23 @@ export default function Home() {
           <p className="mt-1 text-sm text-zinc-500">
             {terms.exchangeName} &middot;{' '}
             {facts.offer.issueType === 'BOOK_BUILT' ? 'Book Built' : 'Fixed Price'} {terms.issueWord}
+          </p>
+          <p className="mt-2 text-sm">
+            {isDemo ? (
+              <>
+                <span className="text-zinc-500">Showing the demo issuer. </span>
+                <Link href="/intake" className="underline decoration-dotted underline-offset-2">
+                  Start with your own company
+                </Link>
+              </>
+            ) : (
+              <>
+                <span className="text-zinc-500">Your answers, version {stored.version}. </span>
+                <Link href="/intake" className="underline decoration-dotted underline-offset-2">
+                  Continue filling
+                </Link>
+              </>
+            )}
           </p>
 
           <dl className="mt-5 flex flex-wrap gap-8 text-sm">
