@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { derivedTerms, renderSection, renderDocument } from './section';
-import { issueProcedure, issueProcedureApplicationSize, issueProcedureBidsByCategory } from './sections/issue-procedure';
+import { issueProcedure, issueProcedureApplicationSize, issueProcedureBidsByCategory, issueProcedureUndertakings } from './sections/issue-procedure';
 import { sectionRegistry } from './sections';
 import { collectPlaceholders } from './nodes';
 import { vardhman } from '../seed/vardhman';
@@ -294,6 +294,59 @@ describe('Bids by investor category', () => {
   it('leaves no unresolved template syntax and raises no gaps', () => {
     expect(out).not.toMatch(/\{\{|\}\}/);
     expect(collectPlaceholders(renderSection(issueProcedureBidsByCategory, { facts: vardhman })))
+      .toHaveLength(0);
+  });
+});
+
+describe('Impersonation, undertakings and utilisation', () => {
+  const render = (facts: FactBase) =>
+    renderSection(issueProcedureUndertakings, { facts })
+      .flatMap((n) =>
+        n.type === 'paragraph'
+          ? [n.runs.map((r) => r.text).join('')]
+          : n.type === 'list'
+            ? n.items.map((i) => i.map((r) => r.text).join(''))
+            : n.type === 'heading'
+              ? [n.text]
+              : [],
+      )
+      .join('\n');
+
+  it('quotes Section 38(1) of the Companies Act verbatim', () => {
+    const out = render(vardhman);
+    expect(out).toContain('sub-section (1) of Section 38 of the Companies Act, 2013');
+    expect(out).toContain('application in a fictitious name');
+    expect(out).toContain('shall be liable for action under Section 447');
+  });
+
+  it('carries the full set of undertakings', () => {
+    const out = render(vardhman);
+    expect(out).toContain('complaints received in respect of the Issue');
+    expect(out).toContain('three Working Days from the Issue Closing Date');
+    expect(out).toContain("Promoters' contribution in full has already been brought in");
+    expect(out).toContain('Applications Supported by Blocked Amount');
+    expect(out).toContain('wilful defaulter or a fraudulent borrower');
+  });
+
+  it('names the current document stage when describing a re-filing', () => {
+    expect(render(vardhman)).toContain('a fresh Draft Red Herring Prospectus');
+    const atRhp = variant({ documentStage: 'RHP' });
+    expect(render(atRhp)).toContain('a fresh Red Herring Prospectus');
+  });
+
+  it('certifies utilisation of proceeds', () => {
+    const out = render(vardhman);
+    expect(out).toContain('sub-section (3) of Section 40 of the Companies Act, 2013');
+    expect(out).toContain('shall not have recourse to the Issue proceeds until the approval');
+  });
+
+  it('uses the lower-case issue word for the pre-issue advertisement', () => {
+    expect(render(vardhman)).toContain('pre-issue advertisement was published');
+  });
+
+  it('leaves no unresolved syntax and raises no gaps', () => {
+    expect(render(vardhman)).not.toMatch(/\{\{|\}\}|\*\*/);
+    expect(collectPlaceholders(renderSection(issueProcedureUndertakings, { facts: vardhman })))
       .toHaveLength(0);
   });
 });

@@ -405,8 +405,85 @@ accept Bids from Bidders during the Bid/{{ terms.issueWord }} Period.
 `.trim(),
 };
 
+/**
+ * Closing block of Issue Procedure: impersonation, undertakings, utilisation.
+ *
+ * Extraction notes, 2026-09-10:
+ *   Om Galaxy RHP (BSE SME) pp.455-457 and Maxwell DRHP (NSE Emerge) pp.350-352.
+ *
+ *   Impersonation is a verbatim quotation of Section 38(1) of the Companies
+ *   Act, 2013 and is therefore fully invariant.
+ *
+ *   The undertakings are the same set in both, reordered — Om Galaxy numbers
+ *   them, Maxwell bullets them. Where the two differ on a deadline, the more
+ *   specific of the two is used: Om Galaxy says refund communication goes out
+ *   "within two Working Days from the Issue Closing Date" where Maxwell says
+ *   "within the time prescribed under applicable law". Maxwell carries two
+ *   undertakings Om Galaxy omits (NRI certificate dispatch, and the wilful
+ *   defaulter declaration); both are standard and are included.
+ *
+ * Held-out verification against Century Business Media: 14 of 15 checks matched.
+ * The exception is the Section 40(3) separate-bank-account bullet under
+ * Utilisation of Proceeds — Century references Section 40 only in a penalties
+ * context, so that ONE bullet rests on Maxwell alone. The other four bullets of
+ * that subsection matched. Worth re-confirming against a third document before
+ * this ships.
+ */
+export const issueProcedureUndertakings: SectionSpec = {
+  id: 'issueRelated.issueProcedure.undertakings',
+  title: 'Impersonation, Undertakings and Utilisation of Proceeds',
+  producer: 'template',
+  order: 3190,
+  group: 'SECTION - ISSUE RELATED INFORMATION',
+  appliesIf: (facts) => facts.offer.issueType === 'BOOK_BUILT',
+  extractedFrom: [
+    'bookbuilt__manufacturing__om-galaxy__bse-sme__2026-09__rhp.pdf pp.455-457',
+    'bookbuilt__engineering__maxwell-engineering__nse-emerge__2026-08__drhp.pdf pp.350-352',
+  ],
+  template: `
+### Impersonation
+
+Attention of the Bidders is specifically drawn to the provisions of sub-section (1) of Section 38 of
+the Companies Act, 2013, which is reproduced below:
+
+"Any person who —
+
+- makes or abets making of an application in a fictitious name to a company for acquiring, or subscribing for, its securities; or
+- makes or abets making of multiple applications to a company in different names or in different combinations of his name or surname for acquiring or subscribing for its securities; or
+- otherwise induces directly or indirectly a company to allot, or register any transfer of, securities to him, or to any other person in a fictitious name, shall be liable for action under Section 447."
+
+### Undertakings by our Company
+
+Our Company undertakes the following:
+
+- That the complaints received in respect of the {{ terms.issueWord }} shall be attended to expeditiously and satisfactorily.
+- That all steps will be taken for completion of the necessary formalities for listing and commencement of trading on the Stock Exchange where the Equity Shares are proposed to be listed within three Working Days from the {{ terms.issueWord }} Closing Date.
+- That the funds required for making refunds as per the modes disclosed, or for dispatch of allotment advice by registered post or speed post, shall be made available to the Registrar to the {{ terms.issueWord }} by our Company.
+- Where refunds, to the extent applicable, are made through electronic transfer of funds, a suitable communication shall be sent to the Bidder within two Working Days from the {{ terms.issueWord }} Closing Date, giving details of the bank where the refund shall be credited along with the amount and the expected date of electronic credit of refund.
+- That our Promoters' contribution in full has already been brought in.
+- That, except for the Allotment of Equity Shares pursuant to the Fresh Issue, no further issue of Equity Shares shall be made until the Equity Shares issued through this {{ terms.documentName }} are listed, or until the application monies are refunded on account of non-listing, under-subscription or otherwise.
+- That adequate arrangements shall be made to collect all Applications Supported by Blocked Amount while finalising the Basis of Allotment.
+- If our Company does not proceed with the {{ terms.issueWord }} after the Bid/{{ terms.issueWord }} Opening Date but before Allotment, the reason shall be given as a public notice issued by our Company within two days of the Bid/{{ terms.issueWord }} Closing Date. The public notice shall be issued in the same newspapers in which the pre-{{ terms.issueWordLower }} advertisement was published, and the Stock Exchange on which the Equity Shares are proposed to be listed shall also be informed promptly.
+- If our Company withdraws the {{ terms.issueWord }} after the Bid/{{ terms.issueWord }} Closing Date, our Company shall be required to file a fresh {{ terms.documentName }} with the Stock Exchange, the RoC and SEBI, in the event our Company subsequently decides to proceed with the {{ terms.issueWord }}.
+- If Allotment is not made within the prescribed time period under applicable law, the entire subscription amount received will be refunded or unblocked within the time prescribed under applicable law. If there is a delay beyond the prescribed time, our Company shall pay the interest prescribed under the Companies Act, 2013, the SEBI ICDR Regulations and applicable law for the delayed period.
+- That the certificates of the securities or refund orders to Eligible NRIs shall be dispatched within the specified time.
+- That none of our Promoters or Directors is a wilful defaulter or a fraudulent borrower.
+
+### Utilisation of {{ terms.issueWord }} Proceeds
+
+Our Board of Directors certifies that:
+
+- All monies received out of the Fresh Issue shall be credited or transferred to a separate bank account other than the bank account referred to in sub-section (3) of Section 40 of the Companies Act, 2013.
+- Details of all monies utilised out of the Fresh Issue shall be disclosed, and shall continue to be disclosed for so long as any part of the {{ terms.issueWord }} proceeds remains unutilised, under an appropriate head in the balance sheet of our Company, indicating the purpose for which such monies have been utilised.
+- Details of all unutilised monies out of the Fresh Issue, if any, shall be disclosed under an appropriate separate head in the balance sheet, indicating the form in which such unutilised monies have been invested.
+- Our Company shall comply with the requirements of the SEBI Listing Regulations in relation to the disclosure and monitoring of the utilisation of the proceeds of the {{ terms.issueWord }}.
+- Our Company shall not have recourse to the {{ terms.issueWord }} proceeds until the approval for listing and trading of the Equity Shares has been received from the Stock Exchange where listing is sought.
+`.trim(),
+};
+
 export const issueRelatedSections: SectionSpec[] = [
   issueProcedure,
   issueProcedureApplicationSize,
   issueProcedureBidsByCategory,
+  issueProcedureUndertakings,
 ];
