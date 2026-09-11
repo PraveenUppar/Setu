@@ -129,6 +129,17 @@ export const zPromoters = z.object({
     .array(zDisassociation)
     .default([])
     .describe('Companies or firms the promoters disassociated from in the last three years'),
+  /**
+   * "Common Pursuits": a promoter or promoter group entity in the same line
+   * of business. Maxwell discloses one (Maxwell Dies and Moulds); Om Galaxy
+   * states none. Null prints the standard negative; text prints as the
+   * disclosure.
+   */
+  commonPursuitsDetails: z
+    .string()
+    .nullable()
+    .default(null)
+    .describe('Promoters or promoter group entities engaged in the same line of business as the company; null if none'),
 });
 
 export type Promoter = z.infer<typeof zPromoter>;

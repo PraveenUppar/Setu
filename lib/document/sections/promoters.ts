@@ -4,6 +4,7 @@ import { ageOn, longDate } from '../format';
 import type { DocumentNode } from '../nodes';
 import { derivedTerms, type RenderContext, type SectionSpec } from '../section';
 import { gap, h2, h3, nil, para, table } from './helpers';
+import { interestOfPromoters, promoterUndertakings } from './standing-statements';
 
 /**
  * OUR PROMOTERS AND PROMOTER GROUP — section map #20, 6 to 7 pages.
@@ -14,10 +15,9 @@ import { gap, h2, h3, nil, para, table } from './helpers';
  * ventures, change in management and control, relationship with directors,
  * disassociations, pledged shares, then the promoter group by relationship.
  *
- * NOT here yet: "Interest of our Promoters" and the undertakings — several
- * paragraphs of standing statements whose facts sit across M2, M6 and M10
- * and whose prose Wave 1 has not extracted. They are boilerplate work, not
- * data work, and are listed in the handoff.
+ * "Interest of our Promoters", the payment-or-benefit statement, common
+ * pursuits and the undertakings are extracted boilerplate in
+ * standing-statements.ts, each switched by the fact that decides it.
  */
 
 /** The promoters' aggregate holding, from the register. */
@@ -139,6 +139,9 @@ export const promoters: SectionSpec = {
       );
     }
 
+    /* Interest of promoters, property, payments, common pursuits — extracted */
+    if (p.promoters.length > 0) nodes.push(...interestOfPromoters(facts));
+
     /* Pledged shares, guarantees */
     nodes.push(h3('Pledged Shares held by our Promoters'));
     nodes.push(
@@ -152,6 +155,9 @@ export const promoters: SectionSpec = {
         ? para(p.materialGuaranteesDetails)
         : para('Our Promoters have not given any material guarantee to any third party with respect to the specified securities of our Company.'),
     );
+
+    /* Undertakings and confirmations, each switched by its flag */
+    if (p.promoters.length > 0) nodes.push(...promoterUndertakings(facts));
 
     /* Promoter group */
     nodes.push(h3('Our Promoter Group'));

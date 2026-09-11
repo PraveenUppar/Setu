@@ -144,6 +144,17 @@ export const m3Promoters: Module = {
       feedsInto: [PROMOTERS],
     },
     {
+      path: 'promoters.commonPursuitsDetails',
+      label: 'Any promoter or promoter group entity in the same line of business?',
+      type: 'longtext',
+      schema: z.string().nullable(),
+      placeholder: 'The entity, its business and how the overlap is managed, where there is one',
+      helpText:
+        'A "common pursuit" — a promoter firm or a promoter group company doing what the company does — is disclosed by name, and becomes a conflict-of-interest risk factor. The section prints the standard negative where there is none. Choose "None" where there is nothing to state.',
+      clause: 'ICDR Schedule VI Part A',
+      feedsInto: [PROMOTERS, 'general.riskFactors'],
+    },
+    {
       path: 'promoters.disassociations',
       label: 'Companies or firms the promoters disassociated from in the last three years',
       type: 'table',

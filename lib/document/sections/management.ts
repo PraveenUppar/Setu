@@ -4,6 +4,7 @@ import { ageOn, longDate } from '../format';
 import type { DocumentNode } from '../nodes';
 import { derivedTerms, type RenderContext, type SectionSpec } from '../section';
 import { gap, h2, h3, nil, para, table } from './helpers';
+import { committeeTermsOfReference, interestOfDirectors } from './standing-statements';
 
 /**
  * OUR MANAGEMENT — section map #19, 16 to 19 pages. COMPUTED from M4, with
@@ -15,12 +16,10 @@ import { gap, h2, h3, nil, para, table } from './helpers';
  * shareholding of directors, changes in the board, corporate governance and
  * the committees, then KMP and senior management.
  *
- * DELIBERATELY NOT HERE YET, because they are boilerplate the fact base does
- * not carry and Wave 1 extraction has not reached: the committees' terms of
- * reference (three pages of s.177/s.178 text in each source), the "interest
- * of directors" paragraphs, the confirmations on wilful defaulters and
- * securities-market association (facts in M3/M7, prose not yet extracted),
- * and the management organisation chart (an image).
+ * The committees' terms of reference and the "interest of directors"
+ * paragraphs are extracted boilerplate, in standing-statements.ts, with the
+ * single-sourced clauses named there. NOT here: the management organisation
+ * chart (an image) and the sitting-fee table (Maxwell alone).
  */
 
 const COMMITTEE_TITLE: Record<CommitteeKind, string> = {
@@ -185,6 +184,11 @@ export const management: SectionSpec = {
     }
 
     /* -------------------------------------------------------------- */
+    /* Interest of directors — standing statements, fact-switched     */
+    /* -------------------------------------------------------------- */
+    if (directors.length > 0) nodes.push(...interestOfDirectors(facts));
+
+    /* -------------------------------------------------------------- */
     /* Shareholding of directors — from the register, never typed     */
     /* -------------------------------------------------------------- */
     if (directors.length > 0) {
@@ -269,6 +273,7 @@ export const management: SectionSpec = {
         if (c.committee === 'AUDIT') {
           nodes.push(para('The Company Secretary of our Company acts as the secretary of the Committee.'));
         }
+        nodes.push(...committeeTermsOfReference(c.committee));
       }
     }
 

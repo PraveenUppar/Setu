@@ -161,6 +161,25 @@ export const zFinancials = z.object({
     .describe('The auditor certificate the indebtedness figures rest on, with its date'),
 
   contingentLiabilityItems: z.array(zContingentLiabilityItem).default([]),
+
+  /**
+   * "Outstanding dues to creditors" in the litigation section: trade payables
+   * split between MSMEs and others by count and amount, and the creditors
+   * the materiality policy makes material (Om Galaxy p.311, Maxwell p.247).
+   * As at the latest year end. The two amounts must sum to trade payables;
+   * the section checks. The material creditors' NAMES go on the website, not
+   * in the document, which is why only the count and amount are asked.
+   */
+  creditors: z
+    .object({
+      msmeCount: z.number().int().nonnegative().optional().describe('Number of micro, small and medium enterprise creditors'),
+      msmeAmount: zMoney.optional().describe('Total dues to MSME creditors, in rupees'),
+      otherCount: z.number().int().nonnegative().optional().describe('Number of other trade creditors'),
+      otherAmount: zMoney.optional().describe('Total dues to other trade creditors, in rupees'),
+      materialCount: z.number().int().nonnegative().optional().describe('Number of creditors above the materiality threshold'),
+      materialAmount: zMoney.optional().describe('Total dues to material creditors, in rupees'),
+    })
+    .default({}),
 });
 
 export type FinancialYear = z.infer<typeof zFinancialYear>;

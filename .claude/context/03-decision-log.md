@@ -866,3 +866,42 @@ formula under the table, which is what makes either acceptable; the note here do
 **Material Contracts** needed six agreement dates the fact base did not hold. They are M9
 questions now, and the two signed before the RHP — banker to the issue, market making — join the
 DRHP-stage unknowns the seed leaves open, as Maxwell's DRHP prints them: "dated [dot]".
+
+---
+
+## D42 — The standing boilerplate inside computed sections is extracted, and a fact decides which way each statement prints
+
+**2026-09-11.** Our Management, Our Promoters and the litigation section carried tables and
+connecting sentences but not the pages of standing text around them: the committees' terms of
+reference, "Interest of our Directors", "Interest of our Promoters", the promoter undertakings,
+the creditors table. These were extracted from Om Galaxy and Maxwell clause by clause under the
+two-source rule, checked against Century, and live in `lib/document/sections/standing-statements.ts`.
+
+**What the two-source rule removed, named so a banker can add it knowingly.** Audit committee:
+Om Galaxy's RPT-policy, omnibus-review, subsidiary-loan and KPI items; Maxwell's end-use item,
+its two provisos, its powers and quorum paragraphs. Interest of directors: Om Galaxy's
+similar-business, net-proceeds, intermediary-appointment, non-salary-benefit and contingent
+compensation paragraphs. Undertakings: Om Galaxy's supplier/lessor conflict, struck-off list and
+SEBI-action items; Maxwell's securities-law violations. Where the sources differed on a window,
+Century decided: **two years** for promoter interest in contracts and property (Om Galaxy said
+two, Maxwell three; Century two).
+
+**A confirmation is a statement about a fact, so the fact decides it.** Each undertaking is
+switched by the flag M3 or M7 already collects — debarred by SEBI, fugitive economic offender,
+wilful defaulter, regulatory action in the past year, debt-security defaults. Where the flag is
+set, the negative is NOT printed and a gap asks for the particulars; the alternative — a
+boilerplate "none" over a flag that says otherwise — is the exact contradiction the exchange reads
+for. The personal-guarantee sentence is derived from whether any facility's security mentions a
+guarantee, and disappears where none does.
+
+**Two things were kept out of the extracted text on purpose.** The intro sentences cite Sections
+177 and 178 of the Companies Act and not LODR Regulations 18 to 20, because the corporate
+governance paragraph two lines above states that Regulations 17 to 27 do not apply to an SME
+issuer; citing them as the committees' scope would have contradicted it. And the audit item on
+interim statements says "quarterly", the intersection, though Om Galaxy adds "half-yearly".
+
+**Also:** the creditors table needed six figures — MSME and other creditors by count and
+amount, material creditors by count and amount — now in `financials.creditors` and M6. The two
+amounts are checked against trade payables and a mismatch renders as a reconciliation placeholder
+(D39). The material creditors' names go on the website in both sources, not in the document, so
+only the count and total are asked.

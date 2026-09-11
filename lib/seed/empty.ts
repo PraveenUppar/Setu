@@ -62,6 +62,7 @@ export function emptyFactBase(): FactBase {
       pledgedSharesDetails: null,
       materialGuaranteesDetails: null,
       disassociations: [],
+      commonPursuitsDetails: null,
     },
     management: {
       directors: [],
@@ -76,6 +77,7 @@ export function emptyFactBase(): FactBase {
       years: [],
       borrowings: [],
       contingentLiabilityItems: [],
+      creditors: {},
     },
     legal: {
       litigation: [],

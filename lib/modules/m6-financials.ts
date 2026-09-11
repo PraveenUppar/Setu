@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { zBorrowing, zContingentLiabilityItem, zDate, zFinancialYear } from '../facts/schema';
+import { zBorrowing, zContingentLiabilityItem, zDate, zFinancialYear, zMoney } from '../facts/schema';
 import type { Module } from './types';
 import type { RepeaterColumn } from './repeater-spec';
 
@@ -196,6 +196,61 @@ export const m6Financials: Module = {
       helpText:
         'The statutory auditor certifies the borrowings as on the stated date, and the section cites the certificate. Name the firm and the certificate date.',
       feedsInto: [INDEBTEDNESS],
+    },
+    {
+      path: 'financials.creditors.msmeCount',
+      label: 'Number of MSME creditors at the latest year end',
+      type: 'number',
+      suffix: 'creditors',
+      schema: z.number().int().nonnegative(),
+      helpText:
+        'Trade payables are disclosed split between micro, small and medium enterprises and other creditors, by number and amount, in the litigation section. The MSME status is as declared by the creditors and relied on by the auditors.',
+      clause: 'ICDR Schedule VI Part A, para 10(A)(ix); MSMED Act 2006, s.2',
+      feedsInto: [LITIGATION],
+    },
+    {
+      path: 'financials.creditors.msmeAmount',
+      label: 'Total dues to MSME creditors (Rs)',
+      type: 'currency',
+      schema: zMoney,
+      helpText: 'At the latest year end, from the trade payables note. MSME and other dues together must equal total trade payables; the section checks.',
+      feedsInto: [LITIGATION],
+    },
+    {
+      path: 'financials.creditors.otherCount',
+      label: 'Number of other trade creditors at the latest year end',
+      type: 'number',
+      suffix: 'creditors',
+      schema: z.number().int().nonnegative(),
+      helpText: 'Creditors other than micro, small and medium enterprises, at the latest year end.',
+      feedsInto: [LITIGATION],
+    },
+    {
+      path: 'financials.creditors.otherAmount',
+      label: 'Total dues to other trade creditors (Rs)',
+      type: 'currency',
+      schema: zMoney,
+      helpText: 'At the latest year end. With the MSME dues this must sum to total trade payables in the year table.',
+      feedsInto: [LITIGATION],
+    },
+    {
+      path: 'financials.creditors.materialCount',
+      label: 'Number of material creditors',
+      type: 'number',
+      suffix: 'creditors',
+      schema: z.number().int().nonnegative(),
+      helpText:
+        'Creditors above the materiality threshold the legal module sets — a percentage of trade payables. The document prints the count and the total; the names are published on the company website, not in the document.',
+      clause: 'ICDR Schedule VI Part A, para 10(A)(ix)',
+      feedsInto: [LITIGATION],
+    },
+    {
+      path: 'financials.creditors.materialAmount',
+      label: 'Total dues to material creditors (Rs)',
+      type: 'currency',
+      schema: zMoney,
+      helpText: 'The aggregate outstanding to the material creditors at the latest year end. Zero is an answer where there are none.',
+      feedsInto: [LITIGATION],
     },
     {
       path: 'financials.contingentLiabilityItems',

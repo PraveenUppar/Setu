@@ -157,6 +157,62 @@ export const litigation: SectionSpec = {
       nodes.push(para(`Proceedings initiated by ${who}`), ...matters(l.otherMaterialBy));
     }
 
+    /* Outstanding dues to creditors — Om Galaxy p.311, Maxwell p.247 */
+    nodes.push(h3('Outstanding Dues to Creditors'));
+    const cr = facts.financials.creditors;
+    const latest = facts.financials.years[0];
+    if (legal.materialCreditorThresholdPercent !== undefined && creditorThreshold && latest?.tradePayables) {
+      nodes.push(
+        para(
+          `In accordance with the Materiality Policy, creditors to whom the amount due equals or exceeds ${legal.materialCreditorThresholdPercent}% of the total trade payables of our Company as at March 31, ${latest.yearEnding}, being ${formatAs(creditorThreshold, 'lakhs')} against total trade payables of ${formatAs(latest.tradePayables, 'lakhs')}, have been considered material creditors. Details of outstanding dues to our material creditors are available on the website of our Company at ${facts.company.website || '[company website]'}.`,
+        ),
+      );
+    }
+    const haveSplit = cr.msmeCount !== undefined && cr.msmeAmount !== undefined && cr.otherCount !== undefined && cr.otherAmount !== undefined;
+    if (!haveSplit) {
+      nodes.push(gap('financials.creditors', 'Trade payables at the latest year end split between micro, small and medium enterprises and other creditors, by number and amount'));
+    } else {
+      const total = String(Number(cr.msmeAmount!) + Number(cr.otherAmount!));
+      nodes.push(
+        para(
+          `The details of the total outstanding dues (trade payables) owed to micro, small and medium enterprises, as defined under Section 2 of the Micro, Small and Medium Enterprises Development Act, 2006, and to other creditors as at March 31, ${latest?.yearEnding ?? '[year]'} are set out below:`,
+        ),
+        table(
+          ['Type of creditors', 'Number of creditors', 'Amount involved (Rs in Lakhs)'],
+          [
+            ['Micro, small and medium enterprises', String(cr.msmeCount), lakhs(cr.msmeAmount)],
+            ['Other creditors', String(cr.otherCount), lakhs(cr.otherAmount)],
+            ['Total', String(cr.msmeCount! + cr.otherCount!), lakhs(total)],
+          ],
+          { numericColumns: [1, 2] },
+        ),
+      );
+      if (latest?.tradePayables && Number(total) !== Number(latest.tradePayables)) {
+        nodes.push(
+          gap(
+            'financials.creditors',
+            `MSME and other dues total ${formatAs(total, 'lakhs')} but trade payables at March 31, ${latest.yearEnding} are ${formatAs(latest.tradePayables, 'lakhs')}`,
+            '[RECONCILIATION: dues to creditors do not tie to trade payables]',
+          ),
+        );
+      }
+    }
+    if (cr.materialCount === undefined || cr.materialAmount === undefined) {
+      nodes.push(gap('financials.creditors', 'The number of material creditors and the total amount due to them'));
+    } else {
+      nodes.push(
+        para(`Out of the total trade payables, the outstanding dues owed to material creditors as at March 31, ${latest?.yearEnding ?? '[year]'} are set out below:`),
+        table(
+          ['Type of creditors', 'Number of creditors', 'Amount involved (Rs in Lakhs)'],
+          [
+            ['Material creditors', String(cr.materialCount), lakhs(cr.materialAmount)],
+            ['Total', String(cr.materialCount), lakhs(cr.materialAmount)],
+          ],
+          { numericColumns: [1, 2] },
+        ),
+      );
+    }
+
     /* Standing statements */
     const standing: [string, string | null, string][] = [
       ['Proceedings initiated against our Company for economic offences', legal.economicOffenceProceedings, 'There are no proceedings initiated against our Company for any economic offences.'],

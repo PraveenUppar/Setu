@@ -237,6 +237,7 @@ export const vardhman: FactBase = {
     pledgedSharesDetails: null,
     materialGuaranteesDetails: null,
     disassociations: [],
+    commonPursuitsDetails: null,
   },
 
   management: {
@@ -623,6 +624,17 @@ export const vardhman: FactBase = {
       { particulars: 'Disputed demand under the Maharashtra Goods and Services Tax Act, 2017, under appeal', amountLatest: cr('0.34'), amountPrior1: null, amountPrior2: null },
       { particulars: 'Letters of credit outstanding', amountLatest: cr('0.16'), amountPrior1: cr('0.30'), amountPrior2: cr('0.16') },
     ],
+
+    // MSME plus other dues tie to FY2026 trade payables: 2.15 + 4.65 = Rs 6.80 cr.
+    // Two creditors sit above the 5% threshold (Rs 34 lakhs).
+    creditors: {
+      msmeCount: 38,
+      msmeAmount: cr('2.15'),
+      otherCount: 61,
+      otherAmount: cr('4.65'),
+      materialCount: 2,
+      materialAmount: cr('1.02'),
+    },
   },
 
   legal: {
