@@ -33,3 +33,25 @@ export const gapAnchor = (factPath: string): string => `gap-${slug(factPath)}`;
 
 /** A finding card in the dashboard. The target of the link on a placeholder. */
 export const findingAnchor = (ruleId: string): string => `finding-${slug(ruleId)}`;
+
+/**
+ * The same anchor as a Word bookmark name.
+ *
+ * Word is stricter than the DOM: a bookmark name is at most 40 characters,
+ * starts with a letter, and allows only letters, digits and underscores. The
+ * DOM anchors use hyphens and run long — "sec-issue-procedure-bids-by-investor-
+ * category" is 46 characters — so the DOCX renderer maps them here rather than
+ * inventing a second vocabulary. Long names keep a readable prefix and end in
+ * a short hash of the whole anchor, so two sections that share a prefix still
+ * get distinct bookmarks.
+ */
+export function bookmarkName(anchor: string): string {
+  const safe = anchor.replace(/-/g, '_');
+  if (safe.length <= 40) return safe;
+
+  // djb2, rendered as 8 hex digits. Nothing cryptographic is needed; the
+  // hash only has to separate anchors that share their first 31 characters.
+  let hash = 5381;
+  for (let i = 0; i < anchor.length; i++) hash = ((hash << 5) + hash + anchor.charCodeAt(i)) >>> 0;
+  return `${safe.slice(0, 31)}_${hash.toString(16).padStart(8, '0')}`;
+}

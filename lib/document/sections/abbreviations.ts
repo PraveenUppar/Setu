@@ -219,7 +219,7 @@ export const ABBREVIATIONS: Definition[] = [
   {
     term: 'EXIM/ EXIM Policy',
     kind: 'standard',
-    describe: () => 'Export � Import Policy',
+    describe: () => 'Export – Import Policy',
   },
   {
     term: 'FCNR Account',

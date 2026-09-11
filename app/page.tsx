@@ -5,25 +5,14 @@ import { renderSections, flattenSections, derivedTerms } from '@/lib/document/se
 import { sectionRegistry } from '@/lib/document/sections';
 import { estimatePages } from '@/lib/document/nodes';
 import { assess } from '@/lib/rules';
-import { vardhman } from '@/lib/seed/vardhman';
-import { withAnswers } from '@/lib/seed/empty';
-import { readFactBase } from '@/lib/store/fact-store';
+import { loadIssuer } from '@/lib/issuer';
 
 export const dynamic = 'force-dynamic';
 
 export default function Home() {
-  /**
-   * The issuer's own answers if they have started, the demo seed if not.
-   *
-   * Once a real issuer has typed anything, their answers are laid over an
-   * EMPTY fact base rather than over the seed. Merging onto the seed would
-   * produce a document that reads as complete while carrying Vardhman's
-   * figures in every unanswered place — D21's finding as a product decision.
-   * Unanswered facts render as gaps instead, which is what the gap list is for.
-   */
-  const stored = readFactBase();
-  const isDemo = stored.version === 0;
-  const facts = isDemo ? vardhman : withAnswers(stored.facts);
+  // One loader for the preview and the export, so they cannot show
+  // different issuers. The demo-vs-real decision lives in lib/issuer.ts.
+  const { facts, isDemo, version } = loadIssuer();
   const terms = derivedTerms(facts);
   const sections = renderSections(sectionRegistry, { facts });
 
@@ -52,12 +41,18 @@ export default function Home() {
               </>
             ) : (
               <>
-                <span className="text-zinc-500">Your answers, version {stored.version}. </span>
+                <span className="text-zinc-500">Your answers, version {version}. </span>
                 <Link href="/intake" className="underline decoration-dotted underline-offset-2">
                   Continue filling
                 </Link>
               </>
             )}
+            <span className="text-zinc-400"> &middot; </span>
+            {/* A plain anchor, not <Link>: this is a file download, not a navigation */}
+            <a href="/export/docx" className="underline decoration-dotted underline-offset-2">
+              Download as Word
+            </a>
+            <span className="text-zinc-500"> (unsigned draft)</span>
           </p>
 
           <dl className="mt-5 flex flex-wrap gap-8 text-sm">
