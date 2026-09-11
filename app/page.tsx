@@ -47,12 +47,26 @@ export default function Home() {
                 </Link>
               </>
             )}
-            <span className="text-zinc-400"> &middot; </span>
-            {/* A plain anchor, not <Link>: this is a file download, not a navigation */}
+          </p>
+          {/* Plain anchors, not <Link>: these are file downloads, not navigations */}
+          <p className="mt-1 text-sm">
+            <span className="text-zinc-500">Export: </span>
             <a href="/export/docx" className="underline decoration-dotted underline-offset-2">
-              Download as Word
+              Word
             </a>
-            <span className="text-zinc-500"> (unsigned draft)</span>
+            <span className="text-zinc-400"> &middot; </span>
+            <a href="/export/pdf" className="underline decoration-dotted underline-offset-2">
+              PDF
+            </a>
+            <span className="text-zinc-400"> &middot; </span>
+            <a href="/export/gaps" className="underline decoration-dotted underline-offset-2">
+              Gap report (Excel)
+            </a>
+            <span className="text-zinc-400"> &middot; </span>
+            <a href="/export/vault" className="underline decoration-dotted underline-offset-2">
+              Vault (zip)
+            </a>
+            <span className="text-zinc-500"> — all unsigned draft</span>
           </p>
 
           <dl className="mt-5 flex flex-wrap gap-8 text-sm">

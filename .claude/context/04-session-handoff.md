@@ -5,8 +5,8 @@
 ---
 
 **Last updated:** 2026-09-11
-**Current stage:** S0, S3, S5, S6 CLOSED. **S4 Wave 1 extraction finished. S8 modules M3–M10 BUILT with Wave 2 computed sections. S11 DOCX export BUILT** (core; secondary exports pending).
-**Status:** **480 tests passing, tsc clean, dev server runs** (eslint: 18 pre-existing problems, none in S8 files). Document renders **22 of the 37 numbered subsections**, drafted as **41 registry sections**, **65 estimated pages** of a measured ~280 — **70 pages in Word** via `/export/docx`. **All ten intake modules exist** and Vardhman completes nine of them outright (see S8 below). **Issue Procedure is COMPLETE**, and the glossary is at **130 definitions plus 129 abbreviations**.
+**Current stage:** S0, S3, S5, S6, S8, S11 CLOSED. **S4 Wave 1 extraction finished; Wave 2 computed sections built.**
+**Status:** **489 tests passing, tsc clean, dev server runs** (eslint: 18 pre-existing problems, none in S8/S11 files). Document renders **22 of the 37 numbered subsections**, drafted as **41 registry sections**, **65 estimated pages** of a measured ~280 — **70 pages in Word**, and exports to **Word, PDF, a gap-report workbook and a vault zip** from `/export/*`. **All ten intake modules exist** and Vardhman completes nine of them outright (see S8 below). **Issue Procedure is COMPLETE**, and the glossary is at **130 definitions plus 129 abbreviations**.
 
 **The progress indicator said "25 of 37" until 2026-09-10 and was wrong** — it counted registry entries against numbered subsections, and Issue Procedure alone is one subsection and sixteen entries. Every spec now carries `partOf`, the header counts distinct values, and a test holds it. Same principle as the readiness score: a number the reader trusts must not flatter.
 **Rules: 55** — 43 eligibility, 12 consistency. The pre-check runs 26; no issuer sees 26 questions, since the criteria diverge by exchange.
@@ -19,7 +19,7 @@
 
 ## Done
 
-### S8 — Modules M3–M10 and Wave 2 computed sections — **BUILT 2026-09-11** (D37, D38, D39)
+### S8 — Modules M3–M10 and Wave 2 computed sections — **CLOSED 2026-09-11** (D37, D38, D39)
 
 **Engine changes first, because "pure content" was not quite true:** `Field.columns` replaces the
 page's column map; the repeater gained `money`, `boolean` and `list` cell types (fixing an S5 bug
@@ -57,7 +57,7 @@ and the promoter undertakings (boilerplate, Wave 1 style extraction); Other Fina
 (EPS, RoNW, NAV — computable) and Material Contracts (computable from M9 dates); the M5 fields feed
 Our Business and Risk Factors, which are S9/S10.
 
-### S11 — DOCX export — **BUILT 2026-09-11** (D35, D36)
+### S11 — DOCX export and the working papers — **CLOSED 2026-09-11** (D35, D36, D40)
 
 `lib/document/docx.ts` — `renderDocx(sections, { facts, certified, version })` over the SAME
 `RenderedSection[]` the HTML view consumes. Title page, pre-filled and hyperlinked table of
@@ -85,8 +85,11 @@ The route returns 200 with the right MIME type, filename and a valid zip.
 **Opened in Microsoft Word by the user, 2026-09-11 — gate passed.** ToC and page numbers
 populate on the update-fields prompt; tables and placeholders as intended.
 
-**Still to do in S11:** PDF export, gap report (.xlsx), document vault (.zip), provenance map.
-The "250+ pages for a complete Vardhman" gate cannot be met until S8/S9 land more sections.
+**S11 CLOSED 2026-09-11.** `/export/gaps` (workbook: Findings, Placeholders, Provenance —
+`lib/export/gap-report.ts`), `/export/pdf` (a LibreOffice print of the DOCX, 501 without it —
+D40, `lib/export/pdf.ts`), `/export/vault` (zip of DOCX, PDF, workbook, fact base, provenance,
+manifest — `lib/export/bundle.ts`). One `assemble()` feeds every route. 9 tests open the workbook
+and the zip; the PDF test runs where LibreOffice is found. The "250+ pages" gate waits on S9.
 
 **What the render caught that the tests did not** (the D34 lesson, again):
 - The first watermark, a text frame, painted OVER the body — a Definitions row was unreadable.
@@ -280,16 +283,16 @@ not the section under test. D29.
 **S8 gate in the browser is the user's to confirm** — fill a module or two on the real issuer and
 check the None affordance and the new cell types feel right. Then, in order of value:
 
-1. **S11 leftovers** — gap report (.xlsx), then PDF, vault, provenance map.
+1. ~~S11 leftovers~~ — **done 2026-09-11**: `/export/gaps`, `/export/pdf`, `/export/vault`.
 2. **The Wave 2 stragglers** listed under S8 — Other Financial Information and Material Contracts
    are computable now; the interest/undertaking boilerplate needs two-source extraction.
 3. **S7 / S9 / S10** once API credits exist. M5's answers are waiting for the drafting harness.
-4. **S12** review workflow, which is what wires `certified`.
+4. **S12** review workflow, which is what wires `certified` — and lifts the draft notice in every
+   export at once, since they all go through `assemble()`.
 
 To regenerate DOCX samples without the server:
 `SETU_DOCX_OUT=out/vardhman.docx npx vitest run lib/document/docx.test.ts`.
 
-**S4 Wave 1** — resume with the list below when returning to sections.
 
 S0 and S6 are both closed to the extent the corpus can close them. What is left in each needs a
 source the corpus does not contain:

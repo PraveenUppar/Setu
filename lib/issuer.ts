@@ -1,3 +1,4 @@
+import type { ProvenanceMap } from './facts/provenance';
 import type { FactBase } from './facts/schema';
 import { withAnswers } from './seed/empty';
 import { vardhman } from './seed/vardhman';
@@ -18,6 +19,8 @@ export interface LoadedIssuer {
   isDemo: boolean;
   /** Fact-base version on disk; 0 for the demo. */
   version: number;
+  /** Who supplied each fact and when. Empty for the demo seed. */
+  provenance: ProvenanceMap;
 }
 
 /**
@@ -37,5 +40,6 @@ export function loadIssuer(): LoadedIssuer {
     facts: isDemo ? vardhman : withAnswers(stored.facts),
     isDemo,
     version: stored.version,
+    provenance: stored.provenance,
   };
 }

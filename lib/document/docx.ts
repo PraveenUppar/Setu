@@ -569,10 +569,12 @@ export async function renderDocx(sections: RenderedSection[], options: DocxOptio
 
 /** "vardhman-industries-limited-drhp-v3-unsigned-draft.docx" */
 export function docxFilename(facts: FactBase, options: Pick<DocxOptions, 'certified' | 'version'>): string {
-  const company = facts.company.name
-    .replace(/[^A-Za-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .toLowerCase();
+  // An issuer who has not typed their name yet still gets a file with one
+  const company =
+    facts.company.name
+      .replace(/[^A-Za-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .toLowerCase() || 'issuer';
   const stage = facts.offer.documentStage.toLowerCase();
   const version = options.version !== undefined ? `-v${options.version}` : '';
   const state = options.certified ? '' : '-unsigned-draft';

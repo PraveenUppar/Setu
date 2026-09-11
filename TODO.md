@@ -8,16 +8,16 @@ Each stage ends with something demoable and a manual test gate. **Do not advance
 
 | S0 | S1 | S2 | S3 | S4 | S5 | S6 | S7 | S8 | S9 | S10 | S11 | S12 | S13 |
 |----|----|----|----|----|----|----|----|----|----|-----|-----|-----|-----|
-| [x] | [x] | [x] | [x] | [~] | [x] | [x] | [ ] | [x] | [ ] | [ ] | [~] | [ ] | [ ] |
+| [x] | [x] | [x] | [x] | [~] | [x] | [x] | [ ] | [x] | [ ] | [ ] | [x] | [ ] | [ ] |
 
 **Tests, tsc and dev-server status live in `.claude/context/04-session-handoff.md`** — this table is stage-level only, so the two cannot contradict each other.
 
 - **S0 closed 2026-09-10** at 8 prospectuses rather than 25. Criteria corroborated across documents, paired fixtures built. 2 of 27 rule rows remain `PROPOSAL-ONLY` and carry no rules; O-5 (Schedule VI Part A) and O-7 (notification date) need SEBI's own text and stay open.
-- **S4 partial:** engine complete; **11 of the 37 numbered subsections** built, as 30 registry sections. Wave 1 extraction is finished — what remains is computed (S8), narrative (S9/S10), the AoA (S7) or external.
+- **S4 partial:** engine complete; **22 of the 37 numbered subsections** built, as 41 registry sections. Wave 1 extraction and Wave 2 computed sections are done — what remains is narrative (S9/S10), the AoA (S7), two small computed sections, or external.
 - **S3 and S5 done 2026-09-10** — module engine, M1, M2, the repeater with spreadsheet paste, and the computed capital tables. A real issuer's answers now replace the seed.
 - **S6 closed 2026-09-10:** rule engine, gap dashboard, standalone `/eligibility` pre-check, finding-to-document links, and all 32 exchange criteria ruled. Every finding gives a firm pass or fail with a clause — no rule hedges. Remaining consistency rules wait on M2 and M6 data (S5, S8).
-- **S8 built 2026-09-11:** M3–M10 as content against the engine (136 fields), ten Wave 2 computed sections, 22 of 37 subsections rendering at ~65 pages. The engine needed three things first — columns on the field, money/boolean/list cells, and a None state (D37, D38). Vardhman completes nine modules outright; M9 leaves the three DRHP-stage unknowns. Stragglers listed in the handoff.
-- **S11 built 2026-09-11:** `renderDocx()` over the same AST, `/export/docx`, pre-filled ToC, highlighted and bookmarked placeholders, draft notice in the header until certified. **No page watermark, by user decision (D35).** Verified through LibreOffice render; the open-in-Word gate is the user's. PDF, gap report, vault and provenance map still to do.
+- **S11 closed 2026-09-11:** `renderDocx()` over the same AST, `/export/docx`, pre-filled ToC, highlighted and bookmarked placeholders, draft notice in the header until certified (no page watermark, D35). Word gate passed. Then `/export/gaps` workbook, `/export/pdf` (LibreOffice print, D40) and `/export/vault`.
+- **S8 closed 2026-09-11:** all ten modules on one engine, ten Wave 2 computed sections, 22 of 37 subsections. None-as-an-answer (D37). Vardhman completes nine modules; M9 leaves the three DRHP-stage unknowns.
 
 ---
 
@@ -257,7 +257,7 @@ Pure content. No new components. ~half a day per pair.
 - [x] Table rendering that doesn't overflow the page — fixed layout, grid sums to the text width
 - [x] Placeholders as highlighted blocks — highlighted runs, bookmarked on first occurrence
 - [x] ~~watermark~~ **`UNSIGNED DRAFT — NOT FOR FILING` notice in the running header** until MB certification (D35 — no page watermark, user decision)
-- [ ] PDF export · gap report (.xlsx) · document vault (.zip) · provenance map
+- [x] PDF export (a LibreOffice print of the DOCX, D40) · gap report (.xlsx) · document vault (.zip) · provenance map (a sheet in the report and JSON in the vault)
 
 ### ✅ Gate
 - [x] Export → **open in actual Microsoft Word** — user confirmed 2026-09-11

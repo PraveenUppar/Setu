@@ -810,3 +810,30 @@ wearing the section's name.
 "Interest of Promoters" and the promoter undertakings — boilerplate the fact base does not carry
 and Wave 1 extraction has not reached; Other Financial Information (EPS, RoNW, NAV) and Material
 Contracts, both computable from facts already held.
+
+---
+
+## D40 — PDF is a print of the DOCX, never a third renderer
+
+**2026-09-11, finishing S11.** The document has one AST and two renderers, and D7 makes the DOCX
+the deliverable. A PDF export could have been a third renderer over the same AST; it would have
+drifted from the DOCX exactly the way the architecture note warns HTML and DOCX would have, and a
+banker comparing the two would find differences that are ours, not theirs.
+
+So `/export/pdf` prints the DOCX through LibreOffice — the same conversion the S11 verification
+used — and returns a plain 501 when LibreOffice is not installed (`SETU_SOFFICE` overrides the
+search). The vault ships without the PDF in that case and its manifest says so. An honest absence
+over a lookalike.
+
+**Also from this build:**
+
+- **The gap report is the dashboard in a spreadsheet**, because the banker's diligence tracker IS
+  a spreadsheet and a list they cannot paste is a list they retype. Findings, Placeholders and
+  Provenance sheets; "Where to fix" resolved by fact path to the module and the question, so a
+  row names a place a person can go. A `Banker notes` column comes back filled in.
+- **One assembly for every export.** `lib/export/bundle.ts` loads the issuer, renders and assesses
+  once; the DOCX, PDF, workbook and vault routes all call it. Four routes loading facts for
+  themselves would eventually describe four different versions.
+- **The vault carries the fact base and the provenance map** beside the document, because a figure
+  in a table traces to a fact path and the fact path traces to a person and a date, and diligence
+  wants that chain in the same folder.
