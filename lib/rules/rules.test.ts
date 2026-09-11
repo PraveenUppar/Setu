@@ -487,7 +487,7 @@ describe('exchange criteria fire on their own breach and only at their own excha
   });
 
   it('EL-044 tests the board against the Companies Act, not LODR', () => {
-    // Vardhman: 4 directors, 2 independent, post-issue capital 16.5 crore.
+    // Vardhman: 5 directors, 3 independent, post-issue capital 16.5 crore.
     expect(fires('EL-044', vardhman)).toBe(false);
 
     // s.149(1): a public company needs three directors.
@@ -496,10 +496,13 @@ describe('exchange criteria fire on their own breach and only at their own excha
     expect(findingFor('EL-044', twoDirectors)!.detail).toContain('Section 149(1) requires at least 3');
 
     // s.149(4): one third independent once post-issue capital reaches Rs 10
-    // crore. Four directors need two; one is short.
-    const oneIndependent = broken((x) => { x.management.directors[3].isIndependent = false; });
+    // crore. Five directors need two; one is short.
+    const oneIndependent = broken((x) => {
+      x.management.directors[3].isIndependent = false;
+      x.management.directors[4].isIndependent = false;
+    });
     expect(fires('EL-044', oneIndependent)).toBe(true);
-    expect(findingFor('EL-044', oneIndependent)!.detail).toContain('Independent directors: 1 of 4');
+    expect(findingFor('EL-044', oneIndependent)!.detail).toContain('Independent directors: 1 of 5');
     expect(findingFor('EL-044', oneIndependent)!.detail).toContain('at or above Rs 10.00 Crores');
 
     // Below both triggers, only s.149(1) applies — three directors, none of
@@ -721,7 +724,9 @@ describe('linking findings to the document', () => {
     const gap = completenessFindings(sections()).find(
       (f) => f.fix?.factPath === 'offer.categoryAllocation',
     );
-    expect(gap?.blocks).toEqual(['Issue Structure']);
+    // One fact, two sections: The Issue and Issue Structure both carry the
+    // allocation gap, and it is one finding naming both
+    expect(gap?.blocks).toEqual(['The Issue', 'Issue Structure']);
   });
 
   it('resolves a rule that names a built section', () => {

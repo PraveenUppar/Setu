@@ -58,10 +58,25 @@ export function emptyFactBase(): FactBase {
       controlChangedInPastYear: false,
       anyAssociatedWithDelistedCompany: false,
       majorityPromoterChangeDate: null,
+      managementControlChangeDetails: null,
+      pledgedSharesDetails: null,
+      materialGuaranteesDetails: null,
+      disassociations: [],
     },
-    management: { directors: [], keyManagerialPersonnel: [] },
+    management: {
+      directors: [],
+      boardChanges: [],
+      keyManagerialPersonnel: [],
+      seniorManagement: [],
+      committees: [],
+    },
     business: { topCustomers: [], topSuppliers: [], facilities: [] },
-    financials: { hasRestatedStatements: false, years: [] },
+    financials: {
+      hasRestatedStatements: false,
+      years: [],
+      borrowings: [],
+      contingentLiabilityItems: [],
+    },
     legal: {
       litigation: [],
       referredToNCLT: false,
@@ -74,8 +89,13 @@ export function emptyFactBase(): FactBase {
       tradingSuspendedForPromoterCompanies: false,
       pendingDebtSecurityDefaults: false,
       sebiActionAgainstDirectorsSince: null,
+      economicOffenceProceedings: null,
+      materialFrauds: null,
+      statutoryDuesDefaults: null,
+      pastInquiriesInspections: null,
+      materialDevelopmentsSinceBalanceSheet: null,
     },
-    approvals: { licences: [] },
+    approvals: { licences: [], approvalsRequiredNotObtained: null },
     offer: {
       issueType: 'BOOK_BUILT',
       exchange: 'BSE_SME',
@@ -97,7 +117,7 @@ export function emptyFactBase(): FactBase {
       brlmDraftReturnedSince: null,
       exemptionApplicationDetails: null,
     },
-    groupCompanies: { companies: [] },
+    groupCompanies: { companies: [], relatedParties: [], relatedPartyTransactions: [] },
   };
 }
 

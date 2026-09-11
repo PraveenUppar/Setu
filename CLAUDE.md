@@ -12,9 +12,10 @@ Takes an SME issuer from zero to a substantially complete, structurally correct 
 
 ## Current state
 
-> **Stage: S4 — Document engine.** Engine proven end to end; 1 of 37 sections written.
-> S0 research, S1 skeleton and S2 fact base are done. 61 tests passing.
-> Read `.claude/context/04-session-handoff.md` at the start of every session for live status.
+> **Stages S0–S3, S5, S6, S8 closed; S4 Wave 1 extraction finished; S11 DOCX export built.**
+> All ten intake modules exist; 22 of 37 subsections render and export to Word. 480 tests passing.
+> Read `.claude/context/04-session-handoff.md` at the start of every session for live status —
+> it is the source of truth; this block is a pointer and will lag.
 
 ---
 

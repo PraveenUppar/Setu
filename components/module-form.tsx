@@ -127,7 +127,11 @@ function Input({
               const raw = e.target.value;
               // An empty box is unanswered, not zero. Coercing it to 0 would
               // report the field as answered and satisfy a rule falsely.
-              onChange(raw === '' ? undefined : Number(raw));
+              if (raw === '') return onChange(undefined);
+              // Money stays a decimal STRING — the fact base's Money type.
+              // Number() here would fail the zMoney schema and put a float
+              // into rupee arithmetic.
+              onChange(field.type === 'currency' ? raw.replace(/[,\s]/g, '') : Number(raw));
             }}
           />
           {field.suffix && <span className="shrink-0 text-xs text-zinc-500">{field.suffix}</span>}
@@ -177,10 +181,42 @@ function FieldRow({ field, moduleId }: { field: FieldView; moduleId: string }) {
       {/*
         Save on blur, not on every keystroke. Each save appends a version, and
         a version per keystroke would bury the real edits in the history.
+
+        A nullable field has a third state beside "answered" and "not yet":
+        NONE — no pledged shares, no regulatory action, no change of control.
+        It saves as null, which the store keeps apart from an absent answer,
+        so the module can complete without the issuer typing "none" into a
+        box that then reads as a disclosure.
       */}
-      <div onBlur={() => commit(value)}>
-        <Input field={field} value={value} onChange={setValue} />
-      </div>
+      {value === null ? (
+        <div className="mt-2 flex items-center gap-3">
+          <span className="rounded bg-zinc-900 px-3 py-1 text-sm text-white dark:bg-zinc-100 dark:text-zinc-900">
+            None
+          </span>
+          <button
+            type="button"
+            onClick={() => setValue(undefined)}
+            className="text-xs text-zinc-500 underline decoration-dotted underline-offset-2"
+          >
+            Enter details instead
+          </button>
+        </div>
+      ) : (
+        <>
+          <div onBlur={() => commit(value)}>
+            <Input field={field} value={value} onChange={setValue} />
+          </div>
+          {field.nullable && (
+            <button
+              type="button"
+              onClick={() => commit(null)}
+              className="mt-2 text-xs text-zinc-500 underline decoration-dotted underline-offset-2"
+            >
+              None / not applicable
+            </button>
+          )}
+        </>
+      )}
 
       {issues.length > 0 && (
         <ul className="mt-2 space-y-0.5">
@@ -217,6 +253,7 @@ export function ModuleForm({ moduleId, fields }: { moduleId: string; fields: Fie
             helpText={f.helpText}
             columns={f.columns}
             initial={Array.isArray(f.value) ? (f.value as Record<string, unknown>[]) : []}
+            answeredNone={Array.isArray(f.value) && f.value.length === 0}
           />
         ) : (
           <FieldRow key={f.path} field={f} moduleId={moduleId} />

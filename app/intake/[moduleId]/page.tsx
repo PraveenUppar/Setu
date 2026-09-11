@@ -1,14 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ModuleForm } from '@/components/module-form';
-import {
-  ALLOTMENT_COLUMNS,
-  PROMOTER_HOLDING_COLUMNS,
-  SHAREHOLDER_COLUMNS,
-  allProgress,
-  feedsIntoTitles,
-  findModule,
-} from '@/lib/modules';
+import { allProgress, feedsIntoTitles, findModule } from '@/lib/modules';
 import { capitalConsistency } from '@/lib/capital/tables';
 import { withAnswers } from '@/lib/seed/empty';
 import { applicableFields, fieldStatus, toFieldView } from '@/lib/modules/types';
@@ -33,22 +26,9 @@ export default async function ModulePage({ params }: { params: Promise<{ moduleI
    * the schema and the whole fact base already live, so the browser never
    * carries Zod or the section registry.
    */
-  /** Repeater columns are per-path data, declared alongside the module spec. */
-  const COLUMNS: Record<string, typeof ALLOTMENT_COLUMNS> = {
-    'capital.allotments': ALLOTMENT_COLUMNS,
-    'capital.shareholders': SHAREHOLDER_COLUMNS,
-    'capital.promoterHoldings': PROMOTER_HOLDING_COLUMNS,
-  };
-
   const views = fields.map((f) => {
     const value = getFact(facts, f.path);
-    return toFieldView(
-      f,
-      value,
-      feedsIntoTitles(f.feedsInto),
-      fieldStatus(f, facts, value).issues,
-      COLUMNS[f.path],
-    );
+    return toFieldView(f, value, feedsIntoTitles(f.feedsInto), fieldStatus(f, facts, value).issues);
   });
 
   /**

@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from 'react';
 import { saveField } from '@/app/intake/actions';
-import type { RepeaterColumn } from '@/lib/modules/repeater-spec';
+import { formatCell, parseCell, type RepeaterColumn } from '@/lib/modules/repeater-spec';
 import { applyPaste, blankRow, parsePaste } from '@/lib/modules/paste';
 
 /**
@@ -36,6 +36,13 @@ export interface RepeaterProps {
   helpText: string;
   columns: RepeaterColumn[];
   initial: Record<string, unknown>[];
+  /**
+   * The stored answer is an explicit empty list — "None" was chosen. A table
+   * nobody has reached is absent from the store, not empty, and the two must
+   * not look the same: a company with no litigation has answered; a company
+   * that has not got to M7 has not.
+   */
+  answeredNone?: boolean;
   /** Rendered under the table — running totals, reconciliation, warnings. */
   footer?: React.ReactNode;
 }
@@ -51,24 +58,55 @@ export function Repeater({
   helpText,
   columns,
   initial,
+  answeredNone = false,
   footer,
 }: RepeaterProps) {
   const [rows, setRows] = useState<Record<string, unknown>[]>(
     initial.length > 0 ? initial : [blankRow(columns)],
   );
+  const [none, setNone] = useState(answeredNone && initial.length === 0);
   const [state, setState] = useState<'idle' | 'saving' | 'saved'>('idle');
   const [, startTransition] = useTransition();
   const [showHelp, setShowHelp] = useState(false);
 
-  const commit = (next: Record<string, unknown>[]) => {
-    setRows(next);
+  /** "None": an explicit empty list, which the store keeps apart from absence. */
+  const commitNone = () => {
+    setNone(true);
+    setRows([blankRow(columns)]);
     setState('saving');
     startTransition(async () => {
-      // A trailing blank row is scaffolding, not data. Saving it would put an
-      // empty allotment into the build-up and break the reconciliation.
-      const meaningful = next.filter((r) =>
-        Object.values(r).some((v) => v !== '' && v !== undefined && v !== null),
-      );
+      await saveField(moduleId, path, []);
+      setState('saved');
+    });
+  };
+
+  const commit = (draft: Record<string, unknown>[]) => {
+    // Text-like cells are edited as raw strings and parsed here, at the seam:
+    // a list becomes an array, and an empty text or date becomes absent.
+    const next = draft.map((r) =>
+      Object.fromEntries(
+        columns.map((c) => [
+          c.key,
+          typeof r[c.key] === 'string' && (c.type === 'list' || c.type === 'text' || c.type === 'date')
+            ? parseCell(c, r[c.key] as string)
+            : r[c.key],
+        ]),
+      ),
+    );
+    setRows(next);
+    // A trailing blank row is scaffolding, not data. Saving it would put an
+    // empty allotment into the build-up and break the reconciliation.
+    const meaningful = next.filter((r) =>
+      Object.values(r).some(
+        (v) => v !== '' && v !== undefined && v !== null && !(Array.isArray(v) && v.length === 0),
+      ),
+    );
+    // Nothing typed is nothing to save. Writing [] here would record "None"
+    // for an issuer who only clicked into the table.
+    if (meaningful.length === 0 && !none) return;
+    setNone(false);
+    setState('saving');
+    startTransition(async () => {
       await saveField(moduleId, path, meaningful);
       setState('saved');
     });
@@ -86,12 +124,20 @@ export function Repeater({
     commit(next);
   };
 
+  // Money cells are decimal strings, so the total reads both kinds. A float
+  // sum is fine HERE — it is a running check on the screen, never a figure
+  // the document prints; those go through decimal.js on the server.
+  const asNumber = (v: unknown): number => {
+    if (typeof v === 'number') return v;
+    if (typeof v === 'string' && /^-?\d+(\.\d+)?$/.test(v)) return Number(v);
+    return 0;
+  };
   const totals = columns
     .filter((c) => c.total)
     .map((c) => ({
       key: c.key,
       label: c.label,
-      value: rows.reduce((n, r) => n + (typeof r[c.key] === 'number' ? (r[c.key] as number) : 0), 0),
+      value: rows.reduce((n, r) => n + asNumber(r[c.key]), 0),
     }));
 
   return (
@@ -107,6 +153,15 @@ export function Repeater({
       <p className="mt-1 text-xs text-zinc-500">
         Paste straight from a spreadsheet into the first cell of the last row.
       </p>
+
+      {none && (
+        <p className="mt-2 text-sm">
+          <span className="rounded bg-zinc-900 px-3 py-1 text-white dark:bg-zinc-100 dark:text-zinc-900">
+            None
+          </span>
+          <span className="ml-2 text-xs text-zinc-500">Add a row below to change this.</span>
+        </p>
+      )}
 
       <div className="mt-3 overflow-x-auto">
         <table className="w-full border-collapse text-sm">
@@ -125,15 +180,27 @@ export function Repeater({
               <tr key={i} className="border-b border-zinc-100 dark:border-zinc-800">
                 {columns.map((c, ci) => (
                   <td key={c.key} className="px-1 py-0.5">
-                    {c.type === 'select' ? (
+                    {c.type === 'select' || c.type === 'boolean' ? (
                       <select
                         className={cellClass}
-                        value={String(row[c.key] ?? '')}
-                        onChange={(e) => setCell(i, c.key, e.target.value)}
+                        value={formatCell(c, row[c.key])}
+                        onChange={(e) =>
+                          setCell(
+                            i,
+                            c.key,
+                            c.type === 'boolean' ? parseCell(c, e.target.value) : e.target.value,
+                          )
+                        }
                         onBlur={() => commit(rows)}
                       >
                         <option value="">—</option>
-                        {c.options?.map((o) => (
+                        {(c.type === 'boolean'
+                          ? [
+                              { value: 'true', label: 'Yes' },
+                              { value: 'false', label: 'No' },
+                            ]
+                          : (c.options ?? [])
+                        ).map((o) => (
                           <option key={o.value} value={o.value}>
                             {o.label}
                           </option>
@@ -142,13 +209,15 @@ export function Repeater({
                     ) : (
                       <input
                         type={c.type === 'date' ? 'date' : 'text'}
-                        inputMode={c.type === 'number' ? 'decimal' : undefined}
-                        className={`${cellClass} ${c.type === 'number' ? 'text-right tabular-nums' : ''}`}
-                        placeholder={c.placeholder}
-                        value={row[c.key] === undefined || row[c.key] === null ? '' : String(row[c.key])}
+                        inputMode={c.type === 'number' || c.type === 'money' ? 'decimal' : undefined}
+                        className={`${cellClass} ${c.type === 'number' || c.type === 'money' ? 'text-right tabular-nums' : ''}`}
+                        placeholder={c.placeholder ?? (c.type === 'list' ? 'One; another; a third' : undefined)}
+                        value={formatCell(c, row[c.key])}
                         onChange={(e) => {
                           const raw = e.target.value;
-                          setCell(i, c.key, c.type === 'number' ? (raw === '' ? undefined : Number(raw.replace(/,/g, ''))) : raw);
+                          // Text-like cells keep the raw string while typing so the
+                          // caret does not jump; the parse happens on blur.
+                          setCell(i, c.key, c.type === 'list' || c.type === 'text' || c.type === 'date' ? raw : parseCell(c, raw));
                         }}
                         onBlur={() => commit(rows)}
                         onPaste={(e) => {
@@ -184,7 +253,14 @@ export function Repeater({
                   <button
                     type="button"
                     aria-label="Remove row"
-                    onClick={() => commit(rows.filter((_, j) => j !== i))}
+                    onClick={() => {
+                      const remaining = rows.filter((_, j) => j !== i);
+                      // Removing the last row is an explicit "none": the
+                      // deletion must reach the store, not be swallowed by
+                      // the nothing-typed guard
+                      if (remaining.length === 0) commitNone();
+                      else commit(remaining);
+                    }}
                     className="px-1 text-xs text-zinc-400 hover:text-red-600"
                   >
                     remove
@@ -219,6 +295,15 @@ export function Repeater({
         >
           Add a row
         </button>
+        {!none && (
+          <button
+            type="button"
+            onClick={commitNone}
+            className="text-xs text-zinc-500 underline decoration-dotted underline-offset-2"
+          >
+            None / no entries
+          </button>
+        )}
         <button
           type="button"
           onClick={() => setShowHelp((s) => !s)}

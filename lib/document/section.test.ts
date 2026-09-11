@@ -1766,13 +1766,21 @@ describe('progress counting', () => {
     const sections = renderSections(sectionRegistry, { facts: vardhman });
     const subsections = new Set(sections.map((s) => s.partOf));
 
-    expect(sections.length).toBeGreaterThan(subsections.size * 2);
+    // Still well above one entry per subsection: Issue Procedure alone is 16
+    expect(sections.length).toBeGreaterThan(subsections.size + 15);
     expect(subsections.size).toBeLessThanOrEqual(37);
     expect([...subsections].sort()).toEqual([
       '1. Definitions and Abbreviations',
       '10. Capital Structure',
+      '19. Our Management',
       '2. Certain Conventions, Presentation of Financial, Industry and Market Data',
+      '20. Our Promoters and Promoter Group',
+      '21. Our Group Company / Companies',
       '22. Dividend Policy',
+      '25. Capitalisation Statement',
+      '27. Financial Indebtedness',
+      '28. Outstanding Litigation and Material Developments',
+      '29. Government and Other Approvals',
       '3. Forward Looking Statements',
       '30. Other Regulatory and Statutory Disclosures',
       '31. Terms of the Issue',
@@ -1780,6 +1788,10 @@ describe('progress counting', () => {
       '33. Issue Procedure',
       '34. Restrictions on Foreign Ownership of Indian Securities',
       '37. Declaration',
+      '5. The Issue / The Offer',
+      '6. Summary of Financial Information',
+      '7. Summary of Contingent Liabilities',
+      '8. Summary of Related Party Transactions',
     ]);
   });
 
@@ -1846,7 +1858,7 @@ describe('Conventions, dividend, foreign ownership and declaration', () => {
   it('raises a gap rather than an empty declaration when no board is recorded', () => {
     const noBoard: FactBase = {
       ...vardhman,
-      management: { directors: [], keyManagerialPersonnel: [] },
+      management: { ...vardhman.management, directors: [], keyManagerialPersonnel: [] },
     };
     const paths = collectPlaceholders(renderSection(declaration, { facts: noBoard })).map(
       (g) => g.factPath,

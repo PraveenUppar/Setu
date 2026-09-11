@@ -671,3 +671,142 @@ D29 was the same shape: every test written for a section checked that section, a
 **`revalidatePath('/intake')` does not reach `/intake/m2`.** It needs `revalidatePath('/intake', 'layout')`. Without it the live consistency banner appears only after a manual reload — and a consistency check the issuer has to go looking for is not live.
 
 **The running total is a mitigation, not a fix.** It made the doubled figure visible immediately, which is why the bug was caught in seconds rather than in week nine. But a mistake the issuer has to notice is worse than one that cannot happen, and the fix was still the right call.
+
+---
+
+## D35 — No page watermark; the draft state lives in the running header
+
+**User decision, 2026-09-11, on seeing the first DOCX export.**
+
+D9 recorded the export as "watermarked `UNSIGNED DRAFT — NOT FOR FILING` until merchant-banker
+certification". The first S11 build did that with a text frame in the header, and the render
+showed why it was wrong before the user did: a frame is a layout object, so with wrapping off it
+painted OVER the body, and a Definitions row underneath it was unreadable. A redline the banker
+cannot read is not a deliverable.
+
+The second build used Word's own watermark markup — a WordArt text path at a negative z-index,
+behind the text — which rendered correctly. The user asked for it to be removed regardless.
+
+**What carries the draft state now:** the notice in the running header, on every page, in red,
+beside the company and document name. It goes when `certified` is set, exactly as the watermark
+would have. The `certified` option, the filename suffix and the `Cache-Control: no-store` on the
+route are unchanged; S12's certification action is still what lifts them.
+
+**Supersedes** the watermark half of D9. The certification gate itself stands.
+
+---
+
+## D36 — The table of contents is written into the field, not left for Word to fill
+
+**2026-09-11.** A ToC in Word is a field, and a field is empty until something computes it.
+Word does on open (the document sets `updateFields`) or on F9; LibreOffice, Google Docs and any
+PDF conversion never do. The first export opened with a "TABLE OF CONTENTS" heading and nothing
+under it, and the user asked whether it had been missed.
+
+The entries are now written into the field as cached content: every numbered section and every
+heading down to level 3, each an internal hyperlink to its bookmark, styled with `toc 1` to
+`toc 3` so the levels indent. Word replaces them with its own on update, using the same styles,
+so the ToC looks the same before and after — except for page numbers, which nothing can supply
+before Word paginates and which are blank until the field updates.
+
+**Also from this build:**
+
+- **`renderSections` is what the DOCX consumes, not a second tree.** The renderer walks the same
+  `RenderedSection[]` as the HTML view, so the gaps, bookmarks and headings agree by
+  construction. `lib/issuer.ts` is the one place that decides which issuer both render.
+- **Word bookmarks are not DOM ids.** 40 characters, letters, digits and underscores. `bookmarkName`
+  in `lib/anchors.ts` maps the existing anchors rather than inventing a second vocabulary; long
+  ones keep a readable prefix and a hash.
+- **Tables are fixed-layout with explicit widths that sum to the text width.** Autofit lets a
+  nine-column shareholding table run past the right margin; fixed widths cannot.
+- **Rendering caught a data defect the tests had not.** The EXIM abbreviation carried U+FFFD
+  where the corpus has an en dash. The source PDF was checked and the character corrected.
+
+---
+
+## D37 — "None" is an answer, and the store must be able to hold it
+
+**2026-09-11, building M3 to M10.** The S8 gate is "Vardhman completable start to finish", and it
+failed on the first run for a reason that was not a bug in the seed: `promoters.pledgedSharesDetails`
+is null, meaning no pledged shares, and `isAnswered(null)` was false. Every "date of the last
+regulatory action, if any" and every "details, if any" had the same problem, and so did every
+table whose empty state is meaningful — no litigation, no disassociations, no selling shareholders.
+A form that cannot say "none" cannot complete, and an issuer would be asked "any pledged shares?"
+forever after answering no.
+
+The wrong fix was to type "none" into the box, which then reads as a disclosure. The wrong fix for
+tables was a boolean beside each one. The right fix is that the store distinguishes THREE states:
+
+| Stored value | Means |
+|---|---|
+| absent (`undefined`) | nobody has reached this question |
+| `null`, or `[]` for a table | someone chose **None** |
+| a value | an answer |
+
+`isAnswered` now counts null and an empty array as answered. That is safe only because nothing
+writes them by accident: the form offers "None / not applicable" on fields whose schema takes null
+(`isNullable`, derived from the Zod schema, not declared), and the repeater writes `[]` only from
+its own "None / no entries" button or when the last row is removed — a table someone merely clicked
+into is never saved. D33 said empty and wrong are different states; this adds that empty and none
+are too.
+
+**The seed is not padded to pass the gate.** Vardhman is a DRHP, and three M9 answers cannot exist
+at that stage — the two anchor escrow account names (D28) and the expert consents. The gate now
+states exactly those three as the only unanswered fields across all ten modules, which is a
+stronger claim than 100% and a true one.
+
+---
+
+## D38 — Columns live on the field; the repeater knows money, yes/no and lists
+
+**2026-09-11.** Two things S5 left that S8 could not build on.
+
+**The page held a map from fact path to repeater columns.** Three entries for M2, and every new
+table would have been a fourth line of UI code, against the rule that a module is content. Columns
+are now `Field.columns`, declared with the field, and the page reads them. `feedsInto` gained the
+same treatment for the other direction: a field may name a section that is in the map but not yet
+built (`plannedSections`), and the form says "Our Business (not yet drafted)" rather than either
+promising a place that does not exist (D22) or hiding where the answer goes. A test holds that a
+planned id is removed the day the section is built.
+
+**Every money cell in M2 was a `number` column.** Typing a face value stored `10`, `zMoney` wanted
+`"10"`, and the row failed as "expected string, received number" — the browser gate had pasted the
+seed's strings, so it never saw it. The plain form had the same defect on `currency` fields. The
+repeater now has `money` (a decimal string, commas and "Rs" stripped), `boolean` (a Yes/No select,
+reading yes/no/y/n/1/0 from a paste) and `list` (semicolons, for other directorships and committee
+members), and empty text cells save as absent rather than `""` so an optional DIN left blank does
+not fail the DIN pattern. `parseCell` is the one place a cell becomes a value, for typing and for
+paste alike — D34's lesson about the seam, applied before the seam existed.
+
+---
+
+## D39 — What Wave 2 computes, and what it deliberately still asks
+
+**2026-09-11.** Ten computed sections landed from M3 to M10. The line between derived and asked
+(D20, D28) was drawn per figure:
+
+**Computed, never asked:** the promoters' aggregate holding and the directors' shareholding (from
+the M2 register, so the three sections cannot disagree); the board composition sentence and every
+age (from flags and dates of birth); each committee member's nature of directorship (looked up on
+the board); the litigation materiality threshold and the material creditor threshold (from M6,
+with the arithmetic both corpus documents print); the indebtedness summary by category (from the
+facility list); the capitalisation totals and ratios; the contingent liability and RPT totals.
+
+**Asked, because no rule reproduces it:** the materiality policy DATE (a board resolution); the
+group company threshold and its BASE (10% of PAT in one document, 10% of revenue in the other);
+the borrowings "as on" date and the auditor's certificate; the post-issue capitalisation column,
+which every corpus document prints as "[dot]" because it depends on the issue price.
+
+**Checked, and said so where it fails:** the fund-based outstanding against the balance sheet's
+total borrowings; each year's contingent liability items against the year's total; each year's RPT
+lines against the year's total; every transaction party against the related party list. A mismatch
+is a highlighted reconciliation placeholder, not a silent choice of one figure over the other.
+
+**Summary of Financial Information is external.** It is the auditor's summary statements, which
+both sources reproduce in full; a condensed table of our key figures would be a different thing
+wearing the section's name.
+
+**Left for later, and listed:** the committees' terms of reference, "Interest of Directors" and
+"Interest of Promoters" and the promoter undertakings — boilerplate the fact base does not carry
+and Wave 1 extraction has not reached; Other Financial Information (EPS, RoNW, NAV) and Material
+Contracts, both computable from facts already held.

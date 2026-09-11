@@ -80,8 +80,13 @@ type Field = {
   showIf?: (fb: FactBase) => boolean
   extractionHint?: string
   validate?: (v, fb) => Issue[]  // live consistency
+  columns?: RepeaterColumn[]     // for `table` fields; cell types text · number ·
+                                 // money (decimal string) · date · select · boolean · list
 }
 ```
+
+A field whose schema takes `null` gets a **None** state in the form; a table gets one too, saving
+`[]`. The store keeps absent (not reached), none, and answered apart (D37).
 
 `feedsInto` earns its place three times: the promoter-education feature, the dependency graph, and "which sections unblock when this module completes."
 
@@ -230,7 +235,7 @@ Roles (no real auth — a switcher over one seeded org): Promoter · CFO/CS · M
 
 Section status: `Draft → Ready for Review → Reviewed → Locked`. Section-anchored comment threads. Append-only audit log.
 
-**Exports watermarked `UNSIGNED DRAFT — NOT FOR FILING` until MB certification.** Required by the problem statement, and the honest answer to "aren't you replacing bankers?"
+**Exports carry `UNSIGNED DRAFT — NOT FOR FILING` in the running header until MB certification** (D35 — a notice on every page, not a page watermark). Required by the problem statement, and the honest answer to "aren't you replacing bankers?"
 
 ---
 

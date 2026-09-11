@@ -122,8 +122,8 @@ export default function IntakePage() {
         })}
 
         <p className="pt-4 text-xs text-zinc-500">
-          Nine further modules follow the same shape: capital and shareholding, promoters, board,
-          business, financials, litigation, approvals, the offer, and group companies.
+          Each module can be handed to the person who holds the facts. A module opens once the ones
+          it depends on are complete; the time shown is what it actually takes.
         </p>
       </main>
     </div>

@@ -4,9 +4,9 @@
 
 ---
 
-**Last updated:** 2026-09-10
-**Current stage:** S0, S3, S5 and S6 CLOSED. **S4 Wave 1 extraction finished.**
-**Status:** **385 tests passing, tsc clean, dev server runs.** Document renders **11 of the 37 numbered subsections**, drafted as **30 registry sections**, **44 estimated pages** of a measured ~280. **S3 and S5 are done** — the module engine, M1, M2, the repeater, and the computed capital tables. **Issue Procedure is COMPLETE**, and the glossary is at **130 definitions plus 129 abbreviations**.
+**Last updated:** 2026-09-11
+**Current stage:** S0, S3, S5, S6 CLOSED. **S4 Wave 1 extraction finished. S8 modules M3–M10 BUILT with Wave 2 computed sections. S11 DOCX export BUILT** (core; secondary exports pending).
+**Status:** **480 tests passing, tsc clean, dev server runs** (eslint: 18 pre-existing problems, none in S8 files). Document renders **22 of the 37 numbered subsections**, drafted as **41 registry sections**, **65 estimated pages** of a measured ~280 — **70 pages in Word** via `/export/docx`. **All ten intake modules exist** and Vardhman completes nine of them outright (see S8 below). **Issue Procedure is COMPLETE**, and the glossary is at **130 definitions plus 129 abbreviations**.
 
 **The progress indicator said "25 of 37" until 2026-09-10 and was wrong** — it counted registry entries against numbered subsections, and Issue Procedure alone is one subsection and sixteen entries. Every spec now carries `partOf`, the header counts distinct values, and a test holds it. Same principle as the readiness score: a number the reader trusts must not flatter.
 **Rules: 55** — 43 eligibility, 12 consistency. The pre-check runs 26; no issuer sees 26 questions, since the criteria diverge by exchange.
@@ -18,6 +18,85 @@
 ---
 
 ## Done
+
+### S8 — Modules M3–M10 and Wave 2 computed sections — **BUILT 2026-09-11** (D37, D38, D39)
+
+**Engine changes first, because "pure content" was not quite true:** `Field.columns` replaces the
+page's column map; the repeater gained `money`, `boolean` and `list` cell types (fixing an S5 bug
+where every money cell stored a number and failed `zMoney`); nullable fields and tables have a
+**None** state that saves `null` / `[]` and counts as answered (D37); `plannedSections` lets a field
+name a section not yet built and say so. `lib/rules/precheck.ts` now spreads `emptyFactBase()`, so
+a schema addition lands in one place.
+
+**Schemas:** `promoters`, `management`, `business`, `legal`, `approvals`, `group-companies` are
+real files now, each with the fields its section prints; `financials` gained the capitalisation
+lines, `borrowings` and `contingentLiabilityItems`; `capital.depositoryAgreements` gained dates.
+
+**Modules** (`lib/modules/m3-*.ts` to `m10-*.ts`): 136 fields across the ten, every one with a
+"why we ask", a clause where one exists, and a destination. Vardhman completes nine outright; M9
+leaves exactly the three DRHP-stage unknowns (anchor escrow names, expert consents) unanswered,
+and the gate test names them.
+
+**Computed sections** (`lib/document/sections/`): `management.ts` (#19), `promoters.ts` (#20),
+`group-companies.ts` (#21), `indebtedness.ts` (#25 Capitalisation, #27 Indebtedness),
+`litigation.ts` (#28), `approvals.ts` (#29), `introduction.ts` (#5 The Issue, #6 Summary of
+Financial Information as EXTERNAL, #7 Contingent Liabilities, #8 RPTs). Structure and connecting
+sentences from Om Galaxy and Maxwell, both read for every section; what each derives, asks and
+checks is in D39. Pure computations sit in `lib/legal/materiality.ts` and `lib/financials/tables.ts`.
+
+**Verified:** 78 new tests — the materiality threshold arithmetic, the indebtedness subtotals, the
+capitalisation ratios, each section's specific rows against the seed's own arithmetic, gaps not
+crashes for a one-fact issuer, no seed text leaking into a real issuer, the module gate. In the
+browser: all ten modules list with honest estimates; M4's board table round-trips a boolean, a
+list and a money cell to the store as `true`, `[...]` and a string; removing the last row saves
+`[]`. Rendered through LibreOffice: the board table, the litigation section with its computed
+threshold, the indebtedness summary — all read as the corpus does.
+
+**Not in S8, listed for later:** committee terms of reference, Interest of Directors / Promoters
+and the promoter undertakings (boilerplate, Wave 1 style extraction); Other Financial Information
+(EPS, RoNW, NAV — computable) and Material Contracts (computable from M9 dates); the M5 fields feed
+Our Business and Risk Factors, which are S9/S10.
+
+### S11 — DOCX export — **BUILT 2026-09-11** (D35, D36)
+
+`lib/document/docx.ts` — `renderDocx(sections, { facts, certified, version })` over the SAME
+`RenderedSection[]` the HTML view consumes. Title page, pre-filled and hyperlinked table of
+contents (D36), numbered SECTION groups as Heading 1 with the subsections beneath, justified
+body, bullet and numbered lists via a numbering config, fixed-layout tables whose grid sums to
+the A4 text width, every placeholder as a yellow-highlighted run bookmarked on first occurrence,
+page-X-of-Y footer, and the `UNSIGNED DRAFT — NOT FOR FILING` notice in the running header until
+`certified` (D35 — **no page watermark, by user decision**).
+
+`app/export/docx/route.ts` serves it; `lib/issuer.ts` is the single loader both the preview and
+the export use, so they cannot show different issuers. The home page links to it. There is no
+query parameter that lifts the notice — S12's certification action is what will.
+
+`lib/anchors.ts` gained `bookmarkName()`: Word bookmarks are 40 characters, letters, digits and
+underscores, so the DOM anchors are mapped rather than duplicated.
+
+**Verified:** 18 vitest cases open the zip and read the XML — heading styles the ToC field
+reads, highlight count equals placeholder count, one bookmark per gap and per section, every
+run of 40+ characters present, no `{{` leaks, grids sum to the text width, ordered lists restart,
+ToC entries link to bookmarks, notice present/absent by `certified`. Then rendered through
+LibreOffice and rasterised (pypdfium2 in a scratchpad venv — no pdftoppm on this machine) and
+read page by page: 49 pages for Vardhman, tables inside the margins, inline bold preserved.
+The route returns 200 with the right MIME type, filename and a valid zip.
+
+**Opened in Microsoft Word by the user, 2026-09-11 — gate passed.** ToC and page numbers
+populate on the update-fields prompt; tables and placeholders as intended.
+
+**Still to do in S11:** PDF export, gap report (.xlsx), document vault (.zip), provenance map.
+The "250+ pages for a complete Vardhman" gate cannot be met until S8/S9 land more sections.
+
+**What the render caught that the tests did not** (the D34 lesson, again):
+- The first watermark, a text frame, painted OVER the body — a Definitions row was unreadable.
+  Only the rasterised page showed it. Watermark since removed (D35), but the lesson stands:
+  **render and look at the pages before calling any DOCX change done.**
+- The EXIM abbreviation carried U+FFFD for an en dash, in the fixture and the section. Fixed
+  against the source PDF.
+- The sparse document prints "Bid Lot: 0 Equity Shares" — the empty fact base's zero, in a table
+  cell, where a gap should be. That is the known "table cells cannot carry placeholders" gap
+  below, now visible in the deliverable rather than only in the preview.
 
 ### S0 — Research — **CLOSED 2026-09-10** (D24)
 
@@ -198,7 +277,19 @@ not the section under test. D29.
 
 ## Next action
 
-**S4 Wave 1 is next**, by the user's instruction. Resume with the list below.
+**S8 gate in the browser is the user's to confirm** — fill a module or two on the real issuer and
+check the None affordance and the new cell types feel right. Then, in order of value:
+
+1. **S11 leftovers** — gap report (.xlsx), then PDF, vault, provenance map.
+2. **The Wave 2 stragglers** listed under S8 — Other Financial Information and Material Contracts
+   are computable now; the interest/undertaking boilerplate needs two-source extraction.
+3. **S7 / S9 / S10** once API credits exist. M5's answers are waiting for the drafting harness.
+4. **S12** review workflow, which is what wires `certified`.
+
+To regenerate DOCX samples without the server:
+`SETU_DOCX_OUT=out/vardhman.docx npx vitest run lib/document/docx.test.ts`.
+
+**S4 Wave 1** — resume with the list below when returning to sections.
 
 S0 and S6 are both closed to the extent the corpus can close them. What is left in each needs a
 source the corpus does not contain:
@@ -292,6 +383,24 @@ the AoA (needs S7 upload).
 - **Filters chain** (`| date | upper`), which matters inside the capitalised statutory clauses.
 - **Browser screenshots sometimes return blank** at certain scroll positions while the DOM is correct. Verify content through `javascript_tool`, not screenshots alone.
 - **`vitest run` swallows `console.log`** unless given `--silent=false`.
+- **No `pdftoppm` on this machine, and the Browser pane downloads PDFs rather than showing them.**
+  To look at a rendered DOCX: LibreOffice `soffice --headless --convert-to pdf`, then rasterise
+  with `pypdfium2` + `pillow` in a venv under the scratchpad, then Read the PNGs. The Read tool
+  cannot render PDF pages here without pdftoppm.
+- **A `docx` text frame with `wrap: none` paints over the body**, not under it. Word's own
+  watermark is VML (`v:textpath`, WordArt shapetype 136, negative z-index), and `docx`'s
+  `Textbox` emits a stroked, filled box — neither is a drop-in. Moot after D35, but recorded.
+- **`docx` cached ToC entries use styles `TOC1`..`TOC3`** and render flat unless those styles are
+  defined. Define them with Word's names (`toc 1`) so the regenerated field uses them too.
+- **`<w:updateFields/>` with no attribute means true.** Do not assert on `w:val="true"`.
+- **`jszip` is a transitive dependency of `docx`**; it is now an explicit devDependency because
+  the tests import it.
+- **A shell command can be too long to spawn** (`ENAMETOOLONG` from a heredoc'd Python patch of
+  the seed). Write the patch to the scratchpad and run the file.
+- **The repeater's remove button sits off-canvas on wide tables** (horizontal scroll inside the
+  table). The browser tools cannot click it; `javascript_tool` can, for verification.
+- **`.data/` is the user's own store.** Anything typed into it during verification must be taken
+  back out, as a new version — it is append-only. Done this session (v15 removes v13-v14's test row).
 - **`new Date(y, m, d)` is LOCAL time and `toISOString()` is UTC.** Mixing them moved a regulatory deadline a day earlier. Do date arithmetic on the ISO string parts, or use `getUTC*` throughout.
 - **Prospectus section headings vary by drafter** — `CAPITAL STRUCTURE` versus `SECTION V - CAPITAL STRUCTURE`, and three different spellings of the financial section. **The auditor's examination report is a far better anchor than the heading above it.** Match headings case-sensitively; they are set in capitals, and matching loosely lands on cross-references in body text.
 - **"Authorized" and "Authorised" both appear** — 4 of 7 documents use the American spelling in the capital structure table.

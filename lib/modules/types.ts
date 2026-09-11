@@ -80,6 +80,13 @@ export interface Field {
   options?: SelectOption[];
   /** Shown after the input — "shares", "years", "% of revenue". */
   suffix?: string;
+
+  /**
+   * For `type: 'table'` — the repeater's columns. Declared on the field so a
+   * new module with a new table is content only; the page used to hold a map
+   * from path to columns, which was UI code every repeater had to edit.
+   */
+  columns?: RepeaterColumn[];
 }
 
 export type Assignee = 'PROMOTER' | 'CS' | 'CFO' | 'LEGAL' | 'AUDITOR';
@@ -124,6 +131,8 @@ export interface FieldView {
   issues: string[];
   /** Set for `type: 'table'` — the repeater's columns, as plain data. */
   columns?: RepeaterColumn[];
+  /** The field accepts "None": the form offers it, and it saves as null. */
+  nullable: boolean;
 }
 
 export function toFieldView(
@@ -131,7 +140,6 @@ export function toFieldView(
   value: unknown,
   feedsInto: string[],
   issues: string[],
-  columns?: RepeaterColumn[],
 ): FieldView {
   return {
     path: field.path,
@@ -143,9 +151,11 @@ export function toFieldView(
     placeholder: field.placeholder,
     options: field.options,
     suffix: field.suffix,
-    value: value ?? null,
+    // Undefined stays undefined: the form tells "not answered" from "None"
+    value,
     issues,
-    columns,
+    columns: field.columns,
+    nullable: isNullable(field),
   };
 }
 
@@ -180,12 +190,27 @@ export function applicableFields(module: Module, facts: PartialFactBase): Field[
  * `false` and `0` ARE answers — the commonest bug in a form like this is
  * treating them as blanks, which would ask an issuer with no partly paid
  * shares the same question forever.
+ *
+ * `null` is an answer too, and a different one from `undefined`. The store
+ * holds nothing for a question nobody has reached (undefined); it holds null
+ * only where someone chose "None" on a field that allows it — no pledged
+ * shares, no regulatory action, no change of control. Collapsing the two
+ * would ask "any pledged shares?" forever of an issuer who has said no.
  */
 export function isAnswered(value: unknown): boolean {
-  if (value === undefined || value === null) return false;
+  if (value === undefined) return false;
+  if (value === null) return true;
   if (typeof value === 'string') return value.trim() !== '';
-  if (Array.isArray(value)) return value.length > 0;
+  // An empty list is an answer for the same reason null is: the repeater
+  // only saves [] when "None" is chosen — a table with nothing typed in it
+  // is never written, so it stays undefined.
+  if (Array.isArray(value)) return true;
   return true;
+}
+
+/** Whether a field accepts "None" as an answer — its schema takes null. */
+export function isNullable(field: Field): boolean {
+  return field.schema.safeParse(null).success;
 }
 
 export function fieldStatus(field: Field, facts: PartialFactBase, value: unknown): FieldStatus {

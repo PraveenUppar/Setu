@@ -7,6 +7,18 @@ import { issueRelatedSections } from './issue-procedure';
 import { issueStructure } from './issue-structure';
 import { regulatorySections } from './regulatory-disclosures';
 import { termsOfIssue } from './terms-of-issue';
+import { management } from './management';
+import { promoters } from './promoters';
+import { groupCompanies } from './group-companies';
+import { litigation } from './litigation';
+import { approvals } from './approvals';
+import { capitalisationStatement, indebtedness } from './indebtedness';
+import {
+  contingentLiabilities,
+  relatedPartyTransactions,
+  summaryOfFinancialInformation,
+  theIssue,
+} from './introduction';
 
 /**
  * The section registry.
@@ -15,16 +27,29 @@ import { termsOfIssue } from './terms-of-issue';
  * without renumbering. The full map of 37 subsections with measured page
  * ranges and producer classes is in .claude/context/07-section-map.md.
  *
- * Wave 1 (templates, ~140pp, 32% of the document) is being built first
- * because it needs almost no input and no LLM. Priority order by measured
- * size: Issue Procedure (36pp), Main Provisions of AoA (38pp), Definitions
- * (17pp), Other Regulatory and Statutory Disclosures (17pp).
+ * Wave 1 (templates) is complete. Wave 2 (computed) landed with S8: the
+ * sections built from the M3-M10 modules — The Issue, the contingent
+ * liability and RPT summaries, Our Management, Our Promoters, Our Group
+ * Companies, the Capitalisation Statement, Financial Indebtedness,
+ * Outstanding Litigation and Government Approvals. Summary of Financial
+ * Information is external (the auditor's).
  */
 export const sectionRegistry: SectionSpec[] = [
   definitions,
   ...generalSections,
   ...conventionsSections,
+  theIssue,
+  summaryOfFinancialInformation,
+  contingentLiabilities,
+  relatedPartyTransactions,
   capitalStructure,
+  management,
+  promoters,
+  groupCompanies,
+  capitalisationStatement,
+  indebtedness,
+  litigation,
+  approvals,
   ...regulatorySections,
   termsOfIssue,
   issueStructure,

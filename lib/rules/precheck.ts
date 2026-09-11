@@ -1,5 +1,6 @@
 import { money, multiply, type Money } from '../facts/money';
 import type { Exchange, FactBase } from '../facts/schema';
+import { emptyFactBase } from '../seed/empty';
 import { preCheckRules } from './index';
 import { bySeverity, evaluate, summarise, type Finding, type ReadinessSummary } from './types';
 
@@ -113,12 +114,14 @@ const ZERO = money('0');
  * honest answer to a question that was never put.
  */
 export function toFactBase(input: PreCheckInput): FactBase {
+  // Start from the empty shape, so a field added to a schema later is empty
+  // here by default rather than a compile error in a rules file.
+  const empty = emptyFactBase();
   return {
+    ...empty,
     company: {
-      name: '',
-      cin: 'U00000XX0000XXX000000',
+      ...empty.company,
       dateOfIncorporation: input.dateOfIncorporation,
-      incorporatedUnder: 'COMPANIES_ACT_2013',
       isPublicLimited: input.isPublicLimited,
       conversionToPublicDate: input.conversionToPublicDate ?? undefined,
       /**
@@ -134,18 +137,12 @@ export function toFactBase(input: PreCheckInput): FactBase {
           ? [{ previousName: '', newName: '', date: input.lastNameChangeDate }]
           : []),
       ],
-      registeredOffice: { line1: '', city: '', state: '', pincode: '000000', country: 'India' },
-      website: '',
-      email: '',
-      telephone: '',
-      companySecretary: { name: '', email: '', telephone: '' },
       revenueShareFromNewNameActivity: input.revenueShareFromNewNameActivity ?? null,
       convertedFromFirmType: input.convertedFromFirmType ?? 'NONE',
       conversionFromFirmDate: input.conversionFromFirmDate ?? null,
-      sector: 'OTHER',
-      businessDescription: '',
     },
     capital: {
+      ...empty.capital,
       faceValue: input.faceValue,
       authorisedShares: input.authorisedShares,
       authorisedCapital: multiply(input.faceValue, input.authorisedShares),
@@ -166,8 +163,7 @@ export function toFactBase(input: PreCheckInput): FactBase {
       depositoryAgreements: { nsdl: false, cdsl: false },
     },
     promoters: {
-      promoters: [],
-      promoterGroupMembers: [],
+      ...empty.promoters,
       anyDebarredBySebi: input.anyDebarredBySebi,
       anyWilfulDefaulterOrFraudulentBorrower: input.anyWilfulDefaulterOrFraudulentBorrower,
       anyFugitiveEconomicOffender: input.anyFugitiveEconomicOffender,
@@ -175,10 +171,8 @@ export function toFactBase(input: PreCheckInput): FactBase {
       anyAssociatedWithDelistedCompany: input.anyAssociatedWithDelistedCompany,
       majorityPromoterChangeDate: input.majorityPromoterChangeDate ?? null,
     },
-    management: { directors: [], keyManagerialPersonnel: [] },
-    business: { topCustomers: [], topSuppliers: [], facilities: [] },
     financials: {
-      hasRestatedStatements: false,
+      ...empty.financials,
       years: input.years.map((y) => ({
         yearEnding: y.yearEnding,
         revenue: ZERO,
@@ -207,7 +201,7 @@ export function toFactBase(input: PreCheckInput): FactBase {
       })),
     },
     legal: {
-      litigation: [],
+      ...empty.legal,
       referredToNCLT: input.referredToNCLT,
       ibcProceedingsAgainstPromotingCompanies: input.ibcProceedingsAgainstPromotingCompanies,
       windingUpPetitionAdmitted: input.windingUpPetitionAdmitted,
@@ -224,22 +218,10 @@ export function toFactBase(input: PreCheckInput): FactBase {
       pendingDebtSecurityDefaults: input.pendingDebtSecurityDefaults,
       sebiActionAgainstDirectorsSince: input.sebiActionAgainstDirectorsSince ?? null,
     },
-    approvals: { licences: [] },
     offer: {
-      issueType: 'BOOK_BUILT',
+      ...empty.offer,
       exchange: input.exchange,
-      documentStage: 'DRHP',
-      terminology: 'ISSUE',
       freshIssueShares: input.intendedFreshIssueShares,
-      sellingShareholders: [],
-      floorPrice: null,
-      capPrice: null,
-      issuePrice: null,
-      lotSize: 0,
-      objects: [],
-      issueExpenses: ZERO,
-      firmFinanceConfirmed: false,
-      underwritingPercent: 100,
       brlmUnderwritingPercent: 15,
       marketMakingYears: 3,
       exchangeApplicationRejectedSince: input.exchangeApplicationRejectedSince ?? null,
@@ -248,10 +230,8 @@ export function toFactBase(input: PreCheckInput): FactBase {
        * there are none. Its BSE counterpart E-10 asks about the company and is
        * answerable now — the same six months, two different parties.
        */
-      exemptionApplicationDetails: null,
       brlmDraftReturnedSince: null,
     },
-    groupCompanies: { companies: [] },
   };
 }
 

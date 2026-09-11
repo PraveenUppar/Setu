@@ -4,11 +4,11 @@ Each stage ends with something demoable and a manual test gate. **Do not advance
 
 `🔴 core` (MVP dies without it) · `🟡 demo` (needed for the pitch) · `🟢 extended`
 
-**Progress** (`[x]` done, `[~]` partial, `[ ]` not started) — updated 2026-09-10
+**Progress** (`[x]` done, `[~]` partial, `[ ]` not started) — updated 2026-09-11
 
 | S0 | S1 | S2 | S3 | S4 | S5 | S6 | S7 | S8 | S9 | S10 | S11 | S12 | S13 |
 |----|----|----|----|----|----|----|----|----|----|-----|-----|-----|-----|
-| [x] | [x] | [x] | [x] | [~] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| [x] | [x] | [x] | [x] | [~] | [x] | [x] | [ ] | [x] | [ ] | [ ] | [~] | [ ] | [ ] |
 
 **Tests, tsc and dev-server status live in `.claude/context/04-session-handoff.md`** — this table is stage-level only, so the two cannot contradict each other.
 
@@ -16,6 +16,8 @@ Each stage ends with something demoable and a manual test gate. **Do not advance
 - **S4 partial:** engine complete; **11 of the 37 numbered subsections** built, as 30 registry sections. Wave 1 extraction is finished — what remains is computed (S8), narrative (S9/S10), the AoA (S7) or external.
 - **S3 and S5 done 2026-09-10** — module engine, M1, M2, the repeater with spreadsheet paste, and the computed capital tables. A real issuer's answers now replace the seed.
 - **S6 closed 2026-09-10:** rule engine, gap dashboard, standalone `/eligibility` pre-check, finding-to-document links, and all 32 exchange criteria ruled. Every finding gives a firm pass or fail with a clause — no rule hedges. Remaining consistency rules wait on M2 and M6 data (S5, S8).
+- **S8 built 2026-09-11:** M3–M10 as content against the engine (136 fields), ten Wave 2 computed sections, 22 of 37 subsections rendering at ~65 pages. The engine needed three things first — columns on the field, money/boolean/list cells, and a None state (D37, D38). Vardhman completes nine modules outright; M9 leaves the three DRHP-stage unknowns. Stragglers listed in the handoff.
+- **S11 built 2026-09-11:** `renderDocx()` over the same AST, `/export/docx`, pre-filled ToC, highlighted and bookmarked placeholders, draft notice in the header until certified. **No page watermark, by user decision (D35).** Verified through LibreOffice render; the open-in-Word gate is the user's. PDF, gap report, vault and provenance map still to do.
 
 ---
 
@@ -195,20 +197,21 @@ Each stage ends with something demoable and a manual test gate. **Do not advance
 
 Pure content. No new components. ~half a day per pair.
 
-- [ ] **M3** Promoters & Promoter Group — KYC, career history, family tree, other holdings
-- [ ] **M4** Board & Management — DINs, other directorships, remuneration
-- [ ] **M5** Business Operations — customer/supplier concentration, capacity & utilisation, order book, plants, headcount
-- [ ] **M6** Financials — restated financials, RPT, indebtedness, contingent liabilities *(CFO/auditor)*
-- [ ] **M7** Legal & Litigation — criminal, civil, tax, statutory across company/directors/promoters/group *(counsel)*
-- [ ] **M8** Approvals & Licences — sector-switched checklist with validity dates
-- [ ] **M9** The Offer — issue size, objects break-up, capex quotations, chartered engineer certificate
-- [ ] **M10** Group Companies & RPT
-- [ ] Remaining Wave 2 computed: Management tables · Promoter Group tables · Litigation tables · Approvals register · Financial Indebtedness
+- [x] **M3** Promoters & Promoter Group — profiles, family tree by relationship, other ventures, disassociations, the Reg 228 flags
+- [x] **M4** Board & Management — board with profiles, changes over three years, KMP, senior management, committees, borrowing powers
+- [x] **M5** Business Operations — customer/supplier concentration, facilities with utilisation, order book, headcount, exports
+- [x] **M6** Financials — key figures by year, borrowings, contingent liabilities, auditor *(CFO)*. Restated statements stay the auditor's
+- [x] **M7** Legal & Litigation — by party, direction and category; the materiality threshold is computed, not asked *(counsel)*
+- [x] **M8** Approvals & Licences — by category and unit, with status; tax registrations; depository agreements
+- [x] **M9** The Issue — 39 fields: structure, objects, band, intermediaries, dates; showIf by stage and exchange
+- [x] **M10** Group Companies & RPT — materiality policy, companies, related parties, transactions by year
+- [x] Wave 2 computed: Our Management · Our Promoters and Promoter Group · Our Group Companies · Outstanding Litigation · Government Approvals · Financial Indebtedness · Capitalisation Statement · The Issue · Summary of Contingent Liabilities · Summary of RPTs. Summary of Financial Information is external.
+- [ ] Stragglers: Other Financial Information (EPS, RoNW, NAV) · Material Contracts · committee terms of reference · Interest of Directors / Promoters · promoter undertakings
 
 ### ✅ Gate
-- [ ] Every module fillable end to end
-- [ ] Vardhman completable start to finish
-- [ ] Each module's computed sections render correctly
+- [x] Every module fillable end to end — every field's seed value passes its schema; every table's columns match its row schema
+- [x] Vardhman completable start to finish — nine modules at 100%; M9 leaves exactly the three DRHP-stage unknowns, by design (D37)
+- [x] Each module's computed sections render correctly — 42 section tests against the seed's arithmetic; rendered and read in LibreOffice
 
 ---
 
@@ -249,19 +252,19 @@ Pure content. No new components. ~half a day per pair.
 
 ## 🔴 S11 — DOCX export · 1.5 days ⭐
 
-- [ ] `renderDocx()` over the same `DocumentNode` AST as `renderHtml()`
-- [ ] Heading hierarchy, numbering, `TableOfContents` field, headers/footers, page numbers
-- [ ] Table rendering that doesn't overflow the page
-- [ ] Placeholders as highlighted blocks
-- [ ] **`UNSIGNED DRAFT — NOT FOR FILING` watermark** until MB certification
+- [x] `renderDocx()` over the same `DocumentNode` AST as `renderHtml()` — over `RenderedSection[]`, so bookmarks come free
+- [x] Heading hierarchy, ~~numbering~~, `TableOfContents` field, headers/footers, page numbers — headings are not numbered: the corpus does not number subsections, so numbering would be invented structure
+- [x] Table rendering that doesn't overflow the page — fixed layout, grid sums to the text width
+- [x] Placeholders as highlighted blocks — highlighted runs, bookmarked on first occurrence
+- [x] ~~watermark~~ **`UNSIGNED DRAFT — NOT FOR FILING` notice in the running header** until MB certification (D35 — no page watermark, user decision)
 - [ ] PDF export · gap report (.xlsx) · document vault (.zip) · provenance map
 
 ### ✅ Gate
-- [ ] Export → **open in actual Microsoft Word**
-- [ ] ToC populates on F9
-- [ ] Page numbers correct, no table overflows, placeholders visible
-- [ ] 250+ pages for a complete Vardhman
-- [ ] Watermark present pre-sign-off, absent post
+- [x] Export → **open in actual Microsoft Word** — user confirmed 2026-09-11
+- [x] ToC populates on F9 — pre-filled with entries and links (D36); page numbers fill on update, confirmed in Word
+- [x] Page numbers correct, no table overflows, placeholders visible — confirmed in Word and in the LibreOffice render
+- [ ] 250+ pages for a complete Vardhman — 49 now; needs S8/S9 sections
+- [x] ~~Watermark~~ Draft notice present pre-sign-off, absent post — tested both ways
 
 ---
 

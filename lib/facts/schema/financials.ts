@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { zMoney } from './shared';
+import { zDate, zMoney } from './shared';
 
 /**
  * Module M6 — Financials.
@@ -68,6 +68,72 @@ export const zFinancialYear = z.object({
 
   contingentLiabilities: zMoney.default('0'),
   relatedPartyTransactionsTotal: zMoney.default('0'),
+
+  /**
+   * The Capitalisation Statement (section map #25) splits borrowings into
+   * current and non-current and equity into share capital and other equity,
+   * then states two ratios. Both primary sources use exactly these four lines
+   * (Om Galaxy p.265, Maxwell p.234). Optional because the pre-check never
+   * asks for them; the section renders a gap where they are missing.
+   */
+  currentBorrowings: zMoney
+    .optional()
+    .describe('Short-term borrowings repayable within twelve months, as per the restated balance sheet'),
+  nonCurrentBorrowings: zMoney
+    .optional()
+    .describe('Long-term borrowings, including current maturities of term loans'),
+  equityShareCapital: zMoney.optional().describe('Paid-up equity share capital at year end'),
+  otherEquity: zMoney.optional().describe('Reserves and surplus / other equity at year end'),
+
+  /** The litigation section states material creditors against total trade payables. */
+  tradePayables: zMoney.optional().describe('Total trade payables at year end'),
+});
+
+export const zBorrowingCategory = z.enum([
+  'TERM_LOAN',
+  'WORKING_CAPITAL_TERM_LOAN',
+  'VEHICLE_LOAN',
+  'CASH_CREDIT',
+  'OVERDRAFT',
+  'BILL_DISCOUNTING',
+  'BANK_GUARANTEE',
+  'LETTER_OF_CREDIT',
+  'UNSECURED_LOAN_FROM_DIRECTORS',
+  'UNSECURED_LOAN_OTHER',
+  'CREDIT_CARD',
+  'OTHER',
+]);
+
+/**
+ * One facility, for "Financial Indebtedness" (section map #27).
+ *
+ * The section is a summary by category — secured and unsecured within fund
+ * based, then non-fund based, each with sanctioned and outstanding — over a
+ * detail table with lender, nature, sanction date, amount, rate, outstanding,
+ * repayment, security and purpose (Om Galaxy p.286, Maxwell p.231). The
+ * summary is computed from the detail, so the two cannot disagree.
+ */
+export const zBorrowing = z.object({
+  lender: z.string(),
+  category: zBorrowingCategory,
+  secured: z.boolean().default(true),
+  /** Bank guarantees and letters of credit are non-fund based. */
+  fundBased: z.boolean().default(true),
+  sanctionDate: zDate.optional().describe('Date of the sanction letter'),
+  sanctionedAmount: zMoney.describe('Sanctioned amount in rupees'),
+  rateOfInterest: z.string().optional().describe('e.g. "Repo rate + 2.55%, currently 9.05% p.a."'),
+  outstanding: zMoney.describe('Outstanding amount in rupees as on the stated date'),
+  repaymentTerms: z.string().optional().describe('Tenure and repayment schedule'),
+  security: z.string().optional().describe('Primary and collateral security, and any personal guarantees'),
+  purpose: z.string().optional().describe('Purpose of the facility'),
+});
+
+/** One line of "Summary of Contingent Liabilities" (#7): a particular, three years. */
+export const zContingentLiabilityItem = z.object({
+  particulars: z.string().describe('e.g. "Bank guarantees", "Income tax demands under appeal"'),
+  amountLatest: zMoney.nullable().describe('Amount at the most recent year end, in rupees'),
+  amountPrior1: zMoney.nullable(),
+  amountPrior2: zMoney.nullable(),
 });
 
 export const zFinancials = z.object({
@@ -83,7 +149,22 @@ export const zFinancials = z.object({
 
   auditorName: z.string().optional(),
   auditorPeerReviewNumber: z.string().optional(),
+  auditorFirmRegistrationNumber: z.string().optional(),
+
+  borrowings: z.array(zBorrowing).default([]).describe('Every facility outstanding or sanctioned'),
+  borrowingsAsOn: zDate
+    .optional()
+    .describe('The date the outstanding amounts are stated as on'),
+  borrowingsCertifiedBy: z
+    .string()
+    .optional()
+    .describe('The auditor certificate the indebtedness figures rest on, with its date'),
+
+  contingentLiabilityItems: z.array(zContingentLiabilityItem).default([]),
 });
 
 export type FinancialYear = z.infer<typeof zFinancialYear>;
+export type Borrowing = z.infer<typeof zBorrowing>;
+export type BorrowingCategory = z.infer<typeof zBorrowingCategory>;
+export type ContingentLiabilityItem = z.infer<typeof zContingentLiabilityItem>;
 export type Financials = z.infer<typeof zFinancials>;

@@ -1,4 +1,4 @@
-import type { RepeaterColumn } from './repeater-spec';
+import { parseCell, type RepeaterColumn } from './repeater-spec';
 
 /**
  * Spreadsheet paste, parsed.
@@ -12,7 +12,13 @@ import type { RepeaterColumn } from './repeater-spec';
 
 /** A blank row shaped by the columns, so every row has every key. */
 export const blankRow = (columns: RepeaterColumn[]): Record<string, unknown> =>
-  Object.fromEntries(columns.map((c) => [c.key, c.type === 'number' ? undefined : '']));
+  Object.fromEntries(
+    columns.map((c) => [
+      c.key,
+      // Every cell starts absent; the inputs show absent as an empty box
+      c.type === 'list' ? [] : undefined,
+    ]),
+  );
 
 /**
  * Tab-separated text from a spreadsheet, into rows.
@@ -35,16 +41,7 @@ export function parsePaste(
     // Iterate the COLUMNS, not the cells: a short row must leave the trailing
     // fields empty rather than sliding values leftward into the wrong ones.
     columns.forEach((c, i) => {
-      const raw = (cells[i] ?? '').trim();
-      if (c.type === 'number') {
-        // Spreadsheets export "1,08,00,000". Number() on that is NaN.
-        const n = Number(raw.replace(/,/g, ''));
-        // An empty numeric cell stays empty. Zero would say "issued at nil
-        // value", which is a different statement from "not applicable".
-        row[c.key] = raw === '' || Number.isNaN(n) ? undefined : n;
-      } else {
-        row[c.key] = raw;
-      }
+      row[c.key] = parseCell(c, cells[i] ?? '');
     });
     return row;
   });

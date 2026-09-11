@@ -21,8 +21,8 @@ import type { RepeaterColumn } from './repeater-spec';
 export const ALLOTMENT_COLUMNS: RepeaterColumn[] = [
   { key: 'date', label: 'Date of allotment', type: 'date', width: '9rem' },
   { key: 'shares', label: 'Shares', type: 'number', total: true, width: '7rem' },
-  { key: 'faceValue', label: 'Face value (Rs)', type: 'number', width: '6rem' },
-  { key: 'issuePrice', label: 'Issue price (Rs)', type: 'number', width: '6rem', placeholder: 'Nil for bonus' },
+  { key: 'faceValue', label: 'Face value (Rs)', type: 'money', width: '6rem' },
+  { key: 'issuePrice', label: 'Issue price (Rs)', type: 'money', width: '6rem', placeholder: 'Nil for bonus' },
   {
     key: 'consideration',
     label: 'Consideration',
@@ -77,7 +77,7 @@ export const PROMOTER_HOLDING_COLUMNS: RepeaterColumn[] = [
   { key: 'promoterName', label: 'Promoter', type: 'text', width: '14rem' },
   { key: 'shares', label: 'Shares', type: 'number', total: true, width: '7rem' },
   { key: 'acquisitionDate', label: 'Acquired on', type: 'date', width: '9rem' },
-  { key: 'costPerShare', label: 'Cost per share (Rs)', type: 'number', width: '7rem' },
+  { key: 'costPerShare', label: 'Cost per share (Rs)', type: 'money', width: '7rem' },
   {
     key: 'natureOfAcquisition',
     label: 'Nature',
@@ -91,6 +91,7 @@ export const PROMOTER_HOLDING_COLUMNS: RepeaterColumn[] = [
       { value: 'TRANSFER', label: 'Transfer' },
     ],
   },
+  { key: 'eligibleForMPC', label: 'Eligible for MPC', type: 'boolean', width: '7rem' },
 ];
 
 export const m2Capital: Module = {
@@ -140,6 +141,7 @@ export const m2Capital: Module = {
       label: 'Allotment history since incorporation',
       type: 'table',
       schema: z.array(zAllotment),
+      columns: ALLOTMENT_COLUMNS,
       helpText:
         'Every allotment since incorporation, including the subscription to the Memorandum, every rights and preferential issue, every bonus issue and every conversion. The source is the PAS-3 filings on MCA21. The cumulative total must reconcile to paid-up capital — this is the single most common place a draft prospectus fails to tie.',
       clause: 'ICDR Schedule VI Part A',
@@ -151,6 +153,7 @@ export const m2Capital: Module = {
       label: 'Register of members',
       type: 'table',
       schema: z.array(zShareholder),
+      columns: SHAREHOLDER_COLUMNS,
       helpText:
         'Every shareholder and their holding, categorised. The total must equal paid-up capital: the register has to account for every share, and small residual holders are usually the ones missing. The categories drive the shareholding pattern table, so a promoter entered as public understates promoter holding and can fail the minimum contribution test.',
       feedsInto: ['capital.structure'],
@@ -160,6 +163,7 @@ export const m2Capital: Module = {
       label: 'Promoter holdings by tranche',
       type: 'table',
       schema: z.array(zPromoterHolding),
+      columns: PROMOTER_HOLDING_COLUMNS,
       helpText:
         'Lock-in attaches to specific tranches, not to a promoter\'s total holding, so each acquisition is listed separately with its date and cost. Mark a tranche ineligible where the regulations exclude it from the minimum contribution — bonus shares issued out of revaluation reserves are the usual case, and a promoter can hold 25% of post-issue capital and still be short because of them.',
       clause: 'R-009 (promoter lock-in)',

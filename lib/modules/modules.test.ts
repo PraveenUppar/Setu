@@ -14,6 +14,7 @@ import {
   moduleRegistry,
 } from './index';
 import { sectionRegistry } from '../document/sections';
+import { plannedSections } from '../document/sections/planned';
 import { vardhman } from '../seed/vardhman';
 import type { PartialFactBase } from '../facts/schema';
 
@@ -34,17 +35,25 @@ describe('the module spec', () => {
     }
   });
 
-  it('points feedsInto at sections that exist', () => {
-    const ids = new Set(sectionRegistry.map((s) => s.id));
+  it('points feedsInto at sections that exist, built or planned', () => {
+    // Built resolves to a title; planned resolves to a title marked as not
+    // yet drafted; anything else is a typo, and a typo here promises the
+    // issuer a place their answer never appears.
+    const ids = new Set([...sectionRegistry.map((s) => s.id), ...Object.keys(plannedSections)]);
     const dangling = moduleRegistry
       .flatMap((m) => m.fields.flatMap((f) => f.feedsInto))
       .filter((id) => !ids.has(id));
     expect([...new Set(dangling)]).toEqual([]);
   });
 
+  it('never lists a planned section that has since been built', () => {
+    const built = new Set(sectionRegistry.map((s) => s.id));
+    expect(Object.keys(plannedSections).filter((id) => built.has(id))).toEqual([]);
+  });
+
   it('resolves feedsInto to titles a person recognises', () => {
-    const titles = feedsIntoTitles(['general.definitions', 'not.a.section']);
-    expect(titles).toEqual(['Definitions and Abbreviations']);
+    const titles = feedsIntoTitles(['general.definitions', 'aboutCompany.ourBusiness', 'not.a.section']);
+    expect(titles).toEqual(['Definitions and Abbreviations', 'Our Business (not yet drafted)']);
   });
 });
 
@@ -75,14 +84,16 @@ describe('showIf keeps the form as short as the issuer is simple', () => {
 });
 
 describe('answered versus empty', () => {
-  it('counts false and zero as answers', () => {
+  it('counts false, zero and an explicit None as answers', () => {
     // The commonest bug in a form like this: an issuer with no partly paid
-    // shares gets asked forever because `false` reads as blank.
+    // shares gets asked forever because `false` reads as blank. Null is the
+    // same case for "any pledged shares?" — it is what "None" saves as, and
+    // the store never holds it unless someone chose it.
     expect(isAnswered(false)).toBe(true);
     expect(isAnswered(0)).toBe(true);
+    expect(isAnswered(null)).toBe(true);
     expect(isAnswered('')).toBe(false);
     expect(isAnswered(undefined)).toBe(false);
-    expect(isAnswered(null)).toBe(false);
   });
 
   it('validates only what has been answered', () => {

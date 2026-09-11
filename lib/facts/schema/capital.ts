@@ -131,6 +131,9 @@ export const zCapital = z.object({
     .object({
       nsdl: z.boolean().default(false).describe('Tripartite agreement executed with NSDL'),
       cdsl: z.boolean().default(false).describe('Tripartite agreement executed with CDSL'),
+      /** Quoted by date in "Government and Other Approvals". */
+      nsdlDate: zDate.optional().describe('Date of the tripartite agreement with NSDL and the Registrar'),
+      cdslDate: zDate.optional().describe('Date of the tripartite agreement with CDSL and the Registrar'),
     })
     .default({ nsdl: false, cdsl: false }),
 });
