@@ -158,7 +158,7 @@ describe('the vault', () => {
       expect(manifest.factBaseVersion).toBe(3);
       expect(manifest.readiness.score).toBe(a.summary.score);
       expect(manifest.findings).toBe(a.findings.length);
-      expect(manifest.subsectionsRendered).toBe(22);
+      expect(manifest.subsectionsRendered).toBe(24);
       expect(manifest.state).toBe('UNSIGNED DRAFT - NOT FOR FILING');
       expect(manifest.pdfOmitted).toContain('LibreOffice');
       expect(manifest.files).not.toContain(expect.stringMatching(/\.pdf$/));

@@ -6,7 +6,7 @@
 
 **Last updated:** 2026-09-11
 **Current stage:** S0, S3, S5, S6, S8, S11 CLOSED. **S4 Wave 1 extraction finished; Wave 2 computed sections built.**
-**Status:** **489 tests passing, tsc clean, dev server runs** (eslint: 18 pre-existing problems, none in S8/S11 files). Document renders **22 of the 37 numbered subsections**, drafted as **41 registry sections**, **65 estimated pages** of a measured ~280 — **70 pages in Word**, and exports to **Word, PDF, a gap-report workbook and a vault zip** from `/export/*`. **All ten intake modules exist** and Vardhman completes nine of them outright (see S8 below). **Issue Procedure is COMPLETE**, and the glossary is at **130 definitions plus 129 abbreviations**.
+**Status:** **504 tests passing, tsc clean, dev server runs** (eslint: 18 pre-existing problems, none in S8/S11 files). Document renders **24 of the 37 numbered subsections**, drafted as **43 registry sections**, **68 estimated pages** of a measured ~280 — **72 pages in Word**, and exports to **Word, PDF, a gap-report workbook and a vault zip** from `/export/*`. **All ten intake modules exist** and Vardhman completes nine of them outright (see S8 below). **Issue Procedure is COMPLETE**, and the glossary is at **130 definitions plus 129 abbreviations**.
 
 **The progress indicator said "25 of 37" until 2026-09-10 and was wrong** — it counted registry entries against numbered subsections, and Issue Procedure alone is one subsection and sixteen entries. Every spec now carries `partOf`, the header counts distinct values, and a test holds it. Same principle as the readiness score: a number the reader trusts must not flatter.
 **Rules: 55** — 43 eligibility, 12 consistency. The pre-check runs 26; no issuer sees 26 questions, since the criteria diverge by exchange.
@@ -284,11 +284,14 @@ not the section under test. D29.
 check the None affordance and the new cell types feel right. Then, in order of value:
 
 1. ~~S11 leftovers~~ — **done 2026-09-11**: `/export/gaps`, `/export/pdf`, `/export/vault`.
-2. **The Wave 2 stragglers** listed under S8 — Other Financial Information and Material Contracts
-   are computable now; the interest/undertaking boilerplate needs two-source extraction.
+2. ~~Wave 2 stragglers~~ — **done 2026-09-11**: Other Financial Information and Material
+   Contracts (D41). What remains of Wave 2 is boilerplate needing two-source extraction: committee
+   terms of reference, Interest of Directors / Promoters, the promoter undertakings, the litigation
+   section's creditor table.
 3. **S7 / S9 / S10** once API credits exist. M5's answers are waiting for the drafting harness.
 4. **S12** review workflow, which is what wires `certified` — and lifts the draft notice in every
    export at once, since they all go through `assemble()`.
+5. **Browser pass over M3-M10** — still not clicked through since the S8 session's check.
 
 To regenerate DOCX samples without the server:
 `SETU_DOCX_OUT=out/vardhman.docx npx vitest run lib/document/docx.test.ts`.

@@ -27,6 +27,7 @@ const AUTHORITY = 'regulatory.authority';
 const DISCLAIMERS = 'regulatory.disclaimers';
 const CONSENTS = 'regulatory.consents';
 const APPROVALS = 'legal.approvals';
+const MATERIAL_CONTRACTS = 'other.materialContracts';
 
 export const OBJECT_COLUMNS: RepeaterColumn[] = [
   { key: 'description', label: 'Object', type: 'text', width: '24rem' },
@@ -256,8 +257,65 @@ export const m9Offer: Module = {
       label: 'Date of the agreement with the Registrar',
       type: 'date',
       schema: zDate,
-      helpText: 'Quoted in "Fees Payable to the Registrar to the Issue", which refers to the agreement rather than restating the fee.',
-      feedsInto: ['regulatory.jurisdiction'],
+      helpText: 'Quoted in "Fees Payable to the Registrar to the Issue", which refers to the agreement rather than restating the fee, and listed with the material contracts.',
+      feedsInto: ['regulatory.jurisdiction', MATERIAL_CONTRACTS],
+    },
+    {
+      path: 'offer.issueAgreementDate',
+      label: 'Date of the Issue Agreement with the Book Running Lead Manager',
+      type: 'date',
+      schema: zDate,
+      helpText:
+        'The engagement agreement with the merchant banker, the first of the material contracts listed for inspection. Signed when the banker is appointed, so it usually exists at draft stage.',
+      feedsInto: [MATERIAL_CONTRACTS],
+    },
+    {
+      path: 'offer.bankerToIssueAgreementDate',
+      label: 'Date of the Banker to the Issue Agreement',
+      type: 'date',
+      schema: zDate,
+      helpText:
+        'Between the company, the lead manager, the banker to the issue and the registrar. Signed before the red herring prospectus, so a gap at draft stage — which is how the corpus prints it.',
+      feedsInto: [MATERIAL_CONTRACTS],
+    },
+    {
+      path: 'offer.marketMakingAgreementDate',
+      label: 'Date of the Market Making Agreement',
+      type: 'date',
+      schema: zDate,
+      helpText:
+        'Between the company, the lead manager and the market maker, committing the market maker to three years of two-way quotes. Signed before the red herring prospectus.',
+      clause: 'R-004 (Reg 261(1))',
+      feedsInto: [MATERIAL_CONTRACTS],
+    },
+    {
+      path: 'offer.monitoringAgencyAgreementDate',
+      label: 'Date of the Monitoring Agency Agreement',
+      type: 'date',
+      schema: zDate,
+      helpText: 'Where a monitoring agency has been appointed, its agreement is listed with the material contracts.',
+      feedsInto: [MATERIAL_CONTRACTS],
+      showIf: (f) => Boolean(f.offer?.monitoringAgency),
+    },
+    {
+      path: 'offer.auditorExaminationReportDate',
+      label: 'Date of the auditor’s examination report on the restated financials',
+      type: 'date',
+      schema: zDate,
+      helpText:
+        'The peer-reviewed auditor’s report on the Restated Financial Information, listed among the material documents and cited in the experts’ consents. Exists once the restatement is delivered.',
+      feedsInto: [MATERIAL_CONTRACTS, 'regulatory.jurisdiction'],
+      showIf: (f) => f.financials?.hasRestatedStatements === true,
+    },
+    {
+      path: 'offer.taxBenefitsStatementDate',
+      label: 'Date of the statement of special tax benefits',
+      type: 'date',
+      schema: zDate,
+      helpText:
+        'The auditor’s statement of the tax benefits available to the company and its shareholders, delivered with the restated financials and listed among the material documents.',
+      feedsInto: [MATERIAL_CONTRACTS, 'particulars.taxBenefits'],
+      showIf: (f) => f.financials?.hasRestatedStatements === true,
     },
     {
       path: 'offer.marketMakerName',

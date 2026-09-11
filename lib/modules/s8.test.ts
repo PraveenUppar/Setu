@@ -75,13 +75,21 @@ describe('Vardhman, start to finish', () => {
   const progress = allProgress(vardhman);
 
   /**
-   * The seed is a DRHP. Three M9 answers cannot exist at that stage and the
+   * The seed is a DRHP. Five M9 answers cannot exist at that stage and the
    * document is right to show them as gaps: the anchor escrow account names
-   * are whatever the bank opens them as (D28), and the expert consents are
-   * dated letters not yet in hand. The gate is therefore "everything else",
-   * stated exactly, rather than a seed padded to read as complete.
+   * are whatever the bank opens them as (D28), the expert consents are dated
+   * letters not yet in hand, and the banker and market-making agreements are
+   * signed before the RHP — Maxwell's DRHP prints both as "[dot]". The gate
+   * is therefore "everything else", stated exactly, rather than a seed padded
+   * to read as complete.
    */
-  const DRHP_UNKNOWNS = ['offer.anchorEscrowAccountResident', 'offer.anchorEscrowAccountNonResident', 'offer.expertConsents'];
+  const DRHP_UNKNOWNS = [
+    'offer.anchorEscrowAccountResident',
+    'offer.anchorEscrowAccountNonResident',
+    'offer.expertConsents',
+    'offer.bankerToIssueAgreementDate',
+    'offer.marketMakingAgreementDate',
+  ];
 
   it('completes nine modules outright and M9 but for the DRHP-stage unknowns', () => {
     for (const p of progress) {
@@ -92,7 +100,7 @@ describe('Vardhman, start to finish', () => {
     }
   });
 
-  it('answers each field with a value its own schema accepts, and leaves only those three', () => {
+  it('answers each field with a value its own schema accepts, and leaves only those five', () => {
     const unanswered: string[] = [];
     for (const m of moduleRegistry) {
       for (const f of applicableFields(m, vardhman)) {

@@ -13,6 +13,8 @@ import { groupCompanies } from './group-companies';
 import { litigation } from './litigation';
 import { approvals } from './approvals';
 import { capitalisationStatement, indebtedness } from './indebtedness';
+import { otherFinancial } from './other-financial';
+import { materialContracts } from './material-contracts';
 import {
   contingentLiabilities,
   relatedPartyTransactions,
@@ -46,6 +48,7 @@ export const sectionRegistry: SectionSpec[] = [
   management,
   promoters,
   groupCompanies,
+  otherFinancial,
   capitalisationStatement,
   indebtedness,
   litigation,
@@ -54,6 +57,7 @@ export const sectionRegistry: SectionSpec[] = [
   termsOfIssue,
   issueStructure,
   ...issueRelatedSections,
+  materialContracts,
 ];
 
 export function sectionsByGroup(specs: SectionSpec[] = sectionRegistry) {

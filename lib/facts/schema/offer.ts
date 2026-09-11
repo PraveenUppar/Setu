@@ -178,6 +178,31 @@ export const zOffer = z.object({
     .describe('Date of the agreement between the Company and the Registrar to the Issue'),
 
   /**
+   * The other agreements "Material Contracts and Documents for Inspection"
+   * lists by date. Each is signed at a different point — the issue agreement
+   * when the banker is engaged, the market making and banker agreements
+   * before the RHP — so each prints as a gap until it exists, which is how
+   * Maxwell's DRHP prints them (p.338, "[dot]").
+   */
+  issueAgreementDate: zDate
+    .optional()
+    .describe('Date of the Issue Agreement between the Company and the Book Running Lead Manager'),
+  bankerToIssueAgreementDate: zDate
+    .optional()
+    .describe('Date of the Banker to the Issue Agreement'),
+  marketMakingAgreementDate: zDate.optional().describe('Date of the Market Making Agreement'),
+  monitoringAgencyAgreementDate: zDate
+    .optional()
+    .describe('Date of the Monitoring Agency Agreement, where a monitoring agency is appointed'),
+  /** The auditor's deliverables, dated once the restated financials exist. */
+  auditorExaminationReportDate: zDate
+    .optional()
+    .describe('Date of the statutory auditor examination report on the Restated Financial Information'),
+  taxBenefitsStatementDate: zDate
+    .optional()
+    .describe('Date of the statement of special tax benefits from the statutory auditor'),
+
+  /**
    * The Experts Opinion subsection names every person giving a consent as an
    * "expert" under s.2(38) of the Companies Act — typically the statutory
    * auditor, a chartered engineer where there is a capex object, and the

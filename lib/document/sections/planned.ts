@@ -25,8 +25,6 @@ export const plannedSections: Record<string, string> = {
   'aboutCompany.history': 'History and Corporate Structure',
   'aboutCompany.subsidiaries': 'Our Subsidiaries, Associates and Joint Ventures',
   'financial.restatedFinancialInformation': 'Restated Financial Information',
-  'financial.otherFinancialInformation': 'Other Financial Information',
   'financial.mdna': "Management's Discussion and Analysis of Financial Condition and Results of Operations",
-  'other.materialContracts': 'Material Contracts and Documents for Inspection',
   'other.articles': 'Main Provisions of the Articles of Association',
 };

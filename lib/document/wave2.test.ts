@@ -379,9 +379,9 @@ describe('Summary of Related Party Transactions', () => {
 });
 
 describe('the whole document after Wave 2', () => {
-  it('renders 22 numbered subsections and materially more pages', () => {
+  it('renders 24 numbered subsections and materially more pages', () => {
     const sections = renderSections(sectionRegistry, { facts: vardhman });
-    expect(new Set(sections.map((s) => s.partOf)).size).toBe(22);
+    expect(new Set(sections.map((s) => s.partOf)).size).toBe(24);
     expect(estimatePages(flattenSections(sections))).toBeGreaterThanOrEqual(60);
   });
 

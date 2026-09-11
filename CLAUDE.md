@@ -13,7 +13,7 @@ Takes an SME issuer from zero to a substantially complete, structurally correct 
 ## Current state
 
 > **Stages S0–S3, S5, S6, S8, S11 closed; S4 Wave 1 and Wave 2 done.**
-> All ten intake modules exist; 22 of 37 subsections render and export to Word, PDF, a gap workbook and a vault. 489 tests passing.
+> All ten intake modules exist; 24 of 37 subsections render and export to Word, PDF, a gap workbook and a vault. 504 tests passing.
 > Read `.claude/context/04-session-handoff.md` at the start of every session for live status —
 > it is the source of truth; this block is a pointer and will lag.
 

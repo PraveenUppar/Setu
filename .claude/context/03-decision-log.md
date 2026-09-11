@@ -837,3 +837,32 @@ over a lookalike.
 - **The vault carries the fact base and the provenance map** beside the document, because a figure
   in a table traces to a fact path and the fact path traces to a person and a date, and diligence
   wants that chain in the same folder.
+
+---
+
+## D41 — EPS is computed, and the share-weighting convention is the one the corpus reproduces
+
+**2026-09-11, building Other Financial Information.** Earnings per share needs the weighted
+average number of shares for each year, restated for bonus issues under AS-20. That is derivable
+from the allotment build-up — but D20 says a computed figure gets a ground-truth test, and D28
+says a convention that varies by drafter is a fact to ask for, not a derivation.
+
+Maxwell prints its weighted counts beside its EPS: 1,00,50,275 / 1,00,07,133 / 1,00,06,775 for
+Fiscals 2026 to 2024, from four allotments including a rights issue on March 29, 2025 and two
+bonus issues. One rule reproduces all three exactly: **cash allotments count for the days they
+were outstanding, inclusive; every bonus issue's total shares are added in full to every earlier
+year.** The March 29 rights issue counts three days of 365. The test holds it.
+
+Om Galaxy's history — eighteen allotments, preference capital, and implied weighted counts above
+its current share count — could not be reconstructed reliably from layout text and is not used.
+One corpus reproduction is thinner than the two-source rule wants; the arithmetic is AS-20's own,
+and the method is printed in the note beneath the table so a banker can see it.
+
+**Two conventions vary and are stated, not hidden.** Return on net worth is on closing net worth
+(Maxwell) rather than the average of opening and closing (Om Galaxy); EBITDA margin is on revenue
+from operations (Maxwell) rather than total income (Om Galaxy). Both documents print their
+formula under the table, which is what makes either acceptable; the note here does the same.
+
+**Material Contracts** needed six agreement dates the fact base did not hold. They are M9
+questions now, and the two signed before the RHP — banker to the issue, market making — join the
+DRHP-stage unknowns the seed leaves open, as Maxwell's DRHP prints them: "dated [dot]".

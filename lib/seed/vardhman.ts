@@ -868,6 +868,11 @@ export const vardhman: FactBase = {
     // No Reg 300(1)(c) application; the section prints the standard negative.
     exemptionApplicationDetails: null,
     registrarAgreementDate: '2026-07-14',
+    issueAgreementDate: '2026-07-02',
+    // Signed before the RHP, so absent at DRHP stage, as the corpus prints them
+    bankerToIssueAgreementDate: undefined,
+    marketMakingAgreementDate: undefined,
+    monitoringAgencyAgreementDate: '2026-08-20',
     exchangeApplicationRejectedSince: null,
     brlmDraftReturnedSince: null,
 
