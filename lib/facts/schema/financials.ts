@@ -125,6 +125,18 @@ export const zBorrowing = z.object({
   outstanding: zMoney.describe('Outstanding amount in rupees as on the stated date'),
   repaymentTerms: z.string().optional().describe('Tenure and repayment schedule'),
   security: z.string().optional().describe('Primary and collateral security, and any personal guarantees'),
+  /**
+   * D53, corpus-corroborated at three documents (Om Galaxy, Photonics
+   * Watertech, Shakti Polytarp): a standard risk factor names this
+   * specifically, distinct from the general fact that a facility is
+   * secured. `security` already carries it as free text where it applies —
+   * this is the same fact, structured, so an archetype can trigger on it
+   * without parsing prose.
+   */
+  personalGuaranteeByPromoter: z
+    .boolean()
+    .default(false)
+    .describe('Whether this facility is secured in part by a personal guarantee from a Promoter'),
   purpose: z.string().optional().describe('Purpose of the facility'),
 });
 

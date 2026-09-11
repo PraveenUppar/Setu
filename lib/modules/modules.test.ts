@@ -52,8 +52,8 @@ describe('the module spec', () => {
   });
 
   it('resolves feedsInto to titles a person recognises', () => {
-    const titles = feedsIntoTitles(['general.definitions', 'aboutCompany.ourBusiness', 'not.a.section']);
-    expect(titles).toEqual(['Definitions and Abbreviations', 'Our Business (not yet drafted)']);
+    const titles = feedsIntoTitles(['general.definitions', 'aboutCompany.industryOverview', 'not.a.section']);
+    expect(titles).toEqual(['Definitions and Abbreviations', 'Industry Overview (not yet drafted)']);
   });
 });
 

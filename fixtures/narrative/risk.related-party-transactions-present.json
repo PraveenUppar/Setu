@@ -1,0 +1,31 @@
+{
+  "raw": "We have entered into related party transactions, and we may continue to do so in the future, which may potentially involve conflicts of interest. Our related parties include Rajesh Vardhman, who serves as our Chairman and Managing Director, Sunita Vardhman, our Whole-time Director and Chief Financial Officer, Priya Deshmukh, our Company Secretary, Anil Vardhman, who is the brother of the Managing Director, and Vardhman Tooling Private Limited, an entity controlled by our Promoters. The aggregate value of these related party transactions stands at Rs 210.00 Lakhs. Such transactions could adversely affect our financial condition and results of operations if not properly managed.",
+  "factSlice": {
+    "relatedParties": [
+      {
+        "name": "Rajesh Vardhman",
+        "relationship": "Chairman and Managing Director"
+      },
+      {
+        "name": "Sunita Vardhman",
+        "relationship": "Whole-time Director and Chief Financial Officer"
+      },
+      {
+        "name": "Priya Deshmukh",
+        "relationship": "Company Secretary"
+      },
+      {
+        "name": "Anil Vardhman",
+        "relationship": "Brother of the Managing Director"
+      },
+      {
+        "name": "Vardhman Tooling Private Limited",
+        "relationship": "Entity controlled by the Promoters"
+      }
+    ],
+    "relatedPartyTransactionsTotal": "Rs 210.00 Lakhs",
+    "companyName": "Vardhman Precision Components Limited"
+  },
+  "untraceableNumbers": [],
+  "verifiedAt": "2026-09-11T15:29:52.569Z"
+}

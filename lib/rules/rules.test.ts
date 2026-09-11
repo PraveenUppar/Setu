@@ -673,7 +673,8 @@ describe('assessment over the whole document', () => {
     const { findings, summary } = assess(vardhman, sections);
     const completeness = findings.filter((f) => f.category === 'completeness');
     expect(completeness.length).toBeGreaterThan(0);
-    expect(completeness.map((f) => f.fix?.factPath)).toContain('riskFactors.summaryOfMaterialFactors');
+    // Risk Factors' own "not yet drafted" gap (D45) always stands, even for Vardhman.
+    expect(completeness.map((f) => f.fix?.factPath)).toContain('general.riskFactors.narrative');
     expect(summary.blockers).toBe(0);
   });
 
@@ -712,11 +713,11 @@ describe('linking findings to the document', () => {
     // Landing the reader at the start of a 30-page section and leaving them to
     // find the highlight is barely better than not linking at all.
     const gap = completenessFindings(sections()).find(
-      (f) => f.fix?.factPath === 'riskFactors.summaryOfMaterialFactors',
+      (f) => f.fix?.factPath === 'general.riskFactors.narrative',
     );
     expect(gap?.links?.[0]).toEqual({
-      label: 'Forward Looking Statements',
-      anchor: gapAnchor('riskFactors.summaryOfMaterialFactors'),
+      label: 'Risk Factors',
+      anchor: gapAnchor('general.riskFactors.narrative'),
     });
   });
 
@@ -754,10 +755,10 @@ describe('linking findings to the document', () => {
     // Most of the 37 subsections do not exist yet. A link that scrolls nowhere
     // teaches the reader that the links do not work.
     const [linked] = linkFindings(
-      [{ ...stubFinding, blocks: ['Objects of the Issue', 'The entire filing'] }],
+      [{ ...stubFinding, blocks: ['Industry Overview', 'The entire filing'] }],
       sections(),
     );
-    expect(linked.links).toEqual([{ label: 'Objects of the Issue' }, { label: 'The entire filing' }]);
+    expect(linked.links).toEqual([{ label: 'Industry Overview' }, { label: 'The entire filing' }]);
   });
 
   it('links Capital Structure now that it is built', () => {

@@ -15,6 +15,11 @@ import { approvals } from './approvals';
 import { capitalisationStatement, indebtedness } from './indebtedness';
 import { otherFinancial } from './other-financial';
 import { materialContracts } from './material-contracts';
+import { riskFactors } from './risk-factors';
+import { history } from './history';
+import { ourBusiness } from './our-business';
+import { objectsOfTheIssue } from './objects-of-the-issue';
+import { mdna } from './mdna';
 import {
   contingentLiabilities,
   relatedPartyTransactions,
@@ -39,17 +44,22 @@ import {
 export const sectionRegistry: SectionSpec[] = [
   definitions,
   ...generalSections,
+  riskFactors,
   ...conventionsSections,
   theIssue,
   summaryOfFinancialInformation,
   contingentLiabilities,
   relatedPartyTransactions,
   capitalStructure,
+  objectsOfTheIssue,
+  ourBusiness,
+  history,
   management,
   promoters,
   groupCompanies,
   otherFinancial,
   capitalisationStatement,
+  mdna,
   indebtedness,
   litigation,
   approvals,

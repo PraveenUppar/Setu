@@ -40,6 +40,27 @@ export const zBusiness = z.object({
   exportRevenueShare: zPercent
     .optional()
     .describe('Share of revenue from exports in the last financial year'),
+  /**
+   * D54, corpus-corroborated at three documents (Maxwell's Gujarat
+   * exposure, Shakti Polytarp's Madhya Pradesh exposure, Axiom Gas's
+   * Karnataka/Telangana/Maharashtra cluster): where a substantial share of
+   * revenue comes from one state or a small group of states, the document
+   * names it as a risk factor with the actual share. Two flat fields, not a
+   * nested object — the module engine's `Field` has no object type, only
+   * scalars and tables, so `primaryMarketDescription` and
+   * `primaryMarketRevenueSharePercent` are asked as two ordinary questions.
+   * Both optional, not default-false: unlike `exportRevenueShare` (every
+   * issuer either exports or does not), this concentration genuinely may
+   * not apply at all to a nationally diversified issuer — absence is not
+   * the same claim as a stated 0%.
+   */
+  primaryMarketDescription: z
+    .string()
+    .optional()
+    .describe('The state or states revenue is substantially concentrated in, as the document would name them, e.g. "the State of Maharashtra"'),
+  primaryMarketRevenueSharePercent: zPercent
+    .optional()
+    .describe('Share of total revenue from that state or states in the last financial year'),
 });
 
 export type Facility = z.infer<typeof zFacility>;

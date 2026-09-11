@@ -23,11 +23,18 @@ describe('one schema, five uses', () => {
     expect(schema.properties.cin.description).toMatch(/Corporate Identity Number/i);
   });
 
-  it('does not force the model to supply fields that have defaults', () => {
+  it('never marks a field required, even one required for a complete fact base', () => {
+    // D47: a real Gemini call proved this the hard way. `cin`, `dateOfIncorporation`
+    // and `isPublicLimited` have no Zod default (the FORM must not accept a blank),
+    // so `io: 'input'` alone leaves them in `required` — and asked to extract from a
+    // sentence naming only the company, with an explicit "omit, don't invent"
+    // instruction, the model fabricated a CIN, a date and a website rather than
+    // violate `required`. "Required for a usable fact base" is `isUsable()`'s job,
+    // downstream of extraction — never the tool schema's.
     const schema = extractionSchemaFor('company') as any;
-    // nameChanges defaults to [] — the model should not be required to invent it
-    expect(schema.required).not.toContain('nameChanges');
-    expect(schema.required).toContain('name');
+    expect(schema.required).toEqual([]);
+    expect(schema.properties.registeredOffice.required).toEqual([]);
+    expect(schema.properties.companySecretary.required).toEqual([]);
   });
 
   it('validates against the same definition it generated from', () => {

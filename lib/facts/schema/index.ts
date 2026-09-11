@@ -61,35 +61,51 @@ export type PartialFactBase = {
 type JsonSchema = Record<string, unknown>;
 
 /**
- * Claude's strict tool use requires `additionalProperties: false` on every
- * object node. Zod 4 emits it in `output` mode but NOT in `input` mode, and
- * we want input mode: it keeps fields that have defaults out of `required`,
- * so the model is not forced to invent values it could not find.
+ * Strict tool use (Claude, and Gemini's `responseSchema`) requires
+ * `additionalProperties: false` on every object node. Zod 4 emits it in
+ * `output` mode but NOT in `input` mode, and we want input mode for the
+ * `required` reason below — so we close every object ourselves.
  *
- * So: generate with input semantics, then close every object ourselves.
+ * `required` is stripped from every object node entirely, for a reason a
+ * live call surfaced (D47): `io: 'input'` only drops a field from `required`
+ * when it has a Zod `.default()`. A field that is merely REQUIRED FOR A
+ * COMPLETE FACT BASE — `company.cin`, `dateOfIncorporation`,
+ * `isPublicLimited`, `registeredOffice`, none of which carry a default
+ * because the FORM must not silently accept a blank — stayed `required` in
+ * the tool schema too. Verified against a real Gemini call: asked to extract
+ * from a sentence naming only the company, with an explicit "omit, don't
+ * invent" system instruction, it fabricated a CIN, a date of incorporation, a
+ * website and an email rather than violate the schema's `required` array —
+ * the schema-level constraint overrode the prompt-level instruction. A
+ * single extraction TURN must never be required to supply a fact the source
+ * text does not contain; "required for a usable fact base" is `isUsable()`'s
+ * and the gap dashboard's job, downstream of extraction, not the tool
+ * schema's.
  */
-function closeObjects(node: unknown): unknown {
-  if (Array.isArray(node)) return node.map(closeObjects);
+function loosenObjects(node: unknown): unknown {
+  if (Array.isArray(node)) return node.map(loosenObjects);
   if (node === null || typeof node !== 'object') return node;
 
   const out: JsonSchema = {};
   for (const [key, value] of Object.entries(node as JsonSchema)) {
-    out[key] = closeObjects(value);
+    if (key === 'required') continue;
+    out[key] = loosenObjects(value);
   }
-  if (out.type === 'object' && out.additionalProperties === undefined) {
-    out.additionalProperties = false;
+  if (out.type === 'object') {
+    if (out.additionalProperties === undefined) out.additionalProperties = false;
+    out.required = [];
   }
   return out;
 }
 
 /**
- * Claude's extraction tool schema for one domain, from the same definition
- * that validates the form. This is MM3 — one schema, five uses.
+ * The extraction tool schema for one domain, from the same definition that
+ * validates the form. This is MM3 — one schema, five uses.
  *
  * `.describe()` text on each field becomes the field description the model
  * reads, so those strings are instructions, not comments.
  */
 export function extractionSchemaFor(domain: keyof FactBase): JsonSchema {
   const generated = z.toJSONSchema(zFactBase.shape[domain], { io: 'input' });
-  return closeObjects(generated) as JsonSchema;
+  return loosenObjects(generated) as JsonSchema;
 }

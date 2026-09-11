@@ -1,0 +1,30 @@
+{
+  "raw": "Our revenue is concentrated in a small number of customers. A significant portion of our business is derived from a limited set of key clients, notably including Mahindra & Mahindra Limited, Tata Motors Limited, Bajaj Auto Limited, Force Motors Limited, and Greaves Cotton Limited. Specifically, Mahindra & Mahindra Limited accounts for 22.4% of our revenue, Tata Motors Limited accounts for 15.1%, Bajaj Auto Limited accounts for 10.3%, Force Motors Limited accounts for 7.2%, and Greaves Cotton Limited accounts for 6.3%. The loss of any of these key customers, or a significant reduction in orders from them, could adversely affect our business, financial condition, and results of operations.",
+  "factSlice": {
+    "topCustomers": [
+      {
+        "name": "Mahindra & Mahindra Limited",
+        "revenueShare": 22.4
+      },
+      {
+        "name": "Tata Motors Limited",
+        "revenueShare": 15.1
+      },
+      {
+        "name": "Bajaj Auto Limited",
+        "revenueShare": 10.3
+      },
+      {
+        "name": "Force Motors Limited",
+        "revenueShare": 7.2
+      },
+      {
+        "name": "Greaves Cotton Limited",
+        "revenueShare": 6.3
+      }
+    ],
+    "companyName": "Vardhman Precision Components Limited"
+  },
+  "untraceableNumbers": [],
+  "verifiedAt": "2026-09-11T15:28:43.014Z"
+}

@@ -1,0 +1,9 @@
+{
+  "raw": "We do not maintain key man insurance policies for our Promoters or any of our Key Managerial Personnel. The unexpected loss of the services of our Promoters or key managerial personnel, due to any reason whatsoever, could have a material adverse effect on our business, financial condition, and operations. Vardhman Precision Components Limited currently has no insurance coverage in place to mitigate the financial or operational impacts that would arise from such an absence or departure. Consequently, our ongoing business activities and our ability to execute our strategic plans could be significantly disrupted if we lose these key individuals without adequate prior notice.",
+  "factSlice": {
+    "hasKeyManInsurance": false,
+    "companyName": "Vardhman Precision Components Limited"
+  },
+  "untraceableNumbers": [],
+  "verifiedAt": "2026-09-11T15:31:45.407Z"
+}

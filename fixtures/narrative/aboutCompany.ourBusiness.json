@@ -1,0 +1,29 @@
+{
+  "raw": "We are engaged in the manufacturing of precision machined transmission components, axle and differential sub-assemblies, and hydraulic valve bodies for off-highway equipment. Our manufacturing operations are carried out at our Chakan facility, located at Plot No. 42, Chakan Industrial Area, Phase II, Pune, Maharashtra. This owned facility spans an area of 42,000 square feet and has an installed manufacturing capacity of 1,850 MT per annum of machined components, with a capacity utilisation of 78 percent. In terms of our operational scale, we have a total employee headcount of 214 personnel and an order book standing at Rs 31.60 Crores. We serve a diverse clientele across our industry sectors, including automotive and industrial equipment manufacturers such as Mahindra & Mahindra Limited, Tata Motors Limited, Bajaj Auto Limited, Force Motors Limited, and Greaves Cotton Limited.",
+  "factSlice": {
+    "companyName": "Vardhman Precision Components Limited",
+    "productLines": "Precision machined transmission components\nAxle and differential sub-assemblies\nHydraulic valve bodies for off-highway equipment",
+    "facilities": [
+      {
+        "name": "Chakan facility",
+        "location": "Plot No. 42, Chakan Industrial Area, Phase II, Pune, Maharashtra",
+        "owned": true,
+        "capacity": "1,850 MT per annum of machined components",
+        "capacityUtilisationPercent": 78,
+        "areaSqFt": 42000
+      }
+    ],
+    "employeeCount": 214,
+    "orderBook": "Rs 31.60 Crores",
+    "exportRevenueShare": 8.4,
+    "principalCustomers": [
+      "Mahindra & Mahindra Limited",
+      "Tata Motors Limited",
+      "Bajaj Auto Limited",
+      "Force Motors Limited",
+      "Greaves Cotton Limited"
+    ]
+  },
+  "untraceableNumbers": [],
+  "verifiedAt": "2026-09-11T15:04:19.474Z"
+}

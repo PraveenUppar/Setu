@@ -1,0 +1,10 @@
+{
+  "raw": "Our revenue is heavily concentrated in one state or a small group of states. Specifically, a significant portion of our business operations and revenue is derived from the State of Maharashtra. For the relevant period, our revenue share from the State of Maharashtra stood at 64.50% of our total revenue. Any adverse developments, economic slowdowns, regulatory changes, or natural disruptions in the State of Maharashtra could severely impact our business, financial condition, and results of operations. We are vulnerable to localized risks within this primary market, and our inability to expand our geographical footprint to diversify our revenue streams across other states could materially and adversely affect our growth and overall financial performance.",
+  "factSlice": {
+    "primaryMarketDescription": "the State of Maharashtra",
+    "primaryMarketRevenueSharePercent": 64.5,
+    "companyName": "Vardhman Precision Components Limited"
+  },
+  "untraceableNumbers": [],
+  "verifiedAt": "2026-09-11T15:28:19.472Z"
+}

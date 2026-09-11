@@ -4,11 +4,11 @@
 
 ---
 
-**Last updated:** 2026-09-11
-**Current stage:** S0, S3, S5, S6, S8, S11 CLOSED. **S4 Wave 1 extraction finished; Wave 2 computed sections built.**
-**Status:** **517 tests passing, tsc clean, dev server runs** (eslint: 18 pre-existing problems, none in S8/S11 files). Document renders **24 of the 37 numbered subsections**, drafted as **43 registry sections**, **72 estimated pages** of a measured ~280 — **76 pages in Word**, and exports to **Word, PDF, a gap-report workbook and a vault zip** from `/export/*`. **All ten intake modules exist** and Vardhman completes nine of them outright (see S8 below). **Issue Procedure is COMPLETE**, and the glossary is at **130 definitions plus 129 abbreviations**.
+**Last updated:** 2026-09-11 (evening session — Gemini wired, S9/S10 opened)
+**Current stage:** S0, S3, S5, S6, S8, S11 CLOSED. S4 Wave 1 extraction finished; Wave 2 computed sections built. **S9 and S10 now genuinely in progress** — no longer credit-blocked (D43), and no longer just scaffolding: real drafted content exists and has been read on the rendered page (D55).
+**Status:** **593 tests passing, tsc clean, dev server runs.** Document renders **29 of the 37 numbered subsections**. **All ten intake modules exist** and Vardhman completes nine of them outright (see S8 below). **Issue Procedure is COMPLETE**, the glossary is at **130 definitions plus 129 abbreviations**, and **Risk Factors is a real, populated section** — 15 archetypes, 11 of which fire on Vardhman with LLM-drafted prose behind every one.
 
-**The progress indicator said "25 of 37" until 2026-09-10 and was wrong** — it counted registry entries against numbered subsections, and Issue Procedure alone is one subsection and sixteen entries. Every spec now carries `partOf`, the header counts distinct values, and a test holds it. Same principle as the readiness score: a number the reader trusts must not flatter.
+**The progress indicator said "25 of 37" until 2026-09-10 and was wrong** — it counted registry entries against numbered subsections. Every spec now carries `partOf`, the header counts distinct values, and a test holds it. The count has moved honestly since — 24 → 25 (D45, Risk Factors) → 26 (D50, History) → 27 (D51, Our Business) → 28 (D52, Objects of the Issue) → 29 (D54, MD&A) — each one a real section with a passing traceability gate behind it, not a relabelling.
 **Rules: 55** — 43 eligibility, 12 consistency. The pre-check runs 26; no issuer sees 26 questions, since the criteria diverge by exchange.
 **No rule hedges any more** — the four disputes are settled (D25) and every finding gives a firm pass or fail with a clause.
 **Scope:** FULL BUILD, S0 through S13. No deadline pressure.
@@ -18,6 +18,58 @@
 ---
 
 ## Done
+
+### S9 / S10 — Gemini wired, risk archetypes, the drafting harness, four narrative sections — **IN PROGRESS 2026-09-11** (D43–D55)
+
+**The provider decision.** Gemini free tier, not Claude, not paid — a hobby-project call (D43),
+made explicitly with the trade-off written down: free-tier content trains Google's models, fine for
+the Vardhman seed and the public corpus, would need revisiting before any real issuer's data reached
+it. `lib/llm/client.ts` — `LlmClient` interface, `createGeminiClient()`, `createFakeClient()` for
+tests (D14 made mechanical). **Read D47 before writing any extraction prompt**: the first real call
+proved the extraction schema was forcing the model to invent a CIN, a date and a website — fixed by
+making `extractionSchemaFor()` never mark anything `required`, since "required for a usable fact
+base" is `isUsable()`'s job, not the tool schema's.
+
+**The risk engine (S10).** `lib/risk/` — `RiskArchetype` (trigger/materiality/detail/factSlice),
+`selectRisks()`. **15 archetypes**, each traced to a corpus document or an existing computed table,
+never invented from the schema alone (D44, D46, D48, D49, D52, D53, D54) — see the decision log for
+which document(s) support each one and which themes were checked and deliberately NOT built
+(universal boilerplate has no place here). `lib/document/sections/risk-factors.ts` renders them for
+real — Risk Factors is `producer: 'computed'`, not `'narrative'`, since the selection and the terse
+`detail()` sentence are pure TS (D45).
+
+**The drafting harness (S9).** `lib/llm/narrative.ts` — `draftNarrative()` (one shared no-invention
+system prompt), `untraceableNumbers()` (the mechanical subset of the "20 sentences must trace" gate:
+every number in a draft must appear in its factSlice). `lib/store/narrative-store.ts` — append-only
+per-id versions, same shape as `fact-store.ts`. **`readNarrative(id, currentFactSlice)` only returns
+a draft if the factSlice matches EXACTLY** (D51) — added after a draft written for Vardhman leaked,
+unchanged, into a completely different issuer's rendered document in an existing test. `promptSpec`
+now lives on `SectionSpec` for real (D51); `renderSection`'s `narrative` case reads the store, same
+honest fallback shape as everything else — real content where it exists, a placeholder where it
+does not.
+
+**Four real narrative sections, each deliberately scoped to what the fact base can honestly
+support**, not the full chapter a real prospectus carries: History and Corporate Matters (D50,
+incorporation/name changes/conversion — pure facts, no judgement), Our Business (D51, the flagship
+section, scoped to the "Overview" opening paragraph only), Objects of the Issue (D52, the narrative
+half of an "N + C" section — the computed means-of-finance tables are NOT built), MD&A (D54, revenue
+and PAT trend with pre-computed growth percentages).
+
+**D55 — render and look, applied to S9/S10 output for the first time, caught a real systemic bug.**
+Five archetypes (all predating D52's money-formatting lesson) were printing raw rupee integers —
+`21000000`, and once a materiality threshold as `1208333.3333333333333333334` — into both the
+computed fallback AND the model's factSlice. The traceability gate could not catch this: every
+number WAS in the factSlice, just never formatted. Fixed at the source
+(`formatAs()` before a money value reaches either path), re-drafted all eleven risks that fire on
+Vardhman, re-rendered, re-read the pages. **Do this again before the next archetype batch ships** —
+nothing that produces money for a document is verified until someone has looked at the actual page.
+
+**Not yet built:** ~25 more archetypes toward the ~40 target (auditor qualification and unsecured
+loans repayable-on-demand were seen but need more corroboration or a clearer fact); the same harness
+applied to Basis for Issue Price or Industry Overview, both of which need data this fact base does
+not carry yet (peer comparables, a commissioned industry report) — new intake, not just new prompts.
+S7 (extraction from uploaded documents) is untouched — the harness that would power it exists and is
+proven, but nothing reads an uploaded PDF yet.
 
 ### S8 — Modules M3–M10 and Wave 2 computed sections — **CLOSED 2026-09-11** (D37, D38, D39)
 
@@ -281,16 +333,32 @@ not the section under test. D29.
 ## Next action
 
 **S8 gate in the browser is the user's to confirm** — fill a module or two on the real issuer and
-check the None affordance and the new cell types feel right. Then, in order of value:
+check the None affordance and the new cell types feel right. Still true, still not done. Then, in
+order of value:
 
-1. ~~S11 leftovers~~ — **done 2026-09-11**: `/export/gaps`, `/export/pdf`, `/export/vault`.
-2. ~~Wave 2 stragglers~~ — **done 2026-09-11**: Other Financial Information, Material Contracts
-   (D41), and the standing boilerplate inside the computed sections (D42). Wave 2 is complete.
-   What the document still lacks is narrative (S9/S10), the AoA (S7), and the auditor's annexures.
-3. **S7 / S9 / S10** once API credits exist. M5's answers are waiting for the drafting harness.
-4. **S12** review workflow, which is what wires `certified` — and lifts the draft notice in every
+1. ~~S11 leftovers~~, ~~Wave 2 stragglers~~ — **done 2026-09-10/11.**
+2. **Keep growing S10 (risk archetypes).** All seven corpus documents mined at least once toward
+   the ~40 target (15 done). The next pass either needs a deeper re-read of documents already
+   checked, or a new fact with no existing table to lean on (auditor qualification,
+   unsecured-loans-on-demand were seen, not yet built). Pattern to follow: `lib/risk/archetypes.ts`'s
+   own comments cite exactly which corpus documents support each one — match that discipline.
+3. **Keep growing S9 (narrative sections).** Four done (History, Our Business, Objects of the
+   Issue, MD&A), all deliberately scoped to an opening paragraph the fact base can honestly
+   support. The next two planned ones (`particulars.basisForIssuePrice`,
+   `aboutCompany.industryOverview`) need data this fact base does NOT carry — peer comparables, a
+   commissioned industry report — so they need new M-module intake before a `promptSpec`, not just
+   a new prompt.
+4. **Before shipping the next archetype or section: render and look (D55).** Generate the DOCX
+   (`SETU_DOCX_OUT=<scratchpad>/vardhman.docx npx vitest run lib/document/docx.test.ts`), convert
+   with LibreOffice (`"/c/Program Files/LibreOffice/program/soffice.exe" --headless --convert-to
+   pdf --outdir <dir> <dir>/vardhman.docx`), rasterise with pypdfium2 in a scratchpad venv, actually
+   read the pages. This is what caught D55 — a bug that was invisible to every automated check.
+5. **S7 (extraction) is untouched.** The harness exists and is proven (`lib/llm/client.ts`,
+   `extractionSchemaFor()` fixed per D47), but nothing reads an uploaded document yet. Two-pass page
+   targeting, the review-and-confirm UI, snapshot-to-fixtures discipline (D14) — all still to build.
+6. **S12** review workflow, which is what wires `certified` — and lifts the draft notice in every
    export at once, since they all go through `assemble()`.
-5. **Browser pass over M3-M10** — still not clicked through since the S8 session's check.
+7. **Browser pass over M3-M10** — still not clicked through since the S8 session's check.
 
 To regenerate DOCX samples without the server:
 `SETU_DOCX_OUT=out/vardhman.docx npx vitest run lib/document/docx.test.ts`.
@@ -410,12 +478,21 @@ the AoA (needs S7 upload).
 - **Prospectus section headings vary by drafter** — `CAPITAL STRUCTURE` versus `SECTION V - CAPITAL STRUCTURE`, and three different spellings of the financial section. **The auditor's examination report is a far better anchor than the heading above it.** Match headings case-sensitively; they are set in capitals, and matching loosely lands on cross-references in body text.
 - **"Authorized" and "Authorised" both appear** — 4 of 7 documents use the American spelling in the capital structure table.
 - **An issuer's eligibility list may appear TWICE** in one document, and the second list is not a repeat. Om Galaxy has a Reg 228/230 list, then a 15-item exchange list, then the Reg 229(3) list — and E-09 and E-10 appear only in the middle one. Reading the 229(3) list alone concluded, wrongly, that two criteria had no corpus support at all.
+- **The module engine's `Field` type has no object kind, only scalars and tables.** A schema field designed as a nested object (`primaryMarket: { description, revenueSharePercent }`) cannot be asked through the form at all. Caught before it shipped (D54) — flatten to two top-level fields instead.
+- **A stored LLM draft must be re-validated against the CURRENT factSlice, not just checked for existence.** `readNarrative(id)` alone let a draft generated for one issuer's facts render, unchanged, for a different issuer entirely — caught by an existing "no seed text leaks" test, not a new one. Fixed by requiring the caller's current factSlice and comparing by `JSON.stringify` equality (D51); the signature is `readNarrative(id, currentFactSlice)` now, not `readNarrative(id)`.
+- **The traceability gate (`untraceableNumbers`) needs the same "run it for real" discipline as everything else.** Its first version glued a sentence-ending period onto a preceding number (`1600000.` did not match `1600000`) and could not equate `8.40` with `8.4`. Fixed by parsing every number to a float and comparing values, never substrings (D51).
+- **Every money value reaching a `detail()` string or an LLM `factSlice` must go through `formatAs()`.** Five risk archetypes shipped without it and printed raw rupee integers on the actual rendered page — technically traceable (the gate passed), unreadable. `formatAs(v, 'lakhs')` for threshold/litigation-scale figures, `'crores'` for balance-sheet-scale ones, matching what the corpus itself uses at each scale (D55).
+- **A model told "state only these facts" will still reach for outside knowledge that happens to be true** — asked to discuss "Fiscal 2026", Gemini wrote "the financial year ended March 31, 2026," correct but untraceable, since the factSlice only ever gave the bare year. Not a gate problem (a WRONG date would look identical) — fixed by naming the exact terminology to use in the instructions, matching what the corpus itself calls these years (D54).
+- **`soffice.exe` is not on PATH on this machine** — full path is `/c/Program Files/LibreOffice/program/soffice.exe`. Python is at the Microsoft Store alias; `python -m venv` plus `pip install pypdfium2 pillow` inside it works for rasterising a converted PDF page by page.
+- **A heredoc's `cat > file.py` writes to the CURRENT shell cwd, evaluated before a later `cd` in the same command runs.** `SP=...; cat > file.py <<EOF ... EOF; cd "$SP"` writes `file.py` into the ORIGINAL directory, not `$SP` — leaves a stray file in the repo root if that original directory is the project. `cd` first, or use the Write tool with an absolute path.
 
 ---
 
 ## Environment notes
 
-- **No Anthropic API credits.** Not blocking: S3, S4, S5, S6, S11 need none. Only S7 (extraction), S9 (narrative) and S10 (risk narrative) do.
+- **Gemini free tier, `GEMINI_API_KEY` set in `.env.local`, now genuinely in daily use** (D43, D47, D50–D55) — not just a smoke test. This session alone: 2 extraction calls, ~15 risk-narrative drafts, 4 section drafts, several re-drafts after fixing bugs the first pass caught. Not a paid account; see D43 for the data-use trade-off this accepts. `.env.local` is gitignored, never commit it.
+- Real narrative output lives in two places: `.data/narratives/` (gitignored, what the app actually renders) and `fixtures/narrative/` + `fixtures/llm-verification/` (committed, D14 snapshots — small, no secrets, worth keeping as before/after proof).
+- One-off drafting/verification scripts this session (not committed, but the pattern is worth reusing): a scratchpad `.ts` file using `pathToFileURL()` + dynamic `import()` to load project TS modules, run via `npx tsx`, with `GEMINI_API_KEY` exported into the shell first (`export $(grep -v '^#' .env.local | xargs)`).
 - Supabase: not created. Local JSON until S7.
 - Vercel: not created.
-- Corpus gaps: 17 more prospectuses; missing sectors (IT/services, trading, textiles, chemicals, pharma); only 1 OFS example; 5+ fixed-price documents needed before that branch.
+- Corpus gaps: 17 more prospectuses; missing sectors (IT/services, trading, textiles, chemicals, pharma); only 1 OFS example; 5+ fixed-price documents needed before that branch. All 7 documents on disk are now mined at least once for risk-factor themes (D44–D54).

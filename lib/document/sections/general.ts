@@ -16,7 +16,9 @@ import type { SectionSpec } from '../section';
  *   - The opening paragraph shares a common core; Maxwell adds a longer
  *     preamble and two extra trigger words. The shared core is used here.
  *   - The list of factors is issuer-specific, drawn from the risk factors, so
- *     it is NOT template text. It renders as a gap until S10 supplies it.
+ *     it is NOT template text. `riskFactorsOverlay()` (lib/document/section.ts)
+ *     fills it from `lib/risk/`'s archetype selection (D45) — a preliminary,
+ *     always-usable summary, not yet the full S9/S10 narrative.
  *   - Om Galaxy's closing paragraph repeats "nor any of their respective
  *     affiliates" twice, evidently a drafting slip. Not reproduced.
  */
@@ -31,10 +33,6 @@ export const forwardLookingStatements: SectionSpec = {
     'bookbuilt__manufacturing__om-galaxy__bse-sme__2026-09__rhp.pdf pp.26-28',
     'bookbuilt__engineering__maxwell-engineering__nse-emerge__2026-08__drhp.pdf pp.23-24',
   ],
-  asks: {
-    'riskFactors.summaryOfMaterialFactors':
-      'Summary of material risk factors — generated once Risk Factors are drafted',
-  },
   template: `
 ## Forward Looking Statements
 

@@ -1,0 +1,18 @@
+{
+  "raw": "Our operations are concentrated at a single facility. Our sole manufacturing facility, known as the Chakan facility, is located at Plot No. 42, Chakan Industrial Area, Phase II, Pune, Maharashtra. This owned facility spans 42,000 square feet and has an installed capacity of 1,850 MT per annum of machined components, with a capacity utilisation of 78 percent. Because all of our manufacturing activities are conducted at this single location, any localized disruption, natural disaster, accident, operational failure, or regulatory issue affecting the Chakan facility would adversely affect our business, operational results, and financial condition.",
+  "factSlice": {
+    "facilities": [
+      {
+        "name": "Chakan facility",
+        "location": "Plot No. 42, Chakan Industrial Area, Phase II, Pune, Maharashtra",
+        "owned": true,
+        "capacity": "1,850 MT per annum of machined components",
+        "capacityUtilisationPercent": 78,
+        "areaSqFt": 42000
+      }
+    ],
+    "companyName": "Vardhman Precision Components Limited"
+  },
+  "untraceableNumbers": [],
+  "verifiedAt": "2026-09-11T15:31:10.174Z"
+}

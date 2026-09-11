@@ -1,0 +1,27 @@
+{
+  "raw": "The following discussion on our financial condition and results of operations should be read in conjunction with our financial statements and the related notes included elsewhere in this offer document. For Fiscal 2026, our revenue from operations was Rs 48.20 Crores, representing a year-on-year growth of 22.03 percent compared to Rs 39.50 Crores in Fiscal 2025. Our profit after tax for Fiscal 2026 stood at Rs 3.60 Crores, reflecting an increase of 41.18 percent over the profit after tax of Rs 2.55 Crores recorded in Fiscal 2025. In Fiscal 2025, our revenue was Rs 39.50 Crores and our profit after tax was Rs 2.55 Crores, compared to a revenue of Rs 28.10 Crores and a profit after tax of Rs 1.10 Crores in Fiscal 2024. Detailed factors affecting our operating results and financial condition are discussed in the remainder of this section.",
+  "factSlice": {
+    "companyName": "Vardhman Precision Components Limited",
+    "years": [
+      {
+        "yearEnding": 2026,
+        "revenue": "Rs 48.20 Crores",
+        "profitAfterTax": "Rs 3.60 Crores"
+      },
+      {
+        "yearEnding": 2025,
+        "revenue": "Rs 39.50 Crores",
+        "profitAfterTax": "Rs 2.55 Crores"
+      },
+      {
+        "yearEnding": 2024,
+        "revenue": "Rs 28.10 Crores",
+        "profitAfterTax": "Rs 1.10 Crores"
+      }
+    ],
+    "revenueGrowthLatestYoYPercent": "22.03",
+    "profitAfterTaxGrowthLatestYoYPercent": "41.18"
+  },
+  "untraceableNumbers": [],
+  "verifiedAt": "2026-09-11T15:20:51.652Z"
+}

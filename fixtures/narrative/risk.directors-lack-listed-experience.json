@@ -1,0 +1,30 @@
+{
+  "raw": "Most of our Board lacks listed-company board experience. Within our current board of directors, comprising Rajesh Vardhman, Sunita Vardhman, Meera Kulkarni, Suresh Iyer, and Arvind Joshi, only Arvind Joshi possesses experience on a listed-company board. The remaining four directors do not have prior experience serving on the board of a listed company. Consequently, our management and governance framework may not benefit from widespread familiarity with the regulatory requirements, compliance standards, and operational expectations associated with listed entities. This lack of prior listed-company governance experience across the majority of our directors could impact our ability to navigate the obligations applicable to us as a public company.",
+  "factSlice": {
+    "directors": [
+      {
+        "name": "Rajesh Vardhman",
+        "hasListedCompanyExperience": false
+      },
+      {
+        "name": "Sunita Vardhman",
+        "hasListedCompanyExperience": false
+      },
+      {
+        "name": "Meera Kulkarni",
+        "hasListedCompanyExperience": false
+      },
+      {
+        "name": "Suresh Iyer",
+        "hasListedCompanyExperience": false
+      },
+      {
+        "name": "Arvind Joshi",
+        "hasListedCompanyExperience": true
+      }
+    ],
+    "companyName": "Vardhman Precision Components Limited"
+  },
+  "untraceableNumbers": [],
+  "verifiedAt": "2026-09-11T15:32:23.774Z"
+}

@@ -27,6 +27,7 @@ const INDEBTEDNESS = 'financial.indebtedness';
 const CONTINGENT = 'introduction.contingentLiabilities';
 const LITIGATION = 'legal.litigation';
 const SUMMARY = 'introduction.summaryOfFinancialInformation';
+const RISK = 'general.riskFactors';
 
 export const FINANCIAL_YEAR_COLUMNS: RepeaterColumn[] = [
   { key: 'yearEnding', label: 'FY ending (year)', type: 'number', width: '6rem', placeholder: '2026' },
@@ -88,6 +89,7 @@ export const BORROWING_COLUMNS: RepeaterColumn[] = [
   { key: 'rateOfInterest', label: 'Rate of interest', type: 'text', width: '12rem' },
   { key: 'repaymentTerms', label: 'Tenure / repayment', type: 'text', width: '14rem' },
   { key: 'security', label: 'Security', type: 'text', width: '20rem' },
+  { key: 'personalGuaranteeByPromoter', label: 'Promoter personal guarantee?', type: 'boolean', width: '8rem' },
   { key: 'purpose', label: 'Purpose', type: 'text', width: '14rem' },
 ];
 
@@ -173,9 +175,9 @@ export const m6Financials: Module = {
       schema: z.array(zBorrowing),
       columns: BORROWING_COLUMNS,
       helpText:
-        'Every facility, one row each: term loans, cash credit, vehicle loans, unsecured loans from directors, and the non-fund based limits — bank guarantees and letters of credit. Financial Indebtedness prints a summary by category over this detail, and the summary is computed from these rows so it cannot disagree with them. The fund-based outstanding should tie to total borrowings in the latest year above.',
+        'Every facility, one row each: term loans, cash credit, vehicle loans, unsecured loans from directors, and the non-fund based limits — bank guarantees and letters of credit. Financial Indebtedness prints a summary by category over this detail, and the summary is computed from these rows so it cannot disagree with them. The fund-based outstanding should tie to total borrowings in the latest year above. Mark which facilities, if any, are secured in part by a Promoter\'s personal guarantee — a standard risk factor names this specifically.',
       clause: 'ICDR Schedule VI Part A',
-      feedsInto: [INDEBTEDNESS, CAPITALISATION],
+      feedsInto: [INDEBTEDNESS, CAPITALISATION, RISK],
       extractionHint: 'The Financial Indebtedness section, and the sanction letters.',
     },
     {

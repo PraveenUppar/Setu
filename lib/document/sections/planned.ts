@@ -14,17 +14,12 @@
  * do not change.
  */
 export const plannedSections: Record<string, string> = {
-  'general.riskFactors': 'Risk Factors',
   'introduction.generalInformation': 'General Information',
-  'particulars.objectsOfTheIssue': 'Objects of the Issue',
   'particulars.basisForIssuePrice': 'Basis for Issue Price',
   'particulars.taxBenefits': 'Statement of Special Tax Benefits',
   'aboutCompany.industryOverview': 'Industry Overview',
-  'aboutCompany.ourBusiness': 'Our Business',
   'aboutCompany.keyRegulations': 'Key Industry Regulations and Policies',
-  'aboutCompany.history': 'History and Corporate Structure',
   'aboutCompany.subsidiaries': 'Our Subsidiaries, Associates and Joint Ventures',
   'financial.restatedFinancialInformation': 'Restated Financial Information',
-  'financial.mdna': "Management's Discussion and Analysis of Financial Condition and Results of Operations",
   'other.articles': 'Main Provisions of the Articles of Association',
 };

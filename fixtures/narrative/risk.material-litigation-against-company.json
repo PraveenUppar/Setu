@@ -1,0 +1,34 @@
+{
+  "raw": "Material legal proceedings are pending against our Company. We are subject to indirect tax litigation involving a demand raised by the Deputy Commissioner of State Tax, Pune, amounting to Rs 34.00 Lakhs on account of an alleged mismatch in input tax credit claimed for the financial year 2022-23, with an appeal currently pending before the Joint Commissioner of State Tax (Appeals), Pune, under case number GST/APL/2025/1187. Additionally, we have received a statutory and regulatory show cause notice from the Maharashtra Pollution Control Board regarding effluent discharge parameters at our Chakan facility, to which we have submitted a reply within the stipulated period with no further communication received as of date.",
+  "factSlice": {
+    "litigation": [
+      {
+        "party": "COMPANY",
+        "partyName": "Vardhman Precision Components Limited",
+        "direction": "AGAINST",
+        "category": "INDIRECT_TAX",
+        "counterparty": "Deputy Commissioner of State Tax, Pune",
+        "forum": "Joint Commissioner of State Tax (Appeals), Pune",
+        "caseNumber": "GST/APL/2025/1187",
+        "amount": "Rs 34.00 Lakhs",
+        "status": "Appeal pending before the Joint Commissioner (Appeals)",
+        "description": "Demand raised on account of alleged mismatch in input tax credit claimed for the financial year 2022-23."
+      },
+      {
+        "party": "COMPANY",
+        "partyName": "Vardhman Precision Components Limited",
+        "direction": "AGAINST",
+        "category": "STATUTORY_REGULATORY",
+        "counterparty": "Maharashtra Pollution Control Board",
+        "forum": "Maharashtra Pollution Control Board, Regional Office, Pune",
+        "amount": null,
+        "status": "Show cause notice replied; no further communication received",
+        "description": "Show cause notice regarding effluent discharge parameters at the Chakan facility, replied to within the stipulated period."
+      }
+    ],
+    "threshold": "Rs 12.08 Lakhs",
+    "companyName": "Vardhman Precision Components Limited"
+  },
+  "untraceableNumbers": [],
+  "verifiedAt": "2026-09-11T15:30:18.104Z"
+}

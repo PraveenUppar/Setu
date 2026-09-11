@@ -1120,8 +1120,10 @@ describe('document assembly', () => {
   });
 
   it('surfaces gaps from across the whole document', () => {
+    // Risk Factors always raises this one (D45) — even a fully-filled Vardhman
+    // has narrative drafting and further archetypes still pending.
     const gaps = collectPlaceholders(renderDocument(sectionRegistry, { facts: vardhman }));
-    expect(gaps.map((g) => g.factPath)).toContain('riskFactors.summaryOfMaterialFactors');
+    expect(gaps.map((g) => g.factPath)).toContain('general.riskFactors.narrative');
   });
 });
 
@@ -1754,7 +1756,7 @@ describe('gap collection across sections', () => {
     const keys = gapAnchorKeys(sections);
     const paths = [...keys.values()];
     expect(new Set(paths).size).toBe(paths.length);
-    expect(paths).toContain('riskFactors.summaryOfMaterialFactors');
+    expect(paths).toContain('general.riskFactors.narrative');
   });
 });
 
@@ -1772,6 +1774,9 @@ describe('progress counting', () => {
     expect([...subsections].sort()).toEqual([
       '1. Definitions and Abbreviations',
       '10. Capital Structure',
+      '11. Objects of the Issue',
+      '15. Our Business / Business Overview',
+      '17. History and Corporate Structure / Certain Corporate Matters',
       '19. Our Management',
       '2. Certain Conventions, Presentation of Financial, Industry and Market Data',
       '20. Our Promoters and Promoter Group',
@@ -1779,6 +1784,7 @@ describe('progress counting', () => {
       '22. Dividend Policy',
       '24. Other Financial Information',
       '25. Capitalisation Statement',
+      '26. Management\'s Discussion and Analysis',
       '27. Financial Indebtedness',
       '28. Outstanding Litigation and Material Developments',
       '29. Government and Other Approvals',
@@ -1790,6 +1796,7 @@ describe('progress counting', () => {
       '34. Restrictions on Foreign Ownership of Indian Securities',
       '36. Material Contracts and Documents for Inspection',
       '37. Declaration',
+      '4. Risk Factors',
       '5. The Issue / The Offer',
       '6. Summary of Financial Information',
       '7. Summary of Contingent Liabilities',

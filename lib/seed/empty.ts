@@ -70,6 +70,7 @@ export function emptyFactBase(): FactBase {
       keyManagerialPersonnel: [],
       seniorManagement: [],
       committees: [],
+      hasKeyManInsurance: false,
     },
     business: { topCustomers: [], topSuppliers: [], facilities: [] },
     financials: {

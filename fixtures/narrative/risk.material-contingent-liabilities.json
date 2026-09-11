@@ -1,0 +1,25 @@
+{
+  "raw": "Our contingent liabilities exceed our defined materiality threshold, which may adversely affect our financial condition. As of the year ending 2026, our total contingent liabilities stand at Rs 90.00 Lakhs, which is significantly higher than our materiality threshold of Rs 12.08 Lakhs. These contingent liabilities comprise bank guarantees issued on behalf of our Company amounting to Rs 40.00 Lakhs, a disputed demand under the Maharashtra Goods and Services Tax Act, 2017, under appeal amounting to Rs 34.00 Lakhs, and letters of credit outstanding amounting to Rs 16.00 Lakhs. If these liabilities materialize, they could have an adverse impact on our business and financial standing.",
+  "factSlice": {
+    "contingentLiabilityItems": [
+      {
+        "particulars": "Bank guarantees issued on behalf of our Company",
+        "amountLatest": "Rs 40.00 Lakhs"
+      },
+      {
+        "particulars": "Disputed demand under the Maharashtra Goods and Services Tax Act, 2017, under appeal",
+        "amountLatest": "Rs 34.00 Lakhs"
+      },
+      {
+        "particulars": "Letters of credit outstanding",
+        "amountLatest": "Rs 16.00 Lakhs"
+      }
+    ],
+    "contingentLiabilities": "Rs 90.00 Lakhs",
+    "threshold": "Rs 12.08 Lakhs",
+    "yearEnding": 2026,
+    "companyName": "Vardhman Precision Components Limited"
+  },
+  "untraceableNumbers": [],
+  "verifiedAt": "2026-09-11T15:29:32.021Z"
+}

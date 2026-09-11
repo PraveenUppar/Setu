@@ -251,21 +251,26 @@ Section status: `Draft → Ready for Review → Reviewed → Locked`. Section-an
 
 ## API cost discipline
 
-| Model | Input /1M | Output /1M | Context |
-|---|---|---|---|
-| claude-opus-5 | $5.00 | $25.00 | 1M |
-| claude-sonnet-5 | $2.00 | $10.00 | 1M |
+**D43: Gemini free tier, not Claude, and not paid at all — a hobby-project decision.** Model:
+`gemini-3.5-flash-lite`. Free-tier rate limits by current published figures (re-verify in AI
+Studio before relying on them — this file is background, not a citation source, same as the
+domain primer):
 
-PDF limits: **32MB per request, 600 pages** (100 only for 200k-context models). Opus 5 and Sonnet 5 both have 1M context — a 300-page prospectus fits. Use the Files API to sidestep the 32MB ceiling.
+| Limit | Figure |
+|---|---|
+| RPM | ~30 |
+| TPM | ~1,000,000 |
+| RPD | ~1,500 |
 
-**ITPM (input tokens per minute) is the binding rate limit, not RPM.** A single request exceeding your ITPM allowance fails permanently — backoff won't save it. Check console.anthropic.com → Settings → Limits.
+**RPM is the binding constraint for two-pass extraction** — pace page-batch requests, don't fire
+them in parallel. RPD is generous against the 7-document corpus for iterative dev.
 
-Three levers, in order:
+**Free-tier content trains Google's models.** Acceptable for the Vardhman seed and the public
+corpus prospectuses; not acceptable for a real issuer's PII or financials if this project ever
+takes real intake data (D43). No paid fallback is in scope while that holds.
 
-1. **Snapshot extraction results to fixtures.** Extract once, save the JSON, iterate against it. The difference between 300 API calls and 30.
-2. **Two-pass page targeting.** Read the text layer locally to find relevant pages; send only those. ~4x.
-3. **Batch API for corpus work.** 50% off, and S0 mining has no latency requirement.
+Three levers, in order, same reasoning as before the provider changed:
 
-Secondary: prompt caching for repeat reads in a debugging session; Sonnet 5 for development iterations.
-
-Disciplined budget: **$60–150** total. Careless: $500–1,000.
+1. **Snapshot extraction results to fixtures.** Extract once, save the JSON, iterate against it. The difference between 300 API calls and 30 — and now also the difference in free-tier RPD budget.
+2. **Two-pass page targeting.** Read the text layer locally to find relevant pages; send only those.
+3. **Batch corpus work** where the SDK supports it, since S0-style mining has no latency requirement.

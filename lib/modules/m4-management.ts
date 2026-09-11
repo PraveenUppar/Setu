@@ -18,6 +18,7 @@ import type { RepeaterColumn } from './repeater-spec';
 const MANAGEMENT = 'aboutCompany.management';
 const DEFINITIONS = 'general.definitions';
 const DECLARATION = 'other.declaration';
+const RISK = 'general.riskFactors';
 
 export const DIRECTOR_COLUMNS: RepeaterColumn[] = [
   { key: 'name', label: 'Name', type: 'text', width: '13rem' },
@@ -25,6 +26,7 @@ export const DIRECTOR_COLUMNS: RepeaterColumn[] = [
   { key: 'designation', label: 'Designation', type: 'text', width: '13rem', placeholder: 'Independent Director' },
   { key: 'isExecutive', label: 'Executive?', type: 'boolean', width: '6rem' },
   { key: 'isIndependent', label: 'Independent?', type: 'boolean', width: '6rem' },
+  { key: 'hasListedCompanyExperience', label: 'Listed co. board experience?', type: 'boolean', width: '8rem' },
   { key: 'appointedOn', label: 'Appointed on', type: 'date', width: '9rem' },
   { key: 'dateOfBirth', label: 'Date of birth', type: 'date', width: '9rem' },
   { key: 'nationality', label: 'Nationality', type: 'text', width: '6rem', placeholder: 'Indian' },
@@ -96,9 +98,9 @@ export const m4Management: Module = {
       schema: z.array(zDirector),
       columns: DIRECTOR_COLUMNS,
       helpText:
-        'Every director as on the date of the document, with the details the board table prints: designation, DIN, age (computed from the date of birth), address, occupation, nationality, term, and directorships in other companies. Mark executive and independent status carefully — the Companies Act composition test, the committee rules and the remuneration disclosures all turn on those two flags. Separate other directorships with semicolons.',
+        'Every director as on the date of the document, with the details the board table prints: designation, DIN, age (computed from the date of birth), address, occupation, nationality, term, and directorships in other companies. Mark executive and independent status carefully — the Companies Act composition test, the committee rules and the remuneration disclosures all turn on those two flags. Mark listed-company board experience too: whether a director has previously served on the board of a company listed on a recognised stock exchange is a standard risk factor where the board lacks it. Separate other directorships with semicolons.',
       clause: 'R-028 (Companies Act s.149); ICDR Schedule VI Part A',
-      feedsInto: [MANAGEMENT, DEFINITIONS, DECLARATION, 'general.conventions'],
+      feedsInto: [MANAGEMENT, DEFINITIONS, DECLARATION, RISK, 'general.conventions'],
       extractionHint: 'The board of directors table in "Our Management", and the register of directors.',
     },
     {
@@ -164,6 +166,16 @@ export const m4Management: Module = {
         'The figure in the resolution, in rupees. It is compared against total borrowings; a company borrowing past its authorised limit has a ratification to do before filing.',
       clause: 'Companies Act 2013, s.180(1)(c)',
       feedsInto: [MANAGEMENT, 'financial.indebtedness'],
+    },
+    {
+      path: 'management.hasKeyManInsurance',
+      label: 'Do you maintain key man insurance for your Promoters, KMP or Senior Management?',
+      type: 'boolean',
+      schema: z.boolean(),
+      helpText:
+        'A standard risk factor names this directly: where a company does not insure against the loss of its Promoters or key managers, the document says so as part of explaining why it depends on them. Answer honestly either way — having the cover is worth stating too.',
+      clause: 'ICDR Schedule VI Part A',
+      feedsInto: [MANAGEMENT, RISK],
     },
   ],
 };

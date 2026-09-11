@@ -1,0 +1,29 @@
+{
+  "raw": "Our Company was originally incorporated as Vardhman Precision Components Private Limited on April 12, 2016, under the Companies Act, 2013, as a private limited company. Pursuant to a change in our name consequent upon conversion from a private limited company to a public limited company, our name was changed to Vardhman Precision Components Limited, and a fresh certificate of incorporation consequent upon conversion was issued on February 18, 2025. Our Company was converted to a public limited company on February 18, 2025. The registered office of our Company is situated at Plot No. 42, Chakan Industrial Area, Phase II, Village Mahalunge, Taluka Khed, Pune, Maharashtra, 410501, India.",
+  "factSlice": {
+    "companyName": "Vardhman Precision Components Limited",
+    "cin": "U29253MH2016PLC098765",
+    "dateOfIncorporation": "2016-04-12",
+    "incorporatedUnder": "the Companies Act, 2013",
+    "isPublicLimited": true,
+    "conversionToPublicDate": "2025-02-18",
+    "nameChanges": [
+      {
+        "previousName": "Vardhman Precision Components Private Limited",
+        "newName": "Vardhman Precision Components Limited",
+        "date": "2025-02-18",
+        "reason": "Conversion from private limited to public limited company"
+      }
+    ],
+    "registeredOffice": {
+      "line1": "Plot No. 42, Chakan Industrial Area, Phase II",
+      "line2": "Village Mahalunge, Taluka Khed",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "pincode": "410501",
+      "country": "India"
+    }
+  },
+  "untraceableNumbers": [],
+  "verifiedAt": "2026-09-11T14:57:02.249Z"
+}

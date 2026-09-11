@@ -1,0 +1,20 @@
+{
+  "raw": "Our borrowings are secured in part by personal guarantees from our Promoters. Specifically, our borrowings from HDFC Bank Limited include a term loan with an outstanding amount of Rs 4.20 Crores and a cash credit facility with an outstanding amount of Rs 2.65 Crores, both of which are secured in part by these personal guarantees. If we fail to meet our repayment obligations or default on these credit facilities, the lenders may enforce these personal guarantees against our Promoters. Such enforcement could adversely affect our Promoters' personal financial standing and may also impact our business operations, financial condition, and overall growth prospects.",
+  "factSlice": {
+    "guaranteedBorrowings": [
+      {
+        "lender": "HDFC Bank Limited",
+        "category": "TERM_LOAN",
+        "outstanding": "Rs 4.20 Crores"
+      },
+      {
+        "lender": "HDFC Bank Limited",
+        "category": "CASH_CREDIT",
+        "outstanding": "Rs 2.65 Crores"
+      }
+    ],
+    "companyName": "Vardhman Precision Components Limited"
+  },
+  "untraceableNumbers": [],
+  "verifiedAt": "2026-09-11T15:30:37.761Z"
+}

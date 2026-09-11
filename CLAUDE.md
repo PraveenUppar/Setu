@@ -27,7 +27,7 @@ Everything follows from these. If a decision contradicts one, the decision is wr
 
 2. **Specs are data; engines are code.** One module engine + one document engine. After that, modules 3–10 and sections 12–35 are *content*, not engineering.
 
-3. **One Zod schema, five uses.** Client validation · server validation · Claude tool-use schema (via `zod-to-json-schema`) · fact-base parse · TS types. This is why the stack is all-TypeScript.
+3. **One Zod schema, five uses.** Client validation · server validation · LLM structured-output schema (Gemini, via `z.toJSONSchema()`) · fact-base parse · TS types. This is why the stack is all-TypeScript.
 
 4. **Never invent.** Missing fact → `[TO BE PROVIDED: <ask>]` **and** a gap, from the same check. A fabrication in an offer document is a Companies Act s.34/35 liability.
 
@@ -53,7 +53,7 @@ Next.js (App Router) + TypeScript · Tailwind · React Hook Form + Zod · `docx`
 
 **Persistence:** local JSON files for now. Supabase (Postgres + Storage) added at S7 when uploads need it.
 
-**No API credits yet** — S1 through S6 and S11 need none. Only S7 (extraction), S9 (narrative) and S10 (risk narrative) do.
+**S7/S9/S10 use the Gemini free tier (D43) — a hobby-project decision, not paid API credits.** S1 through S6 and S11 need no LLM at all. Free-tier content trains Google's models, which is fine for the seed and the public corpus and would need revisiting before any real issuer's data reached it.
 
 **Deliberately not used:** real auth (role-switcher over one seeded org), Python, LangChain, vector DB, Redis, Docker, GraphQL, monorepo, E2E suite.
 

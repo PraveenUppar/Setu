@@ -905,3 +905,541 @@ amount, material creditors by count and amount — now in `financials.creditors`
 amounts are checked against trade payables and a mismatch renders as a reconciliation placeholder
 (D39). The material creditors' names go on the website in both sources, not in the document, so
 only the count and total are asked.
+
+---
+
+## D43 — S7/S9/S10 use Gemini free tier, not Claude. SUPERSEDES the provider assumption in D19 and 02-architecture.md.
+
+**2026-09-11, user decision.** This is a hobby project, not a production one, and the user will not
+pay for API access. Gemini's Flash-Lite free tier (30 RPM / 1M TPM / 1500 RPD by current published
+figures — re-check in AI Studio before relying on them, same discipline `05-rule-sources.md`
+demands of regulatory numbers) removes the credits blocker for S7 (extraction), S9 (narrative) and
+S10 (risk narrative) without cost.
+
+**The trade-off, accepted knowingly:** free-tier Gemini content is used to improve Google's
+products. Fine for the Vardhman seed and the public corpus prospectuses. Would NOT be fine for a
+real issuer's PAN, Aadhaar, DIN, passport numbers, litigation or financials — but there is no real
+issuer here, so the question does not currently arise. **If this project ever takes real intake
+data, this decision must be revisited before that data reaches the API** — paid-tier Gemini does
+not train on submitted content.
+
+**What survives from the Claude-oriented design:** the one-schema-many-uses model (MM3) still
+holds — `extractionSchemaFor()` still starts from `z.toJSONSchema()`. What does NOT survive:
+`closeObjects()`'s `additionalProperties: false` pass in `lib/facts/schema/index.ts` exists
+specifically for Claude's strict tool use; Gemini's schema dialect (OpenAPI-3.0-based, now also
+plain JSON Schema) needs its own adapter, unverified until a real call is made against it.
+
+**Mechanical changes, done the same session:** `@google/genai` installed; CLAUDE.md and
+02-architecture.md's stale Claude references fixed; `lib/llm/client.ts` built — `LlmClient`
+interface, `createGeminiClient()`, and `createFakeClient()` for tests (D14 made mechanical rather
+than a rule to remember); `lib/llm/snapshot.ts` for the fixture-snapshot discipline. Confirmed
+against the SDK's own type definitions that `responseSchema` takes a plain JSON Schema object
+(routed internally to `responseJsonSchema`), so `extractionSchemaFor()`'s output should pass
+through without a Gemini-specific closing pass — still unverified against a real call.
+**Still open:** `GEMINI_API_KEY` in `.env.local` (needs the user's own key from AI Studio); the
+stale "Claude" comments in `lib/facts/provenance.ts`, `lib/facts/schema/index.ts`,
+`lib/facts/schema/shared.ts` and `lib/facts/schema.test.ts` (flagged, not yet fixed — small, and
+out of scope for the session that found them).
+
+---
+
+## D44 — Risk archetypes report `detail`, not a static `fallbackTemplate`. Refines the RiskArchetype sketch in 02-architecture.md.
+
+**2026-09-11, building the first slice of `lib/risk/archetypes.ts` (S10).** 02-architecture.md's
+original sketch gave `RiskArchetype` a `fallbackTemplate: string` — text shown before the drafting
+harness writes bespoke prose. Building the first six archetypes surfaced the same problem D18 found
+in `Fact<T>`: a static template cannot "show the arithmetic". The customer-concentration archetype
+existed specifically to name Vardhman's real 61.3% and the five customers behind it — a fixed
+string can't carry that. `detail: (facts) => string` does what `Rule.check`'s `detail` already does
+elsewhere in the codebase; `RiskArchetype` now matches that convention instead of introducing a
+second one.
+
+**Grounding discipline for the registry, six archetypes in:** every trigger either reuses a
+threshold already established elsewhere in the codebase (`materialityThreshold()` from
+`lib/legal/materiality.ts`, cited to Om Galaxy p.306 and Maxwell p.244, for the two financial/legal
+archetypes) or the Vardhman seed's own stated convention (the 50% customer-concentration bar, per
+the seed's comment), or is a plain structural count with no threshold to invent at all (single
+facility). Two archetypes — supplier concentration and high leverage — use a threshold that is
+**not** independently corpus-verified and say so in their own file comments, at the same
+`PROPOSAL-ONLY` honesty level a rule gets in `05-rule-sources.md` when its citation is thin.
+
+**What fires on Vardhman today, and why that is a feature, not a bug:** four of the six archetypes
+fire — customer concentration (61.3%), single facility, material contingent liabilities (Rs 0.90
+cr against a computed threshold of ~Rs 12.08 lakh) and material litigation against the company (the
+Rs 0.34 cr GST claim, against the same threshold). The seed was built to be a realistic issuer with
+real exposures, not a clean pass-every-check fixture the way `allRules` treats it (D-none — see
+`rules.test.ts`, "the clean seed passes every rule"). A risk-factor engine that found nothing to
+say about a real SME issuer would be the actual bug.
+
+**Not yet built:** the remaining ~34 archetypes toward the 02-architecture.md design target,
+harvested by clustering the S0 corpus's risk sections rather than invented from the schema alone;
+`promoter`, `industry` and `offer` categories have no archetype yet. The prose-writing step (S9's
+harness, reused here) waits on a Gemini key.
+
+---
+
+## D45 — Risk Factors is `producer: 'computed'`, not `'narrative'`. Registered, closing subsection #4 of 37 — 25 built.
+
+**2026-09-11, wiring `selectRisks()` into the document.** 02-architecture.md's section map lists
+Risk Factors (#4) as pure `N` — narrative, LLM-drafted, the hardest section, 29-42pp observed. That
+is still true for the FULL section a real prospectus carries. But `selectRisks()` and each
+archetype's `detail()` (D44) are pure TS producing real, grounded sentences today — the same
+"computed, not narrative" distinction the codebase already draws everywhere else (a section is
+`computed` when a function derives it from facts; `narrative` only where an LLM must write
+judgement-laden prose). Treating the whole subsection as blocked on S9/S10 credits would have left
+a `[TO BE DRAFTED]` placeholder sitting on top of a working, tested selection engine.
+
+**`lib/document/sections/risk-factors.ts`** — `general.riskFactors`, order 400 (between Forward
+Looking Statements at 300 and The Issue at 500), group `SECTION - RISK FACTORS`. Groups triggered
+risks under six category headings in a fixed order, each risk as its `title` + `detail()` sentence.
+Moved out of `plannedSections` into the registry, per that file's own stated convention — enforced
+by an existing test (`modules.test.ts`, a planned id must not also be built).
+
+**What is deliberately NOT claimed.** No corpus-extracted Risk Factors boilerplate exists locally
+to open with (`fixtures/corpus/input/*.txt` holds only the restated-financials half of each
+document, per D0's reversed-corpus design — there is no Risk Factors intro paragraph on disk to
+extract, so none is invented). The section opens with an ITALICISED tool note, visibly distinct
+from prospectus body text, saying the list is preliminary and machine-generated. It always ends
+with a gap — `general.riskFactors.narrative` — naming that full narrative drafting and further
+risk identification are still pending, worded so it reads correctly whether zero or several risks
+fired (a sparse issuer must not see "beyond the 0 archetypes flagged").
+
+**Counts move from 24 to 25 of 37 subsections.** Three hardcoded test expectations updated
+(`section.test.ts`, `wave2.test.ts`, `export.test.ts`) — the same honesty discipline the
+"25 of 37 was wrong" episode established: a number the reader trusts must not flatter, and must
+also not undercount real, tested progress once it exists.
+
+**Closed the same session.** `renderSection`'s template branch now merges a `riskFactors` overlay
+alongside `terms` (`riskFactorsOverlay()` in `lib/document/section.ts`), so Forward Looking
+Statements' `{{ riskFactors.summaryOfMaterialFactors }}` resolves to the fired risk titles joined
+inline — not as list markup, since `toRuns` collapses whitespace inside a substituted value, so a
+literal `\n- ` bullet would render as flattened text with stray hyphens rather than a real list
+node. Reads as continuous prose instead. Always resolves to a non-empty, usable string, even at
+zero risks fired (falls back to naming the Risk Factors section by title, no invented page number —
+page cross-references were dropped project-wide for the same reason), so the placeholder in
+Forward Looking Statements stops rendering the moment ANY archetype exists, not only once the
+registry is complete. The now-dead `asks` entry in `general.ts` was removed.
+
+**Four tests updated** (`section.test.ts` ×2, `rules.test.ts` ×2) that had asserted
+`riskFactors.summaryOfMaterialFactors` was a standing gap — it no longer is, by design. Each was
+repointed at `general.riskFactors.narrative`, which now plays that role (a gap that stands even for
+a fully-filled Vardhman) — same test intent, correct fixture.
+
+---
+
+## D46 — Three archetypes grown from the real corpus, not the schema. `management.directors` gains a fact.
+
+**2026-09-11.** D44/D45's six archetypes were each grounded in a field already sitting in the fact
+base — real, but risk-shaped by what the schema happened to hold, not by what real SME prospectuses
+actually disclose. This pass inverted that: `pdftotext -layout` on three corpus PDFs (Om Galaxy,
+Maxwell Engineering, Ideas Electricals — `corpus/prospectus/`, gitignored but on disk), the numbered
+Risk Factors chapter of each (85, ~76 and ~40+ items respectively), cross-referenced for themes that
+recur across at least two documents AND map to something the fact base can already answer or can
+reasonably be asked. Same two-source discipline as `template-extraction` and as the exchange
+criteria corroboration (D24).
+
+**Two archetypes needed no schema change:**
+- `exportRevenueDependency` — Om Galaxy #38 (exports ~9% of revenue, worded "certain portion") and
+  Maxwell #3/#8 (exports ~85%, worded "substantial portion" plus a dedicated FX risk). Both
+  magnitudes carry the SAME risk, which rules out a percentage floor as the trigger — unlike
+  customer concentration's 50% bar, this one fires on any export revenue at all, and the wording
+  itself scales with the number. `business.exportRevenueShare` already existed.
+- `leasedFacilities` — Om Galaxy #29 and Ideas Electricals, both on leased/licensed premises with no
+  assurance of renewal. Distinct from `singleManufacturingFacility`: that one fires on COUNT, this
+  one fires on OWNERSHIP (`business.facilities[].owned`, already existed) — independent signals, an
+  issuer can trip either, neither or both.
+
+**One needed a fact the schema didn't have.** Om Galaxy #60, Maxwell #52 and Ideas Electricals all
+carry a board-experience risk — three of the first four documents checked, the strongest corpus
+support of the batch — but `management.directors[].otherDirectorships` is free text with no "was
+any of these listed" signal, and inferring it would be exactly the kind of guess D44/D45 refuse to
+make. Added `zDirector.hasListedCompanyExperience: boolean` (default false), a column in
+`DIRECTOR_COLUMNS`, and `general.riskFactors` to `management.directors`' `feedsInto` — the module
+field's help text already explains why it's asked. The Vardhman seed's five directors were updated:
+four false, one (Arvind Joshi) true — his own `experienceSummary` already said "two listed component
+manufacturers", so this is the fixture catching up to its own prose rather than a new assumption.
+
+**The trigger takes the weaker framing on purpose.** Om Galaxy says "none of our directors"; Maxwell
+says "majority of the directors." A majority-lack trigger covers Om Galaxy's stricter "none" case as
+a subset, rather than requiring both sources to agree on where exactly the line sits — the same
+reasoning D25 used to settle disputed exchange criteria: don't manufacture false precision where the
+sources genuinely differ on the bar, pick the one that is defensible from either.
+
+**Verified:** 10 new tests (30 total in `lib/risk/`), `tsc` clean, 558 tests passing overall. Vardhman
+now fires 7 of 9 archetypes — customer concentration, single facility, contingent liabilities,
+litigation, export dependency (8.4%, "portion" not "substantial portion" — the wording-scales-with-
+number test would have caught a copy-paste of Maxwell's phrasing), and now board experience (4 of 5
+directors). `leasedFacilities` and `supplierConcentration` correctly do not fire — Vardhman's one
+facility is owned, and its supplier concentration (31%) sits below the (provisional) 50% bar.
+
+**Not yet built:** ~31 more archetypes toward the ~40 target. Corpus-visible themes seen this pass
+that were deliberately NOT turned into archetypes because the fact base cannot ground them without
+inventing a new signal on thin justification: statutory-dues compliance history, insurance adequacy,
+key-person dependency on named individuals, working-capital sufficiency. Each would need its own
+fact, module field, and a clearer single-source-vs-two-source case than this session had time to
+build — worth a dedicated pass, not a fourth archetype squeezed into this one.
+
+---
+
+## D47 — The extraction tool schema must never mark a field `required`, even one required for a usable fact base. Found by the first real Gemini call, not by a test.
+
+**2026-09-11.** The user supplied a real `GEMINI_API_KEY` in `.env.local`. First live call (`lib/llm/client.ts`'s `generateText`) worked immediately — model answered correctly, connectivity fine. Second call (`generateStructured` with `extractionSchemaFor('company')`, against one sentence naming only the company, with an explicit system instruction: "Never invent a value for a fact not present in the text — omit the field instead") **failed the project's own first rule.** The model returned a complete `company` object: a fabricated CIN (`L00000MH0000PLC000000`), a fabricated incorporation date, `"website": "https://www.example.com"`, `"email": "info@example.com"`, a fabricated company secretary block — none of it in the source text, all of it plausible-looking.
+
+**Root cause, found by reading `extractionSchemaFor()` against what actually happened, not by guessing.** D19's `closeObjects()` comment said input-mode JSON Schema "keeps fields that have defaults out of `required`, so the model is not forced to invent values it could not find" — true, but incomplete. `company.cin`, `dateOfIncorporation`, `isPublicLimited` and `registeredOffice` have neither `.optional()` nor `.default()` in `zCompany` — they are genuinely mandatory FOR A COMPLETE FACT BASE, which is correct for form validation, but `z.toJSONSchema` carries that same mandatoriness into the tool schema's `required` array. A strict-schema model has no legal way to produce valid JSON while omitting a `required` property, so the prompt-level "omit, don't invent" instruction was structurally unsatisfiable — the schema itself forced the fabrication, and no amount of system-prompt wording could have prevented it. `lib/facts/schema.test.ts`'s own test (`expect(schema.required).toContain('name')`) had encoded this exact assumption as correct and passing, because a mocked test never actually asked a model to fill the schema in.
+
+**Fix:** `closeObjects()` renamed `loosenObjects()` (`lib/facts/schema/index.ts`), now strips `required` to `[]` on every object node, not only `additionalProperties`. "Required for the document" is `isUsable()`'s and the gap dashboard's job, downstream of extraction — a single extraction TURN must never be required to supply a fact its source text does not contain. The test that encoded the wrong assumption now asserts the opposite: `expect(schema.required).toEqual([])`, at every nesting level.
+
+**Re-verified against the same live call, after the fix.** Same prompt, same sentence, same schema: the model now returns `{"name": "Vardhman Precision Components Limited"}` and nothing else — every unmentioned field genuinely omitted rather than invented. Snapshotted to `fixtures/llm-verification/company-extraction-smoke-test.json` (D14) as the before/after proof.
+
+**What this changes about S7, going forward.** The extraction harness's system prompt ("omit, don't invent") is necessary but was NOT sufficient on its own — the schema has to agree with the prompt, not just the prompt with itself. Any future extraction schema (for AoA clause text, S7's other planned shape — see the S7 plan from earlier this session) needs the same audit: check `required` against a real call, not against what the Zod source looks like it should produce. **This is exactly the class of bug `template-extraction` and the corpus verification pass exist to catch for boilerplate text — it just turned out to apply to schema plumbing too.** The lesson the project has learned four times already for rendered documents (D26, D29, D34, and the S11 "render and look at the pages" rule) generalises: nothing that talks to a model is verified until it has actually talked to a model.
+
+---
+
+## D48 — A tenth archetype, and why insurance adequacy and key-person dependency generally were NOT turned into archetypes
+
+**2026-09-11, following on from D46.** The user asked specifically to resolve two themes D46 had
+flagged as spotted-but-not-built: insurance adequacy and key-person dependency. Rechecking both
+against Om Galaxy, Maxwell, Century and Ideas Electricals found the same pattern in both: the
+SURROUNDING paragraph in each is near-universal boilerplate ("we believe our insurance is
+adequate, but cannot guarantee it"; "our success depends on our Promoters and KMP") — every SME
+issuer states some version of it regardless of its own facts, which is exactly the "dividend
+policy" / "no monitoring agency" problem D46 already ruled out archetypes for. Turning universal
+boilerplate into a "materiality-triggered" archetype would be dishonest about what materiality
+means here: it would always fire, for every issuer, carrying no information.
+
+**But one specific, binary, genuinely-varying fact sits inside the key-person paragraph in three of
+the four documents.** Om Galaxy and Century both close it with the same line: they do NOT maintain
+key man insurance for their Promoters, KMP and Senior Management. Ideas Electricals' restated
+financials carry an actual "Keyman Insurance" expense line — evidence a real SME issuer CAN and
+does hold this cover, which is what makes it a genuine fact to ask rather than a foregone
+conclusion. Added `management.hasKeyManInsurance: boolean` (default false, matching the more common
+corpus pattern), a module field in M4, and `keyManInsuranceAbsent` — the tenth archetype.
+
+**A real design question the new archetype's own test surfaced, not a bug.** Its trigger is
+`!hasKeyManInsurance`, which — unlike every other archetype so far, all of which need actual array
+DATA to exist before they can fire — fires on the mere unanswered DEFAULT for a completely sparse
+issuer. Checked against precedent before "fixing" anything: EL-037 (tripartite depository
+agreements) already fires as a BLOCKER for an unanswered issuer on exactly this same shape of
+default, and it is not alone — every required boolean in this codebase is read at face value by
+whatever consumes it, with the "was this actually answered" question left entirely to `isUsable()`
+and the form layer, never to the rule or archetype itself. Vardhman's own current answer is `false`
+(matching the more common corpus pattern), so it fires there too, honestly. The test that assumed a
+sparse issuer would trigger nothing was the outdated part, not the archetype — updated to expect
+this one archetype and explain why, rather than suppressing a legitimate, consistent finding to
+preserve a test written before this archetype existed.
+
+**Registry now stands at ten.** Verified: 3 new tests here, 1 pre-existing test corrected for the
+reason above, `tsc` clean, 561 tests passing overall.
+
+---
+
+## D49 — Two more archetypes, both zero-schema-change: one reuses a computed table, one is pure presence
+
+**2026-09-11, continuing the corpus-growth pass.** Looked for themes with two-source corroboration
+that reuse something already computed, rather than something new to ask. Found two.
+
+**`promoterMajorityControl`** — Om Galaxy #56 and Maxwell #44 both carry the same risk (Promoters
+retaining majority/significant control post-Issue), both worded around "majority"/"significant
+control" rather than a fixed percentage, and both leave the actual number blank in their own text
+("[]%", fixed only at pricing). The 50% trigger matches their own "majority" framing, same reasoning
+as `customerConcentration`'s 50% matching the seed's stated convention (D44). No new fact at all:
+`shareholding()` (`lib/capital/tables.ts`, built at S5) already computes post-issue percentage per
+holder from `capital.shareholders` and `offer.freshIssueShares` — the exact table Capital Structure
+prints. The archetype sums `PROMOTER` + `PROMOTER_GROUP` rows from a table that already exists.
+
+**`relatedPartyTransactionsPresent`** — three of the four documents checked (Om Galaxy #22, Century
+#32, Ideas Electricals #54) carry the same structural risk factor: the company has entered into RPTs
+and expects to continue to. None of the three states a percentage bar — the risk is EXISTENCE, not
+size — so the trigger is presence (`groupCompanies.relatedPartyTransactions.length > 0`), matching
+`exportRevenueDependency`'s "any amount, not a floor" pattern rather than the threshold pattern D44's
+provisional archetypes use. `groupCompanies.relatedPartyTransactions` and
+`financials.years[].relatedPartyTransactionsTotal` already existed from M10.
+
+**A rounding-order note, not a bug, caught by the test:** `promoterMajorityControl` sums each
+holder's ALREADY-ROUNDED `postIssuePercent` string (Vardhman: 28.36 + 18.91 + 7.27 = 54.54), not the
+raw share counts summed then rounded once (54.545... → 54.55 by naive hand arithmetic, which is what
+the test first asserted and had to be corrected against the actual output). This matches what a real
+prospectus table does too — it reprints the same per-row rounded percentages a reader can foot-check
+by hand, so summing the rounded values is the more defensible choice, not merely the one the code
+already did.
+
+**Registry now stands at twelve.** Promoter is now a populated category — the risk-factors category-
+ordering test updated accordingly (Vardhman fires business, financial, legal, AND promoter; industry
+and offer remain empty, correctly absent from the rendered headings). Verified: 8 new tests, `tsc`
+clean, 566 tests passing overall.
+
+**Still not built, and why:** auditor qualification opinions and statutory-dues compliance history
+were both seen with two-source support this pass (Om Galaxy, Maxwell) but need a new fact each with
+no existing computed table or M-module field to lean on, unlike this pass's two — worth a dedicated
+look rather than squeezing a third new fact into this one. Geographic sales concentration (Maxwell's
+Gujarat concentration) stayed single-sourced against the four documents checked so far.
+
+---
+
+## D50 — S9's drafting harness exists, proven against a real call, and lives beneath the risk section rather than replacing it
+
+**2026-09-11.** Built the harness 02-architecture.md's "Drafting harness" section specified, applied
+first to the smallest unit that already had everything else it needed: one risk archetype's prose.
+
+**`lib/llm/narrative.ts`** — `draftNarrative(client, { factSlice, instructions, wordTarget })`, one
+no-invention system prompt shared by every caller (a second, differently-worded prompt path is how
+"never invent" quietly stops being enforced somewhere), and `untraceableNumbers()` — the mechanical
+subset of the architecture doc's "20 random sentences, every one must trace" gate: every number the
+draft states must appear in the factSlice's own JSON. Deliberately narrower than the full gate —
+prose fabrication ("substantial", "significant") still needs a human read — but numbers are where a
+wrong claim reads as confidently as a right one, and the only claim type a substring check can grade
+without a model grading its own homework.
+
+**`lib/store/narrative-store.ts`** — append-only, versioned per id, same shape as `fact-store.ts`
+and the same reason (D-none stated there, but the logic is identical: "who drafted this paragraph,
+and when" matters for a document carrying a signature). `renderSection()` and `risk-factors.ts`'s
+`compute()` are both synchronous, so a draft cannot be generated inline at render time — it is
+generated ahead of time by an explicit call and read back, present or not, the same way the template
+engine reads the fact base: usable, or a gap. Tests isolate `SETU_DATA_DIR` to a temp dir, same
+pattern `modules.test.ts`'s fact-store block already established — otherwise a test would read
+whatever this machine has actually drafted.
+
+**Risk Factors now reads a per-risk draft, keyed `risk.<archetype id>`, in place of the terse
+`detail()` sentence when one exists** — real content where it exists, the honest computed fallback
+where it does not, same shape D45 already established for the section as a whole.
+
+**Verified against a real call**, not only fakes: drafted `customer-concentration`'s paragraph for
+Vardhman from its factSlice alone (five customers, five percentages, the company name — nothing
+else). Every number in the returned prose traced to the factSlice; the gate passed on the first try.
+Snapshotted to `fixtures/narrative/risk.customer-concentration.json` (D14) and written into the real
+`.data/narratives/` store as version 1. One stylistic wrinkle, not a factual one: asked for
+consistent third person, the model still slipped into the company's own name once
+("Vardhman Precision Components Limited relies heavily...") after several sentences of "our" — worth
+tightening the instructions before this scales past one archetype, not worth blocking on.
+
+**Known limitation, not yet a problem:** the draft store is keyed by archetype/section id alone, not
+by issuer — correct for now (D-none: one seeded org, no real auth, per 02-architecture.md), and
+would need revisiting the moment a second real issuer's drafts could collide with the first's.
+
+**Verified:** 23 new tests across `lib/llm/`, `lib/store/`, and `lib/document/sections/`, `tsc`
+clean, 578 tests passing overall. Not yet built: the same harness applied to a whole narrative
+SECTION (Our Business, Industry Overview) rather than one risk's paragraph — the `promptSpec`
+concept 02-architecture.md sketched for `SectionSpec` is still just this session's `NarrativeRequest`
+shape, not yet wired onto `SectionSpec` itself.
+
+---
+
+## D51 — `promptSpec` wired onto `SectionSpec`; the first real narrative section; two real bugs a live batch run caught that no fake-client test could have
+
+**2026-09-11, same session as D50, continuing it.** Three things happened in order, each found by
+actually running the harness rather than by reasoning about it.
+
+**1. Batch-drafted all nine risks that fire on Vardhman, and the traceability gate itself was
+wrong.** Three of nine came back "GATE FAILED" — `export-revenue-dependency` (`8.40` vs the
+factSlice's `8.4`), `material-contingent-liabilities` and `related-party-transactions-present`
+(`1600000.` and `21000000.`, each a real number with a sentence-ending period glued onto it by a
+regex that allowed a bare trailing dot). Checked the actual factSlices before touching the code:
+all three numbers WERE present, correctly — the gate was wrong, not the model. Fixed
+`untraceableNumbers()` in `lib/llm/narrative.ts` to parse every number to a float and compare
+VALUES (so `8.40` and `8.4` match) rather than substrings, and to require a digit after a decimal
+point before including it in a match at all (so a sentence-ending period is never mistaken for a
+decimal one). Regression-tested both cases directly, then re-ran the full batch: all nine passed.
+Also tightened the system prompt itself while here — the D50 draft had slipped from "our Company"
+into the company's own name once; the prompt now says explicitly not to substitute the company's
+own name for "our Company" partway through, even where the factSlice states it for identification.
+
+**2. A real cross-issuer content leak, caught by an EXISTING test, not a new one.** Once real drafts
+existed in `.data/narratives/`, `wave2.test.ts`'s "no seed text leaks into a real issuer" test
+failed: rendering a fact-free sparse issuer's document produced the literal string "Vardhman",
+because `keyManInsuranceAbsent` (D48) fires on almost every issuer — including a completely
+fact-free one, by design — and the store was keyed by archetype id ALONE. A draft genuinely
+generated for Vardhman was being served, unchanged, to a different issuer under test. D50 had
+already flagged this exact risk as a "known limitation, not yet a problem" one turn earlier; it
+took one real batch of drafts to turn it into an actual problem. **Fix, not a patch:**
+`readNarrative(id, currentFactSlice)` now takes the CURRENT facts' factSlice as a required
+parameter and returns the stored draft ONLY if it matches EXACTLY (`JSON.stringify` equality, same
+comparison `fact-store.ts` already uses for change detection) — otherwise treated as no draft at
+all, falling back to the honest computed sentence or placeholder. Not a per-issuer key (this app
+still has no issuer identity to key by, D-none, one seeded org) — a correctness guard that needs no
+identity concept at all: wrong facts, or no facts, means don't trust it, regardless of why they're
+wrong. Every caller updated (`risk-factors.ts`, `renderSection`'s `narrative` case), a dedicated
+regression test added reproducing the exact leak, and the pre-existing `wave2.test.ts` failure this
+surfaced now passes without needing to isolate `SETU_DATA_DIR` — the guard fixes it at the source.
+
+**3. `promptSpec` now exists on `SectionSpec` for real, and the first section drafted through it is
+History and Corporate Matters (#17).** Deliberately the easiest possible first section: incorporation,
+name changes, conversion to public limited, registered office — all facts M1 already collects with
+no commercial judgement call left to the model, unlike Our Business or Industry Overview. `renderSection`'s
+`narrative` case reads `readNarrative(spec.id, spec.promptSpec.factSlice(ctx.facts))` and, for the first
+time, prints a HEADING for a narrative section (every other producer already had one; this path
+never had a real section exercise it before). Drafted for real: gate passed immediately, reads as a
+genuine prospectus opening. **Registry: 26 of 37 subsections.**
+
+**Verified:** 2 real live calls (9 risks + 1 section), all passing the fixed gate; a targeted
+regression test for the leak; `tsc` clean; **584 tests passing**, progress-count tests updated
+25→26 the same way every prior honest increment has been.
+
+**What this session's three-part arc says about the harness overall:** every one of D47, and now
+this entry's two findings, was invisible to a test using `createFakeClient()` — a fake client
+returns exactly what you tell it to, so it cannot catch a schema that forces fabrication, a checker
+that misparses its own output, or a store that mixes up whose facts a paragraph came from. The
+fake-client tests remain right to exist (deterministic, D14, no quota spent) — they just are not
+sufficient on their own, and the project's now-established discipline (D47, D51, and the DOCX/render
+lessons before them) is the same discipline every time: build it, test it against fakes, THEN run it
+for real before calling anything about it verified.
+
+---
+
+## D52 — A thirteenth archetype needing no new fact; Our Business, the flagship narrative section, scoped to what M5 can honestly support
+
+**2026-09-11, continuing S9/S10 straight through D51.**
+
+**`statutoryDuesDefaultHistory`** — corroborated at three of the five corpus documents now checked
+(Om Galaxy #21, Maxwell #10/#15, Photonics Watertech #16). Flagged in D49 as needing a new fact; it
+did not — `legal.statutoryDuesDefaults` already exists, asked as a closing statement of the
+litigation section ("null if none"), and is the same fact under a name nobody had connected back to
+a risk archetype yet. Vardhman's is null, so it correctly does not fire — not every archetype needs
+to fire on the demo issuer to be worth having. **Registry: 13.**
+
+**`aboutCompany.ourBusiness`** — the flagship narrative section 02-architecture.md names alongside
+Risk Factors, and the first one that is genuinely commercial description rather than a restatement
+of structured facts (History is the latter). Scoped the same way History was: only the "Overview"
+opening a real Our Business chapter starts with — what the company makes, where, at what scale, for
+whom — not Manufacturing Process, Competitive Strengths or Strategy, none of which this fact base
+has the raw material to draft honestly. `promptSpec` instructs the model explicitly not to use risk
+language ("risk", "adversely affect", "cannot assure") anywhere in it — Our Business describes, Risk
+Factors warns, and the same paragraph must not do both.
+
+**The first draft caught its own real quality bug, not a fabrication one.** `business.orderBook` is
+stored as a raw rupee string (`"316000000"`); the first live draft printed exactly that into a
+sentence — "an order book valued at 316,000,000" — technically traceable (the gate passed) but not
+how any other section in this document states money. Every other computed section formats through
+`formatAs()` before a number reaches a renderer; this factSlice had skipped that and trusted the
+model to reformat a number it was explicitly told never to alter. Fixed in `our-business.ts` itself
+— `orderBook: formatAs(b.orderBook, 'crores')` — and re-drafted: "an order book standing at Rs 31.60
+Crores." The traceability gate cannot catch a formatting problem, only a fabrication one; this one
+needed a human read of the actual sentence, the same lesson S11's DOCX render caught for tables.
+
+**Registry: 27 of 37 subsections.** Verified: 3 new risk tests, 2 real live narrative calls (one
+discarded for the formatting bug, both preserved as versions 1 and 2 — append-only, never
+overwritten), progress-count tests moved 26→27, `tsc` clean, 586 tests passing.
+
+---
+
+## D53 — A fourteenth archetype needing one new fact, corroborated at three more documents; Objects of the Issue, the third narrative section
+
+**2026-09-11, mining the last two corpus documents (Shakti Polytarp, Axiom Gas) not yet checked.**
+
+**`promoterPersonalGuarantees`** — corroborated at three documents (Om Galaxy #26, Photonics
+Watertech #17, Shakti Polytarp #35). `financials.borrowings[].security` already carried this fact
+as free text where it applied — Vardhman's own two guaranteed facilities already stated it in full
+sentences ("personal guarantees of Rajesh Vardhman and Sunita Vardhman") before this session ever
+started. Added `personalGuaranteeByPromoter: boolean` to `zBorrowing`, a repeater column in M6, and
+the archetype. Fires on Vardhman for exactly the two facilities whose `security` text already said
+so — the fixture catching up to its own prose, same shape as D46's Arvind Joshi finding. **Registry:
+14.** Also found, corroborated at 2 documents now (Maxwell's Gujarat concentration, Shakti's Madhya
+Pradesh concentration) but not built: single-state revenue concentration, which would need a new
+`business` fact this session did not have time to design well — noted for the next corpus pass.
+
+**`particulars.objectsOfTheIssue`** — the third narrative section, and the first genuinely mixed
+"N + C" one (02-architecture.md's own label for it): the computed half (means-of-finance tables, the
+GCP cap check against R-010, a deployment schedule) is not built here, only the narrative opening
+every corpus document's chapter starts with — naming each object and its earmarked amount before
+the tables. `offer.objects` already carries description, amount and the GCP/project flags per
+object; nothing here is invented, the model is describing a structure that already exists. Learned
+from D52's order-book bug and pre-formatted every amount through `formatAs()` in the factSlice
+itself, so the first draft did not need a second pass this time — gate passed immediately, and the
+money reads as "Rs 12.00 Crores," not a raw rupee integer.
+
+**Registry: 28 of 37 subsections.** One more test fixed along the way: `rules.test.ts`'s "leaves a
+section not drafted yet as a plain label" test had been exercising exactly the title Objects of the
+Issue now resolves for real — swapped to a section still genuinely unbuilt (Industry Overview),
+same reasoning as every prior progress-count correction: the test's job is to prove the behavior,
+not to freeze a section in "not built" for its own convenience. Verified: 3 new risk tests, 1 real
+live narrative call (passed on the first attempt), `tsc` clean, 589 tests passing overall.
+
+---
+
+## D54 — A fifteenth archetype (a new fact this time, but a small one); MD&A, and the seed getting more realistic on purpose
+
+**2026-09-11, mining the last two corpus documents (Shakti Polytarp, Axiom Gas).**
+
+**`geographicRevenueConcentration`** — corroborated at three documents once Axiom Gas's own numbered
+list was checked: Maxwell's Gujarat exposure, Shakti Polytarp's Madhya Pradesh exposure ("majority
+of our revenues"), Axiom Gas's Karnataka/Telangana/Maharashtra cluster. Unlike every archetype since
+D46, this one genuinely needed a NEW fact with no existing table or field to lean on —
+`business.primaryMarketDescription` and `business.primaryMarketRevenueSharePercent`, added as two
+FLAT fields rather than the nested object first drafted, because the module engine's `Field` type
+has no object kind, only scalars and tables (caught before it shipped, not after). Both optional,
+not default-false, since unlike export share this concentration may genuinely not apply to a
+diversified issuer at all.
+
+**Vardhman got more realistic, not just more complete.** The new fields broke S8's "nine modules
+complete" gate — Vardhman had never answered a question that did not exist an hour earlier. Rather
+than leave the field blank (which the helpText explicitly allows: "leave blank if diversified"),
+added `primaryMarketDescription: 'the State of Maharashtra'` at 64.5%, grounded in something true
+about the fixture's own facility, not merely convenient: Chakan sits in the same auto cluster as
+several of Vardhman's own principal customers' plants (Tata Motors, Bajaj, Mahindra all have
+Maharashtra operations), so a Maharashtra-heavy revenue base follows from data the seed already
+had. Same reasoning as D46's Arvind Joshi finding — the fixture catching up to what was already
+implied by its own facts, not a new invented number dropped in to make a test pass.
+
+**`financial.mdna`** — the fourth narrative section, and the first with genuinely computed content
+in its factSlice: year-on-year revenue and profit-after-tax growth, computed with `Decimal` before
+the model ever sees the prompt (same discipline `derivedTerms()` already follows — never let the
+model do arithmetic that a wrong answer would read as confidently as a right one). **The first
+draft failed the gate for a reason worth keeping**: asked to discuss "Fiscal 2026", the model wrote
+"the financial year ended March 31, 2026" — correct, universally-true knowledge about Indian fiscal
+years, and still untraceable, since the factSlice only ever stated the bare year `2026`. Not fixed
+by loosening the gate (a wrong calendar date would look exactly as confident as this correct one,
+and the gate cannot tell them apart) — fixed by instructing the model to use "Fiscal 2026" instead,
+matching what the corpus itself actually calls these years throughout. Re-drafted: passed
+immediately.
+
+**Registry: 29 of 37 subsections.** Verified: 6 new/updated risk tests, 2 real live narrative calls
+(one instruction fix in between, both preserved as separate concerns — schema shape caught before
+shipping, prompt wording caught by the gate), progress-count tests moved 28→29, `tsc` clean, 593
+tests passing overall.
+
+**S9/S10 status after five archetype passes and four narrative sections:** 15 archetypes toward the
+~40 target, all seven corpus documents mined at least once. Remaining plannable narrative work
+(`particulars.basisForIssuePrice`, `aboutCompany.industryOverview`) needs data this fact base does
+not carry yet (peer comparables, a commissioned industry report) — the next three narrative
+sections need new intake, not just new prompts.
+
+---
+
+## D55 — Render and look caught a systemic bug five archetypes had been carrying since before D52's lesson existed
+
+**2026-09-11.** Generated Vardhman's real DOCX (`SETU_DOCX_OUT`), converted to PDF via LibreOffice,
+rasterised with pypdfium2 in a scratchpad venv, and read the actual pages — S11's rule, applied to
+S9/S10 output for the first time. It caught exactly what it is supposed to catch.
+
+**Five archetypes were printing raw rupee integers**, in both their computed `detail()` fallback
+AND the `factSlice` fed to the model: `highLeverage`, `materialContingentLiabilities`,
+`materialLitigationAgainstCompany`, `relatedPartyTransactionsPresent`, `promoterPersonalGuarantees`.
+All five predate D52 (built in D44/D46/D48/D49/D53), before that session's Our Business draft
+surfaced the same class of bug and the lesson was learned — nobody had gone back and retrofitted
+the earlier archetypes. On the page: "the aggregate value of these related party transactions
+stands at **21000000**," and worse, a materiality threshold rendered as
+`1208333.3333333333333333334` — `materialityThreshold()`'s own `.toFixed()` with no argument,
+returning full Decimal precision as if it were display text. The traceability gate could not have
+caught any of this — every one of these numbers WAS in the factSlice, verbatim; correctly traced,
+badly presented.
+
+**Fixed at the source, not patched in the LLM prompt.** Every affected `detail()` and `factSlice()`
+now runs its money through `formatAs()` — lakhs for threshold- and litigation-scale figures
+(matching the corpus's own convention for these, and the litigation section's own existing
+`formatAs(l.amount, 'lakhs')`), crores for balance-sheet-scale figures (borrowings, net worth,
+guarantee aggregates), matching D52's `our-business.ts` fix exactly. `highLeverage` also gained a
+pre-computed `debtToEquityRatio` in its factSlice, so the model states a ratio rather than being
+asked to infer one from two raw figures — same "never let the model do the arithmetic" discipline
+as D54's MD&A growth percentages.
+
+**Re-drafted all eleven risks now firing on Vardhman** (nine plus D53/D54's two, which had never
+had a narrative pass at all) through the fixed pipeline — traceability gate passed on all eleven,
+no manual retries needed. Re-rendered the DOCX and re-read the same pages: every figure now prints
+correctly — "Rs 210.00 Lakhs," "Rs 12.08 Lakhs," "Rs 4.20 Crores" — and the corrected debt-guarantee
+paragraph reads BETTER than the original template, breaking the two guaranteed facilities out by
+name rather than only stating an aggregate.
+
+**Verified:** one test corrected for the new (correct) format, `tsc` clean, 593 tests passing, and —
+for the first time this session — actual rendered pages read start to finish rather than only
+tested at the node level. **The check that started this pass (D55) is now itself the reason to
+repeat it before the next batch of archetypes ships**: nothing that produces money for a document
+is verified until someone has looked at the page it lands on.

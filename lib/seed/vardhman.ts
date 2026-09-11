@@ -13,6 +13,9 @@ import type { FactBase } from '../facts/schema';
  *   - objects of the issue plus issue expenses equal the issue size exactly
  *   - top-5 customer concentration is 61.3%, which fires the customer
  *     concentration risk factor with a real number
+ *   - Maharashtra is 64.5% of revenue, plausibly (the Chakan facility sits
+ *     in the same cluster as several customers' own plants), which fires
+ *     the geographic concentration risk factor with a real number too
  *
  * SYNTHETIC. Not a real company. Never present it as one.
  */
@@ -248,6 +251,7 @@ export const vardhman: FactBase = {
         designation: 'Chairman and Managing Director',
         isIndependent: false,
         isExecutive: true,
+        hasListedCompanyExperience: false,
         appointedOn: '2025-02-18',
         dateOfBirth: '1974-09-03',
         nationality: 'Indian',
@@ -267,6 +271,7 @@ export const vardhman: FactBase = {
         designation: 'Whole-time Director and Chief Financial Officer',
         isIndependent: false,
         isExecutive: true,
+        hasListedCompanyExperience: false,
         appointedOn: '2025-02-18',
         dateOfBirth: '1977-01-22',
         nationality: 'Indian',
@@ -286,6 +291,7 @@ export const vardhman: FactBase = {
         designation: 'Independent Director',
         isIndependent: true,
         isExecutive: false,
+        hasListedCompanyExperience: false,
         appointedOn: '2025-03-28',
         dateOfBirth: '1968-11-14',
         nationality: 'Indian',
@@ -303,6 +309,7 @@ export const vardhman: FactBase = {
         designation: 'Independent Director',
         isIndependent: true,
         isExecutive: false,
+        hasListedCompanyExperience: false,
         appointedOn: '2025-03-28',
         dateOfBirth: '1962-05-30',
         nationality: 'Indian',
@@ -320,6 +327,10 @@ export const vardhman: FactBase = {
         designation: 'Independent Director',
         isIndependent: true,
         isExecutive: false,
+        // The only one of the five: his own profile below says "two listed
+        // component manufacturers" — kept internally consistent, and gives
+        // the "majority, not all, lack it" fixture the corpus itself shows.
+        hasListedCompanyExperience: true,
         appointedOn: '2025-03-28',
         dateOfBirth: '1970-02-09',
         nationality: 'Indian',
@@ -407,6 +418,9 @@ export const vardhman: FactBase = {
     // Shareholders' resolution under s.180(1)(c) at the EGM of March 28, 2025
     borrowingPowersResolutionDate: '2025-03-28',
     borrowingPowersLimit: cr('50'),
+    // Matches the typical corpus pattern (Om Galaxy, Century) rather than
+    // Ideas Electricals' — fires the key man insurance archetype (D48).
+    hasKeyManInsurance: false,
   },
 
   business: {
@@ -438,6 +452,14 @@ export const vardhman: FactBase = {
     productLines:
       'Precision machined transmission components\nAxle and differential sub-assemblies\nHydraulic valve bodies for off-highway equipment',
     exportRevenueShare: 8.4,
+    // Realistic, not just convenient: the Chakan facility sits in the same
+    // Pune-Chakan auto cluster as several principal customers' own plants
+    // (Tata Motors, Bajaj, Mahindra all have plants in the region), so
+    // revenue concentrating in Maharashtra follows from where the
+    // customers already are — fires the geographic concentration risk
+    // factor with a real number (D54).
+    primaryMarketDescription: 'the State of Maharashtra',
+    primaryMarketRevenueSharePercent: 64.5,
   },
 
   financials: {
@@ -560,6 +582,7 @@ export const vardhman: FactBase = {
         repaymentTerms: '84 equal monthly instalments from October 2024',
         security:
           'Exclusive charge by hypothecation of the plant and machinery financed; personal guarantees of Rajesh Vardhman and Sunita Vardhman',
+        personalGuaranteeByPromoter: true,
         purpose: 'Purchase of CNC machining centres for the Chakan facility',
       },
       {
@@ -574,6 +597,7 @@ export const vardhman: FactBase = {
         repaymentTerms: 'Repayable on demand; renewed annually',
         security:
           'First charge by hypothecation of current assets; collateral charge on the Chakan factory land and building; personal guarantees of the Promoters',
+        personalGuaranteeByPromoter: true,
         purpose: 'Working capital',
       },
       {
@@ -587,6 +611,7 @@ export const vardhman: FactBase = {
         outstanding: cr('0.25'),
         repaymentTerms: '60 equal monthly instalments from August 2023',
         security: 'Hypothecation of the vehicles financed',
+        personalGuaranteeByPromoter: false,
         purpose: 'Purchase of commercial vehicles',
       },
       {
@@ -600,6 +625,7 @@ export const vardhman: FactBase = {
         outstanding: cr('1.50'),
         repaymentTerms: 'Repayable on demand',
         security: 'Unsecured',
+        personalGuaranteeByPromoter: false,
         purpose: 'General business requirements',
       },
       {
@@ -613,6 +639,7 @@ export const vardhman: FactBase = {
         outstanding: cr('0.40'),
         repaymentTerms: 'Valid for the tenure of the underlying performance obligations',
         security: 'Counter-guarantee of our Company; 10% cash margin',
+        personalGuaranteeByPromoter: false,
         purpose: 'Performance guarantees in favour of customers',
       },
     ],

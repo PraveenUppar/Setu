@@ -133,5 +133,25 @@ export const m5Business: Module = {
         'Exports as a percentage of revenue in the last financial year. Zero is an answer. Where exports matter, currency risk becomes a risk factor and the Importer Exporter Code becomes a material approval.',
       feedsInto: [BUSINESS, RISK],
     },
+    {
+      path: 'business.primaryMarketDescription',
+      label: 'State or states revenue is concentrated in, if any',
+      type: 'text',
+      schema: z.string(),
+      placeholder: 'e.g. the State of Maharashtra',
+      helpText:
+        'Only if a substantial share of revenue comes from one state or a small group of states — leave blank if the business is nationally or regionally diversified. Several corpus prospectuses name this as a specific risk factor, with the state and the actual percentage.',
+      feedsInto: [BUSINESS, RISK],
+    },
+    {
+      path: 'business.primaryMarketRevenueSharePercent',
+      label: 'Share of revenue from that state or states',
+      type: 'percent',
+      suffix: '% of last FY revenue',
+      schema: zPercent,
+      helpText: 'The percentage that makes the concentration above material enough to state.',
+      showIf: (facts) => Boolean(facts.business?.primaryMarketDescription),
+      feedsInto: [BUSINESS, RISK],
+    },
   ],
 };

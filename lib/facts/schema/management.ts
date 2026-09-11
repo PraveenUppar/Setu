@@ -25,6 +25,19 @@ export const zDirector = z.object({
   isIndependent: z.boolean().default(false),
   /** Executive directors draw remuneration; non-executive draw sitting fees. */
   isExecutive: z.boolean().default(false),
+  /**
+   * A recurring risk factor across the corpus (Om Galaxy #60, Maxwell #52,
+   * Ideas Electricals #~25 area — three of the first four documents checked):
+   * first-time SME boards are typically drawn from operators and local
+   * professionals, not people who have sat on a LISTED company's board, and
+   * the document says so. `otherDirectorships` is free text and cannot answer
+   * this reliably — a director could hold several private directorships and
+   * none listed — so this is asked directly rather than inferred.
+   */
+  hasListedCompanyExperience: z
+    .boolean()
+    .default(false)
+    .describe('Has held a directorship in a company listed on a recognised stock exchange'),
   appointedOn: zDate.optional().describe('Date of appointment in the current designation'),
   dateOfBirth: zDate.optional(),
   nationality: z.string().optional(),
@@ -97,6 +110,20 @@ export const zManagement = z.object({
     .describe('KMP other than the executive directors: CFO, Company Secretary, CEO where applicable'),
   seniorManagement: z.array(zKeyManagerialPerson).default([]),
   committees: z.array(zCommittee).default([]),
+
+  /**
+   * D48, corpus-corroborated at three of the first four documents checked:
+   * Om Galaxy and Century state, as the closing line of the key-person
+   * dependency risk factor, that they do NOT maintain key man insurance for
+   * their Promoters, KMP and Senior Management; Ideas Electricals' restated
+   * financials carry an actual "Keyman Insurance" expense line, evidence a
+   * company can and does hold it. A genuinely varying fact, not boilerplate
+   * — worth asking directly rather than assuming its absence.
+   */
+  hasKeyManInsurance: z
+    .boolean()
+    .default(false)
+    .describe('Whether the company maintains key man insurance for its Promoters, KMP or Senior Management'),
 
   /**
    * "Borrowing Powers of the Board": the shareholders' resolution under

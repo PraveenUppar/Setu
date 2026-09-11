@@ -1,0 +1,6 @@
+{
+  "raw": "{\n  \"name\": \"Vardhman Precision Components Limited\"\n}",
+  "model": "gemini-3.5-flash-lite",
+  "prompt": "The company is named \"Vardhman Precision Components Limited\", a public limited company incorporated in India, with its registered office in Pune, Maharashtra. Extract only the company name into the schema. Leave every other field absent — do not invent a value for anything not stated here.",
+  "verifiedAt": "2026-09-11T14:12:20.598Z"
+}

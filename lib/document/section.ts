@@ -2,6 +2,8 @@ import Decimal from 'decimal.js';
 import { sectionAnchor } from '../anchors';
 import type { FactPath, ProvenanceMap } from '../facts/provenance';
 import type { FactBase } from '../facts/schema';
+import { riskArchetypes, selectRisks } from '../risk';
+import { readNarrative } from '../store/narrative-store';
 import { collectPlaceholders, type DocumentNode, type Placeholder, type Run } from './nodes';
 import { renderTemplate } from './template';
 
@@ -74,6 +76,22 @@ export interface SectionSpec {
   template?: string;
   compute?: (ctx: RenderContext) => DocumentNode[];
   externalNote?: string;
+  /**
+   * D51: how `narrative` sections are DRAFTED — offline, via a script that
+   * calls `draftNarrative()` (lib/llm/narrative.ts) and writes the result to
+   * `lib/store/narrative-store.ts` under this spec's `id`. NOT read by
+   * `renderSection()` itself, which is synchronous and only reads whatever
+   * the store already holds; `promptSpec` exists so the generation tooling
+   * has one place, on the spec itself, to find "what should this section
+   * say" rather than a second registry kept in sync by hand.
+   */
+  promptSpec?: {
+    /** All the model may reference when drafting this section. Never the whole fact base. */
+    factSlice: (facts: FactBase) => object;
+    /** What to write, in plain language. */
+    instructions: string;
+    wordTarget?: number;
+  };
 }
 
 /**
@@ -226,6 +244,51 @@ export function derivedTerms(facts: FactBase) {
   };
 }
 
+/**
+ * D45's loose end, closed: Forward Looking Statements has carried a
+ * `{{ riskFactors.summaryOfMaterialFactors }}` placeholder since it was
+ * extracted (general.ts), planted for exactly this — a template variable a
+ * template author can reference without knowing the risk engine exists.
+ *
+ * Joined inline, not as list markup: `renderTemplate` collapses whitespace
+ * inside a substituted value (`toRuns`'s `\s+` replace), so a `\n- ` bullet
+ * embedded in the string would render as flattened text with stray hyphens,
+ * not a real list node. Reads as continuous prose instead, the way several
+ * corpus documents already state this paragraph.
+ *
+ * Always returns a non-empty, usable string — even with zero risks fired the
+ * fallback still names where the reader should look — so the placeholder in
+ * Forward Looking Statements stops rendering as soon as ANY archetype exists,
+ * not only once the registry is complete.
+ */
+export function riskFactorsOverlay(facts: FactBase): { summaryOfMaterialFactors: string } {
+  // No page cross-reference: dropped project-wide (Certain Conventions), since
+  // physical page numbers are not tracked well enough to cite reliably.
+  const risks = selectRisks(riskArchetypes, facts);
+  if (risks.length === 0) {
+    return { summaryOfMaterialFactors: 'the risks described in "Risk Factors"' };
+  }
+  const items = risks.map((r) => r.title.charAt(0).toLowerCase() + r.title.slice(1));
+  return {
+    summaryOfMaterialFactors: `${items.join('; ')}; and other risks described in "Risk Factors"`,
+  };
+}
+
+/**
+ * A drafted narrative may be several paragraphs. Blank lines split them, the
+ * same convention `renderTemplate` uses for its own blocks; incidental
+ * line-wrap whitespace within a paragraph is collapsed the same way
+ * `toRuns` collapses it, so a wrapped source line does not leak a literal
+ * newline into the middle of a sentence.
+ */
+function paragraphsFrom(text: string): DocumentNode[] {
+  return text
+    .split(/\n\s*\n/)
+    .map((p) => p.trim().replace(/\s+/g, ' '))
+    .filter((p) => p.length > 0)
+    .map((p) => ({ type: 'paragraph', runs: [{ text: p }] }));
+}
+
 export function renderSection(spec: SectionSpec, ctx: RenderContext): DocumentNode[] {
   if (spec.appliesIf && !spec.appliesIf(ctx.facts)) return [];
 
@@ -233,8 +296,12 @@ export function renderSection(spec: SectionSpec, ctx: RenderContext): DocumentNo
     case 'template': {
       if (!spec.template) throw new Error(`Section "${spec.id}" is a template but has none`);
       return renderTemplate(spec.template, {
-        // `terms` is a computed overlay the templates can read alongside facts
-        facts: { ...ctx.facts, terms: derivedTerms(ctx.facts) },
+        // `terms` and `riskFactors` are computed overlays templates can read alongside facts
+        facts: {
+          ...ctx.facts,
+          terms: derivedTerms(ctx.facts),
+          riskFactors: riskFactorsOverlay(ctx.facts),
+        },
         provenance: ctx.provenance,
         asks: spec.asks,
       });
@@ -245,19 +312,36 @@ export function renderSection(spec: SectionSpec, ctx: RenderContext): DocumentNo
       return spec.compute(ctx);
     }
 
-    case 'narrative':
-      // S9. Until the drafting harness exists, show the gap rather than nothing.
+    case 'narrative': {
+      // D51: a section-level draft, generated offline (see `promptSpec`
+      // above) and read back here — `renderSection` is synchronous, so
+      // drafting can never happen inline. Present, or the same honest gap
+      // this case has always shown, now with the heading every other
+      // producer already gets (D45's fallback shape, extended here).
+      //
+      // `readNarrative` only returns a draft whose OWN factSlice matches
+      // what this issuer's facts produce right now — without that check a
+      // draft generated for one issuer would silently render for another
+      // (found the hard way in this same session: see `readNarrative`'s doc
+      // comment in narrative-store.ts).
+      const drafted = spec.promptSpec ? readNarrative(spec.id, spec.promptSpec.factSlice(ctx.facts)) : null;
       return [
-        {
-          type: 'paragraph',
-          runs: [
-            {
-              text: `[TO BE DRAFTED: ${spec.title}]`,
-              placeholder: { factPath: spec.id, ask: `${spec.title} narrative` },
-            },
-          ],
-        },
+        { type: 'heading', level: 2, text: spec.title },
+        ...(drafted
+          ? paragraphsFrom(drafted.text)
+          : [
+              {
+                type: 'paragraph' as const,
+                runs: [
+                  {
+                    text: `[TO BE DRAFTED: ${spec.title}]`,
+                    placeholder: { factPath: spec.id, ask: `${spec.title} narrative` },
+                  },
+                ],
+              },
+            ]),
       ];
+    }
 
     case 'external':
       return [
