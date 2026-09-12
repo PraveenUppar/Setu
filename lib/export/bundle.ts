@@ -5,7 +5,8 @@ import { sectionRegistry } from '../document/sections';
 import type { ProvenanceMap } from '../facts/provenance';
 import type { FactBase } from '../facts/schema';
 import { loadIssuer } from '../issuer';
-import { assess, type Finding, type ReadinessSummary } from '../rules';
+import type { Finding, ReadinessSummary } from '../rules';
+import { assess } from '../rules/document-assess';
 import { buildGapReport, gapReportFilename } from './gap-report';
 import { docxToPdf, PdfUnavailableError } from './pdf';
 

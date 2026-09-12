@@ -4,7 +4,7 @@ import { GapDashboard } from '@/components/gap-dashboard';
 import { renderSections, flattenSections, derivedTerms } from '@/lib/document/section';
 import { sectionRegistry } from '@/lib/document/sections';
 import { estimatePages } from '@/lib/document/nodes';
-import { assess } from '@/lib/rules';
+import { assess } from '@/lib/rules/document-assess';
 import { loadIssuer } from '@/lib/issuer';
 
 export const dynamic = 'force-dynamic';

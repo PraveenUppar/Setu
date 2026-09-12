@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { renderSections } from '../document/section';
 import { sectionRegistry } from '../document/sections';
 import { userProvenance } from '../facts/provenance';
-import { assess } from '../rules';
+import { assess } from '../rules/document-assess';
 import { withAnswers } from '../seed/empty';
 import { vardhman } from '../seed/vardhman';
 import { buildVault, type Assembled } from './bundle';

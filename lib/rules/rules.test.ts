@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { allRules, assess, completenessFindings, eligibilityRules, evaluate, linkFindings, summarise, operatingProfit, freeCashFlowToEquity } from './index';
+import { allRules, eligibilityRules, evaluate, summarise, operatingProfit, freeCashFlowToEquity } from './index';
+import { assess, completenessFindings, linkFindings } from './document-assess';
 import { vardhman } from '../seed/vardhman';
 import { money } from '../facts/money';
 import { gapAnchor, sectionAnchor } from '../anchors';

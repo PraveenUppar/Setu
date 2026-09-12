@@ -2146,3 +2146,43 @@ Material Contracts as a real prospectus's ToC has them.
 
 **This closes the AoA gap without reversing D67.** S7 itself remains paused; this is the module-form
 answer D67 always implied AoA would eventually need, now built.
+
+---
+
+## D70 - A real bug only the browser could find: the eligibility pre-check couldn't load at all
+
+**2026-09-12, found live while walking the user through the running app.** Every other page (home,
+intake, risk review) worked; `/eligibility` failed outright with a Turbopack build error: "the
+chunking context does not support external modules (request: node:fs)". Every one of the 670 Vitest
+tests runs in Node, where `node:fs` always works - this class of bug is invisible to the whole test
+suite by construction, and only exists in a real browser bundle. The exact lesson D34 and D65 already
+taught in different shapes, generalising again: nothing that touches a bundler is verified until it has
+actually been loaded in a browser.
+
+**Root cause, traced import by import.** `app/eligibility/page.tsx` is `'use client'` and imports
+`runPreCheck` from `lib/rules/precheck.ts`, which imports `preCheckRules` from `lib/rules/index.ts`.
+That file ALSO imported `collectGaps` from `lib/document/section.ts` at its top level - needed only by
+`completenessFindings`/`assess`, functions `precheck.ts` never calls - and `lib/document/section.ts`
+imports `readNarrative` from `lib/store/narrative-store.ts`, which reads `node:fs` for the local JSON
+narrative store. ES modules bundle at the file level: importing ANY export from `lib/rules/index.ts`
+pulled in its entire top-level import graph, including a Node-only file-system module, into a page that
+must run in the browser.
+
+**Fixed by splitting the file, not by patching around it.** `lib/rules/document-assess.ts` (new) now
+holds `completenessFindings`, `linkFindings` and `assess` - everything that needs the rendered document
+- and is the only thing in `lib/rules/` that imports `lib/document/section.ts`. `lib/rules/index.ts`
+keeps `allRules`, `preCheckRules` and the pure eligibility/consistency rule data, genuinely safe for a
+client component to import. Every server-side caller (`app/page.tsx`, `lib/export/bundle.ts`, both test
+files) now imports `assess` from `./rules/document-assess` instead of `./rules` — a one-line change
+each, since none of them needed anything else from the old combined export.
+
+**Verified twice.** Vitest first (670 tests, unchanged - this bug was never visible there), then the
+real thing: reloaded `/eligibility` in the actual browser after the fix and it rendered correctly, then
+reloaded the home page to confirm `assess()` still works from its new location. Neither check alone
+would have been sufficient — the whole reason this shipped in the first place was that no automated test
+touches a browser bundle at all.
+
+**The general lesson, stated once more because it keeps needing restating differently:** a page that
+imports a "just data and pure functions" module can still drag in server-only code transitively, and
+`tsc`/Vitest cannot see the difference between a safe and an unsafe import graph for a CLIENT bundle -
+only an actual bundler, building for an actual browser target, can.
