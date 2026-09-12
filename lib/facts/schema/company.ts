@@ -10,6 +10,34 @@ export const zNameChange = z.object({
   reason: z.string().optional().describe('Why the name was changed, if stated'),
 });
 
+/**
+ * D69 — S7's replacement for AoA extraction (S7 paused permanently, user
+ * decision). ICDR Schedule VI Part A and Companies Act Schedule I (Table F)
+ * require the Main Provisions of the Articles of Association DISCLOSURE to
+ * cover exactly these six topics — the corpus's own opening line to this
+ * chapter names them explicitly ("voting rights, dividend, lien, forfeiture,
+ * restrictions on transfer and transmission of equity shares or debentures,
+ * their consolidation or splitting"). Real prospectuses often reproduce the
+ * FULL Articles (~38pp, every clause under ~22 topic headings) — that is
+ * more than the regulation requires and more than this app asks for, the
+ * same "build what's required, not the whole real document" scoping every
+ * other section here already follows (Our Business, Objects of the Issue).
+ *
+ * Hand-typed / pasted verbatim from the company's own Articles by the CS —
+ * never drafted or paraphrased by an LLM. This is legal clause text with
+ * personal-liability consequences if misstated (MM4's s.34/35 concern in
+ * its sharpest form), so there is no narrative producer here at all, only a
+ * template that prints exactly what was typed.
+ */
+export const zArticlesProvisions = z.object({
+  votingRights: z.string().optional().describe('Articles clauses on members’ voting rights, on a show of hands and on a poll'),
+  dividend: z.string().optional().describe('Articles clauses on declaration and payment of dividends'),
+  lien: z.string().optional().describe('Articles clauses on the company’s lien over partly-paid shares'),
+  forfeiture: z.string().optional().describe('Articles clauses on forfeiture of shares for non-payment of calls'),
+  transferAndTransmission: z.string().optional().describe('Articles clauses on transfer and transmission of shares or debentures'),
+  consolidationAndSplitting: z.string().optional().describe('Articles clauses on consolidation, sub-division and conversion of share capital'),
+});
+
 export const zCompany = z.object({
   name: z.string().describe('Current full legal name, including "Limited"'),
   cin: zCIN.describe('21-character Corporate Identity Number'),
@@ -79,7 +107,11 @@ export const zCompany = z.object({
 
   sector: zSector.describe('Primary sector, which selects the regulatory boilerplate'),
   businessDescription: z.string().describe('One or two sentences on what the company does'),
+
+  /** D69: the six ICDR-required Main Provisions of the Articles of Association topics. */
+  articlesProvisions: zArticlesProvisions.default({}),
 });
 
 export type Company = z.infer<typeof zCompany>;
 export type NameChange = z.infer<typeof zNameChange>;
+export type ArticlesProvisions = z.infer<typeof zArticlesProvisions>;

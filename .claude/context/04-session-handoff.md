@@ -4,9 +4,9 @@
 
 ---
 
-**Last updated:** 2026-09-12 evening (**S9 CLOSED** — gate fully passing after a real register-and-structure audit, D68; S10 grown to 20 archetypes plus dismiss-with-reason and why-flagged (D57–D63); **S7 paused permanently by user decision (D67)**)
+**Last updated:** 2026-09-12 evening (**S9 CLOSED** — gate fully passing after a real register-and-structure audit, D68; S10 grown to 20 archetypes plus dismiss-with-reason and why-flagged (D57–D63); **S7 paused permanently by user decision (D67)**; **AoA gap closed with a hand-typed field, D69**)
 **Current stage:** S0, S3, S5, S6, S8, S9, S11 CLOSED. **S7 PAUSED — do not resume without the user asking again** (D67: hand-typed form fields only, permanently, not a temporary fallback). S4 Wave 1 extraction finished; Wave 2 computed sections built. **S10 genuinely in progress** since D43, the only 🟡/🔴 stage still actively advancing besides S12/S13 (not started).
-**Status:** **664 tests passing, tsc clean, dev server runs.** Document renders **31 of the 37 numbered subsections**. **All ten intake modules exist** and Vardhman completes nine of them outright (see S8 below). **Issue Procedure is COMPLETE**, the glossary is at **130 definitions plus 129 abbreviations**, **Risk Factors is a real, populated section** — **20 archetypes** (D44–D57, D60–D63), **14 of which fire on Vardhman** with LLM-drafted prose behind every one that does — and **S9's narrative harness covers all six planned sections with its gate fully passing**: a real systematic diff against the corpus (D68) found and fixed three structural gaps and corrected one wrong design assumption (Industry Overview does not need a commissioned report — real SME issuers commonly use public data with a disclaimer instead). Every one of the 20 drafts on file re-checked for untraceable numbers after the fixes: 80 sentences, 0 failures.
+**Status:** **670 tests passing, tsc clean, dev server runs.** Document renders **32 of the 37 numbered subsections** (D69 added Main Provisions of the Articles of Association, closing the S7-dependent AoA gap with a hand-typed field instead). **All ten intake modules exist** and Vardhman completes nine of them outright (see S8 below). **Issue Procedure is COMPLETE**, the glossary is at **130 definitions plus 129 abbreviations**, **Risk Factors is a real, populated section** — **20 archetypes** (D44–D57, D60–D63), **14 of which fire on Vardhman** with LLM-drafted prose behind every one that does — and **S9's narrative harness covers all six planned sections with its gate fully passing**: a real systematic diff against the corpus (D68) found and fixed three structural gaps and corrected one wrong design assumption (Industry Overview does not need a commissioned report — real SME issuers commonly use public data with a disclaimer instead). Every one of the 20 drafts on file re-checked for untraceable numbers after the fixes: 80 sentences, 0 failures.
 
 **The progress indicator said "25 of 37" until 2026-09-10 and was wrong** — it counted registry entries against numbered subsections. Every spec now carries `partOf`, the header counts distinct values, and a test holds it. The count has moved honestly since — 24 → 25 (D45, Risk Factors) → 26 (D50, History) → 27 (D51, Our Business) → 28 (D52, Objects of the Issue) → 29 (D54, MD&A) → 30 (D64, Basis for Issue Price) → 31 (D65, Industry Overview) — each one a real section with a passing traceability gate behind it, not a relabelling.
 **Rules: 55** — 43 eligibility, 12 consistency. The pre-check runs 26; no issuer sees 26 questions, since the criteria diverge by exchange.
@@ -589,17 +589,29 @@ officers and the Reg 300(1)(c) statement all landed. In descending value:
 **Wave 1 extraction is now finished** except for #16 Key Industry Regulations and Policies, which is
 sector-switched: the generic company law and labour law core is shareable, but the sector-specific
 half is the same problem as the sector glossary and needs the issuer's sector. Everything else left
-in S4 is computed (needs S3/S5/S8), narrative (needs S9/S10 and credits), external (auditor/CA), or
-the AoA (see the note immediately below — this one changed with D67).
+in S4 is computed (needs S3/S5/S8), narrative (needs S9/S10 and credits), or external (auditor/CA) —
+**the AoA is no longer on this list, closed at D69.**
 
-**Main Provisions of AoA (~38pp) is still blocked, and D67 (S7 paused) makes the blocker permanent
-unless someone builds an alternative.** It is extracted per-issuer from the company's own Articles of
-Association — the original plan was "S7 uploads and extracts it," which is no longer happening. The
-honest options, not yet decided by the user: (a) a new M-module field where the issuer pastes or types
-the relevant AoA clauses by hand, same "hand-typed, not uploaded" pattern D67 chose everywhere else, or
-(b) leave this section permanently as an external/placeholder gap, the way the auditor's and CA's
-deliverables already are. Do not build either without asking — this is a real open question D67 left
-behind, not a decision already made.
+**D69 — Main Provisions of the Articles of Association, closed with a hand-typed field, not S7.** The
+user chose option (a) from the two D67 left open: a new M1 field (`company.articlesProvisions`, six
+`longtext` fields) where the CS pastes or types the relevant Articles clauses verbatim, matching the
+"hand-typed, not uploaded" pattern D67 chose everywhere else. Deliberately scoped to the SIX topics
+ICDR Schedule VI Part A and the corpus's own opening line to this chapter actually require (voting
+rights, dividend, lien, forfeiture, transfer and transmission, consolidation and splitting) — not the
+full ~22-topic, 25-38pp chapter a real prospectus often reproduces (the full topic list was read
+directly from Ideas Electricals' extracted AoA chapter to confirm). `producer: 'computed'`, never
+narrative — this is legal clause text carrying the same personal-liability weight as any disclosure
+(MM4, Companies Act s.34/35), so an LLM must never touch it; the section is a pure template printing
+exactly what was typed, gapping each unanswered topic individually. Vardhman seeded with real,
+paraphrased Table F (Companies Act Schedule I) text — defensible because these six topics are
+near-identical across virtually every Indian company's Articles, the same "shared boilerplate, not an
+issuer fact" category the glossary's settlement-machinery definitions already occupy (D31); paraphrased
+rather than copied verbatim from any one corpus document, avoiding the D21/D26 single-source-copying
+failure mode. Ordering placed correctly the first time (order 3790, immediately before Material
+Contracts at 3800, same "SECTION - OTHER INFORMATION" group) — checked the full order sequence in that
+range before placing it, having learned that lesson the hard way at D65. **Registry: 32 of 37
+subsections.** 6 new tests, `tsc` clean, rendered and read on an actual DOCX page. This closes the AoA
+gap without reversing D67 — S7 itself remains paused.
 
 ---
 

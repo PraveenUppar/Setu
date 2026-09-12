@@ -1796,6 +1796,7 @@ describe('progress counting', () => {
       '32. Issue Structure',
       '33. Issue Procedure',
       '34. Restrictions on Foreign Ownership of Indian Securities',
+      '35. Main Provisions of the Articles of Association',
       '36. Material Contracts and Documents for Inspection',
       '37. Declaration',
       '4. Risk Factors',

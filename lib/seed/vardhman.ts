@@ -62,6 +62,23 @@ export const vardhman: FactBase = {
     sector: 'ENGINEERING',
     businessDescription:
       'Manufacture of precision machined components and sub-assemblies for commercial vehicle and off-highway powertrain applications, supplied directly to original equipment manufacturers.',
+    // D69: standard Table F (Companies Act 2013, Schedule I) provisions, the same statutory
+    // text every Indian company's Articles restate near-identically — paraphrased from the
+    // corpus's own real AoA chapters, not company-specific facts, so no source-per-issuer risk.
+    articlesProvisions: {
+      votingRights:
+        'On a show of hands, every member present in person shall have one vote. On a poll, the voting rights of a member shall be in proportion to such member’s share of the paid-up equity share capital of the Company. In the case of joint holders, the vote of the senior holder who tenders a vote, whether in person or by proxy, shall be accepted to the exclusion of the votes of the other joint holders, seniority being determined by the order in which the names stand in the register of members. No member shall be entitled to vote at any general meeting unless all calls or other sums presently payable by such member in respect of shares in the Company have been paid.',
+      dividend:
+        'The Company in general meeting may declare dividends, but no dividend shall exceed the amount recommended by the Board. The Board may, from time to time, pay to the members such interim dividends as appear to it to be justified by the profits of the Company. The Board may, before recommending any dividend, set aside out of the profits of the Company such sums as it thinks fit as a reserve or reserves. All dividends shall be declared and paid according to the amounts paid up on the shares in respect of which the dividend is paid.',
+      lien:
+        'The Company shall have a first and paramount lien on every share (not being a fully paid share) for all monies, whether presently payable or not, called or payable at a fixed time in respect of that share, and on all shares standing registered in the name of a single person for all monies presently payable by such person to the Company. Fully paid shares shall be free from all lien. The Company’s lien, if any, on a share shall extend to all dividends payable and bonuses declared in respect of such shares.',
+      forfeiture:
+        'If a member fails to pay any call or instalment on or before the due date, the Board may serve a notice requiring payment together with any accrued interest. The notice shall name a further date, not earlier than fourteen days from the date of the notice, on or before which payment is to be made, and shall state that in the event of non-payment the shares in respect of which the call was made shall be liable to be forfeited. If the notice is not complied with, the shares may be forfeited by a resolution of the Board. A person whose shares have been forfeited ceases to be a member in respect of those shares but remains liable to the Company for all monies presently payable at the date of forfeiture.',
+      transferAndTransmission:
+        'The instrument of transfer of any share shall be executed by or on behalf of both the transferor and the transferee, and the transferor shall be deemed to remain the holder of the share until the name of the transferee is entered in the register of members. The Board may decline to register a transfer of a share on which the Company has a lien, or where the instrument of transfer is not accompanied by the share certificate and such other evidence as the Board may reasonably require. On the death of a member, the survivor or survivors where the member was a joint holder, and the legal representatives where the member was a sole holder, shall be the only persons recognised by the Company as having title to the member’s shares.',
+      consolidationAndSplitting:
+        'The Company may, from time to time, by ordinary resolution, increase its share capital, consolidate and divide all or any of its share capital into shares of a larger amount than its existing shares, sub-divide its existing shares into shares of a smaller amount than is fixed by the memorandum, or convert fully paid-up shares into stock and reconvert that stock into fully paid-up shares of any denomination, in each case subject to the provisions of Section 61 of the Companies Act, 2013.',
+    },
   },
 
   capital: {

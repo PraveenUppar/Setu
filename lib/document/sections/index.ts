@@ -15,6 +15,7 @@ import { approvals } from './approvals';
 import { capitalisationStatement, indebtedness } from './indebtedness';
 import { otherFinancial } from './other-financial';
 import { materialContracts } from './material-contracts';
+import { articlesOfAssociation } from './articles-of-association';
 import { riskFactors } from './risk-factors';
 import { history } from './history';
 import { ourBusiness } from './our-business';
@@ -72,6 +73,7 @@ export const sectionRegistry: SectionSpec[] = [
   issueStructure,
   ...issueRelatedSections,
   materialContracts,
+  articlesOfAssociation,
 ];
 
 export function sectionsByGroup(specs: SectionSpec[] = sectionRegistry) {

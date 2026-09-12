@@ -91,6 +91,72 @@ const conversionFields: Field[] = [
   },
 ];
 
+/**
+ * D69 — S7's replacement for AoA upload and extraction (S7 paused
+ * permanently). The six topics ICDR Schedule VI Part A and Companies Act
+ * Schedule I (Table F) require: paste or type the relevant clauses verbatim
+ * from the company's own Articles, not a summary or paraphrase — this text
+ * carries the same personal-liability weight as any other disclosure (MM4).
+ */
+const ARTICLES = 'other.articles';
+const articlesFields: Field[] = [
+  {
+    path: 'company.articlesProvisions.votingRights',
+    label: 'Articles: Voting Rights',
+    type: 'longtext',
+    schema: z.string().optional(),
+    helpText:
+      'Paste the Articles clauses on how members vote — on a show of hands, on a poll, and for joint holders — verbatim from the company’s own Articles of Association. Do not summarise; the document prints exactly what is entered here.',
+    clause: 'Companies Act 2013, Schedule I (Table F); ICDR Schedule VI Part A',
+    feedsInto: [ARTICLES],
+  },
+  {
+    path: 'company.articlesProvisions.dividend',
+    label: 'Articles: Dividend',
+    type: 'longtext',
+    schema: z.string().optional(),
+    helpText: 'Paste the Articles clauses on declaration and payment of dividends, verbatim.',
+    clause: 'Companies Act 2013, Schedule I (Table F); ICDR Schedule VI Part A',
+    feedsInto: [ARTICLES],
+  },
+  {
+    path: 'company.articlesProvisions.lien',
+    label: 'Articles: Lien',
+    type: 'longtext',
+    schema: z.string().optional(),
+    helpText: 'Paste the Articles clauses on the company’s lien over partly-paid shares, verbatim.',
+    clause: 'Companies Act 2013, Schedule I (Table F); ICDR Schedule VI Part A',
+    feedsInto: [ARTICLES],
+  },
+  {
+    path: 'company.articlesProvisions.forfeiture',
+    label: 'Articles: Forfeiture',
+    type: 'longtext',
+    schema: z.string().optional(),
+    helpText: 'Paste the Articles clauses on forfeiture of shares for non-payment of calls, verbatim.',
+    clause: 'Companies Act 2013, Schedule I (Table F); ICDR Schedule VI Part A',
+    feedsInto: [ARTICLES],
+  },
+  {
+    path: 'company.articlesProvisions.transferAndTransmission',
+    label: 'Articles: Transfer and Transmission of Shares',
+    type: 'longtext',
+    schema: z.string().optional(),
+    helpText: 'Paste the Articles clauses on transfer and transmission of shares or debentures, verbatim.',
+    clause: 'Companies Act 2013, Schedule I (Table F); ICDR Schedule VI Part A',
+    feedsInto: [ARTICLES],
+  },
+  {
+    path: 'company.articlesProvisions.consolidationAndSplitting',
+    label: 'Articles: Consolidation and Splitting of Capital',
+    type: 'longtext',
+    schema: z.string().optional(),
+    helpText: 'Paste the Articles clauses on consolidation, sub-division and conversion of share capital, verbatim.',
+    clause: 'Companies Act 2013, Schedule I (Table F); ICDR Schedule VI Part A',
+    feedsInto: [ARTICLES],
+  },
+];
+
 export const m1Company: Module = {
   id: 'M1',
   title: 'Company and History',
@@ -240,5 +306,6 @@ export const m1Company: Module = {
         'One or two sentences, in plain language. This seeds the Business Overview and the cover page summary, and it is the sentence a reader meets first — write it for someone who has never heard of the company.',
       feedsInto: ['general.definitions'],
     },
+    ...articlesFields,
   ],
 };

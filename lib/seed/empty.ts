@@ -35,6 +35,7 @@ export function emptyFactBase(): FactBase {
       conversionFromFirmDate: null,
       sector: 'OTHER',
       businessDescription: '',
+      articlesProvisions: {},
     },
     capital: {
       faceValue: ZERO,

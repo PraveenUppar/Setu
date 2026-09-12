@@ -2092,3 +2092,57 @@ already established this session.
 
 **Verified:** 6 new tests (664 total), `tsc` clean. **S9's gate now passes fully — all three items —
 and TODO.md marks S9 CLOSED.**
+
+---
+
+## D69 - Main Provisions of the Articles of Association: the AoA gap closed with hand-typed fields, not S7
+
+**2026-09-12, user decision, immediately after D67 paused S7.** The AoA section (#35, 25-38pp in a
+real prospectus) was the one piece of S4 genuinely blocked by S7's pause - it needs the company's own
+Articles, which was always meant to come via upload-and-extract. Two options were on the table: a new
+hand-typed field, or a permanent external gap like the auditor's and CA's own deliverables. **User
+chose the hand-typed field, matching every other fact in this project.**
+
+**Scoped to what the regulation actually requires, not the whole real chapter.** A real prospectus
+often reproduces the FULL Articles under ~22 topic headings (Interpretation, Share Capital, Calls,
+Transfer, Transmission, Forfeiture, Alteration of Capital, Capitalisation of Profits, Buy-Back, General
+Meetings, Proceedings at Meetings, Adjournment, Voting Rights, Board of Directors, Proceedings of the
+Board, Dividends, Beneficial Ownership, Pledge of Locked-in Securities, Free Transferability,
+Dematerialization, Retirement by Rotation - the full list read directly from Ideas Electricals'
+extracted chapter, 25 corpus pages). ICDR Schedule VI Part A and the corpus's OWN opening line to this
+chapter ask for far less: "the Main provisions of the Articles of Association relating to voting
+rights, dividend, lien, forfeiture, restrictions on transfer and transmission of equity shares or
+debentures, their consolidation or splitting" - six topics, named explicitly. Scoped to exactly those
+six, the same "build what's required, not the whole real document" discipline Our Business and Objects
+of the Issue already follow.
+
+**New schema**, `company.articlesProvisions` (`zArticlesProvisions`: votingRights, dividend, lien,
+forfeiture, transferAndTransmission, consolidationAndSplitting, all optional strings). **Six new M1
+`longtext` fields**, each explicit that the Company Secretary must paste or type the clause VERBATIM
+from the company's own Articles - never summarised, never touched by an LLM. This is the one place in
+the whole document where a narrative producer would be actively wrong: AoA clause text carries the
+same personal-liability weight as any other disclosure (MM4, Companies Act s.34/35), so
+`lib/document/sections/articles-of-association.ts` is `producer: 'computed'`, a pure template that
+prints exactly what was typed, one topic at a time, gapping any topic left blank INDIVIDUALLY (not the
+whole section at once) so a partially-answered AoA still shows exactly what's missing.
+
+**Seeded Vardhman with real, grounded text** - paraphrased from the corpus's own AoA chapters (Ideas
+Electricals), not invented. This is defensible precisely because these six topics are Table F
+(Companies Act 2013, Schedule I) MODEL articles: virtually every Indian company's Articles state them
+near-identically, the same "shared boilerplate, not an issuer fact" category the glossary's
+settlement-machinery definitions already occupy (D31). Paraphrased rather than copied verbatim from any
+single corpus document, to avoid the D21/D26 single-source-copying failure mode even though the
+underlying content is standard.
+
+**Ordering got it right the first time**, unlike D65's Industry Overview mistake: placed at order 3790,
+immediately before Material Contracts (3800) - both `'SECTION - OTHER INFORMATION'` - checked the full
+order sequence in that range before placing it, rather than discovering the group-contiguity rule the
+hard way again.
+
+**Verified:** 6 new tests, `tsc` clean, **670 tests passing overall** (31 to 32 numbered subsections).
+Rendered and read the actual DOCX page (D55's standing rule) - all six topics print correctly under
+"Main Provisions of the Articles of Association," verbatim, in the right place, immediately followed by
+Material Contracts as a real prospectus's ToC has them.
+
+**This closes the AoA gap without reversing D67.** S7 itself remains paused; this is the module-form
+answer D67 always implied AoA would eventually need, now built.

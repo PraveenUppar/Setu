@@ -15,7 +15,7 @@ Each stage ends with something demoable and a manual test gate. **Do not advance
 **Tests, tsc and dev-server status live in `.claude/context/04-session-handoff.md`** — this table is stage-level only, so the two cannot contradict each other.
 
 - **S0 closed 2026-09-10** at 8 prospectuses rather than 25. Criteria corroborated across documents, paired fixtures built. 2 of 27 rule rows remain `PROPOSAL-ONLY` and carry no rules; O-5 (Schedule VI Part A) and O-7 (notification date) need SEBI's own text and stay open.
-- **S4 partial:** engine complete; **24 of the 37 numbered subsections** built, as 43 registry sections. Wave 1 extraction and Wave 2 are complete, standing boilerplate included — what remains is narrative (S9/S10), the AoA (S7), or external.
+- **S4 partial:** engine complete; **32 of the 37 numbered subsections** built (D69 added Main Provisions of the Articles of Association, no longer blocked on S7 — see below). What remains is external (auditor/CA deliverables) and a couple of sector-switched or single-sourced stragglers.
 - **S3 and S5 done 2026-09-10** — module engine, M1, M2, the repeater with spreadsheet paste, and the computed capital tables. A real issuer's answers now replace the seed.
 - **S6 closed 2026-09-10:** rule engine, gap dashboard, standalone `/eligibility` pre-check, finding-to-document links, and all 32 exchange criteria ruled. Every finding gives a firm pass or fail with a clause — no rule hedges. Remaining consistency rules wait on M2 and M6 data (S5, S8).
 - **S7 opened 2026-09-12 (D56), committed and pushed 2026-09-12 afternoon, PAUSED by user decision the same day (D67).** Real, tested, on `origin/main` — 2 of 8 checklist items and 1 of 4 gate items done, the rest partial or not started (see the S7 section below for the verified item-by-item state). **The user decided to skip document upload/extraction entirely: hand-typed form fields only, for as long as this project runs.** Nothing was deleted — `app/extract/`, `lib/document-intake/`, `lib/llm/extraction.ts`, `lib/store/document-storage.ts` all still exist and still pass their tests, dormant rather than removed. Do not resume S7 work without the user explicitly asking again; do not delete it either unless asked.
@@ -118,7 +118,7 @@ Each stage ends with something demoable and a manual test gate. **Do not advance
 
 ### Wave 1 templates (use the `template-extraction` skill)
 - [ ] Offer Procedure — 30pp, ~95% invariant · **budget 1 day alone**
-- [ ] Main Provisions of AoA — 20pp, extracted from uploaded AoA
+- [x] Main Provisions of AoA — **D69, 2026-09-12.** Originally planned as "extracted from uploaded AoA" (S7); S7 paused permanently (D67), so this became a hand-typed field instead — scoped to the six topics ICDR Schedule VI Part A actually requires (voting rights, dividend, lien, forfeiture, transfer and transmission, consolidation and splitting), not the full ~22-topic, 25-38pp chapter a real prospectus often reproduces
 - [ ] Definitions & Abbreviations — 18pp, sector-varied
 - [ ] Other Regulatory & Statutory Disclosures — 15pp
 - [ ] Terms of the Offer — 10pp, fixed-price variant

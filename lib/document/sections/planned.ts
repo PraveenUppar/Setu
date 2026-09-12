@@ -19,5 +19,4 @@ export const plannedSections: Record<string, string> = {
   'aboutCompany.keyRegulations': 'Key Industry Regulations and Policies',
   'aboutCompany.subsidiaries': 'Our Subsidiaries, Associates and Joint Ventures',
   'financial.restatedFinancialInformation': 'Restated Financial Information',
-  'other.articles': 'Main Provisions of the Articles of Association',
 };
