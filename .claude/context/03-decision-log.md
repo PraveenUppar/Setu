@@ -1944,3 +1944,151 @@ sentences, 0 untraceable — see the gate note above). **Not the same as closing
 third gate item, matching the S0 corpus in register and structure, has only ever been checked
 informally per-section, never as one systematic diff — left honestly open in TODO.md rather than
 ticked on the strength of the other two. **Registry: 31 of 37 subsections.**
+
+---
+
+## D66 - S7's checklist was never updated to match what D56 actually built, and the gap was bigger than D56's own prose suggested
+
+**2026-09-12, later the same day, at the user's direct question ("is S7 complete?").** D56 described a
+real, working slice of S7 enthusiastically and honestly for what it covered - but TODO.md's own S7
+checklist (written before D56, describing the full original S7 scope) was never touched, so it still
+showed eight unchecked boxes despite real progress underneath some of them. Nobody had gone back to
+reconcile the two.
+
+**Checked every checklist and gate item against the actual code, not the write-up.** Two of eight
+checklist items and one of four gate items are genuinely done (two-pass page targeting; the
+never-enters-the-fact-base-without-confirmation guarantee, verified by tracing `confirmExtraction` as
+the only write path and `isUsable()`'s refusal of any unconfirmed extracted fact). Several items D56's
+own prose did not dwell on turned out to be completely unbuilt, not merely rough: no async job pattern
+(`uploadAndExtract` does everything inline in one request - no `pending` row, no polling, contradicting
+the plan's explicit "never block a request"); no text/image routing at all (every PDF is read as its
+text layer; there is no path for a scanned document, which the original plan called out as the reason
+to route at all); no confidence flagging (the `Provenance.confidence` field exists and nothing sets it
+- an unwired field is easy to mistake for "half-built" when it is actually "not started"); the
+ground-truth gate calls for three documents and one has been run.
+
+**TODO.md's S7 section rewritten with the verified state, item by item**, each line naming which file
+was checked and what it actually does - not a re-statement of the plan, a record of what exists.
+Session handoff's S7 note updated the same way, and now points at TODO.md's checklist directly rather
+than summarizing it, since a second summary is a second thing that can drift out of sync with reality.
+
+**The general lesson, matching a pattern this project has hit before (D29, D34, D45's "25 of 37 was
+wrong"):** a decision-log entry written by whoever just built something describes intent and effort
+honestly, but is not a substitute for checking the checklist it was supposed to update. A build session
+should update BOTH the log (what happened) and the plan (what's now true), and this one only did the
+first.
+
+---
+
+## D67 - S7 (document upload and AI extraction) is paused permanently. Hand-typed form fields only.
+
+**2026-09-12, user decision, immediately after D66's honest S7 status check.** Told the real gap (async
+processing, text/image routing, per-fact page numbers, confidence flagging, click-to-source, only 1 of
+3 ground-truth documents run), the user's call was direct: uploading a document and extracting facts
+from it adds more complexity than it is worth for this project. Every issuer's facts will be typed into
+the module forms (S3's engine, M1-M10) by hand, permanently — not as a stopgap while S7 gets finished
+later.
+
+**This is exactly the fallback TODO.md's own S7 section already named as acceptable** ("Time-boxed
+hard - if it slips, seed the fact base directly and move on"), just reached by explicit choice rather
+than by running out of time. The module engine was always the load-bearing path; S7 was always meant to
+sit on top of it as a shortcut, not underneath it as a dependency. Nothing else in the app assumes S7
+exists - `writeFacts`, the module forms, the document renderer and every rule all already work from
+hand-typed answers, which is the whole reason D33 built `withAnswers()` to lay real answers over an
+EMPTY fact base rather than the seed in the first place.
+
+**Nothing is deleted.** `app/extract/`, `lib/document-intake/`, `lib/llm/extraction.ts`,
+`lib/store/document-storage.ts` and their tests all stay in the tree, committed, passing. The
+`provenanceFor` override `writeFacts` gained for S7 (D56) is harmless dead capability, not dead code to
+clean up - removing it would be removing something that works, for no reason. If a future session or a
+future version of this project wants extraction back, D56's foundation (two-pass page targeting, the
+no-invention harness, the confirm-before-fact-base guarantee) is real and does not need re-doing.
+
+**What changes going forward:**
+- TODO.md's S7 marked `⏸` (paused by explicit decision) rather than `[~]` (in progress) - a new symbol
+  introduced specifically because neither existing state was honest. `[~]` implies someone is still
+  advancing it; `[ ]` implies it never started. Neither is true.
+- No session should pick up an S7 checklist item without the user asking again, and no session should
+  delete S7 code without the user asking either - both directions of unrequested action are out of
+  scope now.
+- The "MVP dies without it" 🔴 marking on S7 is now historical, not current - the user's own hand
+  overrode it. Left visible in the section heading (`was 🔴`) rather than erased, so the record shows
+  the original plan and the actual decision both, not just the second one.
+
+**Rules out:** any future session resuming or extending S7 work on its own initiative; any future
+session treating the presence of `app/extract/` etc. as evidence the feature is live or maintained.
+
+---
+
+## D68 - The S9 register-and-structure audit, done for real: three fixes and one corrected assumption
+
+**2026-09-12, at the user's direct request to complete the one honestly-open S9 gate item.** Every
+prior section had been checked informally, per-section, at the moment it was built (D50-D65) - never
+side by side against the corpus as one deliberate pass. Did that pass: pulled the current drafted
+text for all six narrative sections from `.data/narratives/`, pulled the equivalent opening from 2+
+corpus documents (`pdftotext -layout` on the full PDFs, not just the reversed-corpus fixtures) for
+each, and read them side by side for register (tone, phrasing, formality) and structure (what comes
+first, in what shape).
+
+**Two sections matched cleanly, no fix needed.** History and Our Business both track their corpus
+counterparts closely in both register and structure - confirmed, not just assumed.
+
+**Three real, evidenced, fixable gaps found and fixed:**
+
+1. **Objects of the Issue was folding the objects into one prose sentence** ("...as follows: object
+   one amounting to X; object two amounting to Y..."). Every corpus document checked (Om Galaxy,
+   Maxwell) states the objects as a real NUMBERED LIST, never inline prose. Fixed structurally, not
+   just by asking the model to format better: converted the section from `producer: 'narrative'` to
+   `producer: 'computed'` (matching the shape `risk-factors.ts` and `basis-for-issue-price.ts` already
+   use) so the objects render as a genuine ordered `DocumentNode` - real Word list numbering, not text
+   a model was asked to punctuate correctly. The drafted narrative is now scoped to the ONE framing
+   sentence that introduces the list, matching how the corpus's own prose introduces its list rather
+   than restating it component by component.
+
+2. **Basis for Issue Price was missing the book-building clause.** Om Galaxy and Photonics Watertech
+   both open with "...on the basis of an assessment of market demand for the Equity Shares through the
+   Book Building Process, AND on the basis of qualitative and quantitative factors" - the draft only
+   had the second half. Fixed in the fallback text and the drafting instructions, conditioned on
+   `issueType === 'BOOK_BUILT'` since a fixed-price issue has no book-building step to cite.
+
+3. **MD&A was missing its opening cross-reference.** Ideas Electricals opens with "You should read the
+   following discussion in conjunction with our restated financial statements... You should also read
+   ... 'Risk Factors' ... and 'Forward Looking Statements'" before any figures. The draft went straight
+   to revenue and PAT numbers. Fixed in the drafting instructions to open with the cross-reference
+   first, matching the corpus's own sequencing.
+
+**One corrected design assumption, not just a phrasing gap.** The Industry Overview section's original
+framing (D65) said a real Industry Overview needs a "commissioned report (CRISIL, CARE, D&B)." Checked
+against the corpus and found this OVERSTATED: Ideas Electricals states, as its own risk factor #67,
+"We have not commissioned an industry report for the disclosures made in the section titled 'Industry
+Overview'. These disclosures are based on publicly available data, which may be inaccurate, incomplete
+or not comparable" - and both Ideas Electricals and Maxwell open the actual chapter with a standing
+disclaimer to that effect (extracted from public sources, not independently verified) before any
+content. Real SME issuers commonly do NOT commission a paid report. The underlying reasoning survives
+unchanged (this app has no source for market size, growth rate or competitive data, and must not
+invent one) - only the FRAMING was corrected, from "must be replaced by a commissioned report" to
+"must be replaced by real industry data from a cited public source or a commissioned report, whichever
+the merchant banker chooses." Updated the section's own code comment, its rendered notice, its gap
+text, and TODO.md's "Out of scope" line, which had stated the same overstatement.
+
+**All three fixes redrafted through the live harness, not just fallback text changed.** Objects of the
+Issue's factSlice genuinely shrank (no longer carries per-object detail, since the list itself is
+computed, not drafted) so its old stored draft correctly went stale and needed a fresh one; Basis for
+Issue Price and MD&A kept the same factSlice shape but needed fresh drafts to pick up the corrected
+instructions, since a stored draft takes priority over an improved fallback. All three gates passed on
+the first attempt. Re-ran the full traceability audit across every narrative on file afterward: 20
+drafts, 80 sentences, 0 untraceable numbers (down from 82 sentences pre-fix, since Objects of the
+Issue's redraft is deliberately 1 sentence now rather than 4 - the list carries what the prose used
+to).
+
+**Rendered and read the actual DOCX pages for all four changes** (D55's standing rule) - the numbered
+list renders as real Word numbering, the book-building clause and MD&A cross-reference both print
+correctly, and the corrected Industry Overview notice reads accurately.
+
+**A new test file added** (`objects-of-the-issue.test.ts`, 6 tests) - this section had never had one,
+despite being a real narrative section since D52; the structural rewrite was the forcing function to
+add it, following the same pattern `basis-for-issue-price.test.ts` and `industry-overview.test.ts`
+already established this session.
+
+**Verified:** 6 new tests (664 total), `tsc` clean. **S9's gate now passes fully — all three items —
+and TODO.md marks S9 CLOSED.**

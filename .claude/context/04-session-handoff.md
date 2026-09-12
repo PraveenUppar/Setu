@@ -4,11 +4,9 @@
 
 ---
 
-**Last updated:** 2026-09-12 (S9's six narrative sections all built (D64, D65); S10 grown to 20 archetypes plus dismiss-with-reason and why-flagged (D57–D63))
-**Current stage:** S0, S3, S5, S6, S8, S11 CLOSED. S4 Wave 1 extraction finished; Wave 2 computed sections built. **S9's six planned narrative sections are now all built** (gate mostly passing — see S9 below for the one honestly-open item); **S10 genuinely in progress** since D43. **S7 opened** (D56, 2026-09-12 morning) **and has since been committed and pushed** (two commits, 2026-09-12 afternoon: "Open S7…" and "Grow S10…") — the earlier "uncommitted" warning in this file is now STALE; both are on `origin/main`.
-**Status:** **658 tests passing, tsc clean, dev server runs.** Document renders **31 of the 37 numbered subsections**. **All ten intake modules exist** and Vardhman completes nine of them outright (see S8 below). **Issue Procedure is COMPLETE**, the glossary is at **130 definitions plus 129 abbreviations**, **Risk Factors is a real, populated section** — **20 archetypes** (D44–D57, D60–D63), **14 of which fire on Vardhman** with LLM-drafted prose behind every one that does — and **S9's narrative harness now covers all six planned sections**, verified by a real exhaustive audit: every one of the 20 drafts on file (82 sentences total) re-checked for untraceable numbers, 0 failures (D65).
-
-**S7's status, corrected:** the entry below still describes it as opened 2026-09-12 morning and initially uncommitted — that part of the history is accurate. What changed: this session (S9/S10 continuation) committed it as its own commit before starting new S9/S10 work, then committed the S9/S10 work separately, then pushed both. Nothing about S7 itself changed; only its git status did. Do not re-read the old "decide whether to commit it" framing as still open — it has been decided and done.
+**Last updated:** 2026-09-12 evening (**S9 CLOSED** — gate fully passing after a real register-and-structure audit, D68; S10 grown to 20 archetypes plus dismiss-with-reason and why-flagged (D57–D63); **S7 paused permanently by user decision (D67)**)
+**Current stage:** S0, S3, S5, S6, S8, S9, S11 CLOSED. **S7 PAUSED — do not resume without the user asking again** (D67: hand-typed form fields only, permanently, not a temporary fallback). S4 Wave 1 extraction finished; Wave 2 computed sections built. **S10 genuinely in progress** since D43, the only 🟡/🔴 stage still actively advancing besides S12/S13 (not started).
+**Status:** **664 tests passing, tsc clean, dev server runs.** Document renders **31 of the 37 numbered subsections**. **All ten intake modules exist** and Vardhman completes nine of them outright (see S8 below). **Issue Procedure is COMPLETE**, the glossary is at **130 definitions plus 129 abbreviations**, **Risk Factors is a real, populated section** — **20 archetypes** (D44–D57, D60–D63), **14 of which fire on Vardhman** with LLM-drafted prose behind every one that does — and **S9's narrative harness covers all six planned sections with its gate fully passing**: a real systematic diff against the corpus (D68) found and fixed three structural gaps and corrected one wrong design assumption (Industry Overview does not need a commissioned report — real SME issuers commonly use public data with a disclaimer instead). Every one of the 20 drafts on file re-checked for untraceable numbers after the fixes: 80 sentences, 0 failures.
 
 **The progress indicator said "25 of 37" until 2026-09-10 and was wrong** — it counted registry entries against numbered subsections. Every spec now carries `partOf`, the header counts distinct values, and a test holds it. The count has moved honestly since — 24 → 25 (D45, Risk Factors) → 26 (D50, History) → 27 (D51, Our Business) → 28 (D52, Objects of the Issue) → 29 (D54, MD&A) → 30 (D64, Basis for Issue Price) → 31 (D65, Industry Overview) — each one a real section with a passing traceability gate behind it, not a relabelling.
 **Rules: 55** — 43 eligibility, 12 consistency. The pre-check runs 26; no issuer sees 26 questions, since the criteria diverge by exchange.
@@ -21,19 +19,28 @@
 
 ## Done
 
-### S7 — Opened — **IN PROGRESS 2026-09-12 morning** (D56); **committed and pushed 2026-09-12 afternoon**
+### S7 — Opened 2026-09-12 morning (D56), committed 2026-09-12 afternoon, **PAUSED PERMANENTLY 2026-09-12 evening (D67) — read this before touching anything under `app/extract/`, `lib/document-intake/`, `lib/llm/extraction.ts`, or `lib/store/document-storage.ts`**
 
-Supabase Storage, a two-pass extraction pipeline (`lib/document-intake/`), `lib/llm/extraction.ts`
-(same no-invention harness shape as `narrative.ts`), and `app/extract/` — a real upload-through-confirm
-UI, verified against a live Om Galaxy extraction and a synthetic-PDF browser run. **Full detail in D56.**
-**Committed as its own commit** ("Open S7: Supabase Storage, a two-pass extraction pipeline, and a real
-upload-through-confirm UI") **and pushed to `origin/main`**, at the user's explicit request in the same
-afternoon session that also closed S9 and grew S10 further. No longer uncommitted, no longer a decision
-waiting on anyone — the only S7 work still ahead is what D56 itself lists as not yet built (an
-upload/review UI reachable from `/intake`, per-field source pages, re-running extraction against an
-already-uploaded document).
+**The user's decision: no document upload or AI extraction for this project, ever, unless they
+explicitly ask again.** Every issuer's facts are typed by hand into the module forms (M1–M10), which
+was always the load-bearing path anyway — S7 was meant to sit on top of it as a shortcut, never
+underneath it as a dependency, so nothing else in the app assumes S7 exists or is running.
 
-### S9 / S10 — Gemini wired; S9's six narrative sections all built; S10 grown to 20 archetypes plus dismiss-with-reason and why-flagged — **S9 SUBSTANTIALLY DONE, S10 IN PROGRESS, 2026-09-12** (D43–D65)
+**What exists, for the record, in case this is ever revisited:** Supabase Storage, a two-pass
+extraction pipeline (`lib/document-intake/`), `lib/llm/extraction.ts` (same no-invention harness shape
+as `narrative.ts`), and `app/extract/` — a real upload-through-confirm UI, verified against a live Om
+Galaxy extraction and a synthetic-PDF browser run. Committed, pushed, still passing its tests. Verified
+against the actual code on 2026-09-12 (not just D56's own enthusiastic write-up): 2 of 8 checklist items
+and 1 of 4 gate items were genuinely done (two-pass page targeting; the never-enters-the-fact-base-
+without-confirmation guarantee) — the rest were real gaps, not polish (no async job pattern, no
+text/image routing for scanned documents, page references approximate per domain rather than exact per
+fact, no confidence flagging, no click-to-source-page, only 1 of 3 ground-truth documents run). Full
+detail in D56 and D66; the pause decision itself is D67.
+
+**Nothing here is deleted.** Do not resume any S7 item without the user asking first, and do not delete
+this code either unless asked — it is dormant, not dead.
+
+### S9 / S10 — Gemini wired; S9 CLOSED (all six narrative sections, gate fully passing); S10 grown to 20 archetypes plus dismiss-with-reason and why-flagged — **S9 CLOSED, S10 IN PROGRESS, 2026-09-12** (D43–D68)
 
 **The provider decision.** Gemini free tier, not Claude, not paid — a hobby-project call (D43),
 made explicitly with the trade-off written down: free-tier content trains Google's models, fine for
@@ -178,10 +185,32 @@ assertion failed by exactly one before this ever reached a real document. Fixed 
 
 **S9 status after D64/D65: all six planned narrative sections exist**, and a real exhaustive
 traceability audit was run across every drafted sentence currently on file (not a sample) - 20 drafts,
-82 sentences, 0 untraceable numbers. TODO.md's S9 checklist and two of its three gate items are now
-ticked; the third (matches the S0 corpus in register and structure) stays honestly `[~]`, checked only
-informally per-section, never as one systematic diff. **Not the same as S9 being fully closed** - see
-TODO.md's own S9 entry for the exact honest state.
+82 sentences, 0 untraceable numbers. TODO.md's S9 checklist and two of its three gate items were ticked
+at this point; the third (matches the S0 corpus in register and structure) was still honestly `[~]` -
+**closed the same day at D68, below.**
+
+**D68 - S9 CLOSED. The register-and-structure audit, done for real, at the user's direct request.**
+Pulled all six drafted narratives and the equivalent corpus openings side by side (2+ documents each,
+full-PDF `pdftotext`, not just the reversed-corpus fixtures). History and Our Business matched cleanly,
+confirmed rather than assumed. Three real, fixable gaps found and fixed: **Objects of the Issue** was
+folding its objects into one prose sentence where every corpus document uses a real numbered list -
+fixed structurally, converting the section from `producer: 'narrative'` to `'computed'` so the objects
+render as a genuine ordered `DocumentNode`, the drafted text now scoped to just the framing sentence.
+**Basis for Issue Price** was missing the "assessment of market demand through the Book Building
+Process" clause every corpus document opens with - added, conditioned on `issueType === 'BOOK_BUILT'`.
+**MD&A** was missing its opening "read together with Risk Factors and Our Business" cross-reference -
+added to the drafting instructions. One design assumption CORRECTED, not just a phrasing gap:
+**Industry Overview's original framing said a real one needs a commissioned report** (CRISIL/CARE/D&B)
+- wrong, per Ideas Electricals' own risk factor #67 ("We have not commissioned an industry report...
+disclosures are based on publicly available data"). Real SME issuers commonly use public sources with
+a standard disclaimer instead. The underlying "this app cannot invent industry data" reasoning
+survives; only the framing changed, in the section's code comment, its rendered notice, its gap text,
+and TODO.md's "Out of scope" line (which stated the same overstatement). All three fixes redrafted
+live through the harness (gates passed first try), rendered and read on actual DOCX pages, and the
+full traceability audit re-run afterward: 20 drafts, 80 sentences (Objects' redraft is deliberately 1
+sentence now, not 4), 0 untraceable. A new test file added for Objects of the Issue (6 tests) - it had
+never had one despite being real since D52. **TODO.md now marks S9 CLOSED, all three gate items
+ticked.**
 
 **D55 — render and look, applied to S9/S10 output for the first time, caught a real systemic bug.**
 Five archetypes (all predating D52's money-formatting lesson) were printing raw rupee integers —
@@ -197,8 +226,9 @@ single-sourced (Ideas Electricals alone, no second document corroborates one). *
 and Industry Overview are both now built** (D64, D65 — see the S9 entry below); this line is kept only
 as a marker of how the earlier read of them ("blocked on data this fact base does not carry") was
 half right — true for Industry Overview by design, wrong for Basis for Issue Price, which needed one
-real new question, not new intake in general. **S7 is committed and pushed** — see the S7 entry above;
-the old "uncommitted" framing here is stale.
+real new question, not new intake in general. **S7 is committed, pushed, and now PAUSED PERMANENTLY**
+(D67) — see the S7 entry above; the old "uncommitted" framing here is stale, and so by now is any
+framing that treats S7 as still advancing.
 
 ### S8 — Modules M3–M10 and Wave 2 computed sections — **CLOSED 2026-09-11** (D37, D38, D39)
 
@@ -466,16 +496,18 @@ check the None affordance and the new cell types feel right. Still true, still n
 order of value:
 
 1. ~~S11 leftovers~~, ~~Wave 2 stragglers~~ — **done 2026-09-10/11.**
-2. ~~Decide what to do with S7's uncommitted work~~ — **done 2026-09-12 afternoon.** Committed as its
-   own commit and pushed to `origin/main`, alongside a separate commit for this session's S9/S10 work.
+2. ~~Decide what to do with S7~~ — **done 2026-09-12 evening (D67), decided beyond "commit it": S7 is
+   PAUSED PERMANENTLY, hand-typed form fields only.** Superseded a same-day earlier resolution ("commit
+   the uncommitted work") that turned out to be only half the real decision. Do not resume S7 without
+   the user asking again.
 3. ~~"Why this was flagged"~~, ~~Dismiss-with-reason~~ — **done 2026-09-12 (D58, D59).** Both S10 gate
    items TODO.md names are built AND ticked off in TODO.md's own checklist now (not just built with a
    stale checklist, as an earlier version of this file said).
-4. ~~Basis for Issue Price~~, ~~Industry Overview~~ — **done 2026-09-12 (D64, D65), at the user's
-   explicit direction to finish S9.** All six of S9's planned narrative sections now exist. TODO.md's
-   S9 checklist and gate are updated to match — two of three gate items pass fully (including a real
-   exhaustive traceability audit, D65), the third (matching the S0 corpus in register and structure)
-   stays honestly `[~]` since it was only ever checked informally.
+4. ~~Basis for Issue Price~~, ~~Industry Overview~~, ~~the register-and-structure audit~~ — **all done
+   2026-09-12 (D64, D65, D68), S9 CLOSED.** All six of S9's planned narrative sections exist and all
+   three gate items pass fully — the last one (matching the S0 corpus in register and structure) was
+   done for real at D68, at the user's direct request, finding and fixing three real gaps plus one
+   corrected design assumption (Industry Overview). Do not re-open S9 without a reason; it is done.
 5. **Keep growing S10 (risk archetypes).** All seven corpus documents mined multiple times toward
    the ~40 target (**20 done**, D63 latest). Remaining corpus themes seen and deliberately not built
    all need either a new fact with no existing table to lean on, or a second corroborating source —
@@ -558,9 +590,16 @@ officers and the Reg 300(1)(c) statement all landed. In descending value:
 sector-switched: the generic company law and labour law core is shareable, but the sector-specific
 half is the same problem as the sector glossary and needs the issuer's sector. Everything else left
 in S4 is computed (needs S3/S5/S8), narrative (needs S9/S10 and credits), external (auditor/CA), or
-the AoA (needs S7 upload).
+the AoA (see the note immediately below — this one changed with D67).
 
-**Main Provisions of AoA (~38pp) is the largest remaining section but is blocked** — extracted per-issuer from the company's own articles, so it needs S7 upload and extraction, not templating.
+**Main Provisions of AoA (~38pp) is still blocked, and D67 (S7 paused) makes the blocker permanent
+unless someone builds an alternative.** It is extracted per-issuer from the company's own Articles of
+Association — the original plan was "S7 uploads and extracts it," which is no longer happening. The
+honest options, not yet decided by the user: (a) a new M-module field where the issuer pastes or types
+the relevant AoA clauses by hand, same "hand-typed, not uploaded" pattern D67 chose everywhere else, or
+(b) leave this section permanently as an external/placeholder gap, the way the auditor's and CA's
+deliverables already are. Do not build either without asking — this is a real open question D67 left
+behind, not a decision already made.
 
 ---
 
@@ -642,6 +681,6 @@ the AoA (needs S7 upload).
 - **Gemini free tier, `GEMINI_API_KEY` set in `.env.local`, now genuinely in daily use** (D43, D47, D50–D55) — not just a smoke test. This session alone: 2 extraction calls, ~15 risk-narrative drafts, 4 section drafts, several re-drafts after fixing bugs the first pass caught. Not a paid account; see D43 for the data-use trade-off this accepts. `.env.local` is gitignored, never commit it.
 - Real narrative output lives in two places: `.data/narratives/` (gitignored, what the app actually renders) and `fixtures/narrative/` + `fixtures/llm-verification/` (committed, D14 snapshots — small, no secrets, worth keeping as before/after proof).
 - One-off drafting/verification scripts this session (not committed, but the pattern is worth reusing): a scratchpad `.ts` file using `pathToFileURL()` + dynamic `import()` to load project TS modules, run via `npx tsx`, with `GEMINI_API_KEY` exported into the shell first (`export $(grep -v '^#' .env.local | xargs)`).
-- Supabase: not created. Local JSON until S7.
+- **Supabase: a real project and Storage bucket exist** (created for S7, D56) — but the fact base itself still lives in local JSON (`lib/store/fact-store.ts`) and stays there permanently now that S7 is paused (D67). The Supabase project is only used by S7's dormant document-storage code; nothing else in the app touches it.
 - Vercel: not created.
 - Corpus gaps: 17 more prospectuses; missing sectors (IT/services, trading, textiles, chemicals, pharma); only 1 OFS example; 5+ fixed-price documents needed before that branch. All 7 documents on disk are now mined at least once for risk-factor themes (D44–D54).

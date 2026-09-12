@@ -79,10 +79,19 @@ export const basisForIssuePrice: SectionSpec = {
 
     const slice = basisFactSlice(facts);
     const drafted = readNarrative(basisForIssuePrice.id, slice);
+    // D68 — S9 register-and-structure audit: Om Galaxy and Photonics Watertech both open this
+    // section with "on the basis of an assessment of market demand ... through the Book Building
+    // Process AND on the basis of the qualitative and quantitative factors" — the fallback was
+    // missing the book-building clause entirely. Book-building boilerplate, not an issuer fact, and
+    // only true for a book-built issue — a fixed-price issue has no book-building step to cite.
+    const marketDemandClause =
+      facts.offer.issueType === 'BOOK_BUILT'
+        ? 'on the basis of an assessment of market demand for the Equity Shares through the Book Building Process, and '
+        : '';
     nodes.push(
       para(
         drafted?.text ??
-          'The Issue Price has been determined by our Company in consultation with the Book Running Lead Manager, on the basis of the qualitative and quantitative factors set out below. Prospective investors should read the qualitative factors together with the sections titled "Our Business" and "Risk Factors", and the financial information set out below, before deciding to invest in this Issue.',
+          `The Issue Price has been determined by our Company in consultation with the Book Running Lead Manager, ${marketDemandClause}on the basis of the qualitative and quantitative factors set out below. Prospective investors should read the qualitative factors together with the sections titled "Our Business" and "Risk Factors", and the financial information set out below, before deciding to invest in this Issue.`,
       ),
     );
 

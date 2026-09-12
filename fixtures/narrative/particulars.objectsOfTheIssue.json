@@ -1,31 +1,8 @@
 {
-  "raw": "We propose that the net proceeds arising from the Fresh Issue shall be utilised towards the objects set out in this section. The details of the objects and the amount earmarked for each such object are as follows: funding capital expenditure towards purchase of plant and machinery at the Chakan facility amounting to Rs 12.00 Crores; funding incremental working capital requirements amounting to Rs 6.00 Crores; repayment or pre-payment, in full or in part, of certain borrowings availed by our Company amounting to Rs 2.00 Crores; and general corporate purposes amounting to Rs 1.00 Crores. The total amount of these objects aggregates to Rs 21.00 Crores. The detailed means of finance and deployment schedule for each of the aforesaid objects are set out in the sections that follow.",
   "factSlice": {
     "companyName": "Vardhman Precision Components Limited",
-    "objects": [
-      {
-        "description": "Funding capital expenditure towards purchase of plant and machinery at the Chakan facility",
-        "amount": "Rs 12.00 Crores",
-        "isGeneralCorporatePurposes": false
-      },
-      {
-        "description": "Funding incremental working capital requirements",
-        "amount": "Rs 6.00 Crores",
-        "isGeneralCorporatePurposes": false
-      },
-      {
-        "description": "Repayment or pre-payment, in full or in part, of certain borrowings availed by our Company",
-        "amount": "Rs 2.00 Crores",
-        "isGeneralCorporatePurposes": false
-      },
-      {
-        "description": "General corporate purposes",
-        "amount": "Rs 1.00 Crores",
-        "isGeneralCorporatePurposes": true
-      }
-    ],
+    "objectCount": 4,
     "totalAmount": "Rs 21.00 Crores"
   },
-  "untraceableNumbers": [],
-  "verifiedAt": "2026-09-11T15:12:28.188Z"
+  "draft": "The Net Proceeds from the Fresh Issue are proposed to be utilised by our Company towards the four objects set forth below, amounting in aggregate to Rs 21.00 Crores, subject to receipt of necessary approvals and other conditions."
 }

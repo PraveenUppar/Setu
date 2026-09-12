@@ -8,7 +8,9 @@ Each stage ends with something demoable and a manual test gate. **Do not advance
 
 | S0 | S1 | S2 | S3 | S4 | S5 | S6 | S7 | S8 | S9 | S10 | S11 | S12 | S13 |
 |----|----|----|----|----|----|----|----|----|----|-----|-----|-----|-----|
-| [x] | [x] | [x] | [x] | [~] | [x] | [x] | [~] | [x] | [~] | [~] | [x] | [ ] | [ ] |
+| [x] | [x] | [x] | [x] | [~] | [x] | [x] | ⏸ | [x] | [x] | [~] | [x] | [ ] | [ ] |
+
+**⏸ = paused by explicit user decision (S7, 2026-09-12) — not done, not abandoned, not being worked on unless the user asks again.** Different from `[ ]` (not started) and `[~]` (in progress): this is a stage someone deliberately chose to stop advancing, with working code left in place.
 
 **Tests, tsc and dev-server status live in `.claude/context/04-session-handoff.md`** — this table is stage-level only, so the two cannot contradict each other.
 
@@ -16,10 +18,10 @@ Each stage ends with something demoable and a manual test gate. **Do not advance
 - **S4 partial:** engine complete; **24 of the 37 numbered subsections** built, as 43 registry sections. Wave 1 extraction and Wave 2 are complete, standing boilerplate included — what remains is narrative (S9/S10), the AoA (S7), or external.
 - **S3 and S5 done 2026-09-10** — module engine, M1, M2, the repeater with spreadsheet paste, and the computed capital tables. A real issuer's answers now replace the seed.
 - **S6 closed 2026-09-10:** rule engine, gap dashboard, standalone `/eligibility` pre-check, finding-to-document links, and all 32 exchange criteria ruled. Every finding gives a firm pass or fail with a clause — no rule hedges. Remaining consistency rules wait on M2 and M6 data (S5, S8).
-- **S7 opened 2026-09-12, uncommitted (D56):** Supabase Storage, a two-pass extraction pipeline, `app/extract/`. Real, tested, but sitting in the working tree — see `.claude/context/04-session-handoff.md`'s S7 note before assuming a clean slate.
+- **S7 opened 2026-09-12 (D56), committed and pushed 2026-09-12 afternoon, PAUSED by user decision the same day (D67).** Real, tested, on `origin/main` — 2 of 8 checklist items and 1 of 4 gate items done, the rest partial or not started (see the S7 section below for the verified item-by-item state). **The user decided to skip document upload/extraction entirely: hand-typed form fields only, for as long as this project runs.** Nothing was deleted — `app/extract/`, `lib/document-intake/`, `lib/llm/extraction.ts`, `lib/store/document-storage.ts` all still exist and still pass their tests, dormant rather than removed. Do not resume S7 work without the user explicitly asking again; do not delete it either unless asked.
 - **S11 closed 2026-09-11:** `renderDocx()` over the same AST, `/export/docx`, pre-filled ToC, highlighted and bookmarked placeholders, draft notice in the header until certified (no page watermark, D35). Word gate passed. Then `/export/gaps` workbook, `/export/pdf` (LibreOffice print, D40) and `/export/vault`.
 - **S8 closed 2026-09-11:** all ten modules on one engine, ten Wave 2 computed sections, 22 of 37 subsections. None-as-an-answer (D37). Vardhman completes nine modules; M9 leaves the three DRHP-stage unknowns.
-- **S9 partial, all six sections done:** all six planned narrative sections built (History, Our Business, Objects of the Issue, MD&A, Basis for Issue Price D64, Industry Overview D65) — the last two needed real unblocking, not just scheduling: one new intake question for peer comparables, and a deliberate decision NOT to ask a new question for Industry Overview (a real one needs a commissioned report). Two of three gate items pass fully, including a real exhaustive audit of every drafted sentence on file (D65: 20 drafts, 82 sentences, 0 untraceable). Marked partial only because "matches the S0 corpus in register and structure" was checked informally each time, never as one systematic diff.
+- **S9 CLOSED 2026-09-12 (D68).** All six planned narrative sections built (History, Our Business, Objects of the Issue, MD&A, Basis for Issue Price D64, Industry Overview D65), and all three gate items now pass, including a real systematic register-and-structure diff against the corpus (D68) that found and fixed three real gaps (Objects of the Issue's list structure, Basis for Issue Price's book-building clause, MD&A's cross-references) and corrected a wrong design assumption about Industry Overview (real SME issuers commonly use public industry data, not a commissioned report).
 - **S10 partial, gate fully passing:** 20 of the ~40 target archetypes (D44–D57, D60–D63); every OTHER checklist item and every gate item is done — trigger/materiality engine, LLM narrative per risk, dismiss-with-reason (D58), why-this-was-flagged (D59). Marked partial, not closed, because the breadth target is still over half short, not a mere straggler.
 
 ---
@@ -175,24 +177,37 @@ Each stage ends with something demoable and a manual test gate. **Do not advance
 
 ---
 
-## 🔴 S7 — Upload & extraction · 2 days ⭐
+## ⏸ S7 — Upload & extraction · PAUSED 2026-09-12 (D67) — was 🔴 · 2 days ⭐
 
 **Highest technical risk. Time-boxed hard — if it slips, seed the fact base directly and move on.**
+That risk is exactly why it turned out to be the right one to pause: **the user decided document
+upload and AI extraction add more complexity than they're worth for this project, and chose hand-typed
+form fields as the permanent path instead — not a temporary fallback while S7 catches up.**
 
-- [ ] Upload to Supabase Storage; `documents` table; per-sector required-document checklist
-- [ ] **Async job pattern** — upload → `extractions` row `pending` → process → client polls. Never block a request.
-- [ ] **Two-pass page targeting** — read text layer locally to find relevant page ranges, then send only those pages
-- [ ] Text/image routing — text layer + simple layout → send extracted text; scanned or complex tables → send PDF blocks
-- [ ] Claude extraction: `zod-to-json-schema` → tool-use → structured JSON **with page numbers**
-- [ ] **Review-and-confirm UI** — extracted value beside rendered source page, highlighted. Confirm / Edit.
-- [ ] Confidence flagging for low-certainty extractions
-- [ ] **Save every extraction result to `fixtures/` so downstream work doesn't re-call the API**
+**Nothing below is deleted or being planned around.** The code stays in the tree, stays tested, and
+this checklist stays accurate for whenever (if ever) someone picks it back up. Do not resume any item
+below without the user explicitly asking first.
+
+**Opened 2026-09-12 (D56). Status below verified against the actual code the same day, not just the
+decision-log write-up** — the log describes what was built enthusiastically; this checklist says
+plainly what's still missing. Also note: the original plan named Claude for extraction; D43 moved
+S7/S9/S10 to Gemini free tier project-wide, so "Claude extraction" below means "Gemini extraction" now
+— not a gap, a superseded assumption.
+
+- [~] Upload to Supabase Storage; `documents` table; per-sector required-document checklist — Storage upload/download/list/remove is real (`lib/store/document-storage.ts`); there is no `documents` table anywhere and no per-sector checklist exists at all
+- [ ] **Async job pattern** — upload → `extractions` row `pending` → process → client polls. Never block a request. — NOT built: `app/extract/actions.ts`'s `uploadAndExtract` does upload → extract inline in one request; no job table, no polling
+- [x] **Two-pass page targeting** — read text layer locally to find relevant page ranges, then send only those pages — real, `lib/document-intake/page-targeting.ts`, used live
+- [ ] Text/image routing — text layer + simple layout → send extracted text; scanned or complex tables → send PDF blocks — NOT built: `pdf-text.ts` always extracts the text layer; there is no image/PDF-block path for scanned documents at all
+- [~] Gemini extraction: schema → structured JSON **with page numbers** — the structured-JSON half works; page numbers are approximated as one page range for the WHOLE domain (`actions.ts`'s `firstTargetedPage`), not a real number per individual fact
+- [~] **Review-and-confirm UI** — extracted value beside rendered source page, highlighted. Confirm / Edit. — a real UI exists (`app/extract/page.tsx`) but shows plain text + a page range per top-level field, not a rendered source page with the value highlighted on it
+- [ ] Confidence flagging for low-certainty extractions — NOT built: `Provenance.confidence` exists as a field but nothing ever sets it
+- [~] **Save every extraction result to `fixtures/` so downstream work doesn't re-call the API** — the mechanism works (`snapshotResponse`) but only one document has ever been run through it (`fixtures/extraction/om-galaxy.company.json`)
 
 ### ✅ Gate
-- [ ] Upload a real SME annual report → 20+ facts with correct page refs
-- [ ] Click an extracted fact → jumps to right page, right highlight
-- [ ] Run 3 S0 input documents, hand-diff against ground truth, **record field-level accuracy** (this is a slide)
-- [ ] Nothing enters the fact base without confirmation
+- [~] Upload a real SME annual report → 20+ facts with correct page refs — one real document run (Om Galaxy, one domain, ~25-30 facts), but "page refs" are per-domain approximations, not verified per-fact
+- [ ] Click an extracted fact → jumps to right page, right highlight — NOT built: no click/jump handler exists in the review UI at all
+- [ ] Run 3 S0 input documents, hand-diff against ground truth, **record field-level accuracy** (this is a slide) — only 1 of 3 documents run; no accuracy number recorded anywhere
+- [x] Nothing enters the fact base without confirmation — verified enforced: `confirmExtraction` is the only write path, and `isUsable()` refuses any extracted fact where `confirmed` is not true
 
 ---
 
@@ -222,7 +237,7 @@ Pure content. No new components. ~half a day per pair.
 
 - [x] Grounded drafting harness: `factSlice` scoping (model sees **only** that section's facts), no-invention system prompt, forced fact citation, placeholder-on-missing — `lib/llm/narrative.ts`, D50
 - [x] Our Business — D51, scoped to the Overview paragraph
-- [x] Industry Overview — marked *"draft — to be replaced by commissioned report"* — D65, deliberately no new intake question (a real Industry Overview needs a commissioned report, not issuer self-reporting)
+- [x] Industry Overview — marked *"draft — to be replaced"* — D65, deliberately no new intake question; **framing corrected at D68** — a real SME prospectus commonly sources this from PUBLIC industry data with a standard non-verification disclaimer, not necessarily a commissioned report (Ideas Electricals states outright, as a risk factor: "We have not commissioned an industry report for the disclosures made in the section titled 'Industry Overview'"). The reasoning (this app has no source for market/competitive data and must not invent one) still holds; only the ORIGINAL "must be a commissioned report" framing was wrong
 - [x] MD&A — D54
 - [x] History and Corporate Matters — D50
 - [x] Objects of the Offer — D52, narrative half only; the computed means-of-finance tables are a separate, unbuilt piece
@@ -230,9 +245,9 @@ Pure content. No new components. ~half a day per pair.
 - [x] Regenerate-per-section, keep prior versions — `lib/store/narrative-store.ts`, append-only
 
 ### ✅ Gate
-- [x] **20 random generated sentences → every one traces to a fact-base entry.** Done as a stronger, exhaustive version: every one of the 20 drafts on file (82 sentences total), re-checked against `untraceableNumbers()` and its own stored factSlice — 0 failures (D65).
+- [x] **20 random generated sentences → every one traces to a fact-base entry.** Done as a stronger, exhaustive version: every one of the 20 drafts on file, re-checked against `untraceableNumbers()` and its own stored factSlice — 0 failures both at D65 (82 sentences) and again after D68's redrafts (80 sentences; Objects of the Issue's redraft is intentionally 1 sentence now that it only frames the real list, not 4).
 - [x] Remove a fact → prose degrades to a placeholder, does not invent — `readNarrative(id, currentFactSlice)`'s exact-match requirement (D51) means ANY fact change, not just a removal, falls back to the honest computed sentence or placeholder
-- [~] Output matches the S0 reference prospectuses in register and structure — checked informally each time a section was drafted and rendered (D50–D65), never as a single systematic diff against the corpus. Left honestly partial: worth a dedicated pass, not a blocking gate.
+- [x] Output matches the S0 reference prospectuses in register and structure — **done as a real systematic pass, 2026-09-12 (D68)**, not just the informal per-section checks (D50–D65). All six sections' openings compared side by side against 2+ corpus documents each. Found and fixed three real structural gaps: Objects of the Issue was folding a numbered list into one prose sentence where every corpus document checked uses a real list (converted the section to render an actual ordered `DocumentNode`, not text); Basis for Issue Price was missing the "assessment of market demand through the Book Building Process" clause every corpus document opens with; MD&A was missing the "read together with Risk Factors and Our Business" cross-reference every corpus document opens with. Also found the ORIGINAL Industry Overview framing was wrong, not just imprecise — see the line below.
 
 ---
 
@@ -324,7 +339,7 @@ Pure content. No new components. ~half a day per pair.
 - **Restated financial statements** — requires a peer-reviewed CA. We capture and structure; we do not restate.
 - **Statement of Special Tax Benefits** — requires a CA opinion letter.
 - **Legal opinions on litigation materiality** — counsel's call.
-- **Industry Overview** — normally a commissioned CRISIL/CARE/D&B report. We draft; it gets replaced.
+- **Industry Overview** — the underlying market/growth/competitive data has to come from a cited public source or a commissioned report (CRISIL/CARE/D&B); real SME prospectuses commonly use the former, not necessarily the latter (D68). We draft only what the issuer's own facts support; the real industry data gets added separately and must replace our draft before filing.
 - **Book-built issues** — fixed-price first.
 
 Being explicit about what you don't do shows you understand where professional obligations sit.

@@ -50,14 +50,16 @@ export const mdna: SectionSpec = {
     factSlice: mdnaFactSlice,
     instructions:
       'Draft the opening paragraph of "Management\'s Discussion and Analysis of Financial Condition and ' +
-      'Results of Operations" for an Indian SME IPO prospectus. State the revenue and profit after tax for ' +
-      'each financial year in the factSlice, in reverse chronological order, and describe the year-on-year ' +
-      'growth using the pre-computed percentages given — do not calculate a percentage yourself from the ' +
-      'absolute figures. Refer to each year as "Fiscal <year>" (e.g. "Fiscal 2026") — the factSlice gives ' +
-      'only the year, not a calendar date, and no calendar date (day or month) may appear anywhere in the ' +
-      'draft. Close with a sentence noting that the factors affecting these results are discussed in the ' +
+      'Results of Operations" for an Indian SME IPO prospectus. Open by directing the reader to read this ' +
+      'discussion together with the sections titled "Risk Factors" and "Our Business" (real prospectuses always ' +
+      'open this chapter with such a cross-reference, before any figures). Then state the revenue and profit ' +
+      'after tax for each financial year in the factSlice, in reverse chronological order, and describe the ' +
+      'year-on-year growth using the pre-computed percentages given — do not calculate a percentage yourself ' +
+      'from the absolute figures. Refer to each year as "Fiscal <year>" (e.g. "Fiscal 2026") — the factSlice ' +
+      'gives only the year, not a calendar date, and no calendar date (day or month) may appear anywhere in ' +
+      'the draft. Close with a sentence noting that the factors affecting these results are discussed in the ' +
       'remainder of this section. Use only the figures given; do not attribute the growth to any cause not ' +
       'stated in the factSlice.',
-    wordTarget: 150,
+    wordTarget: 170,
   },
 };
