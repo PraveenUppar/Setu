@@ -4,9 +4,11 @@
 
 ---
 
-**Last updated:** 2026-09-11 (evening session — Gemini wired, S9/S10 opened)
-**Current stage:** S0, S3, S5, S6, S8, S11 CLOSED. S4 Wave 1 extraction finished; Wave 2 computed sections built. **S9 and S10 now genuinely in progress** — no longer credit-blocked (D43), and no longer just scaffolding: real drafted content exists and has been read on the rendered page (D55).
-**Status:** **593 tests passing, tsc clean, dev server runs.** Document renders **29 of the 37 numbered subsections**. **All ten intake modules exist** and Vardhman completes nine of them outright (see S8 below). **Issue Procedure is COMPLETE**, the glossary is at **130 definitions plus 129 abbreviations**, and **Risk Factors is a real, populated section** — 15 archetypes, 11 of which fire on Vardhman with LLM-drafted prose behind every one.
+**Last updated:** 2026-09-12 (S9/S10 resumed — sixteenth through twentieth archetypes (D57, D60–D63), dismiss-with-reason (D58), why-flagged (D59))
+**Current stage:** S0, S3, S5, S6, S8, S11 CLOSED. S4 Wave 1 extraction finished; Wave 2 computed sections built. **S9 and S10 genuinely in progress** since D43; **S7 also opened** (D56, 2026-09-12 morning, uncommitted — see "S7" below, do not confuse with S9/S10).
+**Status:** **642 tests passing, tsc clean, dev server runs.** Document renders **29 of the 37 numbered subsections**. **All ten intake modules exist** and Vardhman completes nine of them outright (see S8 below). **Issue Procedure is COMPLETE**, the glossary is at **130 definitions plus 129 abbreviations**, and **Risk Factors is a real, populated section** — **20 archetypes** (D44–D57, D60–D63), **14 of which fire on Vardhman** with LLM-drafted prose behind every one that does (negative operating cash flow and litigation against Promoters correctly stay silent on the seed — verified live against synthetic variants instead). Both S10 gate items from TODO.md are built: dismiss-with-reason (D58) and why-this-was-flagged (D59), both live only on `/review/risks`, never in the printed document.
+
+**IMPORTANT — this file was NOT updated at the end of the 2026-09-12 morning session (D56, S7 opened).** That session's work (Supabase Storage, the extraction pipeline, `app/extract/`) is real, tested (609 tests at the time) and recorded in the decision log, but is sitting **uncommitted** in the working tree (`git status`: `app/extract/`, `lib/document-intake/`, `lib/llm/extraction.ts`, `lib/store/document-storage.ts`, and diffs to `fact-store.ts`, `package.json`). Read D56 before touching any of those files, and reconcile this gap before assuming the handoff and the decision log agree — this session (S9/S10 resumed) deliberately left S7's uncommitted files untouched and worked only in `lib/risk/`.
 
 **The progress indicator said "25 of 37" until 2026-09-10 and was wrong** — it counted registry entries against numbered subsections. Every spec now carries `partOf`, the header counts distinct values, and a test holds it. The count has moved honestly since — 24 → 25 (D45, Risk Factors) → 26 (D50, History) → 27 (D51, Our Business) → 28 (D52, Objects of the Issue) → 29 (D54, MD&A) — each one a real section with a passing traceability gate behind it, not a relabelling.
 **Rules: 55** — 43 eligibility, 12 consistency. The pre-check runs 26; no issuer sees 26 questions, since the criteria diverge by exchange.
@@ -19,7 +21,17 @@
 
 ## Done
 
-### S9 / S10 — Gemini wired, risk archetypes, the drafting harness, four narrative sections — **IN PROGRESS 2026-09-11** (D43–D55)
+### S7 — Opened, uncommitted — **IN PROGRESS 2026-09-12 morning** (D56)
+
+Supabase Storage, a two-pass extraction pipeline (`lib/document-intake/`), `lib/llm/extraction.ts`
+(same no-invention harness shape as `narrative.ts`), and `app/extract/` — a real upload-through-confirm
+UI, verified against a live Om Galaxy extraction and a synthetic-PDF browser run. **Full detail in D56.**
+**This entire body of work is uncommitted** (`git status` at the top of this file lists every touched
+path) — the 2026-09-12 afternoon session (S9/S10 resumed, D57) deliberately left it alone rather than
+committing on the prior session's behalf. Whoever picks this up next should read D56, decide whether to
+commit it, and only then continue either S7 or S9/S10 — do not assume "uncommitted" means "abandoned."
+
+### S9 / S10 — Gemini wired, risk archetypes, the drafting harness, four narrative sections, dismiss-with-reason, why-flagged — **IN PROGRESS 2026-09-12** (D43–D63)
 
 **The provider decision.** Gemini free tier, not Claude, not paid — a hobby-project call (D43),
 made explicitly with the trade-off written down: free-tier content trains Google's models, fine for
@@ -31,12 +43,14 @@ making `extractionSchemaFor()` never mark anything `required`, since "required f
 base" is `isUsable()`'s job, not the tool schema's.
 
 **The risk engine (S10).** `lib/risk/` — `RiskArchetype` (trigger/materiality/detail/factSlice),
-`selectRisks()`. **15 archetypes**, each traced to a corpus document or an existing computed table,
-never invented from the schema alone (D44, D46, D48, D49, D52, D53, D54) — see the decision log for
-which document(s) support each one and which themes were checked and deliberately NOT built
-(universal boilerplate has no place here). `lib/document/sections/risk-factors.ts` renders them for
-real — Risk Factors is `producer: 'computed'`, not `'narrative'`, since the selection and the terse
-`detail()` sentence are pure TS (D45).
+`selectRisks()`. **20 archetypes**, each traced to a corpus document or an existing computed table,
+never invented from the schema alone (D44, D46, D48, D49, D52, D53, D54, D57) — see the decision log
+for which document(s) support each one and which themes were checked and deliberately NOT built
+(universal boilerplate has no place here; auditor qualification checked again at D57 and still
+single-sourced). `lib/document/sections/risk-factors.ts` renders them for real — Risk Factors is
+`producer: 'computed'`, not `'narrative'`, since the selection and the terse `detail()` sentence are
+pure TS (D45). **D57's `unsecuredLoansRepayableOnDemand` has the strongest corpus support of any
+archetype since the original six** — four of seven documents state it as its own numbered risk factor.
 
 **The drafting harness (S9).** `lib/llm/narrative.ts` — `draftNarrative()` (one shared no-invention
 system prompt), `untraceableNumbers()` (the mechanical subset of the "20 sentences must trace" gate:
@@ -55,6 +69,78 @@ section, scoped to the "Overview" opening paragraph only), Objects of the Issue 
 half of an "N + C" section — the computed means-of-finance tables are NOT built), MD&A (D54, revenue
 and PAT trend with pre-computed growth percentages).
 
+**D58 — dismiss-with-reason, logged (S10's gate item that had zero code behind it).**
+`lib/store/risk-dismissal-store.ts` (append-only, versioned per archetype id, same shape as
+`narrative-store.ts`); `risk-factors.ts`'s `compute()` filters a dismissed risk out of the printed
+section entirely (matching what a real prospectus does — it prints what the banker stands behind, not
+a trail of screened-and-waved-off items) while the intro note states the excluded count so the
+omission is never silent (MM4 cuts both ways); `/review/risks` (`app/review/risks/page.tsx` +
+`actions.ts` + `components/risk-dismissal-card.tsx`) is the actual review UI, a client component
+calling a `'use server'` action, same pattern as `app/intake/actions.ts`. A reason is required
+server-side to dismiss, not to reinstate. Verified against the real `.data/` store in the browser, not
+just fixtures — dismissed the one archetype that fires on the current (post-D56-cleanup, mostly empty)
+real issuer, confirmed it vanished from the home page's rendered section and the note updated, then
+reinstated it before ending the session.
+
+**D59 — "why this was flagged," the design pass D58 deferred, done without fabricating a citation.**
+`RiskArchetype` gained `groundedIn: string` (the corpus corroboration every archetype's own file
+comment already stated in prose, D44 onward — promoted to a real field, nothing paraphrased into a
+stronger claim) and `sourceModules: string[]` (which M-module(s) the trigger/factSlice actually read,
+mapped by hand per archetype). Deliberately did NOT add a "threshold" field — half the registry has no
+single clean threshold, and forcing one would mean inventing a number. `TriggeredRisk.materialityRank`
+is computed at selection time, never stored on the archetype. All three live ONLY on `/review/risks`
+(`WhyFlagged` in `risk-dismissal-card.tsx`) — verified by fetching the rendered home page's raw HTML
+and confirming none of this vocabulary appears in it. **Both S10 gate items TODO.md names
+("dismiss-with-reason, logged" and "why this was flagged") are now built.**
+
+**D60 - seventeenth archetype (negative operating cash flow history), and a new class of D55's bug
+caught on the first live draft.** Corroborated at three of seven documents (Ideas Electricals,
+Photonics Watertech, Shakti Polytarp); Century carries the identical risk-factor TITLE but its own
+table shows operating cash flow positive throughout - excluded per D26's "a matching title is not
+evidence" rule, checked BEFORE counting it. Zero schema change
+(`financials.years[].cashFlowFromOperations` already existed). Does not fire on Vardhman (all three
+years positive) - verified instead with a real Gemini call against a synthetic variant, which
+immediately reproduced a sign-formatting bug: `formatAs()` on a raw negative money string prints
+"Rs -315.00 Lakhs", never how the corpus phrases a negative figure. Fixed at the source -
+`factSlice()` now carries the absolute value plus a `negative: boolean` - same "fix it in the data,
+not the prompt" discipline as D52/D55, extended from scale to sign. **Registry: 17.**
+
+**D61 - eighteenth archetype (material litigation against Promoters), sibling of the existing
+company-litigation one, plus a real grammar bug caught only by reading a live draft.** Corroborated at
+Om Galaxy #27 and Ideas Electricals #17. Zero schema change (`legal.litigation[].party` already
+distinguishes PROMOTER). Does not fire on Vardhman - verified live against a synthetic variant, same
+method as D60. Along the way, caught "1 legal proceeding ... **meet** or exceed" - a subject-verb bug
+present in the ORIGINAL company-litigation archetype since D44, copied into the new sibling, invisible
+to every existing test (none check grammatical number). Fixed both with a `singular` flag. Confirmed
+the fix does not change Vardhman's current DOCX - that section already reads from a stored LLM draft
+written in an earlier session, not the buggy fallback - but the fix stands for any fresh render and for
+the new sibling, which has no draft yet. **Registry: 18.**
+
+**D62 - nineteenth archetype (the Company's own trademark not yet registered), and telling apart a
+specific fact from its boilerplate neighbour.** Corroborated at Om Galaxy #20, Century #10, Photonics
+Watertech #42 - all state the exact same fact (own logo/trademark unregistered), distinct from an
+adjacent, near-universal "we require various statutory approvals" boilerplate risk in the same
+documents that was correctly NOT built (same D48 reasoning: boilerplate surroundings don't disqualify
+a genuinely specific fact sitting inside them). Zero schema change
+(`approvals.licences[].category === 'INTELLECTUAL_PROPERTY'` and `.status !== 'OBTAINED'` already
+existed). Fires for real on Vardhman (its own trademark application is at APPLIED) - real Gemini draft,
+first attempt awkwardly echoed the raw status code ("holds the status of applied"), refined the
+instructions and redrafted (kept both versions, append-only). Rendered and read the actual DOCX page:
+prints correctly, and the Forward Looking Statements summary sentence picked it up automatically with
+no extra work (D45's existing overlay mechanism). **Registry: 19, 13 of which now fire on Vardhman.**
+
+**D63 - twentieth archetype (trade receivables concentration), the first NEW fact this session.**
+Corroborated at Ideas Electricals #44 (19.54%/24.85%/10.53% of revenue) and Photonics Watertech #6
+(51.01% of current assets - a different base this fact base can't compute, so the trigger follows
+Ideas Electricals' revenue-based convention instead). Added `financials.years[].tradeReceivables`,
+mirroring the existing `tradePayables` field (same module, M6). Flagged PROVISIONAL (15% threshold, not
+independently settled) - same honesty level as `supplierConcentration`/`highLeverage`. Fires for real
+on Vardhman (added ~19% trade-receivables-to-revenue across all three years to the seed, a realistic
+addition for a manufacturing SME extending normal trade credit) - real Gemini draft, gate passed first
+try, rendered and read on the actual DOCX page. Also fixed a small pre-existing gap while there:
+`financials.years`'s `feedsInto` never listed `general.riskFactors`, even though three earlier
+archetypes already read from it. **Registry: 20, 14 of which now fire on Vardhman.**
+
 **D55 — render and look, applied to S9/S10 output for the first time, caught a real systemic bug.**
 Five archetypes (all predating D52's money-formatting lesson) were printing raw rupee integers —
 `21000000`, and once a materiality threshold as `1208333.3333333333333333334` — into both the
@@ -64,12 +150,13 @@ number WAS in the factSlice, just never formatted. Fixed at the source
 Vardhman, re-rendered, re-read the pages. **Do this again before the next archetype batch ships** —
 nothing that produces money for a document is verified until someone has looked at the actual page.
 
-**Not yet built:** ~25 more archetypes toward the ~40 target (auditor qualification and unsecured
-loans repayable-on-demand were seen but need more corroboration or a clearer fact); the same harness
-applied to Basis for Issue Price or Industry Overview, both of which need data this fact base does
-not carry yet (peer comparables, a commissioned industry report) — new intake, not just new prompts.
-S7 (extraction from uploaded documents) is untouched — the harness that would power it exists and is
-proven, but nothing reads an uploaded PDF yet.
+**Not yet built:** ~24 more archetypes toward the ~40 target (unsecured-loans-repayable-on-demand
+built at D57; auditor qualification re-checked at D57 and remains single-sourced — Ideas Electricals
+alone carries a real qualification, no second document corroborates one); the same harness applied to
+Basis for Issue Price or Industry Overview, both of which need data this fact base does not carry yet
+(peer comparables, a commissioned industry report) — new intake, not just new prompts. **S7 is now
+opened but uncommitted** — see the S7 entry above and D56; do not say "S7 is untouched" without
+checking the working tree first.
 
 ### S8 — Modules M3–M10 and Wave 2 computed sections — **CLOSED 2026-09-11** (D37, D38, D39)
 
@@ -337,28 +424,40 @@ check the None affordance and the new cell types feel right. Still true, still n
 order of value:
 
 1. ~~S11 leftovers~~, ~~Wave 2 stragglers~~ — **done 2026-09-10/11.**
-2. **Keep growing S10 (risk archetypes).** All seven corpus documents mined at least once toward
-   the ~40 target (15 done). The next pass either needs a deeper re-read of documents already
-   checked, or a new fact with no existing table to lean on (auditor qualification,
-   unsecured-loans-on-demand were seen, not yet built). Pattern to follow: `lib/risk/archetypes.ts`'s
-   own comments cite exactly which corpus documents support each one — match that discipline.
-3. **Keep growing S9 (narrative sections).** Four done (History, Our Business, Objects of the
+2. **First: decide what to do with S7's uncommitted work (D56).** It is real and tested but sitting
+   in the working tree from the 2026-09-12 morning session. Read D56, confirm with the user whether
+   to commit it, before assuming a clean slate.
+3. ~~"Why this was flagged"~~ — **done 2026-09-12 (D59).** Both S10 gate items TODO.md names are now
+   built; TODO.md's S10 checklist should be ticked off next session (not done yet — see the checklist
+   itself, still shows both as unchecked boxes as of this writing).
+4. **Keep growing S10 (risk archetypes).** All seven corpus documents mined multiple times toward
+   the ~40 target (**20 done**, D63 latest). Remaining corpus themes seen and deliberately not built
+   all need either a new fact with no existing table to lean on, or a second corroborating source —
+   auditor qualification is single-sourced (Ideas Electricals only) as of D57. Pattern to follow:
+   `lib/risk/archetypes.ts`'s own comments cite exactly which corpus documents support each one — now
+   also the real `groundedIn` field a new archetype must set (D59) — and check D57 (materiality scale:
+   raw rupees vs. crores vs. a ratio) D60 (sign: a negative money value must go through
+   `.abs().toFixed()` before `formatAs()`, with a separate boolean carrying the sign) before shipping
+   the next one that touches money.
+5. **Keep growing S9 (narrative sections).** Four done (History, Our Business, Objects of the
    Issue, MD&A), all deliberately scoped to an opening paragraph the fact base can honestly
    support. The next two planned ones (`particulars.basisForIssuePrice`,
    `aboutCompany.industryOverview`) need data this fact base does NOT carry — peer comparables, a
    commissioned industry report — so they need new M-module intake before a `promptSpec`, not just
    a new prompt.
-4. **Before shipping the next archetype or section: render and look (D55).** Generate the DOCX
-   (`SETU_DOCX_OUT=<scratchpad>/vardhman.docx npx vitest run lib/document/docx.test.ts`), convert
-   with LibreOffice (`"/c/Program Files/LibreOffice/program/soffice.exe" --headless --convert-to
-   pdf --outdir <dir> <dir>/vardhman.docx`), rasterise with pypdfium2 in a scratchpad venv, actually
-   read the pages. This is what caught D55 — a bug that was invisible to every automated check.
-5. **S7 (extraction) is untouched.** The harness exists and is proven (`lib/llm/client.ts`,
-   `extractionSchemaFor()` fixed per D47), but nothing reads an uploaded document yet. Two-pass page
-   targeting, the review-and-confirm UI, snapshot-to-fixtures discipline (D14) — all still to build.
-6. **S12** review workflow, which is what wires `certified` — and lifts the draft notice in every
-   export at once, since they all go through `assemble()`.
-7. **Browser pass over M3-M10** — still not clicked through since the S8 session's check.
+6. **Before shipping the next archetype or section: render and look (D55, applied again at D57).**
+   Generate the DOCX (`SETU_DOCX_OUT=<scratchpad>/vardhman.docx npx vitest run lib/document/docx.test.ts`),
+   convert with LibreOffice (`"/c/Program Files/LibreOffice/program/soffice.exe" --headless --convert-to
+   pdf --outdir <dir> <dir>/vardhman.docx`), rasterise with pypdfium2 in a scratchpad venv (create once
+   with `python -m venv`, `pip install pypdfium2 pillow`; a short rasterise.py script taking page
+   numbers as argv is enough), actually read the pages. This is what caught D55, and D57 shows the
+   habit sticking — no equivalent bug shipped this time because `formatAs()` was used from the start.
+7. **S12** review workflow, which is what wires `certified` — and lifts the draft notice in every
+   export at once, since they all go through `assemble()`. Note the overlap: D58's `/review/risks` is
+   a narrow, S10-specific review action built ahead of S12's general role-based review workflow — do
+   not conflate the two, and consider whether S12 should subsume or link to `/review/risks` rather than
+   duplicate it.
+8. **Browser pass over M3-M10** — still not clicked through since the S8 session's check.
 
 To regenerate DOCX samples without the server:
 `SETU_DOCX_OUT=out/vardhman.docx npx vitest run lib/document/docx.test.ts`.

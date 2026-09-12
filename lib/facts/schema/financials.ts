@@ -87,6 +87,9 @@ export const zFinancialYear = z.object({
 
   /** The litigation section states material creditors against total trade payables. */
   tradePayables: zMoney.optional().describe('Total trade payables at year end'),
+
+  /** D63: how exposed collections are to customer delay or default, against revenue for the same year. */
+  tradeReceivables: zMoney.optional().describe('Total trade receivables at year end'),
 });
 
 export const zBorrowingCategory = z.enum([

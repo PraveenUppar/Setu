@@ -49,6 +49,28 @@ export interface RiskArchetype {
    * called where `trigger` is true.
    */
   factSlice: (facts: FactBase) => object;
+
+  /**
+   * D59 — the "why this was flagged" gate (TODO.md's S10 checklist). What
+   * corpus evidence justifies this archetype existing at all, in one
+   * reader-facing sentence — the same fact every archetype's own file comment
+   * already states in prose (D44 onward), promoted to a real field so the
+   * review page can show it without a human reading the source file. Not a
+   * SEBI clause (a risk factor is a disclosure judgement, not a regulatory
+   * requirement — there is no `Rule.clause` equivalent here), so this states
+   * corpus corroboration instead: which documents carry the same theme.
+   */
+  groundedIn: string;
+
+  /**
+   * D59: which intake module(s) the trigger and factSlice actually read, so
+   * a reviewer questioning why a risk fired knows where to go verify or
+   * correct the underlying fact — the same "where to fix" a rule's `Finding`
+   * already gives (`lib/rules/types.ts`'s `fix.module`), extended to risks.
+   * Module ids only ('M5'), not fact paths — an archetype often reads several
+   * fields from one module, and a reviewer navigates by module first.
+   */
+  sourceModules: string[];
 }
 
 /** One archetype that fired, with its metadata resolved — what the dashboard and the harness both consume. */
@@ -59,6 +81,10 @@ export interface TriggeredRisk {
   materiality: number;
   detail: string;
   factSlice: object;
+  groundedIn: string;
+  sourceModules: string[];
+  /** 1-based position in the materiality-sorted list this risk was selected into — D59, review-page-only, never printed in the document itself. */
+  materialityRank: number;
 }
 
 /** Every archetype that fires for this issuer, most material first. */
@@ -72,6 +98,10 @@ export function selectRisks(archetypes: RiskArchetype[], facts: FactBase): Trigg
       materiality: a.materiality(facts),
       detail: a.detail(facts),
       factSlice: a.factSlice(facts),
+      groundedIn: a.groundedIn,
+      sourceModules: a.sourceModules,
+      materialityRank: 0, // resolved below, once the full set is sorted
     }))
-    .sort((a, b) => b.materiality - a.materiality);
+    .sort((a, b) => b.materiality - a.materiality)
+    .map((risk, i) => ({ ...risk, materialityRank: i + 1 }));
 }

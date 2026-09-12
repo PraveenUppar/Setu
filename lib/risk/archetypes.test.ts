@@ -21,6 +21,11 @@ import {
   statutoryDuesDefaultHistory,
   promoterPersonalGuarantees,
   geographicRevenueConcentration,
+  unsecuredLoansRepayableOnDemand,
+  negativeOperatingCashFlowHistory,
+  materialLitigationAgainstPromoters,
+  trademarkNotRegistered,
+  tradeReceivablesConcentration,
 } from './index';
 
 /** Deep-ish clone with one branch replaced, same helper as lib/rules/rules.test.ts. */
@@ -31,6 +36,29 @@ function variant(mutate: (f: FactBase) => void): FactBase {
 }
 
 const fires = (id: string, facts: FactBase) => selectRisks(riskArchetypes, facts).some((r) => r.id === id);
+
+describe('the "why this was flagged" fields — D59', () => {
+  it('every archetype in the registry states real grounding and at least one source module', () => {
+    for (const a of riskArchetypes) {
+      expect(a.groundedIn.length, `${a.id} has an empty groundedIn`).toBeGreaterThan(20);
+      expect(a.sourceModules.length, `${a.id} names no source module`).toBeGreaterThan(0);
+      for (const m of a.sourceModules) {
+        expect(m, `${a.id} has a malformed module id "${m}"`).toMatch(/^M\d{1,2}$/);
+      }
+    }
+  });
+
+  it('selectRisks resolves a 1-based materiality rank matching the sort order', () => {
+    const risks = selectRisks(riskArchetypes, vardhman);
+    risks.forEach((r, i) => expect(r.materialityRank).toBe(i + 1));
+  });
+
+  it('carries groundedIn and sourceModules through onto the selected risk, not just the archetype', () => {
+    const risk = selectRisks(riskArchetypes, vardhman).find((r) => r.id === 'customer-concentration')!;
+    expect(risk.groundedIn).toBe(customerConcentration.groundedIn);
+    expect(risk.sourceModules).toEqual(customerConcentration.sourceModules);
+  });
+});
 
 describe('the real issuer: Vardhman', () => {
   it('fires customer concentration at its stated 61.3%', () => {
@@ -425,5 +453,205 @@ describe('geographicRevenueConcentration — D54, corroborated at Maxwell, Shakt
     expect(risk.detail).toContain('67.5%');
     expect(risk.detail).toContain('the State of Maharashtra');
     expect(risk.factSlice).toEqual(geographicRevenueConcentration.factSlice(f));
+  });
+});
+
+describe('unsecuredLoansRepayableOnDemand — D57, corroborated at Axiom Gas #8, Photonics Watertech #38, Shakti Polytarp #23, Century #40', () => {
+  it('fires on Vardhman: the Rajesh Vardhman director loan is an unsecured, repayable-on-demand facility', () => {
+    const risk = selectRisks(riskArchetypes, vardhman).find((r) => r.id === 'unsecured-loans-repayable-on-demand');
+    expect(risk).toBeDefined();
+    expect(risk!.materiality).toBeCloseTo(1.5, 1);
+    // Rs 1.50 Cr outstanding, formatted, not a raw rupee integer
+    expect(risk!.detail).toContain('Rs 1.50 Crores');
+  });
+
+  it('does not fire once no borrowing is categorised as an unsecured loan', () => {
+    const f = variant((x) => {
+      x.financials.borrowings = x.financials.borrowings.filter(
+        (b) => b.category !== 'UNSECURED_LOAN_FROM_DIRECTORS' && b.category !== 'UNSECURED_LOAN_OTHER',
+      );
+    });
+    expect(fires('unsecured-loans-repayable-on-demand', f)).toBe(false);
+  });
+
+  it('sums more than one unsecured facility, not just the first', () => {
+    const f = variant((x) => {
+      x.financials.borrowings.push({
+        lender: 'A Relative of the Promoter',
+        category: 'UNSECURED_LOAN_OTHER',
+        secured: false,
+        fundBased: true,
+        sanctionedAmount: money('0.50', 'crores'),
+        outstanding: money('0.50', 'crores'),
+        personalGuaranteeByPromoter: false,
+      });
+    });
+    const risk = selectRisks(riskArchetypes, f).find((r) => r.id === 'unsecured-loans-repayable-on-demand')!;
+    expect(risk.materiality).toBeCloseTo(2.0, 1);
+    expect(risk.detail).toContain('Rs 2.00 Crores');
+  });
+
+  it('factSlice lists only the unsecured facilities, not every borrowing', () => {
+    const slice = unsecuredLoansRepayableOnDemand.factSlice(vardhman) as { unsecuredBorrowings: unknown[] };
+    expect(slice.unsecuredBorrowings).toHaveLength(1);
+  });
+});
+
+describe('negativeOperatingCashFlowHistory — D60, corroborated at Ideas Electricals #18, Photonics Watertech #27, Shakti Polytarp #7', () => {
+  it('does not fire on Vardhman — all three of its years are positive', () => {
+    expect(fires('negative-operating-cash-flow-history', vardhman)).toBe(false);
+  });
+
+  it('fires once any single year is negative', () => {
+    const f = variant((x) => {
+      x.financials.years[0].cashFlowFromOperations = money('-2.5', 'crores');
+    });
+    const risk = selectRisks(riskArchetypes, f).find((r) => r.id === 'negative-operating-cash-flow-history');
+    expect(risk).toBeDefined();
+    expect(risk!.materiality).toBe(1);
+    expect(risk!.detail).toContain('1 of the last 3 reported financial years');
+    expect(risk!.detail).toContain('Rs 250.00 Lakhs');
+  });
+
+  it('counts every negative year, not just the first', () => {
+    const f = variant((x) => {
+      x.financials.years[0].cashFlowFromOperations = money('-1.0', 'crores');
+      x.financials.years[1].cashFlowFromOperations = money('-0.5', 'crores');
+    });
+    const risk = selectRisks(riskArchetypes, f).find((r) => r.id === 'negative-operating-cash-flow-history')!;
+    expect(risk.materiality).toBe(2);
+  });
+
+  it('does not fire with no financial years on file', () => {
+    const f = variant((x) => {
+      x.financials.years = [];
+    });
+    expect(fires('negative-operating-cash-flow-history', f)).toBe(false);
+  });
+});
+
+describe('materialLitigationAgainstPromoters — D61, corroborated at Om Galaxy #27, Ideas Electricals #17', () => {
+  it('does not fire on Vardhman — no litigation against a promoter on file', () => {
+    expect(fires('material-litigation-against-promoters', vardhman)).toBe(false);
+  });
+
+  it('fires once an against-a-promoter claim meets the computed threshold', () => {
+    const t = materialityThreshold(vardhman)!;
+    const f = variant((x) => {
+      x.legal.litigation.push({
+        party: 'PROMOTER',
+        partyName: 'Rajesh Vardhman',
+        direction: 'AGAINST',
+        category: 'OTHER_MATERIAL',
+        counterparty: 'A material claimant',
+        amount: t.threshold,
+        status: 'Pending',
+        description: 'A material claim against a promoter personally, for the fixture.',
+      });
+    });
+    expect(fires('material-litigation-against-promoters', f)).toBe(true);
+  });
+
+  it('does not fire on litigation against the Company — that is a different archetype', () => {
+    const t = materialityThreshold(vardhman)!;
+    const f = variant((x) => {
+      x.legal.litigation.push({
+        party: 'COMPANY',
+        partyName: x.company.name,
+        direction: 'AGAINST',
+        category: 'OTHER_MATERIAL',
+        counterparty: 'A material claimant',
+        amount: add(t.threshold, money('10')),
+        status: 'Pending',
+        description: 'A material claim against the Company, not a Promoter.',
+      });
+    });
+    // Company-side archetype fires, promoter-side does not — the two are independent
+    expect(fires('material-litigation-against-company', f)).toBe(true);
+    expect(fires('material-litigation-against-promoters', f)).toBe(false);
+  });
+
+  it('does not count litigation the promoter brought, only litigation against them', () => {
+    const t = materialityThreshold(vardhman)!;
+    const f = variant((x) => {
+      x.legal.litigation.push({
+        party: 'PROMOTER',
+        partyName: 'Rajesh Vardhman',
+        direction: 'BY',
+        category: 'OTHER_MATERIAL',
+        counterparty: 'A defendant',
+        amount: add(t.threshold, money('10')),
+        status: 'Pending',
+        description: 'A material claim brought BY the promoter, for the fixture.',
+      });
+    });
+    expect(fires('material-litigation-against-promoters', f)).toBe(false);
+  });
+});
+
+describe('trademarkNotRegistered — D62, corroborated at Om Galaxy #20, Century #10, Photonics Watertech #42', () => {
+  it('fires on Vardhman — its own trademark application is at APPLIED, not OBTAINED', () => {
+    const risk = selectRisks(riskArchetypes, vardhman).find((r) => r.id === 'trademark-not-registered');
+    expect(risk).toBeDefined();
+    expect(risk!.materiality).toBe(1);
+    expect(risk!.detail).toContain('VARDHMAN PRECISION');
+  });
+
+  it('does not fire once the trademark is OBTAINED', () => {
+    const f = variant((x) => {
+      const mark = x.approvals.licences.find((l) => l.category === 'INTELLECTUAL_PROPERTY')!;
+      mark.status = 'OBTAINED';
+    });
+    expect(fires('trademark-not-registered', f)).toBe(false);
+  });
+
+  it('does not fire with no intellectual property licences on file', () => {
+    const f = variant((x) => {
+      x.approvals.licences = x.approvals.licences.filter((l) => l.category !== 'INTELLECTUAL_PROPERTY');
+    });
+    expect(fires('trademark-not-registered', f)).toBe(false);
+  });
+
+  it('counts a RENEWAL_APPLIED mark as pending too, not only APPLIED', () => {
+    const f = variant((x) => {
+      const mark = x.approvals.licences.find((l) => l.category === 'INTELLECTUAL_PROPERTY')!;
+      mark.status = 'RENEWAL_APPLIED';
+    });
+    expect(fires('trademark-not-registered', f)).toBe(true);
+  });
+
+  it('factSlice lists only the pending IP items, not every licence', () => {
+    const slice = trademarkNotRegistered.factSlice(vardhman) as { pendingTrademarks: unknown[] };
+    expect(slice.pendingTrademarks).toHaveLength(1);
+  });
+});
+
+describe('tradeReceivablesConcentration — D63, corroborated at Ideas Electricals #44, Photonics Watertech #6', () => {
+  it('fires on Vardhman at its stated ~19.1% of revenue', () => {
+    const risk = selectRisks(riskArchetypes, vardhman).find((r) => r.id === 'trade-receivables-concentration');
+    expect(risk).toBeDefined();
+    expect(risk!.materiality).toBeCloseTo(19.09, 1);
+    expect(risk!.detail).toContain('Rs 920.00 Lakhs');
+  });
+
+  it('does not fire below the 15% threshold', () => {
+    const f = variant((x) => {
+      x.financials.years[0].tradeReceivables = money('5', 'crores'); // 5/48.2 ~= 10.4%
+    });
+    expect(fires('trade-receivables-concentration', f)).toBe(false);
+  });
+
+  it('does not fire with no tradeReceivables fact on file', () => {
+    const f = variant((x) => {
+      x.financials.years[0].tradeReceivables = undefined;
+    });
+    expect(fires('trade-receivables-concentration', f)).toBe(false);
+  });
+
+  it('does not fire with no financial years on file', () => {
+    const f = variant((x) => {
+      x.financials.years = [];
+    });
+    expect(fires('trade-receivables-concentration', f)).toBe(false);
   });
 });

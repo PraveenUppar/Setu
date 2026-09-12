@@ -4,11 +4,11 @@ Each stage ends with something demoable and a manual test gate. **Do not advance
 
 `🔴 core` (MVP dies without it) · `🟡 demo` (needed for the pitch) · `🟢 extended`
 
-**Progress** (`[x]` done, `[~]` partial, `[ ]` not started) — updated 2026-09-11
+**Progress** (`[x]` done, `[~]` partial, `[ ]` not started) — updated 2026-09-12
 
 | S0 | S1 | S2 | S3 | S4 | S5 | S6 | S7 | S8 | S9 | S10 | S11 | S12 | S13 |
 |----|----|----|----|----|----|----|----|----|----|-----|-----|-----|-----|
-| [x] | [x] | [x] | [x] | [~] | [x] | [x] | [ ] | [x] | [ ] | [ ] | [x] | [ ] | [ ] |
+| [x] | [x] | [x] | [x] | [~] | [x] | [x] | [~] | [x] | [~] | [~] | [x] | [ ] | [ ] |
 
 **Tests, tsc and dev-server status live in `.claude/context/04-session-handoff.md`** — this table is stage-level only, so the two cannot contradict each other.
 
@@ -16,8 +16,11 @@ Each stage ends with something demoable and a manual test gate. **Do not advance
 - **S4 partial:** engine complete; **24 of the 37 numbered subsections** built, as 43 registry sections. Wave 1 extraction and Wave 2 are complete, standing boilerplate included — what remains is narrative (S9/S10), the AoA (S7), or external.
 - **S3 and S5 done 2026-09-10** — module engine, M1, M2, the repeater with spreadsheet paste, and the computed capital tables. A real issuer's answers now replace the seed.
 - **S6 closed 2026-09-10:** rule engine, gap dashboard, standalone `/eligibility` pre-check, finding-to-document links, and all 32 exchange criteria ruled. Every finding gives a firm pass or fail with a clause — no rule hedges. Remaining consistency rules wait on M2 and M6 data (S5, S8).
+- **S7 opened 2026-09-12, uncommitted (D56):** Supabase Storage, a two-pass extraction pipeline, `app/extract/`. Real, tested, but sitting in the working tree — see `.claude/context/04-session-handoff.md`'s S7 note before assuming a clean slate.
 - **S11 closed 2026-09-11:** `renderDocx()` over the same AST, `/export/docx`, pre-filled ToC, highlighted and bookmarked placeholders, draft notice in the header until certified (no page watermark, D35). Word gate passed. Then `/export/gaps` workbook, `/export/pdf` (LibreOffice print, D40) and `/export/vault`.
 - **S8 closed 2026-09-11:** all ten modules on one engine, ten Wave 2 computed sections, 22 of 37 subsections. None-as-an-answer (D37). Vardhman completes nine modules; M9 leaves the three DRHP-stage unknowns.
+- **S9 partial:** the drafting harness is proven against real calls; 4 of 6 planned narrative sections done (History, Our Business, Objects of the Issue, MD&A). The remaining two (Basis for Issue Price, Industry Overview) are genuinely blocked on data this fact base doesn't collect (peer comparables, a commissioned industry report), not just unscheduled.
+- **S10 partial, gate fully passing:** 20 of the ~40 target archetypes (D44–D57, D60–D63); every OTHER checklist item and every gate item is done — trigger/materiality engine, LLM narrative per risk, dismiss-with-reason (D58), why-this-was-flagged (D59). Marked partial, not closed, because the breadth target is still over half short, not a mere straggler.
 
 ---
 
@@ -235,18 +238,18 @@ Pure content. No new components. ~half a day per pair.
 
 ## 🟡 S10 — Risk factor engine · 1.5 days ⭐
 
-- [ ] `RiskArchetype`: `id`, `category`, `trigger(fb)`, `materiality(fb)`, `factSlice(fb)`, `fallbackTemplate`
-- [ ] **~40 archetypes** across business / financial / legal / promoter / industry / offer — harvest by clustering the S0 corpus's risk sections
-- [ ] Trigger firing against the fact base; materiality ordering
-- [ ] LLM narrative from `factSlice` only, real numbers substituted
-- [ ] **"🔍 Why this was flagged"** — rule, threshold, source module, materiality rank
-- [ ] Dismiss-with-reason, logged
+- [x] `RiskArchetype`: `id`, `category`, `trigger(fb)`, `materiality(fb)`, `factSlice(fb)`, `detail(fb)` — `fallbackTemplate` became `detail` (D44), a static template can't show the arithmetic
+- [~] **~40 archetypes** across business / financial / legal / promoter / industry / offer — 20 done (D44–D57, D60–D63); promoter has 2, industry and offer have 0
+- [x] Trigger firing against the fact base; materiality ordering
+- [x] LLM narrative from `factSlice` only, real numbers substituted (D50, D51, D55)
+- [x] **"🔍 Why this was flagged"** — `groundedIn` and `sourceModules` (rule/threshold has no clause equivalent for a risk factor; a materiality rank is computed at selection) — D59, `/review/risks` only, never in the printed document
+- [x] Dismiss-with-reason, logged — D58, `lib/store/risk-dismissal-store.ts` + `/review/risks`
 
 ### ✅ Gate
-- [ ] Vardhman fires 12–16 risks
-- [ ] Each explains why it fired
-- [ ] Top-5 concentration at 61.3% fires customer concentration with the real number
-- [ ] Dismissals persist and are logged
+- [x] Vardhman fires 12–16 risks — 12 of 16 archetypes fire
+- [x] Each explains why it fired — D59's `groundedIn`/`sourceModules`/materiality rank, on the review page
+- [x] Top-5 concentration at 61.3% fires customer concentration with the real number
+- [x] Dismissals persist and are logged — D58, append-only per archetype id
 
 ---
 

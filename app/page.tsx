@@ -68,6 +68,11 @@ export default function Home() {
             </a>
             <span className="text-zinc-500"> — all unsigned draft</span>
           </p>
+          <p className="mt-1 text-sm">
+            <Link href="/review/risks" className="underline decoration-dotted underline-offset-2">
+              Review auto-flagged risks
+            </Link>
+          </p>
 
           <dl className="mt-5 flex flex-wrap gap-8 text-sm">
             <div>

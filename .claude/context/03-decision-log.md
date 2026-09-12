@@ -1443,3 +1443,415 @@ for the first time this session — actual rendered pages read start to finish r
 tested at the node level. **The check that started this pass (D55) is now itself the reason to
 repeat it before the next batch of archetypes ships**: nothing that produces money for a document
 is verified until someone has looked at the page it lands on.
+
+---
+
+## D56 — S7 opened: Supabase Storage, a two-pass extraction pipeline, and a real upload-through-confirm proof
+
+**2026-09-12.** The third leg of S7/S9/S10, untouched all last session, now has a working first
+slice: upload a document, extract one domain's facts, review and confirm before anything reaches
+the fact base. Two infrastructure choices were the user's to make up front — Supabase Storage over
+local files (CLAUDE.md's original plan, now acted on) and a pure-JS PDF library (`unpdf`, a modern,
+serverless-safe, zero-native-dependency alternative to the unmaintained `pdf-parse`) over shelling
+out to `pdftotext` the way the corpus work did all last session.
+
+**A real credential mix-up, caught before it caused a silent failure.** Supabase is retiring
+`anon`/`service_role` in favour of `sb_publishable_...` and `sb_secret_...` keys through 2026. The
+user's first paste was the publishable key in a service-role-shaped variable — would not have
+errored at read time, only at the first RLS-guarded write, or worse, under-permissioned silently.
+Caught by checking the key prefix before wiring it in. Once corrected, `document-storage.ts` was
+written to read `SUPABASE_URL` / `SUPABASE_SECRET_KEY` — the exact names the Supabase dashboard's
+own "Connect" panel exports — rather than inventing project-specific variable names a fresh
+copy-paste would never match.
+
+**`ensureDocumentsBucket()`** provisions the private bucket idempotently rather than asking for a
+manual dashboard click — the secret key already has the rights to do it, and there is no reason to
+make a human do by hand what one function call does safely and repeatably.
+
+**The pipeline, each piece interface-first and fake-testable the same way `LlmClient` is:**
+- `lib/document-intake/pdf-text.ts` — `pdfPageTexts()`, one string per page via `unpdf`.
+- `lib/document-intake/page-targeting.ts` — keyword-based two-pass targeting per domain (the
+  architecture doc's "~4x" cost lever), deliberately approximate for a first pass, same posture as
+  D44's first six risk archetypes — real headings can replace guessed ones as documents get run
+  through it.
+- `lib/llm/extraction.ts` — `extractFacts()`, the same harness shape as `narrative.ts`: one shared
+  no-invention system prompt, this time naming the specific fields a model reaches for under schema
+  pressure (a CIN, a date, a website — D47's exact list) so the lesson does not have to be
+  relearned per caller.
+- `lib/store/document-storage.ts` — `DocumentStorage` interface, Supabase-backed and fake
+  implementations, `remove()` added after using it in anger to clean up test uploads.
+- `lib/store/fact-store.ts` — `writeFacts()` gained an optional `provenanceFor` override (default
+  unchanged: `userProvenance`), the one change needed for extraction to write
+  `extractedProvenance(documentId, page)` with `confirmed: false` instead. `isUsable()` already
+  refused to render an unconfirmed extracted fact before this session touched anything — the
+  review-and-confirm mental model (#4) was already fully designed, just never had a caller.
+
+**`app/extract/`** — the first real UI for this, deliberately the plainest version that is still
+honest: a domain picker, a file input, then one checkbox per TOP-LEVEL extracted field (not
+per-nested-value) with the targeted page numbers shown as "look here," not a rendered page image
+beside each value. Confirming writes only the checked fields. A real gap, named rather than hidden:
+this is not yet review-against-a-rendered-source-page: `ref.page` is approximated as the first
+targeted page, since the model returns one object per domain, not one page number per field, and
+asking it for one would be one more thing it could invent.
+
+**A real Next.js gotcha, not a logic bug:** a `'use server'` file may export ONLY async functions.
+`DOMAINS`, a plain constant, was originally in `actions.ts` alongside the server actions — Next.js's
+client/server transform does not reject this at build time, it silently replaces the export with
+something that is not the array it looks like, surfacing as `DOMAINS.map is not a function` on the
+client with no clue where the real problem was. Fixed by moving `DOMAINS` to its own plain module
+(`app/extract/domains.ts`) that both the actions and the page import.
+
+**Verified twice, at two different scales, both for real:**
+1. A script-level run against an actual corpus document (Om Galaxy, 509 pages) — two-pass targeting
+   correctly narrowed to 109 of 509 pages for "company," and the extraction correctly pulled the
+   real CIN, two name changes with dates, and the registered office, leaving `nameChanges[0].reason`
+   out entirely rather than guessing one, since the source did not state it.
+2. **The actual UI, end to end**, including a real Supabase upload — browser automation cannot drive
+   a native file picker, so a minimal synthetic PDF was constructed in-page and injected via
+   `DataTransfer` (a legitimate technique, not a workaround for something broken) to exercise
+   upload → storage → `pdfPageTexts` → targeting → a real Gemini call → the review UI → confirm →
+   `writeFacts`. Caught the `DOMAINS` bug this way, on the first attempt.
+
+**A real mistake made and reversed, in keeping with the project's own append-only rule.** The UI
+proof's "Confirm" step wrote synthetic test data into the REAL persisted fact base
+(`.data/`, version 16) — the same class of incident the gotchas doc already warned about ("anything
+typed into it during verification must be taken back out, as a new version"). Reverted immediately
+as version 17, `company.name`/`cin`/`registeredOffice` restored to their pre-test (absent) state.
+The synthetic-PDF's fixture snapshot and its Supabase upload were removed too; the real Om Galaxy
+extraction fixture was kept.
+
+**Verified overall:** 12 new tests (page-targeting, the extraction harness, document storage
+including the real credential-shape and path-join fixes), `tsc` clean, 609 tests passing.
+
+**Not yet built:** an upload/review UI wired into the actual module pages (currently a standalone
+`/extract` route, not reachable from `/intake`); per-field source pages, rather than one page number
+for the whole domain; a way to re-run extraction against a previously uploaded document without
+re-uploading it (the storage layer already supports `list()`/`download()` for this, nothing calls
+them yet); nested-field review (an object like `registeredOffice` is confirmed as a whole, not
+field by field within it).
+
+---
+
+## D57 — A sixteenth archetype, the strongest corpus corroboration since the initial six
+
+**2026-09-12, resuming S9/S10** (D56's S7 work from the prior session was left uncommitted and
+untouched — this pass is purely S9/S10, per the user's explicit ask).
+
+**`unsecuredLoansRepayableOnDemand`** — corroborated at FOUR of the seven corpus documents, the
+strongest support any archetype has had since D44's original six: Axiom Gas #8 ("Unsecured loans
+taken by us can be recalled by the lenders thereof at any time... these unsecured loans are
+repayable on demand"), Photonics Watertech #38 ("Our Company has availed unsecured loans which are
+repayable on demand"), Shakti Polytarp #23 (same), Century Business Media #40 (same). All four state
+it as its own standalone numbered risk factor, not folded into a broader liquidity risk — the
+clearest possible signal that this belongs in the registry, and a theme the session-handoff had
+already flagged as "seen, not yet built" back in D-none (the S9/S10 "Not yet built" note carried
+across several session handoffs).
+
+**Zero schema change, again.** `financials.borrowings[].category` already distinguishes
+`UNSECURED_LOAN_FROM_DIRECTORS` and `UNSECURED_LOAN_OTHER` from every secured facility — added at
+S8, long before this archetype existed to read it. Vardhman's own director loan (Rajesh Vardhman,
+Rs 1.50 Cr, "Repayable on demand") already stated this exact fact in the seed before this session
+touched anything — the same "the fixture was already catching up to its own facts" shape as D46's
+Arvind Joshi finding and D53's personal-guarantee archetype it sits beside in the Financial category.
+
+**One design correction caught by the test, not by review.** The first draft of `materiality` summed
+`outstanding` in raw rupees (a `Decimal`, `.toNumber()`) — correct arithmetic, wrong scale. Every
+other archetype's materiality is a percentage, a ratio, or a small count (`promoterPersonalGuarantees`
+uses `.length`), so a raw rupee figure in the tens of millions would always sort above every
+percentage-based risk regardless of actual severity — a claim this archetype does not make. Fixed by
+dividing by `1e7` to express materiality in crores, matching the scale `detail()` and `factSlice()`
+already format to.
+
+**D55's lesson applied from the start, not retrofitted.** Every money figure in `detail()` and
+`factSlice()` goes through `formatAs(..., 'crores')` from the first commit — no raw-rupee-integer bug
+to catch this time, because the discipline is now habitual rather than something a render-and-look
+pass has to surface after the fact.
+
+**Registry: 16.** Drafted for real through the S9 harness: gate passed on the first attempt ("We have
+outstanding unsecured borrowings aggregating to Rs 1.50 Crores from a director, Rajesh Vardhman,
+which are repayable on demand..."), snapshotted to
+`fixtures/narrative/risk.unsecured-loans-repayable-on-demand.json`, written into `.data/narratives/`
+as version 1. **Rendered and read** (D55's standing rule, applied again before calling this done):
+regenerated the Vardhman DOCX, converted via LibreOffice, rasterised with pypdfium2, read page 21 —
+the paragraph prints correctly under "Risks Relating to Our Financial Condition," properly formatted,
+correctly ordered by materiality below the higher-ratio financial risks above it.
+
+**Verified:** 4 new tests (`lib/risk/archetypes.test.ts`, 51 total in the risk suite), `tsc` clean,
+**613 tests passing overall.**
+
+**Still not built, and why:** auditor qualification opinions were checked again this pass — Ideas
+Electricals carries a genuine, detailed audit-qualification table, but no second document in the
+corpus states an equivalent qualification (Om Galaxy and Maxwell's "Emphasis of Matter" mentions
+flagged in earlier sessions turned out, on this re-check, to be near-universal "material uncertainty
+related to going concern is not applicable" boilerplate, not a qualification) — single-sourced, so it
+does not ship (D30's standing rule). Single-state revenue concentration and statutory-dues history are
+both already built (D52, D54); the remaining corpus themes not yet turned into archetypes are the ones
+already named in D46/D49 as needing a new fact this session did not have reason to add one for.
+
+---
+
+## D58 — Dismiss-with-reason, logged: the S10 gate item that had no code behind it at all
+
+**2026-09-12, same session as D57.** TODO.md's S10 checklist has carried "Dismiss-with-reason, logged"
+since before this stage opened, and a repo-wide search for `dismiss` found nothing in `lib/risk/` or
+anywhere else — unlike every other gap identified this pass, this one had zero code, not a partial
+version needing extension.
+
+**The design question this raised, and how it was settled.** A triggered archetype is a machine
+SELECTION, not a certified disclosure (D45's own framing) — the reviewing merchant banker may
+determine a flagged risk is a false positive for this specific issuer and want it out of the printed
+document. Two shapes were possible: (a) keep the risk printed but annotate it as "reviewed, excluded"
+inline, or (b) drop it from the print entirely and keep the reasoning only in a review record. **(b)
+is what a real prospectus actually does** — a document only ever carries the risks the banker stands
+behind, never a visible trail of what a screening tool once flagged and someone later waved off. So a
+dismissed risk vanishes from the rendered Risk Factors section completely, the same as if it had never
+fired — but MM4's "never invent" cuts the other way here too: a silent removal with no trace anywhere
+would be exactly the kind of undisclosed omission the project exists to prevent. The intro paragraph's
+existing MACHINE-GENERATED note now states the count excluded and points to where the reasoning lives,
+so the omission is never invisible, only not printed as investor-facing prose.
+
+**What was built, following existing conventions exactly rather than inventing new ones:**
+- `lib/store/risk-dismissal-store.ts` — append-only, versioned per archetype id, same shape as
+  `narrative-store.ts` for the same reason ("who excluded this, and why, and when" matters for a
+  document carrying a signature). A reinstatement (`dismissed: false`) is a new version, never a
+  delete — a reversal is itself a logged event.
+- `risk-factors.ts`'s `compute()` filters `selectRisks()`'s output through `readDismissal()` before
+  grouping by category, and the intro note gains one sentence when the excluded count is above zero.
+  Zero new fields on `RiskArchetype` itself — dismissal is a property of the SELECTION step, not the
+  archetype definition.
+- `app/review/risks/` — a page listing every archetype that fires for the current issuer (dismissed or
+  not, since reviewing a false positive is exactly the workflow the printed document cannot host),
+  `actions.ts` with `setRiskDismissal()` (`'use server'`, same shape as `app/intake/actions.ts`'s
+  `saveField`), and `components/risk-dismissal-card.tsx` (`'use client'`, `useTransition`, matching
+  `module-form.tsx`'s pattern) for the reason textarea and the exclude/reinstate toggle. A reason is
+  required to dismiss — enforced server-side, not just in the UI — but not to reinstate, since undoing
+  a mistake needs no justification the way making one does.
+
+**No real auth (D8), so `dismissedBy` is the fixed string `'merchant-banker'`** — the same posture
+`writeFacts` already takes with `'issuer'`. Revisit once S12's role switcher exists.
+
+**Verified twice.** Unit tests first (5 for the store, 4 for the filtering behavior in
+`risk-factors.test.ts`), then the real thing in the browser against the actual `.data/` store (not a
+fixture) — the current real issuer is the post-D56-cleanup empty one (fact-base version 17, not the
+Vardhman seed), so only `key-man-insurance-absent` fires there. Dismissing it with no reason correctly
+refused server-side; dismissing it with one correctly removed it from the home page's rendered Risk
+Factors section and added "1 additional risk was auto-flagged and subsequently reviewed and
+excluded..." to the intro note; reinstating it correctly restored the original render. **Reinstated
+before ending the session**, same "verification leaves no residue in real data" discipline D56's own
+gotcha states — the store now holds a two-version audit trail (dismissed, then reinstated) rather than
+a clean zero, which is the correct and honest record of what actually happened during this check, not
+an artifact to scrub.
+
+**Verified overall:** 9 new tests, `tsc` clean, **622 tests passing overall.** Re-rendered the Vardhman
+DOCX afterward (D55's standing rule) — unaffected, since the Vardhman fixture's dismissal store (via
+`SETU_DATA_DIR`-isolated test runs) holds no dismissals; confirms the feature is additive and does not
+regress the existing render.
+
+**Still not built:** the "why this was flagged" UI element the TODO also names (rule/threshold/source
+module/materiality rank) was deliberately NOT attempted this session. `RiskArchetype` carries no
+structured citation field — only `lib/risk/archetypes.ts`'s own prose comments state which corpus
+documents ground each one — and fabricating a uniform "threshold" or "rule" field across sixteen
+archetypes that don't all have one (a count-based archetype like `singleManufacturingFacility` has no
+threshold at all) would be inventing structure the project's own discipline argues against. Doing this
+properly needs a real design pass on what `RiskArchetype` should carry, not a quick UI addition.
+
+---
+
+## D59 — "Why this was flagged," built without fabricating a citation that doesn't exist
+
+**2026-09-12, same session as D57/D58.** D58 explicitly deferred this rather than bolt on a shallow
+version. The design pass promised there: what can `RiskArchetype` honestly carry, given a risk factor
+is a disclosure judgement, not a SEBI clause — there is no `Rule.clause` equivalent to reuse.
+
+**Two fields added, both already true today, neither invented for the occasion:**
+- **`groundedIn: string`** — the corpus corroboration every archetype's file comment already states in
+  prose (D44 onward: which documents, which numbered risk factors, what wording). Promoted to a real
+  field rather than left as a comment a human has to go read. Every one of the sixteen archetypes'
+  existing comment was the source text — nothing paraphrased into a stronger claim than the comment
+  already made, and the two PROVISIONAL archetypes (`supplierConcentration`, `highLeverage`) keep
+  saying so in the field itself, not just the comment.
+- **`sourceModules: string[]`** — which M-module(s) the trigger/factSlice actually read, mapped by
+  hand against each archetype's own fact-path references (e.g. `customerConcentration` reads
+  `business.topCustomers` → `M5`; `promoterMajorityControl` reads `capital.shareholders` AND
+  `offer.freshIssueShares` → `M2` and `M9`). This is the "where to fix" a rule's `Finding.fix.module`
+  already gives, extended to risks — a reviewer questioning why something fired now knows where to go
+  verify or correct the underlying fact.
+
+**Deliberately NOT added:** a "rule" or "threshold" field. Half the registry has no single clean
+threshold (a count-based archetype like `singleManufacturingFacility`, a presence-based one like
+`relatedPartyTransactionsPresent`) — forcing one would mean writing a fabricated number into a field
+whose whole purpose is citation discipline. `groundedIn`'s free text already carries whatever
+threshold DOES exist, in the same prose form the corpus itself uses.
+
+**Materiality rank is computed, not stored.** `selectRisks()` now resolves `TriggeredRisk.materialityRank`
+(1-based, matching the sort order) after sorting the fired set — a property of the SELECTION, not the
+archetype, so it can never drift from the actual order shown.
+
+**Kept strictly off the printed document.** `risk-factors.ts`'s `compute()` is unchanged by this
+entry — it never reads `groundedIn`, `sourceModules` or `materialityRank`. These live only on
+`/review/risks` (`components/risk-dismissal-card.tsx`'s new `WhyFlagged` disclosure, mirroring
+`module-form.tsx`'s "Why we ask" pattern), because an investor reads a disclosure and a reviewer reads
+why a screening tool raised it — conflating the two would put internal tooling language into an offer
+document. Verified directly: fetched the rendered home page's HTML and confirmed none of
+"Why this was flagged", "Materiality rank" or "Grounded in:" appear in it.
+
+**Verified:** 3 new tests (every archetype has non-empty grounding and at least one well-formed module
+id; `selectRisks` assigns rank correctly; the fields survive onto `TriggeredRisk`) — **625 tests
+passing overall**, `tsc` clean. Exercised live in the browser: opened the disclosure on the one risk
+firing against the current (still mostly-empty, post-D56) real issuer, read back the exact grounding
+text, the resolved module title ("M4 · Board and Management", resolved via `findModule` rather than a
+second hardcoded map), and "1 of 1" for materiality rank. Re-rendered the Vardhman DOCX afterward
+(D55's standing rule) — exactly one match for the risk's own title text, zero leakage of the new
+review-only fields.
+
+---
+
+## D60 — A seventeenth archetype, and the first with a genuinely negative underlying figure — which surfaced a new class of the D55 bug on the first live draft
+
+**2026-09-12, same session.** Mining the corpus for un-covered themes, "negative cash flow from
+operating activities" appeared as a numbered risk factor in FOUR documents by heading alone — but D26's
+own lesson (a matching title is not evidence the underlying trigger matches) turned out to matter here
+immediately.
+
+**Century Business Media carries the identical risk-factor title but does not belong.** Its own cash
+flow table shows operating activities POSITIVE in all three reported years (605.02 / 540.49 / 15.83
+Lakhs) — only its investing activities are consistently negative, the ordinary signature of a capex-
+funding growth company, not a liquidity risk. Checked before counting it, not after: **excluded**, the
+same discipline that caught Century's apparent withdrawal-rights contradiction (D26) and the
+independent-director carve-out dispute (D24). The three that DO belong all show a genuinely negative
+figure: Ideas Electricals #18 (Rs -1,158.16 Lakhs in FY2026, after two positive years), Photonics
+Watertech #27 (Rs -302.84 Lakhs for the nine-month stub to December 2025, Rs -53.48 Lakhs in FY2023),
+Shakti Polytarp #7 (Rs -1,078.51 Lakhs in FY2025, Rs -205.12 Lakhs in FY2024, recovering to positive in
+FY2026).
+
+**Zero schema change** — `financials.years[].cashFlowFromOperations` already existed (S8, Other
+Financial Information). Vardhman's three years are all positive, so `negativeOperatingCashFlowHistory`
+correctly does not fire on the seed, same precedent as `statutoryDuesDefaultHistory` (D52): not every
+archetype needs to fire on the demo issuer to justify existing.
+
+**A new class of the D55 bug, caught on the FIRST live draft, before it ever reached a real document.**
+Every archetype so far has an intrinsically positive underlying figure — D55 fixed *scale* (raw
+integers vs. `formatAs()`), never *sign*. Feeding `formatAs()` a negative money string directly prints
+"Rs -315.00 Lakhs", technically correct and traceable, but not how any corpus document phrases a
+negative Rupee figure (never a bare minus sign — Ideas Electricals prints "(1,158.16)" in parentheses,
+the standard accounting convention, and the prose around it always states "negative" in words rather
+than relying on the sign to carry it). A synthetic variant run through the real drafting harness
+(one bad year spliced into Vardhman's own three, "Rs -3.15 Cr" replacing "Rs 5.20 Cr") reproduced it
+immediately: the model copied `factSlice`'s signed string verbatim into "amounting to Rs -315.00
+Lakhs." Fixed the same way D52/D55 fixed scale — at the source, not the prompt: `factSlice()` now
+carries the ABSOLUTE value, formatted, with a `negative: boolean` doing all the sign-carrying work;
+`detail()` was already doing this correctly (written that way from the first draft of the archetype,
+this session's actual habit-forming payoff from D55). Re-drafted with instructions naming the
+convention explicitly ("never print a minus sign on a Rupee amount") — passed cleanly: "we recorded a
+negative cash flow of Rs 315.00 Lakhs."
+
+**Verified:** 4 new tests (58 total in `lib/risk/`), a real live Gemini call against a synthetic
+variant (not a fixture — this archetype needed one since it never fires on Vardhman, so there is no
+real factSlice to draft from otherwise) confirming the sign fix, `tsc` clean, **629 tests passing
+overall.** Re-rendered the Vardhman DOCX (D55's standing rule) — zero occurrences of the new risk's
+text, correctly, since it does not fire on the seed.
+
+**Registry: 17.**
+
+---
+
+## D61 - An eighteenth archetype (litigation against Promoters), and a grammar bug caught by reading a real draft out loud
+
+**2026-09-12, same session.** `materialLitigationAgainstCompany` already existed; the corpus also
+corroborates the same test applied to litigation against Promoters personally, at Om Galaxy #27
+("outstanding legal proceedings against our Company, Promoters, Directors") and Ideas Electricals #17
+("adverse legal proceedings initiated against our company or its promoters, directors and KMP's").
+Zero schema change - `legal.litigation[].party` already distinguishes `PROMOTER` from `COMPANY` (S8).
+Built as a direct sibling: same materiality threshold, same structure, `category: 'promoter'` instead
+of `'financial'`, filtered to `party: 'PROMOTER'`.
+
+**Does not fire on Vardhman** (no litigation against a promoter on file) - verified instead with a real
+Gemini call against a synthetic variant, same method as D60.
+
+**A real grammar bug, caught only by reading the live draft, not by any test.** The computed sentence
+read "1 legal proceeding ... totalling Rs 12.08 Lakhs, **meet** or exceed our litigation materiality
+threshold" - a subject-verb disagreement, present in `materialLitigationAgainstCompany` since D44 and
+copied verbatim into the new sibling. No test caught it because no test asserts on grammatical number,
+only substring presence. Fixed in both archetypes with a `singular` flag: "meets or exceeds" for one
+proceeding, "meet or exceed" for more than one. Confirmed the fix does not currently change the
+rendered Vardhman DOCX - the Company-side risk already reads from a stored LLM draft written in an
+earlier session (D51), not the computed fallback, so the bug was never visible in the actual document.
+Still correctly fixed for: a fresh render before any draft exists, the new Promoter-side sibling (which
+has no draft yet), and the fallback path generally, should a fact change ever invalidate a stored draft.
+
+**Verified:** 4 new tests (62 total in `lib/risk/`), `tsc` clean, **633 tests passing overall**. Live
+Gemini call against a synthetic Rajesh-Vardhman-personal-litigation variant: gate passed, and the
+computed fallback now reads grammatically ("meets or exceeds"). Re-rendered the Vardhman DOCX - the
+Company-side section is unaffected (drafted narrative, not the fallback); the Promoter-side risk
+correctly does not appear (does not fire on the seed).
+
+**Registry: 18.**
+
+---
+
+## D62 - A nineteenth archetype (trademark not registered), and telling apart a specific fact from its boilerplate neighbour
+
+**2026-09-12, same session.** Mining the corpus for the "statutory approvals" risk chapter turned up
+two adjacent but very different things. The first, "we require various statutory and regulatory
+approvals and any failure to obtain or renew them may adversely affect us," reads as near-universal
+boilerplate every SME states almost identically regardless of its own facts - the same shape D48 ruled
+insurance-adequacy and key-person-dependency OUT for. The second, sitting right next to it in three
+documents, is a specific, binary, genuinely-varying fact: whether the Company's OWN logo or trademark
+is registered. Om Galaxy #20 ("The logo used by our Company is not registered under the Trade Marks
+Act, 1999"), Century #10 (same, "is not registered as on date"), Photonics Watertech #42 (identical
+wording). Built the second, not the first - matching D48's exact reasoning.
+
+**Zero schema change** - `approvals.licences[].category` already has `INTELLECTUAL_PROPERTY` and
+`.status` already distinguishes `OBTAINED` from `APPLIED`/`RENEWAL_APPLIED` (S8). Vardhman's own
+trademark application ("VARDHMAN PRECISION" device mark, Class 12) was already on file at `APPLIED` -
+the fixture catching up to its own facts again, same shape as D46 and D53.
+
+**Fires for real on Vardhman**, so this one got a genuine live draft rather than a synthetic variant.
+First attempt echoed the raw status code awkwardly ("which currently holds the status of applied") -
+not wrong, not ungrounded, just clumsy prose. Not a gate failure (the traceability gate passed on the
+first attempt too), a quality read the same way D50's "slipped into the company's own name" wrinkle
+was - refined the instructions to say "our application is pending" instead of surfacing the schema's
+own status vocabulary, redrafted, kept both versions (append-only, version 1 then version 2).
+
+**Verified:** 5 new tests (67 total in `lib/risk/`), `tsc` clean, **638 tests passing overall**. Real
+Gemini draft, gate passed, re-rendered the Vardhman DOCX and read the actual page: the risk prints
+correctly under "Risks Relating to Our Business and Operations," and the Forward Looking Statements
+summary sentence picked it up automatically through the existing `riskFactorsOverlay()` mechanism
+(D45) with no extra work needed.
+
+**Registry: 19.**
+
+---
+
+## D63 - A twentieth archetype (trade receivables concentration), the first new fact added this session
+
+**2026-09-12, same session.** Corroborated at two documents, both with real quantified figures: Ideas
+Electricals #44 (trade receivables at 19.54% / 24.85% / 10.53% of revenue across three years) and
+Photonics Watertech #6 (51.01% of total current assets, plus 183 receivable days). The two state the
+percentage against DIFFERENT bases - revenue versus total current assets - and this fact base has no
+"total current assets" figure to lean on. Followed Ideas Electricals' convention (against revenue, the
+base every other percentage-of-revenue archetype already uses) rather than averaging two conventions
+into a third invented one - the same reasoning D25 and D54 both used when sources differ on where a
+line sits.
+
+**The first NEW fact this session** (D57 through D62 all reused existing ones):
+`financials.years[].tradeReceivables`, mirroring the `tradePayables` field already on the same year
+record - same shape, same module (M6), same "at year end" convention. Along the way, corrected a
+pre-existing gap: `financials.years`' `feedsInto` never listed `general.riskFactors`, even though
+`highLeverage`, `materialContingentLiabilities` and `negativeOperatingCashFlowHistory` already read
+from it - fixed, since it is now directly relevant to what this session added.
+
+**Flagged PROVISIONAL, honestly** - a 15% threshold near the low end of Ideas Electricals' own
+disclosed range, not independently settled the way `customerConcentration`'s 50% is (grounded in the
+Vardhman seed's own comment). Same honesty level as `supplierConcentration` and `highLeverage`: two
+sources support the THEME, not yet a settled bar.
+
+**Fires for real on Vardhman** (added trade receivables to the seed at ~19% of revenue across all three
+years, a realistic addition consistent with a manufacturing SME extending normal trade credit) - real
+Gemini draft, gate passed on the first attempt. Rendered and read the actual DOCX page: prints correctly
+under "Risks Relating to Our Financial Condition," and the Forward Looking Statements summary sentence
+picked it up automatically (D45's existing overlay).
+
+**Verified:** 4 new tests (71 total in `lib/risk/`), `tsc` clean, **642 tests passing overall**.
+
+**Registry: 20.**

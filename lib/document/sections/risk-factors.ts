@@ -1,5 +1,6 @@
 import { riskArchetypes, selectRisks, type RiskCategory } from '../../risk';
 import { readNarrative } from '../../store/narrative-store';
+import { readDismissal } from '../../store/risk-dismissal-store';
 import type { DocumentNode } from '../nodes';
 import type { RenderContext, SectionSpec } from '../section';
 import { gap, h2, h3, h4, para } from './helpers';
@@ -29,11 +30,24 @@ import { gap, h2, h3, h4, para } from './helpers';
  * a whole: real content where it exists, an honest placeholder where it
  * does not, never a blend that looks more finished than it is.
  *
- * Deliberately does not claim completeness. Twelve archetypes exist against a
- * ~40 design target (D44/D49), so a trailing gap says so explicitly rather
- * than letting an issuer read a short list as an exhaustive one — the same
- * instinct that keeps the readiness score from reading as more done than it
- * is (D22).
+ * Deliberately does not claim completeness. Sixteen archetypes exist against
+ * a ~40 design target (D44/D49/D57), so a trailing gap says so explicitly
+ * rather than letting an issuer read a short list as an exhaustive one — the
+ * same instinct that keeps the readiness score from reading as more done than
+ * it is (D22).
+ *
+ * D58: a triggered archetype can be REVIEWED AND EXCLUDED, not only accepted.
+ * `readDismissal()` (`lib/store/risk-dismissal-store.ts`) holds the reviewing
+ * merchant banker's call on a false-positive trigger, with a reason. A
+ * dismissed risk is dropped from the printed section entirely — the same way
+ * a real prospectus prints only the risks the banker actually stands behind,
+ * not a list of everything a screening tool once flagged — but the exclusion
+ * itself is never silent: the intro note states how many were reviewed and
+ * excluded, and the full reasoning is on record in the dismissal store for
+ * the diligence file (`/review/risks` reads and writes it). MM4's "never
+ * invent, and never silently omit" cuts both ways here: a suppressed risk
+ * with no visible trace would be exactly the kind of omission the project
+ * exists to prevent.
  */
 
 const CATEGORY_HEADING: Record<RiskCategory, string> = {
@@ -56,7 +70,9 @@ export const riskFactors: SectionSpec = {
   group: 'SECTION - RISK FACTORS',
   clause: 'ICDR Schedule VI Part A',
   compute: ({ facts }: RenderContext): DocumentNode[] => {
-    const risks = selectRisks(riskArchetypes, facts);
+    const allRisks = selectRisks(riskArchetypes, facts);
+    const dismissedCount = allRisks.filter((r) => readDismissal(r.id)?.dismissed === true).length;
+    const risks = allRisks.filter((r) => readDismissal(r.id)?.dismissed !== true);
     const nodes: DocumentNode[] = [
       h2('Risk Factors'),
       {
@@ -67,7 +83,10 @@ export const riskFactors: SectionSpec = {
               'The risks below are identified from the facts on file for this issuer, ranked by materiality, ' +
               'and stated with the underlying figures. This list is preliminary and MACHINE-GENERATED: it is not ' +
               'yet the drafted narrative a merchant banker would certify, and it does not yet cover every category ' +
-              'of risk a real prospectus would address.',
+              'of risk a real prospectus would address.' +
+              (dismissedCount > 0
+                ? ` ${dismissedCount} additional ${dismissedCount === 1 ? 'risk was' : 'risks were'} auto-flagged and subsequently reviewed and excluded — see the risk review page for the reasoning on file.`
+                : ''),
             italic: true,
           },
         ],

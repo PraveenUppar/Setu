@@ -50,6 +50,7 @@ export const FINANCIAL_YEAR_COLUMNS: RepeaterColumn[] = [
   { key: 'otherEquity', label: 'Other equity', type: 'money', width: '8rem' },
   { key: 'shareholdersEquity', label: 'Shareholders’ equity', type: 'money', width: '8rem' },
   { key: 'tradePayables', label: 'Trade payables', type: 'money', width: '8rem' },
+  { key: 'tradeReceivables', label: 'Trade receivables', type: 'money', width: '8rem' },
   { key: 'cashFlowFromOperations', label: 'Cash flow from operations', type: 'money', width: '9rem' },
   { key: 'netPurchaseOfFixedAssets', label: 'Net purchase of fixed assets', type: 'money', width: '9rem' },
   { key: 'proceedsFromIssuanceOfCapital', label: 'Proceeds from issue of capital', type: 'money', width: '9rem' },
@@ -125,7 +126,7 @@ export const m6Financials: Module = {
       helpText:
         'One row per financial year, most recent first — at least the three years preceding the application. Every figure in rupees, from the restated financials where they exist and the audited ones until then. Operating profit for the Rs 1 crore test is computed as PBT plus finance costs plus depreciation less other income; net worth excludes deferred IPO expenses; net tangible assets exclude intangibles. Leave monetary assets blank rather than zero if the split is not disclosed — a zero passes a test that was never run. Paste the whole block from a spreadsheet, one year per row.',
       clause: 'R-002 (Reg 229(6)); E-01, E-04, E-05, N-04',
-      feedsInto: [CAPITALISATION, LITIGATION, SUMMARY, 'regulatory.statutoryStatements'],
+      feedsInto: [CAPITALISATION, LITIGATION, SUMMARY, 'regulatory.statutoryStatements', RISK],
       extractionHint: 'The restated statement of profit and loss, balance sheet and cash flow, for each year.',
     },
     {

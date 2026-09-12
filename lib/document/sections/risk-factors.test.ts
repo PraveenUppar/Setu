@@ -5,6 +5,7 @@ import { describe, expect, it, beforeEach, afterEach } from 'vitest';
 import { vardhman } from '../../seed/vardhman';
 import { withAnswers } from '../../seed/empty';
 import { writeNarrative } from '../../store/narrative-store';
+import { writeDismissal } from '../../store/risk-dismissal-store';
 import { customerConcentration } from '../../risk';
 import { collectPlaceholders, type DocumentNode } from '../nodes';
 import { renderSection } from '../section';
@@ -139,5 +140,37 @@ describe('Risk Factors — computed selection over lib/risk/archetypes.ts', () =
     // No writeNarrative() call — the store is empty in this test's isolated dir.
     const text = textOf(render());
     expect(text).toContain('Our top 5 customers accounted for 61.3%');
+  });
+
+  describe('dismissal (D58) — a reviewed-and-excluded risk drops out of the printed section', () => {
+    it('excludes a dismissed risk entirely, and does not print its category heading if it was the only one', () => {
+      writeDismissal('key-man-insurance-absent', true, 'Confirmed with the Company: cover was taken out after the seed data was recorded.', 'reviewer');
+      const nodes = render();
+      const titles = headingsOf(nodes, 4);
+      expect(titles).not.toContain('No key man insurance for Promoters or Key Managerial Personnel');
+    });
+
+    it('still prints the other risks in the same category once one is dismissed', () => {
+      writeDismissal('customer-concentration', true, 'Reason.', 'reviewer');
+      const text = textOf(render());
+      expect(text).not.toContain('Our top 5 customers accounted for');
+      // single-manufacturing-facility is also in the business category and was not dismissed
+      expect(text).toContain('single facility');
+    });
+
+    it('states how many risks were reviewed and excluded, in the machine-generated note', () => {
+      writeDismissal('customer-concentration', true, 'Reason.', 'reviewer');
+      writeDismissal('single-manufacturing-facility', true, 'Reason.', 'reviewer');
+      const text = textOf(render());
+      expect(text).toContain('2 additional risks were auto-flagged and subsequently reviewed and excluded');
+    });
+
+    it('a reinstated (dismissed: false) risk prints normally, same as one never touched', () => {
+      writeDismissal('customer-concentration', true, 'Excluded in error.', 'reviewer');
+      writeDismissal('customer-concentration', false, 'Reinstated — the exclusion did not hold up.', 'reviewer');
+      const text = textOf(render());
+      expect(text).toContain('Our top 5 customers accounted for 61.3%');
+      expect(text).not.toContain('reviewed and excluded');
+    });
   });
 });

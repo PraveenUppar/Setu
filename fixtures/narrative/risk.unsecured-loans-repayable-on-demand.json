@@ -1,0 +1,13 @@
+{
+  "factSlice": {
+    "unsecuredBorrowings": [
+      {
+        "lender": "Rajesh Vardhman",
+        "category": "UNSECURED_LOAN_FROM_DIRECTORS",
+        "outstanding": "Rs 1.50 Crores"
+      }
+    ],
+    "companyName": "Vardhman Precision Components Limited"
+  },
+  "draft": "We have outstanding unsecured borrowings aggregating to Rs 1.50 Crores from a director, Rajesh Vardhman, which are repayable on demand. If the lender recalls these loans before the amounts otherwise fall due, we may be required to make immediate repayments, which could significantly strain our cash flows and adversely affect our liquidity and financial condition. Our ability to meet such repayment obligations depends on our available cash and internal accruals at the relevant time, and any unexpected recall could impact our operations."
+}

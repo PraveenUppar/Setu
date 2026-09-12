@@ -501,6 +501,7 @@ export const vardhman: FactBase = {
         equityShareCapital: cr('12.00'),
         otherEquity: cr('7.40'),
         tradePayables: cr('6.80'),
+        tradeReceivables: cr('9.20'),
       },
       {
         yearEnding: 2025,
@@ -531,6 +532,7 @@ export const vardhman: FactBase = {
         equityShareCapital: cr('12.00'),
         otherEquity: cr('2.20'),
         tradePayables: cr('5.60'),
+        tradeReceivables: cr('7.10'),
       },
       {
         yearEnding: 2024,
@@ -561,6 +563,7 @@ export const vardhman: FactBase = {
         equityShareCapital: cr('1.20'),
         otherEquity: cr('8.60'),
         tradePayables: cr('4.10'),
+        tradeReceivables: cr('5.30'),
       },
     ],
 

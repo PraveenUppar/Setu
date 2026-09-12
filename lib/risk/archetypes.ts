@@ -45,6 +45,8 @@ export const customerConcentration: RiskArchetype = {
       .join(', ')}. The loss of, or a material reduction in orders from, any of these customers would adversely affect our business.`;
   },
   factSlice: (f) => ({ topCustomers: f.business.topCustomers, companyName: f.company.name }),
+  groundedIn: "The Vardhman seed's own stated convention (D44): 61.3% concentration, above the 50% bar the fixture's own comment names as material.",
+  sourceModules: ['M5'],
 };
 
 /**
@@ -63,6 +65,8 @@ export const singleManufacturingFacility: RiskArchetype = {
     return `We currently operate from a single facility${facility.name ? ` (${facility.name})` : ''} at ${facility.location}. Any disruption to this facility — whether from fire, natural calamity, labour unrest or the loss of a licence specific to it — would adversely affect our ability to manufacture and supply our products.`;
   },
   factSlice: (f) => ({ facilities: f.business.facilities, companyName: f.company.name }),
+  groundedIn: 'A plain structural count with no threshold to invent — standard SME risk framing for single-site operations, no corpus percentage or figure involved.',
+  sourceModules: ['M5'],
 };
 
 /**
@@ -86,6 +90,8 @@ export const supplierConcentration: RiskArchetype = {
       .join(', ')}. A disruption to supply from, or an adverse change in terms with, any of these suppliers would adversely affect our operations.`;
   },
   factSlice: (f) => ({ topSuppliers: f.business.topSuppliers, companyName: f.company.name }),
+  groundedIn: 'PROVISIONAL — the 50% bar mirrors customerConcentration for internal consistency, but no held-out document has been checked for where real prospectuses draw this line for suppliers specifically.',
+  sourceModules: ['M5'],
 };
 
 /**
@@ -120,6 +126,8 @@ export const highLeverage: RiskArchetype = {
       companyName: f.company.name,
     };
   },
+  groundedIn: 'PROVISIONAL — a plain solvency read (borrowings exceed net worth), not an independently corpus-verified threshold; flagged provisional for the same reason as supplierConcentration.',
+  sourceModules: ['M6'],
 };
 
 /**
@@ -160,6 +168,8 @@ export const materialContingentLiabilities: RiskArchetype = {
       companyName: f.company.name,
     };
   },
+  groundedIn: 'Reuses the litigation materiality threshold cited to Om Galaxy p.306 and Maxwell p.244 — the same test the litigation section itself applies (lib/legal/materiality.ts).',
+  sourceModules: ['M6'],
 };
 
 /** Same `materialityThreshold()` reuse, applied to litigation against the company rather than a balance-sheet figure. */
@@ -187,7 +197,8 @@ export const materialLitigationAgainstCompany: RiskArchetype = {
       (l) => l.party === 'COMPANY' && l.direction === 'AGAINST' && l.amount !== null && new Decimal(l.amount).greaterThanOrEqualTo(t.threshold),
     );
     const total = formatAs(material.reduce((s, l) => s.plus(l.amount!), new Decimal(0)).toFixed(), 'lakhs');
-    return `${material.length} legal ${material.length === 1 ? 'proceeding' : 'proceedings'} against our Company, totalling ${total}, meet or exceed our litigation materiality threshold of ${formatAs(t.threshold, 'lakhs')}. An adverse outcome could require us to pay damages or comply with orders that affect our operations.`;
+    const singular = material.length === 1;
+    return `${material.length} legal ${singular ? 'proceeding' : 'proceedings'} against our Company, totalling ${total}, ${singular ? 'meets or exceeds' : 'meet or exceed'} our litigation materiality threshold of ${formatAs(t.threshold, 'lakhs')}. An adverse outcome could require us to pay damages or comply with orders that affect our operations.`;
   },
   factSlice: (f) => {
     const t = materialityThreshold(f)!;
@@ -199,6 +210,59 @@ export const materialLitigationAgainstCompany: RiskArchetype = {
       companyName: f.company.name,
     };
   },
+  groundedIn: 'Reuses the same litigation materiality threshold applied to litigation against the Company rather than a balance-sheet figure.',
+  sourceModules: ['M6', 'M7'],
+};
+
+/**
+ * D61, corpus-corroborated: Om Galaxy #27 ("There are outstanding legal
+ * proceedings against our Company, Promoters, Directors...") and Ideas
+ * Electricals #17 ("Any adverse legal proceedings initiated against our
+ * company or its promoters, directors and KMP's"). Both name the SAME
+ * materiality test `materialLitigationAgainstCompany` already applies —
+ * this is that archetype's sibling, filtered to `party: 'PROMOTER'` instead
+ * of `'COMPANY'`. Zero new fact: `legal.litigation[].party` already
+ * distinguishes them (S8).
+ */
+export const materialLitigationAgainstPromoters: RiskArchetype = {
+  id: 'material-litigation-against-promoters',
+  category: 'promoter',
+  title: 'Material legal proceedings are pending against our Promoters',
+  trigger: (f) => {
+    const t = materialityThreshold(f);
+    if (t === null) return false;
+    return f.legal.litigation.some(
+      (l) => l.party === 'PROMOTER' && l.direction === 'AGAINST' && l.amount !== null && new Decimal(l.amount).greaterThanOrEqualTo(t.threshold),
+    );
+  },
+  materiality: (f) => {
+    const t = materialityThreshold(f)!;
+    const material = f.legal.litigation.filter(
+      (l) => l.party === 'PROMOTER' && l.direction === 'AGAINST' && l.amount !== null && new Decimal(l.amount).greaterThanOrEqualTo(t.threshold),
+    );
+    return material.reduce((s, l) => s.plus(l.amount!), new Decimal(0)).dividedBy(t.threshold).toNumber();
+  },
+  detail: (f) => {
+    const t = materialityThreshold(f)!;
+    const material = f.legal.litigation.filter(
+      (l) => l.party === 'PROMOTER' && l.direction === 'AGAINST' && l.amount !== null && new Decimal(l.amount).greaterThanOrEqualTo(t.threshold),
+    );
+    const total = formatAs(material.reduce((s, l) => s.plus(l.amount!), new Decimal(0)).toFixed(), 'lakhs');
+    const singular = material.length === 1;
+    return `${material.length} legal ${singular ? 'proceeding' : 'proceedings'} against our Promoters, totalling ${total}, ${singular ? 'meets or exceeds' : 'meet or exceed'} our litigation materiality threshold of ${formatAs(t.threshold, 'lakhs')}. An adverse outcome could impose personal liability on our Promoters, which may in turn affect their ability to continue to serve our Company.`;
+  },
+  factSlice: (f) => {
+    const t = materialityThreshold(f)!;
+    return {
+      litigation: f.legal.litigation
+        .filter((l) => l.party === 'PROMOTER' && l.direction === 'AGAINST')
+        .map((l) => ({ ...l, amount: l.amount ? formatAs(l.amount, 'lakhs') : null })),
+      threshold: formatAs(t.threshold, 'lakhs'),
+      companyName: f.company.name,
+    };
+  },
+  groundedIn: 'D61, corroborated at Om Galaxy #27 and Ideas Electricals #17, both naming outstanding legal proceedings against Promoters and Directors alongside the Company. Reuses the same litigation materiality threshold as materialLitigationAgainstCompany, filtered to party PROMOTER instead of COMPANY.',
+  sourceModules: ['M3', 'M6', 'M7'],
 };
 
 /**
@@ -224,6 +288,8 @@ export const exportRevenueDependency: RiskArchetype = {
     return `A ${scale} of our revenue from operations (${share}% in the last financial year) is derived from exports to international markets. Any adverse political, economic or regulatory development in those markets, or adverse movement in foreign exchange rates, could adversely affect our business, financial condition and results of operations.`;
   },
   factSlice: (f) => ({ exportRevenueShare: f.business.exportRevenueShare, companyName: f.company.name }),
+  groundedIn: 'D46, corroborated at Om Galaxy #38 (~9% of revenue, "certain portion") and Maxwell #3/#8 (~85%, "substantial portion" plus a dedicated FX risk) — the trigger fires on any export revenue at all, not a percentage floor.',
+  sourceModules: ['M5'],
 };
 
 /**
@@ -246,6 +312,8 @@ export const leasedFacilities: RiskArchetype = {
     return `${leased.length} of our ${f.business.facilities.length} ${f.business.facilities.length === 1 ? 'facility is' : 'facilities are'} held on a leasehold basis (${names}). There can be no assurance that these lease agreements will be renewed on the same or similar commercial terms, or at all, and any failure to renew could disrupt our operations.`;
   },
   factSlice: (f) => ({ facilities: f.business.facilities, companyName: f.company.name }),
+  groundedIn: 'D46, corroborated at Om Galaxy #29 (Registered Office and majority of Manufacturing Units leased) and Ideas Electricals (leased/licensed premises, no assurance of renewal). Independent of singleManufacturingFacility — that fires on COUNT, this fires on OWNERSHIP.',
+  sourceModules: ['M5'],
 };
 
 /**
@@ -282,6 +350,8 @@ export const directorsLackListedExperience: RiskArchetype = {
     directors: f.management.directors.map((d) => ({ name: d.name, hasListedCompanyExperience: d.hasListedCompanyExperience })),
     companyName: f.company.name,
   }),
+  groundedIn: 'D46, corroborated at Om Galaxy #60 ("none"), Maxwell #52 ("majority lack"), Ideas Electricals (same). Trigger takes the weaker "majority lacks" framing, covering Om Galaxy\'s stricter "none" case as a subset.',
+  sourceModules: ['M4'],
 };
 
 /**
@@ -307,6 +377,8 @@ export const keyManInsuranceAbsent: RiskArchetype = {
     hasKeyManInsurance: f.management.hasKeyManInsurance,
     companyName: f.company.name,
   }),
+  groundedIn: 'D48, corroborated at Om Galaxy and Century (both state absence explicitly); Ideas Electricals carries an actual Keyman Insurance expense line, evidence the fact genuinely varies rather than being universal boilerplate.',
+  sourceModules: ['M4'],
 };
 
 /**
@@ -335,6 +407,8 @@ export const promoterMajorityControl: RiskArchetype = {
     promoterPostIssuePercent: promoterPostIssuePercent(f).toFixed(2),
     companyName: f.company.name,
   }),
+  groundedIn: 'D49, corroborated at Om Galaxy #56 and Maxwell #44, both worded around "majority"/"significant" control rather than a fixed percentage. Reuses the post-issue shareholding table (lib/capital/tables.ts), not a new question.',
+  sourceModules: ['M2', 'M9'],
 };
 
 function promoterPostIssuePercent(f: FactBase): Decimal {
@@ -376,6 +450,8 @@ export const relatedPartyTransactionsPresent: RiskArchetype = {
       companyName: f.company.name,
     };
   },
+  groundedIn: 'D49, corroborated at Om Galaxy #22, Century #32, Ideas Electricals #54 — all three carry the same structural risk (EXISTENCE of RPTs, not a size threshold; none of the three states a percentage bar).',
+  sourceModules: ['M6', 'M10'],
 };
 
 /**
@@ -399,6 +475,8 @@ export const statutoryDuesDefaultHistory: RiskArchetype = {
     statutoryDuesDefaults: f.legal.statutoryDuesDefaults,
     companyName: f.company.name,
   }),
+  groundedIn: 'D52, corroborated at Om Galaxy #21, Maxwell #10/#15, Photonics Watertech #16. Reuses legal.statutoryDuesDefaults, already asked as a closing statement of the litigation section — no new fact.',
+  sourceModules: ['M7'],
 };
 
 /**
@@ -428,6 +506,8 @@ export const promoterPersonalGuarantees: RiskArchetype = {
       .map((b) => ({ lender: b.lender, category: b.category, outstanding: formatAs(b.outstanding, 'crores') })),
     companyName: f.company.name,
   }),
+  groundedIn: 'D53, corroborated at Om Galaxy #26, Photonics Watertech #17, Shakti Polytarp #35. Reuses financials.borrowings[].personalGuaranteeByPromoter, already carried as free text in the security field before this archetype existed.',
+  sourceModules: ['M6'],
 };
 
 /**
@@ -452,6 +532,216 @@ export const geographicRevenueConcentration: RiskArchetype = {
     primaryMarketRevenueSharePercent: f.business.primaryMarketRevenueSharePercent,
     companyName: f.company.name,
   }),
+  groundedIn: "D54, corroborated at Maxwell's Gujarat exposure, Shakti Polytarp's Madhya Pradesh exposure (\"majority of our revenues\"), Axiom Gas's Karnataka/Telangana/Maharashtra cluster. The 50% bar matches Shakti's own \"majority\" framing.",
+  sourceModules: ['M5'],
+};
+
+/**
+ * D57, corpus-corroborated at four of seven documents — the strongest
+ * corroboration of any archetype added since the initial six (D44): Axiom
+ * Gas #8 ("Unsecured loans taken by us can be recalled by the lenders
+ * thereof at any time... these unsecured loans are repayable on demand"),
+ * Photonics Watertech #38 ("Our Company has availed unsecured loans which
+ * are repayable on demand"), Shakti Polytarp #23 (same), Century Business
+ * Media #40 (same). All four state it as a standalone numbered risk factor,
+ * not a passing mention inside a broader liquidity risk.
+ *
+ * Zero schema change: `financials.borrowings[].category` already
+ * distinguishes `UNSECURED_LOAN_FROM_DIRECTORS` and `UNSECURED_LOAN_OTHER`
+ * from every secured facility (added at S8, before this archetype existed to
+ * use it) — the same "the fixture was already catching up to its own facts"
+ * shape as D46's Arvind Joshi finding and D53's personal-guarantee archetype.
+ * Vardhman's own director loan (Rajesh Vardhman, Rs 1.50 Cr, "Repayable on
+ * demand") already carried this exact fact before this archetype was written.
+ */
+export const unsecuredLoansRepayableOnDemand: RiskArchetype = {
+  id: 'unsecured-loans-repayable-on-demand',
+  category: 'financial',
+  title: 'Unsecured loans may be recalled by lenders at any time',
+  trigger: (f) => f.financials.borrowings.some((b) => b.category === 'UNSECURED_LOAN_FROM_DIRECTORS' || b.category === 'UNSECURED_LOAN_OTHER'),
+  // In crores, matching the scale `detail()` and `factSlice()` already format to —
+  // a raw rupee figure would dwarf every percentage- and ratio-based archetype's
+  // materiality and always sort first, which is not a claim this archetype makes.
+  materiality: (f) =>
+    f.financials.borrowings
+      .filter((b) => b.category === 'UNSECURED_LOAN_FROM_DIRECTORS' || b.category === 'UNSECURED_LOAN_OTHER')
+      .reduce((s, b) => s.plus(b.outstanding), new Decimal(0))
+      .dividedBy(1e7)
+      .toNumber(),
+  detail: (f) => {
+    const unsecured = f.financials.borrowings.filter(
+      (b) => b.category === 'UNSECURED_LOAN_FROM_DIRECTORS' || b.category === 'UNSECURED_LOAN_OTHER',
+    );
+    const total = formatAs(unsecured.reduce((s, b) => s.plus(b.outstanding), new Decimal(0)).toFixed(), 'crores');
+    return `We have availed unsecured loans with an aggregate outstanding of ${total}, which are repayable on demand. If our lenders were to recall these amounts before they otherwise fall due, it could place significant strain on our cash flows and adversely affect our financial condition.`;
+  },
+  factSlice: (f) => ({
+    unsecuredBorrowings: f.financials.borrowings
+      .filter((b) => b.category === 'UNSECURED_LOAN_FROM_DIRECTORS' || b.category === 'UNSECURED_LOAN_OTHER')
+      .map((b) => ({ lender: b.lender, category: b.category, outstanding: formatAs(b.outstanding, 'crores') })),
+    companyName: f.company.name,
+  }),
+  groundedIn: 'D57, corroborated at four of seven documents — Axiom Gas #8, Photonics Watertech #38, Shakti Polytarp #23, Century #40 — the strongest support of any archetype since the original six.',
+  sourceModules: ['M6'],
+};
+
+/**
+ * D60, corpus-corroborated at three of seven documents — Ideas Electricals
+ * #18 (operating cash flow of Rs -1,158.16 Lakhs in FY2026, after two prior
+ * positive years), Photonics Watertech #27 (Rs -302.84 Lakhs for the
+ * nine-month stub to December 2025 and Rs -53.48 Lakhs in FY2023), Shakti
+ * Polytarp #7 (Rs -1,078.51 Lakhs in FY2025, Rs -205.12 Lakhs in FY2024,
+ * before a FY2026 recovery to positive). All three state the actual negative
+ * figure, not just the boilerplate warning sentence.
+ *
+ * Century Business Media carries the SAME risk factor heading ("Our Company
+ * had negative cash flows in the past") but its own table shows operating
+ * cash flow POSITIVE in all three reported years (605.02 / 540.49 / 15.83
+ * Lakhs) — only its investing activities are negative, which is the ordinary
+ * signature of a capex-funding growth-stage company, not a liquidity risk.
+ * Deliberately EXCLUDED as a source for this trigger — the exact "mirror-
+ * image mistake" D26 warns against: a matching risk-factor TITLE across
+ * documents is not evidence the underlying trigger matches, and has to be
+ * checked against each document's own numbers before being counted.
+ *
+ * Zero schema change: `financials.years[].cashFlowFromOperations` already
+ * exists (part of the Other Financial Information / MD&A figures, S8).
+ * Vardhman's own three years are all positive (5.20 / 3.10 / 2.05 Cr), so
+ * this correctly does not fire on the seed — same precedent as
+ * `statutoryDuesDefaultHistory` (D52): not every archetype needs to fire on
+ * the demo issuer to be worth having.
+ */
+export const negativeOperatingCashFlowHistory: RiskArchetype = {
+  id: 'negative-operating-cash-flow-history',
+  category: 'financial',
+  title: 'Negative cash flows from operating activities in past years',
+  trigger: (f) => f.financials.years.some((y) => new Decimal(y.cashFlowFromOperations).isNegative()),
+  materiality: (f) => f.financials.years.filter((y) => new Decimal(y.cashFlowFromOperations).isNegative()).length,
+  detail: (f) => {
+    const negative = f.financials.years.filter((y) => new Decimal(y.cashFlowFromOperations).isNegative());
+    // Money is formatted from the ABSOLUTE value here — "negative cash flow of Rs X Lakhs" reads as a
+    // real prospectus states it; formatAs on a negative figure directly would print "Rs -X Lakhs",
+    // a double negative against the sentence's own "negative" (the same lesson D55 learned about
+    // running every money value through formatAs applies to its sign, not only its scale).
+    const list = negative
+      .map((y) => `${formatAs(new Decimal(y.cashFlowFromOperations).abs().toFixed(), 'lakhs')} in FY${y.yearEnding}`)
+      .join(', ');
+    return `We had negative net cash flow from operating activities in ${negative.length} of the last ${f.financials.years.length} reported financial years: ${list}. Sustained negative operating cash flow could require us to rely on external financing, which may not be available on favourable terms or at all, and could adversely affect our business, financial condition and results of operations.`;
+  },
+  // The magnitude is ALWAYS the absolute value, formatted; `negative` alone
+  // carries the sign. A live draft against an earlier version of this
+  // factSlice (which passed the raw signed string through formatAs) printed
+  // "Rs -315.00 Lakhs" — technically traceable, but not how the corpus
+  // phrases a negative figure (never a bare minus sign on a Rupee amount),
+  // and not something a rule telling the model "never alter a number" can
+  // fix after the fact. Same lesson as D52/D55, applied to a sign rather
+  // than a scale.
+  factSlice: (f) => ({
+    years: f.financials.years.map((y) => ({
+      yearEnding: y.yearEnding,
+      cashFlowFromOperations: formatAs(new Decimal(y.cashFlowFromOperations).abs().toFixed(), 'lakhs'),
+      negative: new Decimal(y.cashFlowFromOperations).isNegative(),
+    })),
+    companyName: f.company.name,
+  }),
+  groundedIn: 'D60, corroborated at Ideas Electricals #18, Photonics Watertech #27, Shakti Polytarp #7 — all three show a genuinely negative operating cash flow figure in at least one reported year. Century states the same risk factor TITLE but its own data is positive throughout; deliberately excluded (D26).',
+  sourceModules: ['M6'],
+};
+
+/**
+ * D62, corpus-corroborated at three of seven documents — Om Galaxy #20 ("The
+ * logo used by our Company is not registered under the Trade Marks Act,
+ * 1999. Failure to protect our intellectual property rights may adversely
+ * affect our competitive business position..."), Century #10 (own logo "is
+ * not registered as on date"), Photonics Watertech #42 (same, word for
+ * word). A clean, binary, genuinely-varying fact — unlike a generic
+ * "we require various statutory approvals" risk seen in the same
+ * neighbourhood of several of these documents' risk chapters, which reads as
+ * near-universal boilerplate every SME states regardless of its own facts
+ * (the same "surrounding paragraph is boilerplate" pattern D48 ruled key-man
+ * insurance's context out for) — THIS fact is a specific yes/no about the
+ * issuer's own mark, not a generic warning about approvals in general.
+ *
+ * Zero schema change: `approvals.licences[].category` already has
+ * `INTELLECTUAL_PROPERTY` and `.status` already has `OBTAINED` / `APPLIED` /
+ * `RENEWAL_APPLIED` (S8). Vardhman's own trademark application ("VARDHMAN
+ * PRECISION" device mark, Class 12) is already on file at `APPLIED`, so this
+ * fires on the seed without any change to it — another case of the fixture
+ * already carrying the fact an archetype later reads (D46/D53's pattern).
+ */
+export const trademarkNotRegistered: RiskArchetype = {
+  id: 'trademark-not-registered',
+  category: 'business',
+  title: "The Company's own trademark(s) are not yet registered",
+  trigger: (f) => f.approvals.licences.some((l) => l.category === 'INTELLECTUAL_PROPERTY' && l.status !== 'OBTAINED'),
+  materiality: (f) => f.approvals.licences.filter((l) => l.category === 'INTELLECTUAL_PROPERTY' && l.status !== 'OBTAINED').length,
+  detail: (f) => {
+    const pending = f.approvals.licences.filter((l) => l.category === 'INTELLECTUAL_PROPERTY' && l.status !== 'OBTAINED');
+    const names = pending.map((l) => l.name).join('; ');
+    return `${pending.length} of our trademark ${pending.length === 1 ? 'application is' : 'applications are'} still pending registration under the Trade Marks Act, 1999: ${names}. Until registration is granted, we may be unable to prevent third parties from using an identical or deceptively similar mark, which could adversely affect our brand and competitive position.`;
+  },
+  factSlice: (f) => ({
+    pendingTrademarks: f.approvals.licences
+      .filter((l) => l.category === 'INTELLECTUAL_PROPERTY' && l.status !== 'OBTAINED')
+      .map((l) => ({ name: l.name, status: l.status })),
+    companyName: f.company.name,
+  }),
+  groundedIn: 'D62, corroborated at Om Galaxy #20, Century #10, Photonics Watertech #42 — all three state the same specific fact: the Company\'s own logo/trademark is not registered under the Trade Marks Act, 1999. A specific per-issuer fact, not the generic "various approvals" boilerplate seen nearby in the same risk chapters.',
+  sourceModules: ['M8'],
+};
+
+/**
+ * D63, corpus-corroborated at two documents, both with real quantified
+ * figures: Ideas Electricals #44 (trade receivables of Rs 5,038.02 / 4,419.16
+ * / 1,789.71 Lakhs across three years, stated AS a percentage of revenue —
+ * 19.54% / 24.85% / 10.53%) and Photonics Watertech #6 (Rs 2,799.18 Lakhs,
+ * 51.01% of total current assets, plus 183 receivable days). The two state
+ * the percentage against DIFFERENT bases — revenue versus total current
+ * assets — and this fact base has no "total current assets" figure to lean
+ * on, so the trigger follows Ideas Electricals' convention (against revenue,
+ * the base every other percentage-of-revenue archetype already uses), the
+ * same "pick the base the clearest source states, don't average two
+ * conventions into a third" reasoning D25 and D54 both used.
+ *
+ * PROVISIONAL threshold — 15%, near the low end of Ideas Electricals' own
+ * three disclosed figures, all of which that document treats as risk-worthy
+ * regardless of which of the three it was in a given year. Flagged
+ * provisional in the same way `supplierConcentration` and `highLeverage`
+ * are: two sources support the THEME, not yet a settled bar.
+ *
+ * New fact: `financials.years[].tradeReceivables`, mirroring the
+ * `tradePayables` field already on the same year record — same shape, same
+ * module, same "at year end" convention.
+ */
+export const tradeReceivablesConcentration: RiskArchetype = {
+  id: 'trade-receivables-concentration',
+  category: 'financial',
+  title: 'Trade receivables represent a significant share of revenue',
+  trigger: (f) => {
+    const y = latestYear(f);
+    if (y === undefined || y.tradeReceivables === undefined) return false;
+    return new Decimal(y.tradeReceivables).dividedBy(y.revenue).times(100).greaterThan(15);
+  },
+  materiality: (f) => {
+    const y = latestYear(f)!;
+    return new Decimal(y.tradeReceivables!).dividedBy(y.revenue).times(100).toNumber();
+  },
+  detail: (f) => {
+    const y = latestYear(f)!;
+    const pct = new Decimal(y.tradeReceivables!).dividedBy(y.revenue).times(100).toFixed(2);
+    return `Our trade receivables stood at ${formatAs(y.tradeReceivables!, 'lakhs')} as of FY${y.yearEnding}, representing ${pct}% of our revenue from operations for that year. Any delay or default by our customers in settling these amounts could increase our working capital requirements and adversely affect our cash flows and liquidity.`;
+  },
+  factSlice: (f) => {
+    const y = latestYear(f)!;
+    return {
+      tradeReceivables: formatAs(y.tradeReceivables!, 'lakhs'),
+      tradeReceivablesPercentOfRevenue: new Decimal(y.tradeReceivables!).dividedBy(y.revenue).times(100).toFixed(2),
+      yearEnding: y.yearEnding,
+      companyName: f.company.name,
+    };
+  },
+  groundedIn: 'PROVISIONAL — D63, corroborated at Ideas Electricals #44 (19.54%/24.85%/10.53% of revenue across three years) and Photonics Watertech #6 (51.01% of current assets, a different base this fact base cannot compute). 15% threshold is near the low end of Ideas Electricals\' own disclosed range, not independently settled.',
+  sourceModules: ['M6'],
 };
 
 export const riskArchetypes: RiskArchetype[] = [
@@ -470,4 +760,9 @@ export const riskArchetypes: RiskArchetype[] = [
   statutoryDuesDefaultHistory,
   promoterPersonalGuarantees,
   geographicRevenueConcentration,
+  unsecuredLoansRepayableOnDemand,
+  negativeOperatingCashFlowHistory,
+  materialLitigationAgainstPromoters,
+  trademarkNotRegistered,
+  tradeReceivablesConcentration,
 ];
