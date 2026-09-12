@@ -84,6 +84,15 @@ export const m5Business: Module = {
       feedsInto: [BUSINESS, RISK],
     },
     {
+      path: 'business.hasFixedPriceSupplyContracts',
+      label: 'Do you have long-term or fixed-price agreements with your key suppliers?',
+      type: 'boolean',
+      schema: z.boolean(),
+      helpText:
+        'Most SME manufacturers buy raw materials purchase-order by purchase-order, with no long-term or fixed-price lock-in — which is exactly why every corpus prospectus checked states a raw-material price volatility risk factor. Answering no (the common case) fires that risk factor; answering yes because a real fixed-price contract exists mutes it.',
+      feedsInto: [BUSINESS, RISK],
+    },
+    {
       path: 'business.facilities',
       label: 'Manufacturing units and offices',
       type: 'table',

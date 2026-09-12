@@ -73,7 +73,7 @@ export function emptyFactBase(): FactBase {
       committees: [],
       hasKeyManInsurance: false,
     },
-    business: { topCustomers: [], topSuppliers: [], facilities: [] },
+    business: { topCustomers: [], topSuppliers: [], hasFixedPriceSupplyContracts: false, facilities: [] },
     financials: {
       hasRestatedStatements: false,
       years: [],
@@ -114,6 +114,7 @@ export function emptyFactBase(): FactBase {
       lotSize: 0,
       objects: [],
       issueExpenses: ZERO,
+      objectsAppraisedByBankOrAgency: false,
       firmFinanceConfirmed: false,
       underwritingPercent: 100,
       brlmUnderwritingPercent: 0,

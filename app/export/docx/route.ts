@@ -7,13 +7,14 @@ export const dynamic = 'force-dynamic';
  * GET /export/docx — the document as it stands, as a Word file.
  *
  * Renders the same sections the preview page renders, from the same
- * assembly, so what downloads is what was on screen. There is no parameter
- * to lift the draft notice: certification is an action the merchant banker
- * takes in the review workflow (S12), not a query string anyone can add.
+ * assembly, so what downloads is what was on screen. There is no query
+ * parameter that lifts the draft notice: `certified` comes from `assemble()`
+ * reading the certification store (`lib/store/certification-store.ts`),
+ * which only the MB's "Certify" action on `/review` ever writes to.
  */
 export async function GET() {
-  const { facts, version, sections } = assemble();
-  const options = { facts, version, certified: false };
+  const { facts, version, sections, certified } = assemble();
+  const options = { facts, version, certified };
   const bytes = await renderDocx(sections, options);
 
   return new Response(new Uint8Array(bytes), {

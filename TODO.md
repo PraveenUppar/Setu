@@ -8,7 +8,7 @@ Each stage ends with something demoable and a manual test gate. **Do not advance
 
 | S0 | S1 | S2 | S3 | S4 | S5 | S6 | S7 | S8 | S9 | S10 | S11 | S12 | S13 |
 |----|----|----|----|----|----|----|----|----|----|-----|-----|-----|-----|
-| [x] | [x] | [x] | [x] | [~] | [x] | [x] | ⏸ | [x] | [x] | [~] | [x] | [ ] | [ ] |
+| [x] | [x] | [x] | [x] | [~] | [x] | [x] | ⏸ | [x] | [x] | [~] | [x] | [x] | [ ] |
 
 **⏸ = paused by explicit user decision (S7, 2026-09-12) — not done, not abandoned, not being worked on unless the user asks again.** Different from `[ ]` (not started) and `[~]` (in progress): this is a stage someone deliberately chose to stop advancing, with working code left in place.
 
@@ -22,7 +22,8 @@ Each stage ends with something demoable and a manual test gate. **Do not advance
 - **S11 closed 2026-09-11:** `renderDocx()` over the same AST, `/export/docx`, pre-filled ToC, highlighted and bookmarked placeholders, draft notice in the header until certified (no page watermark, D35). Word gate passed. Then `/export/gaps` workbook, `/export/pdf` (LibreOffice print, D40) and `/export/vault`.
 - **S8 closed 2026-09-11:** all ten modules on one engine, ten Wave 2 computed sections, 22 of 37 subsections. None-as-an-answer (D37). Vardhman completes nine modules; M9 leaves the three DRHP-stage unknowns.
 - **S9 CLOSED 2026-09-12 (D68).** All six planned narrative sections built (History, Our Business, Objects of the Issue, MD&A, Basis for Issue Price D64, Industry Overview D65), and all three gate items now pass, including a real systematic register-and-structure diff against the corpus (D68) that found and fixed three real gaps (Objects of the Issue's list structure, Basis for Issue Price's book-building clause, MD&A's cross-references) and corrected a wrong design assumption about Industry Overview (real SME issuers commonly use public industry data, not a commissioned report).
-- **S10 partial, gate fully passing:** 20 of the ~40 target archetypes (D44–D57, D60–D63); every OTHER checklist item and every gate item is done — trigger/materiality engine, LLM narrative per risk, dismiss-with-reason (D58), why-this-was-flagged (D59). Marked partial, not closed, because the breadth target is still over half short, not a mere straggler.
+- **S10 partial, gate fully passing:** 22 of the ~40 target archetypes (D44–D57, D60–D63, D72); every OTHER checklist item and every gate item is done — trigger/materiality engine, LLM narrative per risk, dismiss-with-reason (D58), why-this-was-flagged (D59). D72 closed the last two empty categories (industry, offer) named in this checklist. Marked partial, not closed, because the breadth target is still over half short, not a mere straggler.
+- **S12 CLOSED 2026-09-12 (D71).** Role switcher (`Role`, cookie-based, no real auth), module scoping on `/intake` by each module's existing `assignableTo`, section status (Draft → Ready for Review → Reviewed → Locked) and section-anchored comments on the new `/review` hub, an audit log (`/review/audit`) covering every review action including D58's risk dismissals, and a real MB certification action that finally lifts the `UNSIGNED DRAFT` notice on every export — `certified` had been hardcoded `false` everywhere since S11. Per explicit user decisions: no server-side permission enforcement (any role can do any action; the log just honestly records who) and no new module-assignment override store. A real hydration bug (locale/timezone-dependent `toLocaleString()` in two new client components, plus an identical pre-existing one in D58's `risk-dismissal-card.tsx`) was caught only by the browser pass and fixed with a fixed-locale/fixed-timezone helper.
 
 ---
 
@@ -254,14 +255,14 @@ Pure content. No new components. ~half a day per pair.
 ## 🟡 S10 — Risk factor engine · 1.5 days ⭐
 
 - [x] `RiskArchetype`: `id`, `category`, `trigger(fb)`, `materiality(fb)`, `factSlice(fb)`, `detail(fb)` — `fallbackTemplate` became `detail` (D44), a static template can't show the arithmetic
-- [~] **~40 archetypes** across business / financial / legal / promoter / industry / offer — 20 done (D44–D57, D60–D63); promoter has 2, industry and offer have 0
+- [~] **~40 archetypes** across business / financial / legal / promoter / industry / offer — 22 done (D44–D57, D60–D63, D72); promoter has 2, **industry and offer each have their first archetype now (D72)**, closing that named gap
 - [x] Trigger firing against the fact base; materiality ordering
 - [x] LLM narrative from `factSlice` only, real numbers substituted (D50, D51, D55)
 - [x] **"🔍 Why this was flagged"** — `groundedIn` and `sourceModules` (rule/threshold has no clause equivalent for a risk factor; a materiality rank is computed at selection) — D59, `/review/risks` only, never in the printed document
 - [x] Dismiss-with-reason, logged — D58, `lib/store/risk-dismissal-store.ts` + `/review/risks`
 
 ### ✅ Gate
-- [x] Vardhman fires 12–16 risks — 12 of 16 archetypes fire
+- [x] Vardhman fires 12–16 risks — 16 of 22 archetypes fire
 - [x] Each explains why it fired — D59's `groundedIn`/`sourceModules`/materiality rank, on the review page
 - [x] Top-5 concentration at 61.3% fires customer concentration with the real number
 - [x] Dismissals persist and are logged — D58, append-only per archetype id
@@ -286,19 +287,19 @@ Pure content. No new components. ~half a day per pair.
 
 ---
 
-## 🟡 S12 — Review workflow · 1.5 days ⭐
+## ✅ S12 — Review workflow · CLOSED 2026-09-12 (D71)
 
-- [ ] Role switcher (no real auth): Promoter · CFO/CS · Merchant Banker · Auditor · Legal
-- [ ] Module assignment + scoped views
-- [ ] Section status: Draft → Ready for Review → Reviewed → Locked
-- [ ] Section-anchored comment threads
-- [ ] Append-only audit log
-- [ ] MB certification action → lifts the watermark
+- [x] Role switcher (no real auth): Promoter · CFO/CS · Merchant Banker · Auditor · Legal — `lib/review/role.ts`, a `setu-role` cookie, no signed-in identity behind it
+- [x] Module assignment + scoped views — **scoped by each module's existing fixed `assignableTo`** (S3/S8), not a new per-issuer reassignment record; the user explicitly chose this over building an override store, since the fixed default already gives every role a real, non-trivial view
+- [x] Section status: Draft → Ready for Review → Reviewed → Locked — `lib/store/section-status-store.ts`
+- [x] Section-anchored comment threads — `lib/store/comment-store.ts`, on `/review`
+- [x] Append-only audit log — `lib/store/audit-log.ts`, `/review/audit`, also wired into D58's risk-dismissal action
+- [x] MB certification action → lifts the watermark — `lib/store/certification-store.ts`, read by `assemble()` and every export route
 
 ### ✅ Gate
-- [ ] Assign M6 to CFO, switch roles, see only that module
-- [ ] MB comments, marks reviewed, certifies → watermark lifts
-- [ ] Audit log shows every action with actor and timestamp
+- [x] Assign M6 to CFO, switch roles, see only that module — verified as: switch to CFO, `/intake` narrows to exactly the two modules that default to CFO (M6, M10); no reassignment action exists, by the scope decision above
+- [x] MB comments, marks reviewed, certifies → watermark lifts — verified live: commented and advanced a section's status, certified, downloaded `/export/docx` and confirmed `word/header1.xml` no longer contains "UNSIGNED", confirmed `/export/vault`'s manifest reads `CERTIFIED`, then revoked and confirmed the notice returned. **Nothing blocks a non-MB role from doing any of this** — the user's explicit "track only" decision; the log records who, it doesn't gate who.
+- [x] Audit log shows every action with actor and timestamp — verified against `/review/audit` in the browser
 
 ---
 

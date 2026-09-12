@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react';
 import { setRiskDismissal } from '@/app/review/risks/actions';
 import type { RiskCategory } from '@/lib/risk';
+import { formatTimestamp } from '@/lib/review/timestamp';
 
 export interface RiskDismissalCardData {
   id: string;
@@ -129,7 +130,7 @@ export function RiskDismissalCard({ risk }: { risk: RiskDismissalCardData }) {
 
       {error && <p className="mt-2 text-xs text-red-600 dark:text-red-500">{error}</p>}
       {risk.dismissed && risk.dismissedAt && (
-        <p className="mt-2 text-xs text-zinc-400">Excluded {new Date(risk.dismissedAt).toLocaleString()}</p>
+        <p className="mt-2 text-xs text-zinc-400">Excluded {formatTimestamp(risk.dismissedAt)}</p>
       )}
     </li>
   );

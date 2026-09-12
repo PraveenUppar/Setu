@@ -30,6 +30,21 @@ export const zBusiness = z.object({
   topSuppliers: z
     .array(z.object({ name: z.string(), purchaseShare: zPercent }))
     .default([]),
+  /**
+   * D71 corpus note: the checkable, binary fact behind the near-universal
+   * "we are exposed to raw material / input price volatility" framing —
+   * present in some sector-specific form in every one of the seven corpus
+   * documents (raw materials for the manufacturers, LPG pricing for Axiom
+   * Gas). Maxwell Engineering names the operative fact directly: "we do not
+   * have long-term supply agreements or fixed pricing arrangements with our
+   * suppliers." Defaults false, matching `hasKeyManInsurance`'s precedent
+   * (D48) — the overwhelmingly common SME answer, asked directly rather
+   * than assumed, so an issuer with genuinely locked-in pricing can say so.
+   */
+  hasFixedPriceSupplyContracts: z
+    .boolean()
+    .default(false)
+    .describe('Whether the company has long-term or fixed-price supply agreements with its key raw-material or input suppliers'),
   facilities: z.array(zFacility).default([]),
   employeeCount: z.number().int().optional().describe('Permanent employees on the rolls'),
   orderBook: zMoney.optional().describe('Unexecuted order book in rupees, as on a stated date'),

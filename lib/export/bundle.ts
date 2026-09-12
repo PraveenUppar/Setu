@@ -7,6 +7,7 @@ import type { FactBase } from '../facts/schema';
 import { loadIssuer } from '../issuer';
 import type { Finding, ReadinessSummary } from '../rules';
 import { assess } from '../rules/document-assess';
+import { readCertification } from '../store/certification-store';
 import { buildGapReport, gapReportFilename } from './gap-report';
 import { docxToPdf, PdfUnavailableError } from './pdf';
 
@@ -26,13 +27,16 @@ export interface Assembled {
   sections: RenderedSection[];
   findings: Finding[];
   summary: ReadinessSummary;
+  /** Whether the merchant banker has certified the document (S12) — see `lib/store/certification-store.ts`. */
+  certified: boolean;
 }
 
 export function assemble(): Assembled {
   const { facts, isDemo, version, provenance } = loadIssuer();
   const sections = renderSections(sectionRegistry, { facts });
   const { findings, summary } = assess(facts, sections);
-  return { facts, provenance, version, isDemo, sections, findings, summary };
+  const certified = readCertification().certified;
+  return { facts, provenance, version, isDemo, sections, findings, summary, certified };
 }
 
 export const slugOf = (facts: FactBase) =>
@@ -64,7 +68,7 @@ export interface VaultResult {
  * same folder as the document.
  */
 export async function buildVault(a: Assembled): Promise<VaultResult> {
-  const options = { facts: a.facts, version: a.version, certified: false };
+  const options = { facts: a.facts, version: a.version, certified: a.certified };
   const docx = await renderDocx(a.sections, options);
   const docxName = docxFilename(a.facts, options);
   const xlsx = await buildGapReport({ ...a, sections: a.sections });
@@ -98,7 +102,7 @@ export async function buildVault(a: Assembled): Promise<VaultResult> {
         subsectionsRendered: new Set(a.sections.map((s) => s.partOf)).size,
         files: [docxName, ...(pdf ? [docxName.replace(/\.docx$/, '.pdf')] : []), xlsxName, `fact-base-v${a.version}.json`, `provenance-v${a.version}.json`],
         ...(pdfOmitted ? { pdfOmitted } : {}),
-        state: 'UNSIGNED DRAFT - NOT FOR FILING',
+        state: a.certified ? 'CERTIFIED' : 'UNSIGNED DRAFT - NOT FOR FILING',
       },
       null,
       2,

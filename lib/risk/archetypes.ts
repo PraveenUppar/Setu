@@ -744,6 +744,72 @@ export const tradeReceivablesConcentration: RiskArchetype = {
   sourceModules: ['M6'],
 };
 
+/**
+ * D71, corpus-corroborated at effectively all seven documents, each in a
+ * sector-specific form: raw material price fluctuations for the
+ * manufacturers (Maxwell #63, Om Galaxy #6, Shakti Polytarp, Photonics
+ * Watertech, Century), global LPG pricing for Axiom Gas (#10). Maxwell
+ * states the operative, checkable fact directly: "Currently, we do not
+ * have long-term supply agreements or fixed pricing arrangements with our
+ * suppliers." The theme itself (commodity/input price volatility) is
+ * industry-wide, not a claim about the issuer's own operations the way
+ * `supplierConcentration` or `leasedFacilities` are — the first archetype
+ * in the 'industry' category, previously empty (TODO.md's S10 checklist).
+ *
+ * New fact: `business.hasFixedPriceSupplyContracts`, defaulting false to
+ * match the overwhelming SME norm every corpus document reflects (same
+ * `.default(false)` precedent as `hasKeyManInsurance`, D48) — asked
+ * directly, not assumed, since a genuinely locked-in issuer could answer
+ * "yes".
+ */
+export const rawMaterialPriceExposure: RiskArchetype = {
+  id: 'raw-material-price-exposure',
+  category: 'industry',
+  title: 'No long-term or fixed-price arrangements with key suppliers',
+  trigger: (f) => !f.business.hasFixedPriceSupplyContracts,
+  materiality: () => 1,
+  detail: () =>
+    'We do not have long-term supply agreements or fixed-price arrangements with our key suppliers, and source our raw materials and other inputs on a purchase-order basis at prevailing market prices. We are accordingly exposed to fluctuations in the price and availability of these inputs, which we may not always be able to pass on to our customers, and which could adversely affect our margins, business and results of operations.',
+  factSlice: (f) => ({
+    hasFixedPriceSupplyContracts: f.business.hasFixedPriceSupplyContracts,
+    companyName: f.company.name,
+  }),
+  groundedIn: 'D71, corroborated in some sector-specific form at effectively all seven corpus documents — raw material pricing for the manufacturers, global LPG pricing for Axiom Gas. Maxwell #63 states the operative checkable fact directly: no long-term supply agreements or fixed pricing arrangements with suppliers.',
+  sourceModules: ['M5'],
+};
+
+/**
+ * D71, corpus-corroborated at all seven documents, in near-identical
+ * language — the strongest single corroboration of any fact this registry
+ * reads (stronger even than `unsecuredLoansRepayableOnDemand`'s 4 of 7):
+ * every document states that the objects of the Issue and the proposed
+ * deployment of Net Proceeds have not been appraised by any bank, financial
+ * institution or independent agency, and rest on management's own
+ * estimates. The first archetype in the 'offer' category, previously empty
+ * (TODO.md's S10 checklist) — a risk about the ISSUE itself, not the
+ * ongoing business, which is exactly what that category is for.
+ *
+ * New fact: `offer.objectsAppraisedByBankOrAgency`, defaulting false to
+ * match the SME norm every corpus document reflects, asked directly rather
+ * than assumed — a larger issuer with a bank-appraised project could
+ * genuinely answer "yes".
+ */
+export const objectsNotIndependentlyAppraised: RiskArchetype = {
+  id: 'objects-not-independently-appraised',
+  category: 'offer',
+  title: 'The objects of the Issue have not been independently appraised',
+  trigger: (f) => !f.offer.objectsAppraisedByBankOrAgency,
+  materiality: () => 1,
+  detail: () =>
+    'The objects of the Issue and the deployment of the Net Proceeds are based on internal management estimates and current business plans, and have not been appraised by any bank, financial institution or other independent agency. Our actual funding requirements and deployment may vary from these estimates, and our Board retains discretion over how the Net Proceeds are applied.',
+  factSlice: (f) => ({
+    objectsAppraisedByBankOrAgency: f.offer.objectsAppraisedByBankOrAgency,
+    companyName: f.company.name,
+  }),
+  groundedIn: 'D71, corroborated at all seven corpus documents in near-identical language — the strongest single corroboration of any fact this registry reads.',
+  sourceModules: ['M9'],
+};
+
 export const riskArchetypes: RiskArchetype[] = [
   customerConcentration,
   singleManufacturingFacility,
@@ -765,4 +831,6 @@ export const riskArchetypes: RiskArchetype[] = [
   materialLitigationAgainstPromoters,
   trademarkNotRegistered,
   tradeReceivablesConcentration,
+  rawMaterialPriceExposure,
+  objectsNotIndependentlyAppraised,
 ];

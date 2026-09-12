@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { allProgress, moduleRegistry } from '@/lib/modules';
 import { readFactBase } from '@/lib/store/fact-store';
+import { currentRole } from '@/lib/review/role';
+import { ROLE_LABELS } from '@/lib/review/types';
 
 /**
  * The module list — the issuer's home page during intake.
@@ -13,27 +15,32 @@ import { readFactBase } from '@/lib/store/fact-store';
 
 export const dynamic = 'force-dynamic';
 
-const ASSIGNEE: Record<string, string> = {
-  PROMOTER: 'Promoter',
-  CS: 'Company Secretary',
-  CFO: 'Chief Financial Officer',
-  LEGAL: 'Legal counsel',
-  AUDITOR: 'Auditor',
-};
-
 function hoursMinutes(total: number): string {
   const h = Math.floor(total / 60);
   const m = total % 60;
   return h === 0 ? `${m} min` : m === 0 ? `${h} h` : `${h} h ${m} min`;
 }
 
-export default function IntakePage() {
+export default async function IntakePage() {
   const { facts, version } = readFactBase();
   const progress = allProgress(facts);
   const byId = new Map(progress.map((p) => [p.moduleId, p]));
 
   const totalApplicable = progress.reduce((n, p) => n + p.applicable, 0);
   const totalAnswered = progress.reduce((n, p) => n + p.answered, 0);
+
+  /**
+   * S12's module scoping: the current role sees only what it would be
+   * handed to fill (`assignableTo`, unchanged from S3/S8 — no per-issuer
+   * override was built, per the user's decision). A role no module
+   * defaults to (Merchant Banker, sometimes Auditor) would otherwise see an
+   * empty list and nowhere to go, so it falls back to showing everything
+   * with a note explaining why, rather than a dead end.
+   */
+  const role = await currentRole();
+  const scoped = moduleRegistry.filter((m) => m.assignableTo === role);
+  const visibleModules = scoped.length > 0 ? scoped : moduleRegistry;
+  const isScoped = scoped.length > 0;
 
   return (
     <div className="min-h-full bg-zinc-100 dark:bg-zinc-950">
@@ -54,11 +61,16 @@ export default function IntakePage() {
               See the draft document
             </Link>
           </p>
+          <p className="mt-1 text-xs text-zinc-400">
+            {isScoped
+              ? `Showing ${visibleModules.length} module${visibleModules.length === 1 ? '' : 's'} assigned to ${ROLE_LABELS[role]}. Switch role in the top bar to see others.`
+              : `No module defaults to ${ROLE_LABELS[role]} — showing all ${visibleModules.length}.`}
+          </p>
         </div>
       </header>
 
       <main className="mx-auto max-w-3xl space-y-4 px-8 py-10">
-        {moduleRegistry.map((m) => {
+        {visibleModules.map((m) => {
           const p = byId.get(m.id)!;
           const done = p.answered === p.applicable && p.withIssues === 0;
           return (
@@ -90,7 +102,7 @@ export default function IntakePage() {
               <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-xs text-zinc-500">
                 <span>
                   <span className="text-zinc-400">For: </span>
-                  {ASSIGNEE[m.assignableTo]}
+                  {ROLE_LABELS[m.assignableTo]}
                 </span>
                 <span>
                   <span className="text-zinc-400">About: </span>

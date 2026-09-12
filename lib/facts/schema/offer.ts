@@ -128,6 +128,20 @@ export const zOffer = z.object({
   issueExpenses: zMoney.describe('Estimated issue expenses, excluded from GCP'),
 
   /**
+   * D71 corpus note: all seven corpus documents state, in nearly identical
+   * language, that the Objects of the Issue and proposed deployment of Net
+   * Proceeds have NOT been appraised by any bank, financial institution or
+   * independent agency — the strongest single corroboration behind any fact
+   * this risk registry reads. Defaults false, matching that overwhelming
+   * SME norm, but asked directly rather than assumed: a larger issuer with
+   * a bank-appraised project could genuinely answer "yes".
+   */
+  objectsAppraisedByBankOrAgency: z
+    .boolean()
+    .default(false)
+    .describe('Whether the objects of the Issue and the proposed deployment of Net Proceeds have been appraised by a bank, financial institution or other independent agency'),
+
+  /**
    * Whether firm arrangements of finance are in place through verifiable means
    * for 75% of the stated means of finance, excluding the issue proceeds and
    * existing internal accruals (R-022, Reg 230(1)(e)). Only meaningful where

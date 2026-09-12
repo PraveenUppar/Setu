@@ -26,6 +26,8 @@ import {
   materialLitigationAgainstPromoters,
   trademarkNotRegistered,
   tradeReceivablesConcentration,
+  rawMaterialPriceExposure,
+  objectsNotIndependentlyAppraised,
 } from './index';
 
 /** Deep-ish clone with one branch replaced, same helper as lib/rules/rules.test.ts. */
@@ -653,5 +655,47 @@ describe('tradeReceivablesConcentration — D63, corroborated at Ideas Electrica
       x.financials.years = [];
     });
     expect(fires('trade-receivables-concentration', f)).toBe(false);
+  });
+});
+
+describe('rawMaterialPriceExposure — D71, corroborated in some sector-specific form at all seven corpus documents', () => {
+  it('fires on Vardhman — steel bought purchase-order by purchase-order, no fixed-price lock-in', () => {
+    const risk = selectRisks(riskArchetypes, vardhman).find((r) => r.id === 'raw-material-price-exposure');
+    expect(risk).toBeDefined();
+    expect(risk!.materiality).toBe(1);
+    expect(risk!.category).toBe('industry');
+  });
+
+  it('does not fire once the company confirms it has fixed-price supply contracts', () => {
+    const f = variant((x) => {
+      x.business.hasFixedPriceSupplyContracts = true;
+    });
+    expect(fires('raw-material-price-exposure', f)).toBe(false);
+  });
+
+  it('factSlice carries only the supply-contract flag and the company name', () => {
+    const slice = rawMaterialPriceExposure.factSlice(vardhman) as Record<string, unknown>;
+    expect(Object.keys(slice).sort()).toEqual(['companyName', 'hasFixedPriceSupplyContracts']);
+  });
+});
+
+describe('objectsNotIndependentlyAppraised — D71, corroborated at all seven corpus documents in near-identical language', () => {
+  it('fires on Vardhman — the objects have not been appraised by a bank or agency', () => {
+    const risk = selectRisks(riskArchetypes, vardhman).find((r) => r.id === 'objects-not-independently-appraised');
+    expect(risk).toBeDefined();
+    expect(risk!.materiality).toBe(1);
+    expect(risk!.category).toBe('offer');
+  });
+
+  it('does not fire once the company confirms an appraisal was obtained', () => {
+    const f = variant((x) => {
+      x.offer.objectsAppraisedByBankOrAgency = true;
+    });
+    expect(fires('objects-not-independently-appraised', f)).toBe(false);
+  });
+
+  it('factSlice carries only the appraisal flag and the company name', () => {
+    const slice = objectsNotIndependentlyAppraised.factSlice(vardhman) as Record<string, unknown>;
+    expect(Object.keys(slice).sort()).toEqual(['companyName', 'objectsAppraisedByBankOrAgency']);
   });
 });

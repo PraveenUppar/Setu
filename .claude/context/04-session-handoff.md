@@ -4,9 +4,9 @@
 
 ---
 
-**Last updated:** 2026-09-12 evening (**S9 CLOSED** — gate fully passing after a real register-and-structure audit, D68; S10 grown to 20 archetypes plus dismiss-with-reason and why-flagged (D57–D63); **S7 paused permanently by user decision (D67)**; **AoA gap closed with a hand-typed field, D69**; **a real browser-only bug found and fixed in `/eligibility`, D70**)
-**Current stage:** S0, S3, S5, S6, S8, S9, S11 CLOSED. **S7 PAUSED — do not resume without the user asking again** (D67: hand-typed form fields only, permanently, not a temporary fallback). S4 Wave 1 extraction finished; Wave 2 computed sections built. **S10 genuinely in progress** since D43, the only 🟡/🔴 stage still actively advancing besides S12/S13 (not started).
-**Status:** **670 tests passing, tsc clean, dev server runs.** Document renders **32 of the 37 numbered subsections** (D69 added Main Provisions of the Articles of Association, closing the S7-dependent AoA gap with a hand-typed field instead). **All ten intake modules exist** and Vardhman completes nine of them outright (see S8 below). **Issue Procedure is COMPLETE**, the glossary is at **130 definitions plus 129 abbreviations**, **Risk Factors is a real, populated section** — **20 archetypes** (D44–D57, D60–D63), **14 of which fire on Vardhman** with LLM-drafted prose behind every one that does — and **S9's narrative harness covers all six planned sections with its gate fully passing**: a real systematic diff against the corpus (D68) found and fixed three structural gaps and corrected one wrong design assumption (Industry Overview does not need a commissioned report — real SME issuers commonly use public data with a disclaimer instead). Every one of the 20 drafts on file re-checked for untraceable numbers after the fixes: 80 sentences, 0 failures.
+**Last updated:** 2026-09-12 late night (**S10 grown to 22 archetypes, closing the industry and offer categories, D72**; **S12 CLOSED** — role switcher, section status, comments, audit log and a real MB certification action that finally lifts the export watermark, D71; a real hydration bug found and fixed along the way, same shape as D34/D55/D64/D70's "browser-only bug" lesson; S9 CLOSED earlier the same day — gate fully passing after a real register-and-structure audit, D68; **S7 paused permanently by user decision (D67)**; **AoA gap closed with a hand-typed field, D69**; **a real browser-only bug found and fixed in `/eligibility`, D70**)
+**Current stage:** S0, S3, S5, S6, S8, S9, S11, S12 CLOSED. **S7 PAUSED — do not resume without the user asking again** (D67: hand-typed form fields only, permanently, not a temporary fallback). S4 Wave 1 extraction finished; Wave 2 computed sections built. **S10 genuinely in progress** since D43, the only 🟡/🔴 stage still actively advancing besides S13 (not started).
+**Status:** **698 tests passing, tsc clean, dev server runs.** Document renders **32 of the 37 numbered subsections** (D69 added Main Provisions of the Articles of Association, closing the S7-dependent AoA gap with a hand-typed field instead). **All ten intake modules exist** and Vardhman completes nine of them outright (see S8 below). **Issue Procedure is COMPLETE**, the glossary is at **130 definitions plus 129 abbreviations**, **Risk Factors is a real, populated section** — **22 archetypes** (D44–D57, D60–D63, D72), **16 of which fire on Vardhman** with LLM-drafted prose behind every one that does, now across all six risk categories including industry and offer for the first time (D72) — and **S9's narrative harness covers all six planned sections with its gate fully passing**: a real systematic diff against the corpus (D68) found and fixed three structural gaps and corrected one wrong design assumption (Industry Overview does not need a commissioned report — real SME issuers commonly use public data with a disclaimer instead). Every one of the drafts on file re-checked for untraceable numbers after the fixes: 0 failures. **The app has a real (if unauthenticated) actor concept for the first time (S12)** — a role switcher, section review status, comments, an audit log, and the certification action that actually lifts `UNSIGNED DRAFT` on every export, which nothing in the app could do before today.
 
 **The progress indicator said "25 of 37" until 2026-09-10 and was wrong** — it counted registry entries against numbered subsections. Every spec now carries `partOf`, the header counts distinct values, and a test holds it. The count has moved honestly since — 24 → 25 (D45, Risk Factors) → 26 (D50, History) → 27 (D51, Our Business) → 28 (D52, Objects of the Issue) → 29 (D54, MD&A) → 30 (D64, Basis for Issue Price) → 31 (D65, Industry Overview) — each one a real section with a passing traceability gate behind it, not a relabelling.
 **Rules: 55** — 43 eligibility, 12 consistency. The pre-check runs 26; no issuer sees 26 questions, since the criteria diverge by exchange.
@@ -18,6 +18,83 @@
 ---
 
 ## Done
+
+### S12 — Review workflow — **CLOSED 2026-09-12 night** (D71)
+
+The first real (if unauthenticated) actor concept in the app. `lib/review/types.ts` (`Role`,
+`SectionStatus` — pure, no `node:fs`/`next/headers`, so client components can import it directly, per
+D70's lesson about client bundles) and `lib/review/role.ts` (`currentRole()`, a `setu-role` cookie
+defaulting to Promoter, no signed-in identity behind it). A slim persistent header
+(`app/layout.tsx` — there was no persistent chrome at all before this) carries the role switcher
+(`components/role-switcher.tsx`) and nav to Document / Intake / Review / Risks / Audit log.
+
+Four new append-only stores under `lib/store/`, all in `risk-dismissal-store.ts`'s established shape:
+`audit-log.ts` (one growing array, never truncated), `section-status-store.ts` (Draft → Ready for
+Review → Reviewed → Locked, per section, defaults to Draft), `comment-store.ts` (per-section comment
+events; resolving is a new event carrying the same comment id, never an edit — `readThread` orders by
+first-posted so resolving doesn't reorder the conversation), `certification-store.ts` (one document,
+closer to `fact-store.ts`'s single pointer than the per-id stores; a revoke is a new version, never a
+delete).
+
+**`certified` is real.** It was hardcoded `false` in three places since S11 — nothing could ever lift
+the watermark. `lib/export/bundle.ts`'s `assemble()` now reads `readCertification().certified`; every
+export route and the vault manifest's `state` field read it from there. `app/page.tsx` and the new
+`/review` hub (`app/review/page.tsx`, `components/certification-banner.tsx`,
+`components/review-section-card.tsx`) both show who certified it and when.
+
+**Two explicit user decisions kept this to what the TODO gate actually asks for:** no server-side
+permission enforcement (any role can do any action; the audit log just honestly records who — "no real
+auth" was never meant to be a security boundary), and no new module-assignment override store (`/intake`
+scopes by each module's existing fixed `assignableTo` from S3/S8, not a new per-issuer reassignment
+record).
+
+**A real hydration bug, caught only by the browser pass this project always insists on** (same shape as
+D34/D55/D64/D70). Two new client components called `new Date(...).toLocaleString()` directly in render,
+which formats using the running environment's own default locale/timezone — different between the Node
+SSR pass and the browser hydrating it, and invisible to `tsc` and all 692 Vitest tests (they all run in
+one Node process). Fixed with `lib/review/timestamp.ts`'s `formatTimestamp()` — a fixed locale AND
+timezone (`en-IN`, `Asia/Kolkata`), which also fixed an IDENTICAL pre-existing bug found the same way in
+D58's `risk-dismissal-card.tsx`, shipped and never caught before now.
+
+**Verified live**, not just against Vitest: switched role to CFO, `/intake` narrowed from ten modules to
+the two CFO defaults to; marked a section Ready for Review, posted a comment, certified — then
+downloaded the real `/export/docx` and unzipped it to confirm `word/header1.xml` no longer contains
+"UNSIGNED", checked `/export/vault`'s manifest read `CERTIFIED`, revoked and confirmed the notice
+returned, and read `/review/audit` to confirm every action logged with the right actor and timestamp.
+Verification writes taken back out of the shared `.data/` store afterward (status back to Draft,
+certification revoked), same discipline as every other session's browser pass. **692 tests, 22 new,
+`tsc` clean.**
+
+### S10 — grown to 22 archetypes (D72), closing the industry and offer categories — 2026-09-12 late night
+
+TODO.md's checklist had stood at "industry and offer have 0" since D49. Mined the full corpus again with
+that specific target rather than adding another business/financial archetype to an already well-covered
+pair. Two new archetypes, both in `lib/risk/archetypes.ts`:
+
+**`objectsNotIndependentlyAppraised` (offer)** — all seven corpus documents state, in near-identical
+language, that the objects of the Issue have not been appraised by any bank, financial institution or
+independent agency — the strongest single corroboration of any fact this registry reads, stronger than
+D57's previous four-of-seven record. New fact: `offer.objectsAppraisedByBankOrAgency`, `.default(false)`.
+
+**`rawMaterialPriceExposure` (industry)** — present in every document in sector-specific language (raw
+materials for the manufacturers, LPG pricing for Axiom Gas). The generic "our industry is highly
+competitive" and "insurance coverage may not be adequate" framings, also present in most or all seven
+documents, were deliberately NOT built — pure rhetorical hedges with no checkable per-issuer fact behind
+them, the same D48 boilerplate test this one clears because Maxwell names the operative fact directly: no
+long-term or fixed-price supply agreements. New fact: `business.hasFixedPriceSupplyContracts`.
+
+Both fire for real on Vardhman. Real Gemini drafts — the raw-material one needed a second attempt after
+the first echoed the company's own proper name mid-paragraph, a live violation of the shared system
+prompt's own instruction, caught by reading the actual output (same "a model told not to will still do it
+sometimes" lesson as D54). Both gates passed (0 untraceable numbers) on the kept attempt, rendered and
+read on the actual DOCX page: "Risks Relating to Our Industry" and "Risks Relating to this Issue and Our
+Equity Shares" both print for the first time, correctly positioned, and the Forward Looking Statements
+summary sentence picked up both automatically (D45's overlay mechanism). Also verified against the real
+(non-Vardhman) fact base in the running dev server on both `/` and `/review/risks` — no crash, correct
+fallback behaviour.
+
+`risk-factors.test.ts` had a test asserting industry and offer must NOT appear — correct when written,
+now updated to expect both. **698 tests (6 new), `tsc` clean. Registry: 22, 16 fire on Vardhman.**
 
 ### S7 — Opened 2026-09-12 morning (D56), committed 2026-09-12 afternoon, **PAUSED PERMANENTLY 2026-09-12 evening (D67) — read this before touching anything under `app/extract/`, `lib/document-intake/`, `lib/llm/extraction.ts`, or `lib/store/document-storage.ts`**
 
@@ -509,14 +586,18 @@ order of value:
    done for real at D68, at the user's direct request, finding and fixing three real gaps plus one
    corrected design assumption (Industry Overview). Do not re-open S9 without a reason; it is done.
 5. **Keep growing S10 (risk archetypes).** All seven corpus documents mined multiple times toward
-   the ~40 target (**20 done**, D63 latest). Remaining corpus themes seen and deliberately not built
-   all need either a new fact with no existing table to lean on, or a second corroborating source —
-   auditor qualification is single-sourced (Ideas Electricals only) as of D57. Pattern to follow:
-   `lib/risk/archetypes.ts`'s own comments cite exactly which corpus documents support each one — now
-   also the real `groundedIn` field a new archetype must set (D59) — and check D57 (materiality scale:
-   raw rupees vs. crores vs. a ratio) and D60 (sign: a negative money value must go through
-   `.abs().toFixed()` before `formatAs()`, with a separate boolean carrying the sign) before shipping
-   the next one that touches money.
+   the ~40 target (**22 done**, D72 latest — industry and offer each have their first archetype now,
+   closing the categories TODO.md had named empty since D49). Remaining corpus themes seen and
+   deliberately not built all need either a new fact with no existing table to lean on, or a second
+   corroborating source — auditor qualification is single-sourced (Ideas Electricals only) as of D57.
+   Also seen and deliberately rejected at D72: generic "our industry is highly competitive" and
+   "insurance coverage may not be adequate" framings, present in most or all seven documents but pure
+   rhetorical hedges with no checkable per-issuer fact behind them — the same D48 boilerplate test that
+   ruled out "we require various statutory approvals". Pattern to follow: `lib/risk/archetypes.ts`'s own
+   comments cite exactly which corpus documents support each one — now also the real `groundedIn` field
+   a new archetype must set (D59) — and check D57 (materiality scale: raw rupees vs. crores vs. a ratio)
+   and D60 (sign: a negative money value must go through `.abs().toFixed()` before `formatAs()`, with a
+   separate boolean carrying the sign) before shipping the next one that touches money.
 6. **Before shipping the next archetype or section: render and look (D55, reconfirmed at D57, D64,
    D65).** Generate the DOCX (`SETU_DOCX_OUT=<scratchpad>/vardhman.docx npx vitest run
    lib/document/docx.test.ts`), convert with LibreOffice (`"/c/Program Files/LibreOffice/program/
@@ -534,11 +615,10 @@ order of value:
    (`docx.test.ts`'s heading-count assertion) when Industry Overview's first `order` value (1450)
    split "SECTION - ABOUT THE COMPANY" in two (D65) — check where a new section's `order` actually
    lands relative to every other section already in its group before trusting it compiles clean.
-8. **S12** review workflow, which is what wires `certified` — and lifts the draft notice in every
-   export at once, since they all go through `assemble()`. Note the overlap: D58's `/review/risks` is
-   a narrow, S10-specific review action built ahead of S12's general role-based review workflow — do
-   not conflate the two, and consider whether S12 should subsume or link to `/review/risks` rather than
-   duplicate it.
+8. ~~S12 review workflow~~ — **done 2026-09-12 night (D71), S12 CLOSED.** Role switcher, module
+   scoping, section status, comments, audit log, and `certified` now wired for real into every export.
+   D58's `/review/risks` was kept as its own page and linked from the new `/review` hub, not subsumed —
+   the overlap this list used to flag is resolved by keeping the two apart on purpose.
 9. **Browser pass over M3-M10** — still not clicked through since the S8 session's check.
 
 To regenerate DOCX samples without the server:
@@ -686,6 +766,7 @@ gap without reversing D67 — S7 itself remains paused.
 - **`soffice.exe` is not on PATH on this machine** — full path is `/c/Program Files/LibreOffice/program/soffice.exe`. Python is at the Microsoft Store alias; `python -m venv` plus `pip install pypdfium2 pillow` inside it works for rasterising a converted PDF page by page.
 - **A heredoc's `cat > file.py` writes to the CURRENT shell cwd, evaluated before a later `cd` in the same command runs.** `SP=...; cat > file.py <<EOF ... EOF; cd "$SP"` writes `file.py` into the ORIGINAL directory, not `$SP` — leaves a stray file in the repo root if that original directory is the project. `cd` first, or use the Write tool with an absolute path.
 - **A client component importing "just data and pure functions" can still drag server-only code into the browser bundle, and Vitest/tsc cannot see it.** `app/eligibility/page.tsx` ('use client') imported `preCheckRules` from `lib/rules/index.ts`, which ALSO imported `collectGaps` from `lib/document/section.ts` at its top level (for `assess`, which `precheck.ts` never calls) — and that file imports `readNarrative` (`node:fs`). ES modules bundle at the file level: any import from a module pulls in its WHOLE top-level import graph. Turbopack failed outright ("the chunking context does not support external modules (request: node:fs)"); no test caught it since every test runs in Node. Fixed by splitting `lib/rules/index.ts` into it (client-safe: rule data, pure evaluate/summarise) and `lib/rules/document-assess.ts` (server-only: `completenessFindings`/`linkFindings`/`assess`, anything needing the rendered document) — D70. **The lesson: only an actual bundler building for an actual browser target can catch this — load every client-rendered route in a real browser at least once, don't assume `tsc` clean + tests green means the bundle is safe.**
+- **`new Date(...).toLocaleString()` with no locale/timezone argument, called directly in a CLIENT component's render, is a real hydration bug, not a style nit.** It formats using the RUNNING ENVIRONMENT's own default locale/timezone — different between the Node process doing the initial SSR render and the browser hydrating it — so React throws "Hydration failed because the server rendered text didn't match the client." Invisible to `tsc` and to every Vitest test, since they all run in one Node process and the mismatch depends on two DIFFERENT environments disagreeing. Caught only in the browser console during S12's verification pass (`certification-banner.tsx`, `review-section-card.tsx`) — and the same bug already existed, shipped, in D58's `risk-dismissal-card.tsx`, never caught because it was never exercised in a way that surfaced it. Fixed once, at the source: `lib/review/timestamp.ts`'s `formatTimestamp()` pins BOTH a locale and a timezone (`en-IN`, `Asia/Kolkata`) so server and client always agree regardless of either one's own settings — D71.
 
 ---
 

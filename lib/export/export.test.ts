@@ -30,6 +30,7 @@ function assembled(facts = vardhman, version = 3): Assembled {
     sections,
     findings,
     summary,
+    certified: false,
   };
 }
 

@@ -11,8 +11,8 @@ export const dynamic = 'force-dynamic';
  * is not re-rendered by a second engine to get a PDF out; see lib/export/pdf.
  */
 export async function GET() {
-  const { facts, version, sections } = assemble();
-  const options = { facts, version, certified: false };
+  const { facts, version, sections, certified } = assemble();
+  const options = { facts, version, certified };
   const name = docxFilename(facts, options).replace(/\.docx$/, '');
 
   try {

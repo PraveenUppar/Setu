@@ -454,6 +454,10 @@ export const vardhman: FactBase = {
       { name: 'Jindal Stainless Limited', purchaseShare: 18.6 },
       { name: 'Sunflag Iron and Steel Company Limited', purchaseShare: 12.4 },
     ],
+    // Steel bought purchase-order by purchase-order, no fixed-price lock-in
+    // with either supplier above — realistic for an SME machining business,
+    // and fires the raw-material price volatility risk factor (D71).
+    hasFixedPriceSupplyContracts: false,
     facilities: [
       {
         name: 'Chakan facility',
@@ -930,6 +934,9 @@ export const vardhman: FactBase = {
     // Firm finance arrangements confirmed for the plant and machinery object
     firmFinanceConfirmed: true,
     issueExpenses: cr('1.05'),
+    // Never appraised by a bank or independent agency — the SME norm every
+    // corpus document states, fires that risk factor for real (D71).
+    objectsAppraisedByBankOrAgency: false,
 
     underwritingPercent: 100,
     brlmUnderwritingPercent: 15,

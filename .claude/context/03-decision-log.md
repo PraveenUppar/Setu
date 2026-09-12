@@ -2186,3 +2186,118 @@ touches a browser bundle at all.
 imports a "just data and pure functions" module can still drag in server-only code transitively, and
 `tsc`/Vitest cannot see the difference between a safe and an unsafe import graph for a CLIENT bundle -
 only an actual bundler, building for an actual browser target, can.
+
+---
+
+## D71 - S12 built: role switcher, section status, comments, audit log, real certification - and a real hydration bug the browser pass caught
+
+**2026-09-12.** S12 was the last unstarted core stage. Two decisions made explicit with the user before
+writing anything: **no server-side permission enforcement** (any role can do any action; the audit log
+just honestly records who - "no real auth, one seeded org" was never meant to be a security boundary),
+and **no new module-assignment override store** (intake scoping filters by each module's existing fixed
+`assignableTo` from S3/S8, not a new per-issuer reassignment record). Both kept the stage to what the
+TODO gate actually asks for rather than what a fuller feature could have grown into.
+
+**The first real (if unauthenticated) actor concept in the app.** Every write action before this session
+hardcoded its actor as a fixed string (`'issuer'`, `'merchant-banker'`). `lib/review/types.ts` (`Role`,
+`SectionStatus`, pure - no `node:fs`/`next/headers`, importable from client components after D70's
+lesson about client bundles) plus `lib/review/role.ts` (`currentRole()`/`setRoleCookie()`, a `setu-role`
+cookie, defaulting to Promoter) is the whole identity model. `app/review/risks/actions.ts`'s D58 dismissal
+action now records the real acting role too, not a hardcoded string - "every action" in the audit log
+gate means every action, not every action except the review feature that shipped first.
+
+**Four new stores, all in the established append-only shape** (`risk-dismissal-store.ts`'s pattern):
+`audit-log.ts` (one growing array, never truncated - there is no "id" an audit entry replaces, every
+entry is its own event forever), `section-status-store.ts` (per-section, versioned, defaults to Draft),
+`comment-store.ts` (per-section array of comment events; resolving is a NEW event carrying the same
+comment id, never an edit of the original post - same reversal discipline as everywhere else, and
+`readThread` orders by first-posted so resolving a comment doesn't jump it in the conversation), and
+`certification-store.ts` (one document, not per-id - closer to `fact-store.ts`'s single pointer; a revoke
+is a new version with `certified: false`, never a delete).
+
+**`certified` is real now.** It was hardcoded `false` in three places (`lib/export/bundle.ts` twice,
+`app/export/docx/route.ts`) - nothing in the whole app could ever turn the watermark off. `assemble()`
+now reads `readCertification().certified`; every export route and the vault manifest's `state` field
+read it from there. `app/page.tsx`'s footer and the new `/review` hub both show who certified it and when.
+
+**A real hydration bug, caught only by the browser pass this project always insists on** (D34, D55, D64,
+D70's lesson, again, in a new shape). `certification-banner.tsx` and `review-section-card.tsx` called
+`new Date(...).toLocaleString()` directly in render - which formats using the RUNNING ENVIRONMENT's own
+default locale/timezone, different between the Node process that renders the initial HTML and the
+browser that hydrates it. React threw a real "Hydration failed because the server rendered text didn't
+match the client" error, visible only in the browser console, invisible to `tsc` and all 692 Vitest
+tests (all of which run in one Node process, so the mismatch this bug depends on cannot occur inside
+them). Fixed at the source with `lib/review/timestamp.ts`'s `formatTimestamp()` - a fixed locale AND a
+fixed timezone (`en-IN`, `Asia/Kolkata`, right for an Indian merchant banker's audit trail on its own
+merits too) so server and client always agree regardless of either one's own settings. While tracing it,
+found `risk-dismissal-card.tsx` (D58) already had the IDENTICAL bug, shipped and never caught because it
+was never exercised in a way that surfaced the mismatch - fixed at the same time, same helper.
+
+**Verified live, not just against Vitest.** Switched role to CFO in the running app - `/intake` narrowed
+from ten modules to the two CFO defaults to (M6, M10). Marked a section Ready for Review, posted a
+comment, certified as one role, confirmed nothing blocked a different role from having done the same
+(the chosen "track only" behavior) - then downloaded the real `/export/docx` and unzipped it to confirm
+`word/header1.xml` no longer contains "UNSIGNED", checked `/export/vault`'s manifest read `CERTIFIED`,
+revoked and confirmed the notice returned in a fresh download, and read `/review/audit` to confirm every
+one of those actions was logged with the right actor and timestamp. Test-verification writes were taken
+back out of the shared `.data/` store afterward (section status back to Draft, certification revoked),
+same discipline as every other session's browser pass against the real store.
+
+**TODO.md's S12 gate is fully met**: module scoping by role, status + comments logged and reviewable,
+certification lifts the notice on every export, the audit log shows every action with actor and
+timestamp. 692 tests passing (22 new), `tsc` clean.
+
+---
+
+## D72 - S10 grown to 22 archetypes, closing the industry and offer categories TODO.md had named empty
+
+**2026-09-12, later the same night.** Mined the full corpus again with a specific target: TODO.md's S10
+checklist had stood at "promoter has 2, industry and offer have 0" since D49 — this session closed both
+empty categories in one pass, rather than adding another business/financial archetype to an already
+well-covered pair of categories.
+
+**`objectsNotIndependentlyAppraised` (offer) — the strongest single corroboration of any fact this
+registry reads.** All seven corpus documents state, in near-identical language, that the objects of the
+Issue and the deployment of Net Proceeds have not been appraised by any bank, financial institution or
+independent agency, and rest on management's own estimates — stronger even than D57's four-of-seven
+record holder. Considered and rejected building this as a pure boilerplate exclusion the way D48 ruled
+out "we require various statutory approvals": unlike that tautological claim, independent appraisal is a
+real process that either happened or did not — a larger issuer with a bank-funded, appraised project
+could genuinely answer "yes" — the corpus simply shows "no" seven times over because a formal appraisal
+rarely justifies its cost against an SME-sized raise. New fact: `offer.objectsAppraisedByBankOrAgency`,
+`.default(false)` matching `hasKeyManInsurance`'s D48 precedent, asked directly in M9.
+
+**`rawMaterialPriceExposure` (industry) — present in every document, each in sector-specific language.**
+Raw material price fluctuation for the manufacturers (Maxwell #63, Om Galaxy #6, Shakti Polytarp,
+Photonics Watertech, Century), global LPG pricing for Axiom Gas (#10). The generic "our industry is
+highly competitive" framing seen in several of the same documents' risk chapters was deliberately NOT
+built — a pure rhetorical hedge with no checkable per-issuer fact behind it, the same D48 boilerplate
+test the general "insurance coverage may not be adequate" framing (also present in all seven, also
+rejected) fails for the same reason: universally true regardless of an issuer's actual facts, so not a
+selection a fact-driven engine can honestly make. Raw material pricing clears that bar because Maxwell
+names the operative, checkable fact directly: "we do not have long-term supply agreements or fixed
+pricing arrangements with our suppliers." New fact: `business.hasFixedPriceSupplyContracts`, same
+`.default(false)` precedent. First archetype categorised 'industry' rather than 'business' — the risk
+itself (commodity/input price volatility) is a sector-wide exposure, not a claim about the issuer's own
+operations the way `leasedFacilities` or `supplierConcentration` are.
+
+**Both fire for real on Vardhman** (steel bought purchase-order by purchase-order from Jindal Stainless
+and Sunflag Iron and Steel, no bank appraisal of its own raise) — real Gemini drafts, second attempt for
+the raw-material one after the first echoed the company's own proper name mid-paragraph ("As Vardhman
+Precision Components Limited does not maintain..."), a violation of the shared system prompt's explicit
+"never restate the company's name as a stylistic variation" instruction that the model produced anyway on
+the first pass — same "a model told not to will still do it sometimes, verify the actual output" lesson
+as D54. Both gates passed on their kept attempt (0 untraceable numbers each), rendered and read on the
+actual DOCX page: "Risks Relating to Our Industry" and "Risks Relating to this Issue and Our Equity
+Shares" both print for the first time ever, in the right position in `CATEGORY_ORDER`, and the Forward
+Looking Statements summary sentence picked up both automatically with no extra work (D45's overlay
+mechanism, same as D62 before it). Also verified against the real (non-Vardhman) fact base in the running
+dev server, on both `/` and `/review/risks` — renders correctly, no crash, falls back to the honest
+computed sentence rather than Vardhman's stored draft, exactly as D51's exact-factSlice-match requires.
+
+**Test updates, not just additions.** `risk-factors.test.ts` had a test literally named "...and only for
+categories that fired" asserting industry and offer must NOT appear — correct when written, now updated
+to expect both, in `CATEGORY_ORDER` position. The sparse-issuer test's hardcoded single-title expectation
+grew to three, the same boolean-default-fires-conservatively precedent it already documented for
+`keyManInsuranceAbsent`, extended to the two new ones without changing the reasoning. 698 tests passing (6
+new), `tsc` clean. **Registry: 22, 16 of which fire on Vardhman.**

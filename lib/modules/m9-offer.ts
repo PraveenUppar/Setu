@@ -210,6 +210,15 @@ export const m9Offer: Module = {
       feedsInto: [OBJECTS, 'regulatory.jurisdiction'],
     },
     {
+      path: 'offer.objectsAppraisedByBankOrAgency',
+      label: 'Have the objects of the Issue been appraised by a bank, financial institution or independent agency?',
+      type: 'boolean',
+      schema: z.boolean(),
+      helpText:
+        'Almost never done for an SME raise — the cost of a formal appraisal rarely justifies itself against the size of the issue — which is why every corpus prospectus checked states this as a risk factor in near-identical words. Answering no (the common case) fires that risk factor; answering yes because a bank genuinely appraised the funded project mutes it.',
+      feedsInto: [OBJECTS, 'general.riskFactors'],
+    },
+    {
       path: 'offer.firmFinanceConfirmed',
       label: 'Are firm arrangements of finance in place for 75% of the stated means of finance, excluding the issue proceeds and internal accruals?',
       type: 'boolean',

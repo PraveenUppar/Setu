@@ -56,16 +56,16 @@ describe('Risk Factors — computed selection over lib/risk/archetypes.ts', () =
     const nodes = render();
     const categories = headingsOf(nodes, 3);
     // business, then financial, then legal, then promoter (D49's
-    // promoterMajorityControl) — CATEGORY_ORDER's fixed order, for Vardhman
+    // promoterMajorityControl), then industry and offer (D71's first
+    // archetypes in each, both fire on Vardhman) — CATEGORY_ORDER's fixed order
     expect(categories).toEqual([
       'Risks Relating to Our Business and Operations',
       'Risks Relating to Our Financial Condition',
       'Risks Relating to Legal and Regulatory Matters',
       'Risks Relating to Our Promoters and Promoter Group',
+      'Risks Relating to Our Industry',
+      'Risks Relating to this Issue and Our Equity Shares',
     ]);
-    // No industry or offer archetype exists yet — must not print an empty heading
-    expect(categories).not.toContain('Risks Relating to Our Industry');
-    expect(categories).not.toContain('Risks Relating to this Issue and Our Equity Shares');
   });
 
   it('orders risks within a category by materiality, most material first', () => {
@@ -87,14 +87,20 @@ describe('Risk Factors — computed selection over lib/risk/archetypes.ts', () =
     const sparse = withAnswers({ company: { name: 'Sparse Test Limited' } });
     const nodes = render(sparse);
     expect(nodes.length).toBeGreaterThan(0);
-    // Every array-backed archetype needs real data to fire, so all eight stay
-    // silent. `keyManInsuranceAbsent` alone fires on an unanswered boolean
-    // default — same precedent as EL-037 firing on an unanswered tripartite
-    // agreement: an unanswered required yes/no question defaults to the
-    // conservative, finding-raising answer everywhere else in this codebase,
-    // so a fact-based archetype should not special-case itself as silent.
-    expect(headingsOf(nodes, 4)).toEqual(['No key man insurance for Promoters or Key Managerial Personnel']);
-    // Still honest about incompleteness even with only that one triggered
+    // Every array-backed archetype needs real data to fire, so all stay
+    // silent. Three boolean-defaulted archetypes fire on an unanswered
+    // default — `keyManInsuranceAbsent`, and D71's `rawMaterialPriceExposure`
+    // and `objectsNotIndependentlyAppraised` — same precedent as EL-037
+    // firing on an unanswered tripartite agreement: an unanswered required
+    // yes/no question defaults to the conservative, finding-raising answer
+    // everywhere else in this codebase, so a fact-based archetype should not
+    // special-case itself as silent.
+    expect(headingsOf(nodes, 4)).toEqual([
+      'No key man insurance for Promoters or Key Managerial Personnel',
+      'No long-term or fixed-price arrangements with key suppliers',
+      'The objects of the Issue have not been independently appraised',
+    ]);
+    // Still honest about incompleteness even with only those triggered
     expect(collectPlaceholders(nodes).some((g) => g.factPath === 'general.riskFactors.narrative')).toBe(true);
   });
 

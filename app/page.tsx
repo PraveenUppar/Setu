@@ -6,6 +6,9 @@ import { sectionRegistry } from '@/lib/document/sections';
 import { estimatePages } from '@/lib/document/nodes';
 import { assess } from '@/lib/rules/document-assess';
 import { loadIssuer } from '@/lib/issuer';
+import { readCertification } from '@/lib/store/certification-store';
+import { ROLE_LABELS } from '@/lib/review/types';
+import { formatTimestamp } from '@/lib/review/timestamp';
 
 export const dynamic = 'force-dynamic';
 
@@ -18,6 +21,7 @@ export default function Home() {
 
   const { findings, summary } = assess(facts, sections);
   const pages = estimatePages(flattenSections(sections));
+  const certification = readCertification();
 
   return (
     <div className="min-h-full bg-zinc-100 dark:bg-zinc-950">
@@ -127,7 +131,14 @@ export default function Home() {
         </div>
 
         <p className="text-center text-xs uppercase tracking-widest text-zinc-400">
-          Unsigned draft &mdash; not for filing
+          {certification.certified ? (
+            <>
+              Certified by {ROLE_LABELS[certification.certifiedBy!]} on{' '}
+              {formatTimestamp(certification.certifiedAt!)}
+            </>
+          ) : (
+            <>Unsigned draft &mdash; not for filing</>
+          )}
         </p>
       </main>
     </div>
