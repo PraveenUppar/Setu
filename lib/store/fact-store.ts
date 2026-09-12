@@ -1,6 +1,6 @@
 import { mkdirSync, readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { getFact, setFact, userProvenance, type FactPath, type ProvenanceMap } from '../facts/provenance';
+import { getFact, setFact, userProvenance, type FactPath, type Provenance, type ProvenanceMap } from '../facts/provenance';
 import type { PartialFactBase } from '../facts/schema';
 
 /**
@@ -84,10 +84,19 @@ export function readVersion(version: number): FactBaseVersion {
  * Returns the version written. Writing the same value a field already holds is
  * a no-op — autosave fires on every keystroke pause, and a version per
  * keystroke would bury the real edits.
+ *
+ * `provenanceFor` defaults to `userProvenance(savedBy)` for every path — the
+ * module form's autosave, which is who wrote every prior call site. S7
+ * (`lib/llm/extraction.ts`) is the first caller that needs something else:
+ * `extractedProvenance(documentId, page, confidence)`, `confirmed: false`,
+ * so `isUsable()` refuses to render the fact until a human confirms it
+ * against the source page. Passing the override IN, rather than adding a
+ * second write function, keeps one place that appends a version.
  */
 export function writeFacts(
   updates: Record<FactPath, unknown>,
   savedBy: string,
+  provenanceFor: (path: FactPath) => Provenance = () => userProvenance(savedBy),
 ): FactBaseVersion {
   ensure();
   const previous = readFactBase();
@@ -101,7 +110,7 @@ export function writeFacts(
   const provenance: ProvenanceMap = { ...previous.provenance };
   for (const [path, value] of changed) {
     facts = setFact(facts, path, value);
-    provenance[path] = userProvenance(savedBy);
+    provenance[path] = provenanceFor(path);
   }
 
   const next: FactBaseVersion = {

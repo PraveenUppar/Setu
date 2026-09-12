@@ -3,6 +3,7 @@ import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { listVersions, readFactBase, readVersion, writeFacts } from '../store/fact-store';
+import { extractedProvenance } from '../facts/provenance';
 import {
   allProgress,
   applicableFields,
@@ -185,5 +186,17 @@ describe('the fact store', () => {
     const p = readFactBase().provenance['company.cin'];
     expect(p.source).toBe('user');
     expect(p.updatedBy).toBe('issuer');
+  });
+
+  it('accepts a provenanceFor override, for S7 extraction', () => {
+    writeFacts(
+      { 'company.cin': 'U29253MH2016PLC098765' },
+      'extraction',
+      () => extractedProvenance('doc-1', 4, 0.9),
+    );
+    const p = readFactBase().provenance['company.cin'];
+    expect(p.source).toBe('extracted');
+    expect(p.confirmed).toBe(false);
+    expect(p.ref).toEqual({ documentId: 'doc-1', page: 4 });
   });
 });
