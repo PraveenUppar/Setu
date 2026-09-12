@@ -4,13 +4,13 @@
 
 ---
 
-**Last updated:** 2026-09-12 (S9/S10 resumed — sixteenth through twentieth archetypes (D57, D60–D63), dismiss-with-reason (D58), why-flagged (D59))
-**Current stage:** S0, S3, S5, S6, S8, S11 CLOSED. S4 Wave 1 extraction finished; Wave 2 computed sections built. **S9 and S10 genuinely in progress** since D43; **S7 also opened** (D56, 2026-09-12 morning, uncommitted — see "S7" below, do not confuse with S9/S10).
-**Status:** **642 tests passing, tsc clean, dev server runs.** Document renders **29 of the 37 numbered subsections**. **All ten intake modules exist** and Vardhman completes nine of them outright (see S8 below). **Issue Procedure is COMPLETE**, the glossary is at **130 definitions plus 129 abbreviations**, and **Risk Factors is a real, populated section** — **20 archetypes** (D44–D57, D60–D63), **14 of which fire on Vardhman** with LLM-drafted prose behind every one that does (negative operating cash flow and litigation against Promoters correctly stay silent on the seed — verified live against synthetic variants instead). Both S10 gate items from TODO.md are built: dismiss-with-reason (D58) and why-this-was-flagged (D59), both live only on `/review/risks`, never in the printed document.
+**Last updated:** 2026-09-12 (S9's six narrative sections all built (D64, D65); S10 grown to 20 archetypes plus dismiss-with-reason and why-flagged (D57–D63))
+**Current stage:** S0, S3, S5, S6, S8, S11 CLOSED. S4 Wave 1 extraction finished; Wave 2 computed sections built. **S9's six planned narrative sections are now all built** (gate mostly passing — see S9 below for the one honestly-open item); **S10 genuinely in progress** since D43. **S7 opened** (D56, 2026-09-12 morning) **and has since been committed and pushed** (two commits, 2026-09-12 afternoon: "Open S7…" and "Grow S10…") — the earlier "uncommitted" warning in this file is now STALE; both are on `origin/main`.
+**Status:** **658 tests passing, tsc clean, dev server runs.** Document renders **31 of the 37 numbered subsections**. **All ten intake modules exist** and Vardhman completes nine of them outright (see S8 below). **Issue Procedure is COMPLETE**, the glossary is at **130 definitions plus 129 abbreviations**, **Risk Factors is a real, populated section** — **20 archetypes** (D44–D57, D60–D63), **14 of which fire on Vardhman** with LLM-drafted prose behind every one that does — and **S9's narrative harness now covers all six planned sections**, verified by a real exhaustive audit: every one of the 20 drafts on file (82 sentences total) re-checked for untraceable numbers, 0 failures (D65).
 
-**IMPORTANT — this file was NOT updated at the end of the 2026-09-12 morning session (D56, S7 opened).** That session's work (Supabase Storage, the extraction pipeline, `app/extract/`) is real, tested (609 tests at the time) and recorded in the decision log, but is sitting **uncommitted** in the working tree (`git status`: `app/extract/`, `lib/document-intake/`, `lib/llm/extraction.ts`, `lib/store/document-storage.ts`, and diffs to `fact-store.ts`, `package.json`). Read D56 before touching any of those files, and reconcile this gap before assuming the handoff and the decision log agree — this session (S9/S10 resumed) deliberately left S7's uncommitted files untouched and worked only in `lib/risk/`.
+**S7's status, corrected:** the entry below still describes it as opened 2026-09-12 morning and initially uncommitted — that part of the history is accurate. What changed: this session (S9/S10 continuation) committed it as its own commit before starting new S9/S10 work, then committed the S9/S10 work separately, then pushed both. Nothing about S7 itself changed; only its git status did. Do not re-read the old "decide whether to commit it" framing as still open — it has been decided and done.
 
-**The progress indicator said "25 of 37" until 2026-09-10 and was wrong** — it counted registry entries against numbered subsections. Every spec now carries `partOf`, the header counts distinct values, and a test holds it. The count has moved honestly since — 24 → 25 (D45, Risk Factors) → 26 (D50, History) → 27 (D51, Our Business) → 28 (D52, Objects of the Issue) → 29 (D54, MD&A) — each one a real section with a passing traceability gate behind it, not a relabelling.
+**The progress indicator said "25 of 37" until 2026-09-10 and was wrong** — it counted registry entries against numbered subsections. Every spec now carries `partOf`, the header counts distinct values, and a test holds it. The count has moved honestly since — 24 → 25 (D45, Risk Factors) → 26 (D50, History) → 27 (D51, Our Business) → 28 (D52, Objects of the Issue) → 29 (D54, MD&A) → 30 (D64, Basis for Issue Price) → 31 (D65, Industry Overview) — each one a real section with a passing traceability gate behind it, not a relabelling.
 **Rules: 55** — 43 eligibility, 12 consistency. The pre-check runs 26; no issuer sees 26 questions, since the criteria diverge by exchange.
 **No rule hedges any more** — the four disputes are settled (D25) and every finding gives a firm pass or fail with a clause.
 **Scope:** FULL BUILD, S0 through S13. No deadline pressure.
@@ -21,17 +21,19 @@
 
 ## Done
 
-### S7 — Opened, uncommitted — **IN PROGRESS 2026-09-12 morning** (D56)
+### S7 — Opened — **IN PROGRESS 2026-09-12 morning** (D56); **committed and pushed 2026-09-12 afternoon**
 
 Supabase Storage, a two-pass extraction pipeline (`lib/document-intake/`), `lib/llm/extraction.ts`
 (same no-invention harness shape as `narrative.ts`), and `app/extract/` — a real upload-through-confirm
 UI, verified against a live Om Galaxy extraction and a synthetic-PDF browser run. **Full detail in D56.**
-**This entire body of work is uncommitted** (`git status` at the top of this file lists every touched
-path) — the 2026-09-12 afternoon session (S9/S10 resumed, D57) deliberately left it alone rather than
-committing on the prior session's behalf. Whoever picks this up next should read D56, decide whether to
-commit it, and only then continue either S7 or S9/S10 — do not assume "uncommitted" means "abandoned."
+**Committed as its own commit** ("Open S7: Supabase Storage, a two-pass extraction pipeline, and a real
+upload-through-confirm UI") **and pushed to `origin/main`**, at the user's explicit request in the same
+afternoon session that also closed S9 and grew S10 further. No longer uncommitted, no longer a decision
+waiting on anyone — the only S7 work still ahead is what D56 itself lists as not yet built (an
+upload/review UI reachable from `/intake`, per-field source pages, re-running extraction against an
+already-uploaded document).
 
-### S9 / S10 — Gemini wired, risk archetypes, the drafting harness, four narrative sections, dismiss-with-reason, why-flagged — **IN PROGRESS 2026-09-12** (D43–D63)
+### S9 / S10 — Gemini wired; S9's six narrative sections all built; S10 grown to 20 archetypes plus dismiss-with-reason and why-flagged — **S9 SUBSTANTIALLY DONE, S10 IN PROGRESS, 2026-09-12** (D43–D65)
 
 **The provider decision.** Gemini free tier, not Claude, not paid — a hobby-project call (D43),
 made explicitly with the trade-off written down: free-tier content trains Google's models, fine for
@@ -141,6 +143,46 @@ try, rendered and read on the actual DOCX page. Also fixed a small pre-existing 
 `financials.years`'s `feedsInto` never listed `general.riskFactors`, even though three earlier
 archetypes already read from it. **Registry: 20, 14 of which now fire on Vardhman.**
 
+**D64 - Basis for Issue Price, the fifth narrative section, unblocked by one real new question.**
+D54 flagged this as blocked on peer comparables; checked what was ACTUALLY missing rather than
+assuming the whole section needed new intake - the issuer's own EPS, RoNW and NAV were already
+computed (`lib/financials/ratios.ts`, S8). Added `offer.industryPeers[]` (`zIndustryPeer`: name, face
+value, EPS, P/E, RoNW, NAV) and one M9 repeater field; seeded Vardhman with two FICTIONAL peer
+companies (never a real, identifiable company with invented financials attached). Built as
+`producer: 'computed'` with a manually-invoked `readNarrative()` for the opening paragraph (same shape
+as `risk-factors.ts`), everything else - the accounting-ratio table, P/E at floor/cap price, the peer
+comparison table with the issuer's own computed row - pure TS. Deliberately did NOT draft "qualitative
+factors" as prose (no honest way to state a claimed strength without inventing one); points to Our
+Business and Risk Factors instead. A real bug caught by a dedicated test, not review:
+`otherFinancialInformation()` returns `null` OR an empty array depending on which fact is missing, and
+the original `if (!ratios)` guard only caught one of the two. Rendered and read the actual DOCX page -
+`pdftotext -layout` garbled the narrow P/E table into nonsense text, which was a FALSE ALARM: the actual
+rendered page is correct (the D34/S11 lesson, again - trust the image, not flattened text). **Registry:
+30 of 37.**
+
+**D65 - Industry Overview, the sixth and last narrative section, deliberately left permanently
+incomplete.** Unlike Basis for Issue Price, did NOT add a new intake question - a real Industry
+Overview needs a COMMISSIONED report (CRISIL/CARE/D&B), and asking an SME issuer to self-report a
+market-size figure would be asking them to state something they typically cannot honestly answer (MM4
+applies to what the app ASKS for, not only what it drafts). Drafts only what existing facts support
+(`company.sector`, `company.businessDescription`, `business.productLines`,
+`business.primaryMarketDescription`) - no market size, no growth rate, no competitive claim. The
+standing gap (`aboutCompany.industryOverview.commissionedReport`) is the only PERMANENT gap in the
+whole document - it never closes, by design, even once a real draft exists; a dedicated test holds
+this. A real ordering bug caught by an EXISTING test: the first `order` value (1450) split "SECTION -
+ABOUT THE COMPANY" into two non-contiguous runs, since `docx.ts` opens a new Heading 1 per group
+CHANGE between consecutive sections, not once per unique group name - `docx.test.ts`'s heading-count
+assertion failed by exactly one before this ever reached a real document. Fixed by moving to order
+2300, immediately before Our Business - also where a real prospectus opens this chapter. **Registry:
+31 of 37.**
+
+**S9 status after D64/D65: all six planned narrative sections exist**, and a real exhaustive
+traceability audit was run across every drafted sentence currently on file (not a sample) - 20 drafts,
+82 sentences, 0 untraceable numbers. TODO.md's S9 checklist and two of its three gate items are now
+ticked; the third (matches the S0 corpus in register and structure) stays honestly `[~]`, checked only
+informally per-section, never as one systematic diff. **Not the same as S9 being fully closed** - see
+TODO.md's own S9 entry for the exact honest state.
+
 **D55 — render and look, applied to S9/S10 output for the first time, caught a real systemic bug.**
 Five archetypes (all predating D52's money-formatting lesson) were printing raw rupee integers —
 `21000000`, and once a materiality threshold as `1208333.3333333333333333334` — into both the
@@ -150,13 +192,13 @@ number WAS in the factSlice, just never formatted. Fixed at the source
 Vardhman, re-rendered, re-read the pages. **Do this again before the next archetype batch ships** —
 nothing that produces money for a document is verified until someone has looked at the actual page.
 
-**Not yet built:** ~24 more archetypes toward the ~40 target (unsecured-loans-repayable-on-demand
-built at D57; auditor qualification re-checked at D57 and remains single-sourced — Ideas Electricals
-alone carries a real qualification, no second document corroborates one); the same harness applied to
-Basis for Issue Price or Industry Overview, both of which need data this fact base does not carry yet
-(peer comparables, a commissioned industry report) — new intake, not just new prompts. **S7 is now
-opened but uncommitted** — see the S7 entry above and D56; do not say "S7 is untouched" without
-checking the working tree first.
+**Not yet built:** ~20 more archetypes toward the ~40 target; auditor qualification remains
+single-sourced (Ideas Electricals alone, no second document corroborates one). **Basis for Issue Price
+and Industry Overview are both now built** (D64, D65 — see the S9 entry below); this line is kept only
+as a marker of how the earlier read of them ("blocked on data this fact base does not carry") was
+half right — true for Industry Overview by design, wrong for Basis for Issue Price, which needed one
+real new question, not new intake in general. **S7 is committed and pushed** — see the S7 entry above;
+the old "uncommitted" framing here is stale.
 
 ### S8 — Modules M3–M10 and Wave 2 computed sections — **CLOSED 2026-09-11** (D37, D38, D39)
 
@@ -424,40 +466,48 @@ check the None affordance and the new cell types feel right. Still true, still n
 order of value:
 
 1. ~~S11 leftovers~~, ~~Wave 2 stragglers~~ — **done 2026-09-10/11.**
-2. **First: decide what to do with S7's uncommitted work (D56).** It is real and tested but sitting
-   in the working tree from the 2026-09-12 morning session. Read D56, confirm with the user whether
-   to commit it, before assuming a clean slate.
-3. ~~"Why this was flagged"~~ — **done 2026-09-12 (D59).** Both S10 gate items TODO.md names are now
-   built; TODO.md's S10 checklist should be ticked off next session (not done yet — see the checklist
-   itself, still shows both as unchecked boxes as of this writing).
-4. **Keep growing S10 (risk archetypes).** All seven corpus documents mined multiple times toward
+2. ~~Decide what to do with S7's uncommitted work~~ — **done 2026-09-12 afternoon.** Committed as its
+   own commit and pushed to `origin/main`, alongside a separate commit for this session's S9/S10 work.
+3. ~~"Why this was flagged"~~, ~~Dismiss-with-reason~~ — **done 2026-09-12 (D58, D59).** Both S10 gate
+   items TODO.md names are built AND ticked off in TODO.md's own checklist now (not just built with a
+   stale checklist, as an earlier version of this file said).
+4. ~~Basis for Issue Price~~, ~~Industry Overview~~ — **done 2026-09-12 (D64, D65), at the user's
+   explicit direction to finish S9.** All six of S9's planned narrative sections now exist. TODO.md's
+   S9 checklist and gate are updated to match — two of three gate items pass fully (including a real
+   exhaustive traceability audit, D65), the third (matching the S0 corpus in register and structure)
+   stays honestly `[~]` since it was only ever checked informally.
+5. **Keep growing S10 (risk archetypes).** All seven corpus documents mined multiple times toward
    the ~40 target (**20 done**, D63 latest). Remaining corpus themes seen and deliberately not built
    all need either a new fact with no existing table to lean on, or a second corroborating source —
    auditor qualification is single-sourced (Ideas Electricals only) as of D57. Pattern to follow:
    `lib/risk/archetypes.ts`'s own comments cite exactly which corpus documents support each one — now
    also the real `groundedIn` field a new archetype must set (D59) — and check D57 (materiality scale:
-   raw rupees vs. crores vs. a ratio) D60 (sign: a negative money value must go through
+   raw rupees vs. crores vs. a ratio) and D60 (sign: a negative money value must go through
    `.abs().toFixed()` before `formatAs()`, with a separate boolean carrying the sign) before shipping
    the next one that touches money.
-5. **Keep growing S9 (narrative sections).** Four done (History, Our Business, Objects of the
-   Issue, MD&A), all deliberately scoped to an opening paragraph the fact base can honestly
-   support. The next two planned ones (`particulars.basisForIssuePrice`,
-   `aboutCompany.industryOverview`) need data this fact base does NOT carry — peer comparables, a
-   commissioned industry report — so they need new M-module intake before a `promptSpec`, not just
-   a new prompt.
-6. **Before shipping the next archetype or section: render and look (D55, applied again at D57).**
-   Generate the DOCX (`SETU_DOCX_OUT=<scratchpad>/vardhman.docx npx vitest run lib/document/docx.test.ts`),
-   convert with LibreOffice (`"/c/Program Files/LibreOffice/program/soffice.exe" --headless --convert-to
-   pdf --outdir <dir> <dir>/vardhman.docx`), rasterise with pypdfium2 in a scratchpad venv (create once
-   with `python -m venv`, `pip install pypdfium2 pillow`; a short rasterise.py script taking page
-   numbers as argv is enough), actually read the pages. This is what caught D55, and D57 shows the
-   habit sticking — no equivalent bug shipped this time because `formatAs()` was used from the start.
-7. **S12** review workflow, which is what wires `certified` — and lifts the draft notice in every
+6. **Before shipping the next archetype or section: render and look (D55, reconfirmed at D57, D64,
+   D65).** Generate the DOCX (`SETU_DOCX_OUT=<scratchpad>/vardhman.docx npx vitest run
+   lib/document/docx.test.ts`), convert with LibreOffice (`"/c/Program Files/LibreOffice/program/
+   soffice.exe" --headless --convert-to pdf --outdir <dir> <dir>/vardhman.docx`), rasterise with
+   pypdfium2 in a scratchpad venv (create once with `python -m venv`, `pip install pypdfium2 pillow`;
+   a short rasterise.py script taking page numbers as argv is enough), actually read the pages. D64
+   also shows the mirror-image lesson: `pdftotext -layout` can garble a real, CORRECT narrow table into
+   nonsense — a text-only re-check would have reported a false bug. Look at the actual page image, not
+   only extracted text, before concluding either way.
+7. **A real ordering gotcha, worth remembering for any future section:** a `SectionSpec`'s `order`
+   value must keep every section sharing a `group` name CONTIGUOUS in the final sorted sequence.
+   `docx.ts`'s `body()` opens a new Heading 1 every time the group CHANGES between consecutive
+   sections, not once per unique group name — an `order` that splits a group into two separate runs
+   silently doubles that group's page break and heading in the DOCX. Caught by an existing test
+   (`docx.test.ts`'s heading-count assertion) when Industry Overview's first `order` value (1450)
+   split "SECTION - ABOUT THE COMPANY" in two (D65) — check where a new section's `order` actually
+   lands relative to every other section already in its group before trusting it compiles clean.
+8. **S12** review workflow, which is what wires `certified` — and lifts the draft notice in every
    export at once, since they all go through `assemble()`. Note the overlap: D58's `/review/risks` is
    a narrow, S10-specific review action built ahead of S12's general role-based review workflow — do
    not conflate the two, and consider whether S12 should subsume or link to `/review/risks` rather than
    duplicate it.
-8. **Browser pass over M3-M10** — still not clicked through since the S8 session's check.
+9. **Browser pass over M3-M10** — still not clicked through since the S8 session's check.
 
 To regenerate DOCX samples without the server:
 `SETU_DOCX_OUT=out/vardhman.docx npx vitest run lib/document/docx.test.ts`.

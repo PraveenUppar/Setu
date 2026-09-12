@@ -15,9 +15,7 @@
  */
 export const plannedSections: Record<string, string> = {
   'introduction.generalInformation': 'General Information',
-  'particulars.basisForIssuePrice': 'Basis for Issue Price',
   'particulars.taxBenefits': 'Statement of Special Tax Benefits',
-  'aboutCompany.industryOverview': 'Industry Overview',
   'aboutCompany.keyRegulations': 'Key Industry Regulations and Policies',
   'aboutCompany.subsidiaries': 'Our Subsidiaries, Associates and Joint Ventures',
   'financial.restatedFinancialInformation': 'Restated Financial Information',

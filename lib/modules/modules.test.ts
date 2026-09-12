@@ -53,8 +53,8 @@ describe('the module spec', () => {
   });
 
   it('resolves feedsInto to titles a person recognises', () => {
-    const titles = feedsIntoTitles(['general.definitions', 'aboutCompany.industryOverview', 'not.a.section']);
-    expect(titles).toEqual(['Definitions and Abbreviations', 'Industry Overview (not yet drafted)']);
+    const titles = feedsIntoTitles(['general.definitions', 'aboutCompany.keyRegulations', 'not.a.section']);
+    expect(titles).toEqual(['Definitions and Abbreviations', 'Key Industry Regulations and Policies (not yet drafted)']);
   });
 });
 

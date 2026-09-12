@@ -19,6 +19,8 @@ import { riskFactors } from './risk-factors';
 import { history } from './history';
 import { ourBusiness } from './our-business';
 import { objectsOfTheIssue } from './objects-of-the-issue';
+import { basisForIssuePrice } from './basis-for-issue-price';
+import { industryOverview } from './industry-overview';
 import { mdna } from './mdna';
 import {
   contingentLiabilities,
@@ -52,6 +54,8 @@ export const sectionRegistry: SectionSpec[] = [
   relatedPartyTransactions,
   capitalStructure,
   objectsOfTheIssue,
+  basisForIssuePrice,
+  industryOverview,
   ourBusiness,
   history,
   management,

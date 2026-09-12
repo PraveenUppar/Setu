@@ -1775,6 +1775,8 @@ describe('progress counting', () => {
       '1. Definitions and Abbreviations',
       '10. Capital Structure',
       '11. Objects of the Issue',
+      '12. Basis for Issue Price',
+      '14. Industry Overview',
       '15. Our Business / Business Overview',
       '17. History and Corporate Structure / Certain Corporate Matters',
       '19. Our Management',

@@ -106,6 +106,7 @@ export function emptyFactBase(): FactBase {
       terminology: 'ISSUE',
       freshIssueShares: 0,
       sellingShareholders: [],
+      industryPeers: [],
       floorPrice: null,
       capPrice: null,
       issuePrice: null,

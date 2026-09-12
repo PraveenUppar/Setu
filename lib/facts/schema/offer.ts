@@ -25,6 +25,23 @@ export const zObjectOfIssue = z.object({
   involvesPromoterLoanRepayment: z.boolean().default(false),
 });
 
+/**
+ * D64 — the "Comparison with Listed Industry Peers" table Basis for Issue
+ * Price needs, and the one genuinely missing ingredient S9's flagship
+ * quantitative section was blocked on (D54's note: "needs data this fact
+ * base does NOT carry — peer comparables"). The issuer's OWN EPS, RoNW and
+ * NAV are already computed (`lib/financials/ratios.ts`, S8) — this is only
+ * the peer side, which cannot be derived from the issuer's own facts at all.
+ */
+export const zIndustryPeer = z.object({
+  name: z.string().describe('Listed peer company name'),
+  faceValue: zMoney.describe('Face value per equity share, in rupees'),
+  basicEps: z.string().describe('Basic EPS for the latest financial year, in rupees'),
+  peRatio: z.string().describe("Price to earnings ratio, based on the peer's closing market price"),
+  returnOnNetWorthPercent: zPercent.describe('Return on net worth, %, latest financial year'),
+  netAssetValuePerShare: z.string().describe('NAV per equity share, in rupees, latest financial year'),
+});
+
 export const zSellingShareholder = z.object({
   name: z.string(),
   type: z.enum(['PROMOTER', 'PROMOTER_GROUP', 'OTHER']),
@@ -283,6 +300,9 @@ export const zOffer = z.object({
     .optional()
     .describe('Date of the exchange letter granting in-principle approval'),
 
+  /** D64: the peer half of Basis for Issue Price's quantitative factors — see `zIndustryPeer`. */
+  industryPeers: z.array(zIndustryPeer).default([]),
+
   englishNewspaper: z.string().optional().describe('English national daily with wide circulation'),
   hindiNewspaper: z.string().optional().describe('Hindi national daily with wide circulation'),
   regionalNewspaper: z
@@ -300,3 +320,4 @@ export const zOffer = z.object({
 export type Offer = z.infer<typeof zOffer>;
 export type ObjectOfIssue = z.infer<typeof zObjectOfIssue>;
 export type SellingShareholder = z.infer<typeof zSellingShareholder>;
+export type IndustryPeer = z.infer<typeof zIndustryPeer>;

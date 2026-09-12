@@ -19,7 +19,7 @@ Each stage ends with something demoable and a manual test gate. **Do not advance
 - **S7 opened 2026-09-12, uncommitted (D56):** Supabase Storage, a two-pass extraction pipeline, `app/extract/`. Real, tested, but sitting in the working tree — see `.claude/context/04-session-handoff.md`'s S7 note before assuming a clean slate.
 - **S11 closed 2026-09-11:** `renderDocx()` over the same AST, `/export/docx`, pre-filled ToC, highlighted and bookmarked placeholders, draft notice in the header until certified (no page watermark, D35). Word gate passed. Then `/export/gaps` workbook, `/export/pdf` (LibreOffice print, D40) and `/export/vault`.
 - **S8 closed 2026-09-11:** all ten modules on one engine, ten Wave 2 computed sections, 22 of 37 subsections. None-as-an-answer (D37). Vardhman completes nine modules; M9 leaves the three DRHP-stage unknowns.
-- **S9 partial:** the drafting harness is proven against real calls; 4 of 6 planned narrative sections done (History, Our Business, Objects of the Issue, MD&A). The remaining two (Basis for Issue Price, Industry Overview) are genuinely blocked on data this fact base doesn't collect (peer comparables, a commissioned industry report), not just unscheduled.
+- **S9 partial, all six sections done:** all six planned narrative sections built (History, Our Business, Objects of the Issue, MD&A, Basis for Issue Price D64, Industry Overview D65) — the last two needed real unblocking, not just scheduling: one new intake question for peer comparables, and a deliberate decision NOT to ask a new question for Industry Overview (a real one needs a commissioned report). Two of three gate items pass fully, including a real exhaustive audit of every drafted sentence on file (D65: 20 drafts, 82 sentences, 0 untraceable). Marked partial only because "matches the S0 corpus in register and structure" was checked informally each time, never as one systematic diff.
 - **S10 partial, gate fully passing:** 20 of the ~40 target archetypes (D44–D57, D60–D63); every OTHER checklist item and every gate item is done — trigger/materiality engine, LLM narrative per risk, dismiss-with-reason (D58), why-this-was-flagged (D59). Marked partial, not closed, because the breadth target is still over half short, not a mere straggler.
 
 ---
@@ -220,19 +220,19 @@ Pure content. No new components. ~half a day per pair.
 
 ## 🔴🟡 S9 — Drafting harness + Wave 3 narrative · 2 days
 
-- [ ] Grounded drafting harness: `factSlice` scoping (model sees **only** that section's facts), no-invention system prompt, forced fact citation, placeholder-on-missing
-- [ ] Our Business
-- [ ] Industry Overview — marked *"draft — to be replaced by commissioned report"*
-- [ ] MD&A
-- [ ] History and Corporate Matters
-- [ ] Objects of the Offer
-- [ ] Basis for Offer Price
-- [ ] Regenerate-per-section, keep prior versions
+- [x] Grounded drafting harness: `factSlice` scoping (model sees **only** that section's facts), no-invention system prompt, forced fact citation, placeholder-on-missing — `lib/llm/narrative.ts`, D50
+- [x] Our Business — D51, scoped to the Overview paragraph
+- [x] Industry Overview — marked *"draft — to be replaced by commissioned report"* — D65, deliberately no new intake question (a real Industry Overview needs a commissioned report, not issuer self-reporting)
+- [x] MD&A — D54
+- [x] History and Corporate Matters — D50
+- [x] Objects of the Offer — D52, narrative half only; the computed means-of-finance tables are a separate, unbuilt piece
+- [x] Basis for Offer Price — D64, needed one real new question (`offer.industryPeers`)
+- [x] Regenerate-per-section, keep prior versions — `lib/store/narrative-store.ts`, append-only
 
 ### ✅ Gate
-- [ ] **20 random generated sentences → every one traces to a fact-base entry.** Any that don't are the bug that matters most.
-- [ ] Remove a fact → prose degrades to a placeholder, does not invent
-- [ ] Output matches the S0 reference prospectuses in register and structure
+- [x] **20 random generated sentences → every one traces to a fact-base entry.** Done as a stronger, exhaustive version: every one of the 20 drafts on file (82 sentences total), re-checked against `untraceableNumbers()` and its own stored factSlice — 0 failures (D65).
+- [x] Remove a fact → prose degrades to a placeholder, does not invent — `readNarrative(id, currentFactSlice)`'s exact-match requirement (D51) means ANY fact change, not just a removal, falls back to the honest computed sentence or placeholder
+- [~] Output matches the S0 reference prospectuses in register and structure — checked informally each time a section was drafted and rendered (D50–D65), never as a single systematic diff against the corpus. Left honestly partial: worth a dedicated pass, not a blocking gate.
 
 ---
 

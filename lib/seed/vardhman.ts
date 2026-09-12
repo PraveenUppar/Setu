@@ -847,6 +847,28 @@ export const vardhman: FactBase = {
     marketMakerReservationShares: 225000,
     sellingShareholders: [],
 
+    // D64: fictional peer companies, same discipline as the rest of this
+    // seed (Vardhman itself is entirely synthetic) — never real, identifiable
+    // listed companies with invented financials attached to their name.
+    industryPeers: [
+      {
+        name: 'Precitech Forgings Limited',
+        faceValue: money('10'),
+        basicEps: '14.20',
+        peRatio: '18.50',
+        returnOnNetWorthPercent: 16.8,
+        netAssetValuePerShare: '84.50',
+      },
+      {
+        name: 'Chakan Auto Components Limited',
+        faceValue: money('10'),
+        basicEps: '9.80',
+        peRatio: '22.10',
+        returnOnNetWorthPercent: 12.4,
+        netAssetValuePerShare: '79.20',
+      },
+    ],
+
     floorPrice: money('47'),
     capPrice: money('49'),
     // Not fixed until the book closes, so it renders as a gap. Every corpus

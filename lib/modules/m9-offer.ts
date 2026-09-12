@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { zDate, zMoney, zObjectOfIssue, zPercent, zSellingShareholder } from '../facts/schema';
+import { zDate, zIndustryPeer, zMoney, zObjectOfIssue, zPercent, zSellingShareholder } from '../facts/schema';
 import type { Module } from './types';
 import type { RepeaterColumn } from './repeater-spec';
 
@@ -28,6 +28,7 @@ const DISCLAIMERS = 'regulatory.disclaimers';
 const CONSENTS = 'regulatory.consents';
 const APPROVALS = 'legal.approvals';
 const MATERIAL_CONTRACTS = 'other.materialContracts';
+const BASIS_FOR_ISSUE_PRICE = 'particulars.basisForIssuePrice';
 
 export const OBJECT_COLUMNS: RepeaterColumn[] = [
   { key: 'description', label: 'Object', type: 'text', width: '24rem' },
@@ -53,6 +54,15 @@ export const SELLING_SHAREHOLDER_COLUMNS: RepeaterColumn[] = [
   { key: 'sharesOffered', label: 'Shares offered', type: 'number', total: true, width: '8rem' },
   { key: 'preIssueShares', label: 'Pre-issue holding (shares)', type: 'number', width: '8rem' },
   { key: 'weightedAverageCostOfAcquisition', label: 'Weighted average cost (Rs)', type: 'money', width: '8rem' },
+];
+
+export const INDUSTRY_PEER_COLUMNS: RepeaterColumn[] = [
+  { key: 'name', label: 'Listed peer company', type: 'text', width: '16rem' },
+  { key: 'faceValue', label: 'Face value (Rs)', type: 'money', width: '7rem' },
+  { key: 'basicEps', label: 'Basic EPS (Rs)', type: 'text', width: '7rem' },
+  { key: 'peRatio', label: 'P/E ratio', type: 'text', width: '7rem' },
+  { key: 'returnOnNetWorthPercent', label: 'RoNW (%)', type: 'number', width: '7rem' },
+  { key: 'netAssetValuePerShare', label: 'NAV per share (Rs)', type: 'text', width: '8rem' },
 ];
 
 const optionalName = z.string().min(3);
@@ -220,6 +230,17 @@ export const m9Offer: Module = {
         'Leave empty for a pure fresh issue. Where existing shareholders sell, the offer for sale may not exceed 20% of the total issue, and no seller may offer more than half of their pre-issue holding on a fully diluted basis. Each seller’s weighted average cost of acquisition is printed.',
       clause: 'R-008 (Reg 230(1)(f), 230(1)(g))',
       feedsInto: [THE_ISSUE, STRUCTURE, 'capital.structure'],
+    },
+    {
+      path: 'offer.industryPeers',
+      label: 'Comparison with listed industry peers',
+      type: 'table',
+      schema: z.array(zIndustryPeer),
+      columns: INDUSTRY_PEER_COLUMNS,
+      helpText:
+        'The quantitative half of Basis for Issue Price: two or three listed companies in the same line of business, with their own latest EPS, P/E ratio, return on net worth and NAV per share — from their own published financial results, not ours. Our own EPS, RoNW and NAV are already computed from M6 and M2 and need no separate entry here. Leave empty until the merchant banker has identified comparable listed peers; the section renders a gap until then.',
+      clause: 'ICDR Schedule VI Part A, item 11(3) — basis for issue price',
+      feedsInto: [BASIS_FOR_ISSUE_PRICE],
     },
     {
       path: 'offer.brlmUnderwritingPercent',

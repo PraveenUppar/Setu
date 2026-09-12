@@ -1855,3 +1855,92 @@ picked it up automatically (D45's existing overlay).
 **Verified:** 4 new tests (71 total in `lib/risk/`), `tsc` clean, **642 tests passing overall**.
 
 **Registry: 20.**
+
+---
+
+## D64 - S9 closes its fifth section: Basis for Issue Price, unblocked by one real new question
+
+**2026-09-12, same session, at the user's explicit direction to finish S9.** D54 flagged
+`particulars.basisForIssuePrice` and `aboutCompany.industryOverview` as blocked on data the fact base
+did not carry. Checked what was ACTUALLY missing rather than assuming both needed the same fix: the
+issuer's own EPS, RoNW and NAV were already computed (`lib/financials/ratios.ts`, S8's Other Financial
+Information) - the genuinely missing half was the PEER side, "Comparison with Listed Industry Peers,"
+which cannot be derived from the issuer's own facts under any circumstance.
+
+**One new fact, `offer.industryPeers[]`** (`zIndustryPeer`: name, faceValue, basicEps, peRatio,
+returnOnNetWorthPercent, netAssetValuePerShare), one new M9 field with a real repeater. Vardhman seeded
+with two FICTIONAL peer companies (Precitech Forgings Limited, Chakan Auto Components Limited) - never
+a real, identifiable listed company with invented financials attached to its name, same discipline the
+whole seed already follows.
+
+**Built as `producer: 'computed'`, not `'narrative'`** - same shape `risk-factors.ts` established
+(D50): a manually-invoked `readNarrative()` inside `compute()` supplies the opening paragraph (drafted
+or the honest fallback), and everything after it - the accounting-ratio table, the P/E computation at
+the floor and cap price, the peer comparison table with the issuer's own computed row appended - is
+pure TS. Deliberately did NOT draft "qualitative factors" as prose: a real prospectus's qualitative
+factors are the issuer's own claimed strengths, which this fact base has no honest way to state without
+inventing one, so the section points to "Our Business" and "Risk Factors" instead, matching the
+restraint those sections already established (D51).
+
+**A real bug the tests caught, not review**: `otherFinancialInformation()` returns `null` when there is
+no allotment history, but an EMPTY ARRAY when allotments exist and simply no financial year is on file
+yet - the section's original `if (!ratios)` guard missed the second case, `[]` being truthy in JS, and
+crashed on `ratios[0].basicEps`. A dedicated test for "no financial year on file" caught it before it
+ever reached a real render.
+
+**Verified:** drafted for real through the S9 harness (gate passed first attempt, deliberately
+instructed to state no figures in the opening paragraph itself, since the tables immediately following
+state every figure precisely); 10 new tests; rendered the actual DOCX page and read it - both tables
+correctly formatted despite `pdftotext -layout` garbling the narrow P/E table into nonsense text (a
+false alarm caught by looking at the actual rendered page, not the extracted text - the exact D34/S11
+lesson, again). **Registry: 30 of 37 subsections.**
+
+---
+
+## D65 - S9 closes its sixth section: Industry Overview, deliberately left permanently incomplete
+
+**2026-09-12, same session, finishing S9.** Unlike Basis for Issue Price, deliberately did NOT add a
+new intake question for Industry Overview. A real Industry Overview chapter states market size, growth
+rate and competitive dynamics from a COMMISSIONED report (CRISIL, CARE, D&B or equivalent) -
+TODO.md's own out-of-scope list already says so. Asking an SME issuer to self-report a total-addressable-
+market figure would be asking them to state something they typically do not know and cannot honestly
+answer without commissioning exactly that report - MM4 (never invent) applies to what the app ASKS for,
+not only what it drafts.
+
+**What the section legitimately CAN draft, from facts already on file**
+(`company.sector`, `company.businessDescription`, `business.productLines`,
+`business.primaryMarketDescription`, all pre-existing): a short paragraph naming the sector and what the
+issuer makes, in Our Business's own restrained register (D51) - no market size, no growth rate, no
+competitive claim the factSlice cannot support. The drafting instructions explicitly forbade the model
+from stating any industry statistic, and the live draft complied without needing a second attempt.
+
+**The standing gap is permanent by design**, the only one in the whole document that is. Every other
+gap here closes once the missing fact is answered; `aboutCompany.industryOverview.commissionedReport`
+never can, because no fact this app collects satisfies it - it stays even once the sector, the business
+description and everything else about this section is completely filled in, exactly matching TODO.md's
+own framing: "marked 'draft — to be replaced by commissioned report.'" A dedicated test holds this: the
+gap still fires even after a real draft is written and stored.
+
+**A real ordering bug, caught by an existing test, not a new one.** The first `order` value chosen
+(1450) placed "SECTION - ABOUT THE COMPANY" between the introduction and capital structure groups,
+while Our Business/History/Management/Promoters/Group Companies/Conventions (2350-2700) already used
+the SAME group name later in the sequence - splitting one group into two non-contiguous runs.
+`docx.ts`'s `body()` opens a new Heading 1 every time the group CHANGES between consecutive sections,
+not once per unique group name (a per-group heading, not a per-group-NAME heading) - so the existing
+heading-count test in `docx.test.ts` failed by exactly one, correctly, before this ever reached a real
+document. Fixed by moving Industry Overview to order 2300, immediately before Our Business - which is
+also where a real prospectus opens the "About the Company" chapter, so the fix and the correct
+structure were the same move.
+
+**Verified:** 6 new tests, `tsc` clean, **658 tests passing overall** (up from 622 at the start of this
+session: D57-D65 in total added 36 tests). Drafted for real, gate passed first try, rendered and read
+the actual DOCX page - Industry Overview now opens the "About the Company" chapter exactly where a real
+prospectus does, immediately before Our Business.
+
+**All six of S9's planned narrative sections now exist** (History, Our Business, Objects of the Issue,
+MD&A, Basis for Issue Price, Industry Overview), each scoped honestly to what the fact base can
+support, and a real exhaustive audit across every drafted sentence on file passed (20 drafts, 82
+sentences, 0 untraceable — see the gate note above). **Not the same as closing S9's gate fully**: the
+third gate item, matching the S0 corpus in register and structure, has only ever been checked
+informally per-section, never as one systematic diff — left honestly open in TODO.md rather than
+ticked on the strength of the other two. **Registry: 31 of 37 subsections.**

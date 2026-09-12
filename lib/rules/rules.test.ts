@@ -753,12 +753,14 @@ describe('linking findings to the document', () => {
 
   it('leaves a section that is not drafted yet as a plain label', () => {
     // Most of the 37 subsections do not exist yet. A link that scrolls nowhere
-    // teaches the reader that the links do not work.
+    // teaches the reader that the links do not work. Industry Overview was
+    // this test's example until D65 built it — repointed to Key Industry
+    // Regulations and Policies, still genuinely unbuilt (sector-switched).
     const [linked] = linkFindings(
-      [{ ...stubFinding, blocks: ['Industry Overview', 'The entire filing'] }],
+      [{ ...stubFinding, blocks: ['Key Industry Regulations and Policies', 'The entire filing'] }],
       sections(),
     );
-    expect(linked.links).toEqual([{ label: 'Industry Overview' }, { label: 'The entire filing' }]);
+    expect(linked.links).toEqual([{ label: 'Key Industry Regulations and Policies' }, { label: 'The entire filing' }]);
   });
 
   it('links Capital Structure now that it is built', () => {
