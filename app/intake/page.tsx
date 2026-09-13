@@ -57,13 +57,13 @@ export default async function IntakePage() {
             {version > 0 && ` · version ${version}`}
           </p>
           <p className="mt-4 text-sm">
-            <Link href="/" className="underline decoration-dotted underline-offset-2">
+            <Link href="/document" className="underline decoration-dotted underline-offset-2">
               See the draft document
             </Link>
           </p>
           <p className="mt-1 text-xs text-zinc-400">
             {isScoped
-              ? `Showing ${visibleModules.length} module${visibleModules.length === 1 ? '' : 's'} assigned to ${ROLE_LABELS[role]}. Switch role in the top bar to see others.`
+              ? `Showing ${visibleModules.length} module${visibleModules.length === 1 ? '' : 's'} assigned to ${ROLE_LABELS[role]}. Switch role in the sidebar to see others.`
               : `No module defaults to ${ROLE_LABELS[role]} — showing all ${visibleModules.length}.`}
           </p>
         </div>

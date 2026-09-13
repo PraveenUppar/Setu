@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import Link from 'next/link';
 import { formatAs, money } from '@/lib/facts/money';
 import { runPreCheck, type PreCheckInput, type PreCheckYear } from '@/lib/rules/precheck';
 import type { Exchange } from '@/lib/facts/schema';
@@ -270,6 +271,15 @@ export default function EligibilityPreCheck() {
               </dd>
             </div>
           </dl>
+
+          {result.eligible && (
+            <Link
+              href="/document"
+              className="mt-5 inline-block rounded bg-zinc-900 px-4 py-2 text-sm text-white dark:bg-zinc-100 dark:text-zinc-900"
+            >
+              Continue to documentation
+            </Link>
+          )}
         </div>
 
         {result.findings.length > 0 && (

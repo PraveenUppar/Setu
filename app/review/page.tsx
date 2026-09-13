@@ -44,7 +44,7 @@ export default function ReviewPage() {
             <Link href="/review/audit" className="underline decoration-dotted underline-offset-2">
               Audit log
             </Link>{' '}
-            &middot; <Link href="/" className="underline decoration-dotted underline-offset-2">Back to the document</Link>.
+            &middot; <Link href="/document" className="underline decoration-dotted underline-offset-2">Back to the document</Link>.
           </p>
         </div>
       </header>

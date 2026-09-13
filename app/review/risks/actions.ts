@@ -38,7 +38,7 @@ export async function setRiskDismissal(
   // The document reads dismissal state at render time (risk-factors.ts), and
   // the review page shows the same records — both need to see the write.
   revalidatePath('/review/risks');
-  revalidatePath('/');
+  revalidatePath('/document');
 
   return { ok: true };
 }

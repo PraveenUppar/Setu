@@ -54,7 +54,7 @@ export default function RiskReviewPage() {
           <h1 className="mt-1 text-2xl font-semibold tracking-tight">Auto-flagged risks for {facts.company.name}</h1>
           <p className="mt-2 text-sm text-zinc-500">
             {risks.length} archetype{risks.length === 1 ? '' : 's'} fired against the current facts, {excludedCount} excluded from the
-            printed document. <Link href="/" className="underline decoration-dotted underline-offset-2">Back to the document</Link>.
+            printed document. <Link href="/document" className="underline decoration-dotted underline-offset-2">Back to the document</Link>.
           </p>
         </div>
       </header>

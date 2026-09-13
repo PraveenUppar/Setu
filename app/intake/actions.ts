@@ -48,7 +48,7 @@ export async function saveField(
    * a consistency check the issuer has to go looking for is not live.
    */
   revalidatePath('/intake', 'layout');
-  revalidatePath('/');
+  revalidatePath('/document');
 
   return { ok: status.issues.length === 0, issues: status.issues, version: written.version };
 }
