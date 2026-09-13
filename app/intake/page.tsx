@@ -81,7 +81,7 @@ export default async function IntakePage() {
       <h1 className="font-heading mt-2 text-2xl font-semibold tracking-tight">
         {typeof facts.company?.name === 'string' && facts.company.name
           ? facts.company.name
-          : 'Your company'}
+          : 'Pending company details'}
       </h1>
 
       {/* The one number that matters most, made hard to miss. */}
@@ -109,13 +109,7 @@ export default async function IntakePage() {
       </div>
 
       <div className="mt-8">
-        <h2 className="font-heading text-sm font-semibold">Who&apos;s filling this in?</h2>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Pick a role to see the modules handed to that person.
-        </p>
-        <div className="mt-4">
-          <RolePicker current={role} counts={counts} />
-        </div>
+        <RolePicker current={role} counts={counts} />
       </div>
 
       <div className="mt-8 space-y-4">
