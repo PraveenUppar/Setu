@@ -13,10 +13,4 @@
  * built, its entry moves out of here and into the registry; the field specs
  * do not change.
  */
-export const plannedSections: Record<string, string> = {
-  'introduction.generalInformation': 'General Information',
-  'particulars.taxBenefits': 'Statement of Special Tax Benefits',
-  'aboutCompany.keyRegulations': 'Key Industry Regulations and Policies',
-  'aboutCompany.subsidiaries': 'Our Subsidiaries, Associates and Joint Ventures',
-  'financial.restatedFinancialInformation': 'Restated Financial Information',
-};
+export const plannedSections: Record<string, string> = {};

@@ -201,6 +201,14 @@ export const zOffer = z.object({
   monitoringAgency: z.string().optional().describe('Monitoring Agency appointed for the issue'),
   legalAdvisor: z.string().optional().describe('Legal Advisor to the Issue'),
   escrowCollectionBank: z.string().optional().describe('Escrow Collection Bank'),
+  /**
+   * Distinct from `sponsorBank`/`escrowCollectionBank` above, which are
+   * Issue-specific banking arrangements — this is the Company's ordinary
+   * banker, named in General Information (#9) the same way Om Galaxy and
+   * Maxwell both do ("Banker to our Company" as its own line, separate from
+   * "Bankers to the Issue").
+   */
+  bankerToCompany: z.string().optional().describe('Banker to the Company (ordinary banking relationship, not Issue-specific)'),
   isin: z.string().optional().describe('International Securities Identification Number of the Equity Shares'),
 
   /** Quoted in "Fees Payable to the Registrar to the Issue". */

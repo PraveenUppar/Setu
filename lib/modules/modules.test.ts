@@ -53,8 +53,18 @@ describe('the module spec', () => {
   });
 
   it('resolves feedsInto to titles a person recognises', () => {
-    const titles = feedsIntoTitles(['general.definitions', 'aboutCompany.keyRegulations', 'not.a.section']);
-    expect(titles).toEqual(['Definitions and Abbreviations', 'Key Industry Regulations and Policies (not yet drafted)']);
+    // `plannedSections` is empty as of D73 — every subsection the section map
+    // names is built (`aboutCompany.keyRegulations`, this test's planned
+    // example until now, moved to the registry as an `external` stub). Added
+    // back temporarily to prove the "planned, not yet drafted" branch still
+    // works for whenever a future module names a section that isn't built yet.
+    plannedSections['test.notYetBuilt'] = 'A Section Not Yet Built';
+    try {
+      const titles = feedsIntoTitles(['general.definitions', 'test.notYetBuilt', 'not.a.section']);
+      expect(titles).toEqual(['Definitions and Abbreviations', 'A Section Not Yet Built (not yet drafted)']);
+    } finally {
+      delete plannedSections['test.notYetBuilt'];
+    }
   });
 });
 

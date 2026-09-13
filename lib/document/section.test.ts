@@ -1776,14 +1776,18 @@ describe('progress counting', () => {
       '10. Capital Structure',
       '11. Objects of the Issue',
       '12. Basis for Issue Price',
+      '13. Statement of Special / Possible Tax Benefits',
       '14. Industry Overview',
       '15. Our Business / Business Overview',
+      '16. Key Industry Regulations and Policies',
       '17. History and Corporate Structure / Certain Corporate Matters',
+      '18. Our Subsidiaries, Associates and Joint Ventures',
       '19. Our Management',
       '2. Certain Conventions, Presentation of Financial, Industry and Market Data',
       '20. Our Promoters and Promoter Group',
       '21. Our Group Company / Companies',
       '22. Dividend Policy',
+      '23. Restated Financial Information',
       '24. Other Financial Information',
       '25. Capitalisation Statement',
       '26. Management\'s Discussion and Analysis',
@@ -1804,6 +1808,7 @@ describe('progress counting', () => {
       '6. Summary of Financial Information',
       '7. Summary of Contingent Liabilities',
       '8. Summary of Related Party Transactions',
+      '9. General Information',
     ]);
   });
 

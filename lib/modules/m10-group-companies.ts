@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { zDate, zGroupCompany, zPercent, zRelatedParty, zRelatedPartyTransaction } from '../facts/schema';
+import { zDate, zGroupCompany, zPercent, zRelatedParty, zRelatedPartyTransaction, zSubsidiary } from '../facts/schema';
 import type { Module } from './types';
 import type { RepeaterColumn } from './repeater-spec';
 
@@ -17,6 +17,7 @@ import type { RepeaterColumn } from './repeater-spec';
 
 const GROUP = 'aboutCompany.groupCompanies';
 const RPT = 'introduction.relatedPartyTransactions';
+const SUBSIDIARIES = 'aboutCompany.subsidiaries';
 
 export const GROUP_COMPANY_COLUMNS: RepeaterColumn[] = [
   { key: 'name', label: 'Name', type: 'text', width: '16rem' },
@@ -26,6 +27,24 @@ export const GROUP_COMPANY_COLUMNS: RepeaterColumn[] = [
   { key: 'registeredOffice', label: 'Registered office', type: 'text', width: '16rem' },
   { key: 'isListed', label: 'Listed?', type: 'boolean', width: '6rem' },
   { key: 'publicOrRightsIssueInLastThreeYears', label: 'Public or rights issue in 3 years?', type: 'boolean', width: '7rem' },
+];
+
+export const SUBSIDIARY_COLUMNS: RepeaterColumn[] = [
+  { key: 'name', label: 'Name', type: 'text', width: '16rem' },
+  { key: 'cin', label: 'CIN', type: 'text', width: '12rem' },
+  {
+    key: 'relationship',
+    label: 'Relationship',
+    type: 'select',
+    width: '10rem',
+    options: [
+      { value: 'SUBSIDIARY', label: 'Subsidiary' },
+      { value: 'ASSOCIATE', label: 'Associate' },
+      { value: 'JOINT_VENTURE', label: 'Joint venture' },
+    ],
+  },
+  { key: 'shareholdingPercent', label: 'Shareholding (%)', type: 'number', width: '8rem' },
+  { key: 'natureOfBusiness', label: 'Nature of business', type: 'text', width: '16rem' },
 ];
 
 export const RELATED_PARTY_COLUMNS: RepeaterColumn[] = [
@@ -98,6 +117,17 @@ export const m10GroupCompanies: Module = {
         'Every company that meets the policy. Leave the table empty if there are none — both primary corpus documents have none, and the section then prints the policy and the standard statement. Where there are, the document discloses each with its business, and whether any is listed or has made a public or rights issue in the last three years.',
       clause: 'ICDR Schedule VI Part A',
       feedsInto: [GROUP, 'general.definitions', 'legal.litigation'],
+    },
+    {
+      path: 'groupCompanies.subsidiaries',
+      label: 'Subsidiaries, associates and joint ventures',
+      type: 'table',
+      schema: z.array(zSubsidiary),
+      columns: SUBSIDIARY_COLUMNS,
+      helpText:
+        'Entities the Company itself controls or holds a stake in — legally distinct from a "group company" above, which is a promoter-group entity regardless of the Company\'s own control. Leave the table empty if there are none: most SME issuers genuinely have none, and the section then states that plainly rather than showing a gap.',
+      clause: 'Companies Act s.2(6), s.2(87); ICDR Schedule VI Part A',
+      feedsInto: [SUBSIDIARIES],
     },
     {
       path: 'groupCompanies.relatedParties',

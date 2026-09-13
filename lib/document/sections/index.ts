@@ -23,6 +23,9 @@ import { objectsOfTheIssue } from './objects-of-the-issue';
 import { basisForIssuePrice } from './basis-for-issue-price';
 import { industryOverview } from './industry-overview';
 import { mdna } from './mdna';
+import { generalInformation } from './general-information';
+import { subsidiaries } from './subsidiaries';
+import { taxBenefits, keyIndustryRegulations, restatedFinancialInformation } from './scope-notes';
 import {
   contingentLiabilities,
   relatedPartyTransactions,
@@ -49,6 +52,7 @@ export const sectionRegistry: SectionSpec[] = [
   ...generalSections,
   riskFactors,
   ...conventionsSections,
+  generalInformation,
   theIssue,
   summaryOfFinancialInformation,
   contingentLiabilities,
@@ -56,12 +60,16 @@ export const sectionRegistry: SectionSpec[] = [
   capitalStructure,
   objectsOfTheIssue,
   basisForIssuePrice,
+  taxBenefits,
   industryOverview,
   ourBusiness,
+  keyIndustryRegulations,
   history,
+  subsidiaries,
   management,
   promoters,
   groupCompanies,
+  restatedFinancialInformation,
   otherFinancial,
   capitalisationStatement,
   mdna,

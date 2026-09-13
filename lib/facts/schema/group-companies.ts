@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { zCIN, zDate, zMoney, zShares } from './shared';
+import { zCIN, zDate, zMoney, zPercent, zShares } from './shared';
 
 /**
  * Module M10 — Group Companies and Related Party Transactions.
@@ -49,8 +49,25 @@ export const zRelatedPartyTransaction = z.object({
   amountPrior2: zMoney.nullable().describe('Amount two years before'),
 });
 
+/**
+ * Section map #18 — legally distinct from a "group company" above: a
+ * subsidiary/associate/JV is an entity the ISSUER itself controls or holds
+ * a stake in (Companies Act s.2(6)/s.2(87)), not a promoter-group entity.
+ * Four of the five ToC-mapped documents state plainly that the Company has
+ * none; only Photonics Watertech has one. Most SME issuers answer "none",
+ * and that is a complete, real answer — not a gap.
+ */
+export const zSubsidiary = z.object({
+  name: z.string(),
+  cin: zCIN.optional(),
+  relationship: z.enum(['SUBSIDIARY', 'ASSOCIATE', 'JOINT_VENTURE']),
+  shareholdingPercent: zPercent.optional(),
+  natureOfBusiness: z.string().optional(),
+});
+
 export const zGroupCompanies = z.object({
   companies: z.array(zGroupCompany).default([]),
+  subsidiaries: z.array(zSubsidiary).default([]),
 
   materialityResolutionDate: zDate
     .optional()
@@ -77,6 +94,7 @@ export const zGroupCompanies = z.object({
 });
 
 export type GroupCompany = z.infer<typeof zGroupCompany>;
+export type Subsidiary = z.infer<typeof zSubsidiary>;
 export type RelatedParty = z.infer<typeof zRelatedParty>;
 export type RelatedPartyTransaction = z.infer<typeof zRelatedPartyTransaction>;
 export type GroupCompanies = z.infer<typeof zGroupCompanies>;

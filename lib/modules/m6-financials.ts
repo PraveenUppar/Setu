@@ -146,8 +146,8 @@ export const m6Financials: Module = {
       schema: z.string().min(3),
       placeholder: 'Kalyani & Associates, Chartered Accountants',
       helpText:
-        'The firm’s name as it signs, with "Chartered Accountants". It appears in the glossary, the experts’ consents and the indebtedness certificate. The auditor must be peer reviewed by the ICAI to certify the restated financials.',
-      feedsInto: ['general.definitions', 'regulatory.jurisdiction', INDEBTEDNESS],
+        'The firm’s name as it signs, with "Chartered Accountants". It appears in the glossary, the experts’ consents, the indebtedness certificate and General Information. The auditor must be peer reviewed by the ICAI to certify the restated financials.',
+      feedsInto: ['general.definitions', 'regulatory.jurisdiction', INDEBTEDNESS, 'introduction.generalInformation'],
     },
     {
       path: 'financials.auditorFirmRegistrationNumber',

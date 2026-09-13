@@ -753,15 +753,22 @@ describe('linking findings to the document', () => {
   });
 
   it('leaves a section that is not drafted yet as a plain label', () => {
-    // Most of the 37 subsections do not exist yet. A link that scrolls nowhere
-    // teaches the reader that the links do not work. Industry Overview was
-    // this test's example until D65 built it — repointed to Key Industry
-    // Regulations and Policies, still genuinely unbuilt (sector-switched).
+    // All 37 numbered subsections are built as of this session (D73) — even
+    // Key Industry Regulations and Policies, this test's example until now,
+    // exists as a real (if `external`) section with a real anchor. A link
+    // that scrolls nowhere still teaches the reader the links do not work,
+    // so the behavior itself is still real; it just needs a title that will
+    // never be a subsection to demonstrate it now. "The entire filing" is
+    // that case for real (every eligibility blocker in `eligibility.ts`
+    // cites it, permanently, since it names no single section) — paired here
+    // with a title that simply does not exist, the same "rule cites a title
+    // the registry does not have" case a renamed or misspelled section would
+    // hit.
     const [linked] = linkFindings(
-      [{ ...stubFinding, blocks: ['Key Industry Regulations and Policies', 'The entire filing'] }],
+      [{ ...stubFinding, blocks: ['A Section That Does Not Exist', 'The entire filing'] }],
       sections(),
     );
-    expect(linked.links).toEqual([{ label: 'Key Industry Regulations and Policies' }, { label: 'The entire filing' }]);
+    expect(linked.links).toEqual([{ label: 'A Section That Does Not Exist' }, { label: 'The entire filing' }]);
   });
 
   it('links Capital Structure now that it is built', () => {

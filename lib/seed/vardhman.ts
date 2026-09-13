@@ -948,6 +948,7 @@ export const vardhman: FactBase = {
     registrarToIssue: 'Bigshare Services Private Limited',
     sponsorBank: 'HDFC Bank Limited',
     escrowCollectionBank: 'ICICI Bank Limited',
+    bankerToCompany: 'Bank of Maharashtra',
     monitoringAgency: 'Brickwork Ratings India Private Limited',
     legalAdvisor: 'Kanga and Company, Advocates and Solicitors',
     isin: 'INE9V8K01015',
@@ -993,6 +994,10 @@ export const vardhman: FactBase = {
         publicOrRightsIssueInLastThreeYears: false,
       },
     ],
+    // Realistic for a single-facility SME manufacturer: no subsidiaries,
+    // associates or joint ventures, matching four of the five ToC-mapped
+    // corpus documents (only Photonics Watertech has one).
+    subsidiaries: [],
     materialityResolutionDate: '2026-08-14',
     materialityThresholdPercent: 10,
     materialityBase: 'PROFIT_AFTER_TAX',

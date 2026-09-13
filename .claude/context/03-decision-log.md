@@ -2301,3 +2301,74 @@ to expect both, in `CATEGORY_ORDER` position. The sparse-issuer test's hardcoded
 grew to three, the same boolean-default-fires-conservatively precedent it already documented for
 `keyManInsuranceAbsent`, extended to the two new ones without changing the reasoning. 698 tests passing (6
 new), `tsc` clean. **Registry: 22, 16 of which fire on Vardhman.**
+
+---
+
+## D73 - S4 CLOSED: all 37 of 37 numbered subsections now exist
+
+**2026-09-12, later the same night.** The five remaining subsections (#9, #13, #16, #18, #23) aren't
+equally "remaining work" - two are permanently the auditor's/CA's deliverable, one is conditional on a
+fact most SME issuers don't have, and two were genuinely unbuilt content. Also corrected a second stale
+TODO.md line found along the way: the S8 "stragglers" (committee terms of reference, Interest of
+Directors/Promoters, promoter undertakings) were ALL already built and tested
+(`lib/document/sections/standing-statements.ts`, called from `management.ts`/`promoters.ts`,
+corpus-corroborated at two sources per `lib/document/standing.test.ts`) - the checklist line had simply
+never been ticked.
+
+**#13 Tax Benefits, #16 Key Industry Regulations, #23 Restated Financial Information - three new
+`producer: 'external'` specs, zero new engine work.** The mechanism already existed:
+`summaryOfFinancialInformation` (#6, `introduction.ts`) has used exactly this shape since S4/S8 - a
+heading plus a `[TO BE PROVIDED: <externalNote>]` placeholder that is also a real gap-dashboard finding.
+New file `lib/document/sections/scope-notes.ts`, each `externalNote` naming both the reason and WHO
+supplies it (the user's explicit ask this session), not just that it's missing. #16's note is careful to
+say the generic company/labour-law core is separately buildable later - the sector-specific half is what
+actually needs Legal Counsel, not the whole section equally.
+
+**#18 Our Subsidiaries, Associates and Joint Ventures - built for real, not stubbed, per the user's
+correction of my own draft plan.** Unlike the other three, nothing external blocks it: it's a yes/no fact
+most SME issuers (four of five ToC-mapped documents, Vardhman included) can just answer "none" to. New
+fact `groupCompanies.subsidiaries` (`zSubsidiary`: name, CIN, relationship enum, shareholding, nature of
+business) - legally distinct from `groupCompanies.companies` (a PROMOTER-group entity regardless of the
+issuer's own control) even though both live in M10 and sit near each other in the section map. Zero rows
+prints the plain "does not have any" sentence a real prospectus uses; populated rows print a table, with
+`gap()` calls beside missing cells matching `group-companies.ts`'s own established pairing (a table cell
+cannot carry a placeholder on its own).
+
+**#9 General Information - the real content-build, and a real course-correction mid-session.** The
+approved plan called for a new `offer.keyIntermediaries` repeater modeled on a fresh contact-card shape.
+Building it, reading the REST of `offer.ts` (not just the narrow grep terms the plan's research pass used)
+turned up that `bookRunningLeadManager`, `registrarToIssue`, `legalAdvisor`, `sponsorBank`,
+`escrowCollectionBank` and `monitoringAgency` already existed as bare optional strings - and
+`financials.auditorName`/`auditorFirmRegistrationNumber`/`auditorPeerReviewNumber` already existed too.
+The repeater would have asked for most of these a second time, which is exactly what MM2's "ask once"
+rule exists to prevent. Scrapped the repeater; added exactly one new fact,
+`offer.bankerToCompany` (mirroring `sponsorBank`'s pattern), for the one genuinely missing name - the
+Company's ordinary bank, distinct from the Issue-specific escrow/sponsor banking the other fields already
+cover. `bookRunningLeadManager`'s and `legalAdvisor`'s own field comments, written before this section
+existed, had promised SEBI registration numbers and address/contact detail would live in General
+Information - no field for those was ever built, so the section deliberately does NOT print them (would
+be exactly the fabrication MM4 forbids); only the Statutory Auditor's real FRN/peer-review numbers print,
+because those facts genuinely exist. Cross-references "Our Management" for the Board rather than
+duplicating its table, matching Om Galaxy's own convention.
+
+**Ordering checked against every neighboring file's real `order`/`group` values before placing anything**
+(D65's lesson, again) - #9 got its own new group (`SECTION - GENERAL INFORMATION`, order 800) in the wide
+gap between the Introduction group (ending 750) and Capital Structure (starting 2000); the other four
+slotted into existing groups at the exact gaps between their numeric neighbors. No group ended up split
+across two runs.
+
+**Five tests broke on the honest count moving 32 to 37, all fixed by updating the expected number, not
+the code** - `section.test.ts`'s full sorted-subsection list, `wave2.test.ts` and `export.test.ts`'s
+`.toBe(32)` assertions, and two tests in `modules.test.ts`/`rules.test.ts` whose examples of "a section
+that isn't built yet" (`aboutCompany.keyRegulations`) stopped being true examples now that it's built -
+repointed to a temporarily-injected planned id and a deliberately fictional title respectively, both with
+comments explaining why the milestone forced the change.
+
+**Rendered and read all five new sections on the actual DOCX page**, per this project's standing rule -
+General Information's intermediary table and CFO/CS lookups, both Tax Benefits and Key Industry
+Regulations' explained-gap text sitting correctly in their groups, Subsidiaries' "none" sentence right
+before Our Management, and Restated Financial Information opening the Financial Information group before
+Other Financial Information. Confirmed live in the running dev server too, against the real (non-Vardhman)
+fact base: the home page's own "Subsections ... of 37" counter reads 37, and the two new module fields
+(`offer.bankerToCompany` on M9, `groupCompanies.subsidiaries` on M10) render with the right control types.
+718 tests passing (20 new), `tsc` clean.

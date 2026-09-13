@@ -4,9 +4,9 @@
 
 ---
 
-**Last updated:** 2026-09-12 late night (**S10 grown to 22 archetypes, closing the industry and offer categories, D72**; **S12 CLOSED** — role switcher, section status, comments, audit log and a real MB certification action that finally lifts the export watermark, D71; a real hydration bug found and fixed along the way, same shape as D34/D55/D64/D70's "browser-only bug" lesson; S9 CLOSED earlier the same day — gate fully passing after a real register-and-structure audit, D68; **S7 paused permanently by user decision (D67)**; **AoA gap closed with a hand-typed field, D69**; **a real browser-only bug found and fixed in `/eligibility`, D70**)
-**Current stage:** S0, S3, S5, S6, S8, S9, S11, S12 CLOSED. **S7 PAUSED — do not resume without the user asking again** (D67: hand-typed form fields only, permanently, not a temporary fallback). S4 Wave 1 extraction finished; Wave 2 computed sections built. **S10 genuinely in progress** since D43, the only 🟡/🔴 stage still actively advancing besides S13 (not started).
-**Status:** **698 tests passing, tsc clean, dev server runs.** Document renders **32 of the 37 numbered subsections** (D69 added Main Provisions of the Articles of Association, closing the S7-dependent AoA gap with a hand-typed field instead). **All ten intake modules exist** and Vardhman completes nine of them outright (see S8 below). **Issue Procedure is COMPLETE**, the glossary is at **130 definitions plus 129 abbreviations**, **Risk Factors is a real, populated section** — **22 archetypes** (D44–D57, D60–D63, D72), **16 of which fire on Vardhman** with LLM-drafted prose behind every one that does, now across all six risk categories including industry and offer for the first time (D72) — and **S9's narrative harness covers all six planned sections with its gate fully passing**: a real systematic diff against the corpus (D68) found and fixed three structural gaps and corrected one wrong design assumption (Industry Overview does not need a commissioned report — real SME issuers commonly use public data with a disclaimer instead). Every one of the drafts on file re-checked for untraceable numbers after the fixes: 0 failures. **The app has a real (if unauthenticated) actor concept for the first time (S12)** — a role switcher, section review status, comments, an audit log, and the certification action that actually lifts `UNSIGNED DRAFT` on every export, which nothing in the app could do before today.
+**Last updated:** 2026-09-12 late night (**S4 CLOSED — all 37 of 37 numbered subsections now exist, D73**; **S10 grown to 22 archetypes, closing the industry and offer categories, D72**; **S12 CLOSED** — role switcher, section status, comments, audit log and a real MB certification action that finally lifts the export watermark, D71; a real hydration bug found and fixed along the way, same shape as D34/D55/D64/D70's "browser-only bug" lesson; S9 CLOSED earlier the same day — gate fully passing after a real register-and-structure audit, D68; **S7 paused permanently by user decision (D67)**; **a real browser-only bug found and fixed in `/eligibility`, D70**)
+**Current stage:** S0, S3, S4, S5, S6, S8, S9, S11, S12 CLOSED. **S7 PAUSED — do not resume without the user asking again** (D67: hand-typed form fields only, permanently, not a temporary fallback). **S10 genuinely in progress** since D43, the only 🟡/🔴 stage still actively advancing besides S13 (not started).
+**Status:** **718 tests passing, tsc clean, dev server runs.** Document renders **all 37 of 37 numbered subsections** for the first time (D73 closed the last five — General Information #9 and Our Subsidiaries #18 are real builds, Tax Benefits #13/Key Industry Regulations #16/Restated Financial Information #23 are explained-gap stubs naming who supplies them). **All ten intake modules exist** and Vardhman completes nine of them outright (see S8 below). **Issue Procedure is COMPLETE**, the glossary is at **130 definitions plus 129 abbreviations**, **Risk Factors is a real, populated section** — **22 archetypes** (D44–D57, D60–D63, D72), **16 of which fire on Vardhman** with LLM-drafted prose behind every one that does, now across all six risk categories including industry and offer for the first time (D72) — and **S9's narrative harness covers all six planned sections with its gate fully passing**: a real systematic diff against the corpus (D68) found and fixed three structural gaps and corrected one wrong design assumption (Industry Overview does not need a commissioned report — real SME issuers commonly use public data with a disclaimer instead). Every one of the drafts on file re-checked for untraceable numbers after the fixes: 0 failures. **The app has a real (if unauthenticated) actor concept for the first time (S12)** — a role switcher, section review status, comments, an audit log, and the certification action that actually lifts `UNSIGNED DRAFT` on every export, which nothing in the app could do before today.
 
 **The progress indicator said "25 of 37" until 2026-09-10 and was wrong** — it counted registry entries against numbered subsections. Every spec now carries `partOf`, the header counts distinct values, and a test holds it. The count has moved honestly since — 24 → 25 (D45, Risk Factors) → 26 (D50, History) → 27 (D51, Our Business) → 28 (D52, Objects of the Issue) → 29 (D54, MD&A) → 30 (D64, Basis for Issue Price) → 31 (D65, Industry Overview) — each one a real section with a passing traceability gate behind it, not a relabelling.
 **Rules: 55** — 43 eligibility, 12 consistency. The pre-check runs 26; no issuer sees 26 questions, since the criteria diverge by exchange.
@@ -64,6 +64,43 @@ returned, and read `/review/audit` to confirm every action logged with the right
 Verification writes taken back out of the shared `.data/` store afterward (status back to Draft,
 certification revoked), same discipline as every other session's browser pass. **692 tests, 22 new,
 `tsc` clean.**
+
+### S4 — CLOSED, all 37 of 37 numbered subsections exist (D73) — 2026-09-12 late night
+
+The five remaining subsections weren't equal amounts of work. **#13 Tax Benefits, #16 Key Industry
+Regulations, #23 Restated Financial Information** — three new `producer: 'external'` specs
+(`lib/document/sections/scope-notes.ts`), reusing the exact mechanism `summaryOfFinancialInformation`
+(#6) already established: a heading plus a `[TO BE PROVIDED: ...]` placeholder that's also a real
+gap-dashboard finding. Each `externalNote` states both the reason and WHO supplies it (Statutory
+Auditor/tax advisor, Legal Counsel, peer-reviewed Statutory Auditor respectively) — the user's explicit
+ask. **#18 Our Subsidiaries, Associates and JVs** — built for real instead, per the user's own correction
+of the draft plan: nothing external blocks it, "none" is a complete answer four of five corpus documents
+give. New fact `groupCompanies.subsidiaries` (M10), legally distinct from `groupCompanies.companies`
+(a promoter-group entity regardless of the issuer's own control).
+
+**#9 General Information — the real build, and a real mid-session course-correction.** The approved plan
+called for a new `offer.keyIntermediaries` repeater. Building it, a full read of `offer.ts` (not just the
+plan's narrow grep) found `bookRunningLeadManager`, `registrarToIssue`, `legalAdvisor`, `sponsorBank`,
+`escrowCollectionBank`, `monitoringAgency` and `financials.auditorName`/its FRN/peer-review numbers
+already existed — the repeater would have asked for most of them twice. Scrapped it; added exactly one
+new fact, `offer.bankerToCompany`. The section deliberately does NOT print addresses/SEBI registration
+numbers for the BRLM/Legal Advisor/Registrar, even though two existing field comments had promised they'd
+live here — no field for that detail was ever built, and inventing it would be exactly what MM4 forbids.
+Only the Statutory Auditor's FRN/peer-review numbers print, because those facts are real.
+
+**Ordering checked against every neighboring file's real order/group values before placing anything**
+(D65's lesson) — no group ended up split. **Five tests broke on the honest 32→37 count moving**, all
+fixed by updating the expected number or repointing a "not yet built" example to something still true —
+the good kind of failure. **Also fixed a second stale TODO.md line found along the way**: the S8
+"stragglers" (committee terms of reference, Interest of Directors/Promoters, promoter undertakings) were
+ALL already built and tested (`standing-statements.ts`), just never ticked off.
+
+**Rendered and read all five new sections on the actual DOCX page** — General Information's
+intermediary table and CFO/CS lookups, both explained-gap sections sitting correctly in their groups,
+Subsidiaries' "none" sentence right before Our Management, Restated Financial Information opening its
+group. Confirmed live in the running dev server against the real (non-Vardhman) fact base too: the home
+page's "Subsections ... of 37" counter reads 37, and both new module fields render with the right
+control types. **718 tests, 20 new, `tsc` clean.**
 
 ### S10 — grown to 22 archetypes (D72), closing the industry and offer categories — 2026-09-12 late night
 
@@ -666,11 +703,12 @@ officers and the Reg 300(1)(c) statement all landed. In descending value:
    for that reason; Servicing Behaviour and Status of Investor Complaints are not yet checked for
    two-source support.
 
-**Wave 1 extraction is now finished** except for #16 Key Industry Regulations and Policies, which is
-sector-switched: the generic company law and labour law core is shareable, but the sector-specific
-half is the same problem as the sector glossary and needs the issuer's sector. Everything else left
-in S4 is computed (needs S3/S5/S8), narrative (needs S9/S10 and credits), or external (auditor/CA) —
-**the AoA is no longer on this list, closed at D69.**
+**Wave 1 extraction is now finished, including #16 Key Industry Regulations and Policies** — closed
+2026-09-12 at D73, but only as an explained-gap stub, not full boilerplate: the generic company-law and
+labour-law core is genuinely shareable and could still be built as real template text later, but the
+sector-specific half is the same problem as the sector glossary and needs the issuer's actual sector, so
+the whole section states that plainly instead of drafting half of it. **The AoA and now all of S4 are
+off this list**, closed at D69 and D73 respectively.
 
 **D69 — Main Provisions of the Articles of Association, closed with a hand-typed field, not S7.** The
 user chose option (a) from the two D67 left open: a new M1 field (`company.articlesProvisions`, six

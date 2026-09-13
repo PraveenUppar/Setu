@@ -15,7 +15,7 @@ Each stage ends with something demoable and a manual test gate. **Do not advance
 **Tests, tsc and dev-server status live in `.claude/context/04-session-handoff.md`** — this table is stage-level only, so the two cannot contradict each other.
 
 - **S0 closed 2026-09-10** at 8 prospectuses rather than 25. Criteria corroborated across documents, paired fixtures built. 2 of 27 rule rows remain `PROPOSAL-ONLY` and carry no rules; O-5 (Schedule VI Part A) and O-7 (notification date) need SEBI's own text and stay open.
-- **S4 partial:** engine complete; **32 of the 37 numbered subsections** built (D69 added Main Provisions of the Articles of Association, no longer blocked on S7 — see below). What remains is external (auditor/CA deliverables) and a couple of sector-switched or single-sourced stragglers.
+- **S4 CLOSED 2026-09-12 (D73): all 37 of 37 numbered subsections now exist.** The last five — General Information (#9, real build) and Our Subsidiaries/Associates/JVs (#18, real build — "none" is a complete answer for the SME-majority case) plus Statement of Special Tax Benefits (#13), Key Industry Regulations and Policies (#16) and Restated Financial Information (#23), each a real `producer: 'external'` section stating who supplies it and why this app doesn't — closed the gap. What's genuinely left of #16 is the generic company/labour-law boilerplate core, deliberately deferred rather than half-built; #13 and #23 are permanently the auditor's/CA's deliverable, by design.
 - **S3 and S5 done 2026-09-10** — module engine, M1, M2, the repeater with spreadsheet paste, and the computed capital tables. A real issuer's answers now replace the seed.
 - **S6 closed 2026-09-10:** rule engine, gap dashboard, standalone `/eligibility` pre-check, finding-to-document links, and all 32 exchange criteria ruled. Every finding gives a firm pass or fail with a clause — no rule hedges. Remaining consistency rules wait on M2 and M6 data (S5, S8).
 - **S7 opened 2026-09-12 (D56), committed and pushed 2026-09-12 afternoon, PAUSED by user decision the same day (D67).** Real, tested, on `origin/main` — 2 of 8 checklist items and 1 of 4 gate items done, the rest partial or not started (see the S7 section below for the verified item-by-item state). **The user decided to skip document upload/extraction entirely: hand-typed form fields only, for as long as this project runs.** Nothing was deleted — `app/extract/`, `lib/document-intake/`, `lib/llm/extraction.ts`, `lib/store/document-storage.ts` all still exist and still pass their tests, dormant rather than removed. Do not resume S7 work without the user explicitly asking again; do not delete it either unless asked.
@@ -107,9 +107,11 @@ Each stage ends with something demoable and a manual test gate. **Do not advance
 
 ---
 
-## 🔴🟡 S4 — Document engine + Wave 1 templates · 2.5 days ⭐
+## ✅ S4 — Document engine + Wave 1 templates · CLOSED 2026-09-12 (D73)
 
 **The morale stage.** ~110 pages appear from almost no input.
+
+**The checklist below predates real progress tracking and was never updated as items landed — most of its `[ ]` boxes are stale, not open.** The top summary line (S4 CLOSED, all 37 of 37) is the accurate status; don't trust the boxes below item by item without checking the actual code first, the same lesson D45 learned about progress counts generally.
 
 - [ ] `DocumentNode` AST — `section` | `paragraph` | `table` | `placeholder` | `toc`
 - [ ] `renderHtml()` — **section-lazy** (never render 280 pages at once)
@@ -225,7 +227,7 @@ Pure content. No new components. ~half a day per pair.
 - [x] **M9** The Issue — 39 fields: structure, objects, band, intermediaries, dates; showIf by stage and exchange
 - [x] **M10** Group Companies & RPT — materiality policy, companies, related parties, transactions by year
 - [x] Wave 2 computed: Our Management · Our Promoters and Promoter Group · Our Group Companies · Outstanding Litigation · Government Approvals · Financial Indebtedness · Capitalisation Statement · The Issue · Summary of Contingent Liabilities · Summary of RPTs. Summary of Financial Information is external.
-- [ ] Stragglers: Other Financial Information (EPS, RoNW, NAV) · Material Contracts · committee terms of reference · Interest of Directors / Promoters · promoter undertakings
+- [x] ~~Stragglers~~ — **all built, this line was stale.** Other Financial Information (D64), Material Contracts (D69), and committee terms of reference / Interest of Directors / Interest of Promoters / promoter undertakings (`lib/document/sections/standing-statements.ts`, called from `management.ts` and `promoters.ts`, corpus-corroborated at two sources per `lib/document/standing.test.ts`) were all done before this line was last touched.
 
 ### ✅ Gate
 - [x] Every module fillable end to end — every field's seed value passes its schema; every table's columns match its row schema

@@ -29,6 +29,7 @@ const CONSENTS = 'regulatory.consents';
 const APPROVALS = 'legal.approvals';
 const MATERIAL_CONTRACTS = 'other.materialContracts';
 const BASIS_FOR_ISSUE_PRICE = 'particulars.basisForIssuePrice';
+const GENERAL_INFO = 'introduction.generalInformation';
 
 export const OBJECT_COLUMNS: RepeaterColumn[] = [
   { key: 'description', label: 'Object', type: 'text', width: '24rem' },
@@ -270,8 +271,8 @@ export const m9Offer: Module = {
       type: 'text',
       schema: optionalName,
       helpText:
-        'The merchant banker, by its full registered name. Named on the cover, in the glossary, in every procedure paragraph and in the due diligence certificate. Its SEBI registration number goes in General Information.',
-      feedsInto: [DEFINITIONS, PROCEDURE, DISCLAIMERS, CONSENTS],
+        'The merchant banker, by its full registered name. Named on the cover, in the glossary, in every procedure paragraph, in the due diligence certificate, and as the first line of General Information.',
+      feedsInto: [DEFINITIONS, PROCEDURE, DISCLAIMERS, CONSENTS, GENERAL_INFO],
     },
     {
       path: 'offer.registrarToIssue',
@@ -279,8 +280,8 @@ export const m9Offer: Module = {
       type: 'text',
       schema: optionalName,
       helpText:
-        'The registrar handles applications, allotment and refunds, and is party to the tripartite agreements with the depositories. Named in the glossary, the grievance mechanism and the approvals section.',
-      feedsInto: [DEFINITIONS, CONSENTS, APPROVALS],
+        'The registrar handles applications, allotment and refunds, and is party to the tripartite agreements with the depositories. Named in the glossary, the grievance mechanism, the approvals section and General Information.',
+      feedsInto: [DEFINITIONS, CONSENTS, APPROVALS, GENERAL_INFO],
     },
     {
       path: 'offer.registrarAgreementDate',
@@ -364,15 +365,24 @@ export const m9Offer: Module = {
       schema: optionalName,
       helpText:
         'The SCSB appointed as the conduit between the exchange and NPCI for UPI mandates. Named in the UPI subsection of Issue Procedure; prints as a gap until appointed.',
-      feedsInto: [PROCEDURE, DEFINITIONS],
+      feedsInto: [PROCEDURE, DEFINITIONS, GENERAL_INFO],
     },
     {
       path: 'offer.escrowCollectionBank',
       label: 'Escrow Collection Bank / Banker to the Issue',
       type: 'text',
       schema: optionalName,
-      helpText: 'The bank that holds the anchor investor escrow account and the public issue account. Named in the glossary and in the payment mechanism.',
-      feedsInto: [DEFINITIONS, PROCEDURE],
+      helpText: 'The bank that holds the anchor investor escrow account and the public issue account. Named in the glossary, the payment mechanism and General Information.',
+      feedsInto: [DEFINITIONS, PROCEDURE, GENERAL_INFO],
+    },
+    {
+      path: 'offer.bankerToCompany',
+      label: 'Banker to the Company',
+      type: 'text',
+      schema: optionalName,
+      helpText:
+        'The Company\'s ordinary bank, distinct from the Escrow Collection Bank or Sponsor Bank above — those are appointed specifically for this Issue. Named as its own line in General Information, the way Om Galaxy and Maxwell both print it.',
+      feedsInto: [GENERAL_INFO],
     },
     {
       path: 'offer.anchorEscrowAccountResident',
@@ -398,8 +408,8 @@ export const m9Offer: Module = {
       label: 'Legal Advisor to the Issue',
       type: 'text',
       schema: optionalName,
-      helpText: 'Named in the glossary and in General Information with its address and contact details, as one of the intermediaries to the issue.',
-      feedsInto: [DEFINITIONS],
+      helpText: 'Named in the glossary and as one of the key intermediaries in General Information.',
+      feedsInto: [DEFINITIONS, GENERAL_INFO],
     },
     {
       path: 'offer.monitoringAgency',

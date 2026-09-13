@@ -123,7 +123,7 @@ export function emptyFactBase(): FactBase {
       brlmDraftReturnedSince: null,
       exemptionApplicationDetails: null,
     },
-    groupCompanies: { companies: [], relatedParties: [], relatedPartyTransactions: [] },
+    groupCompanies: { companies: [], subsidiaries: [], relatedParties: [], relatedPartyTransactions: [] },
   };
 }
 
