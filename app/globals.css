@@ -130,5 +130,13 @@
   }
   html {
     @apply font-sans;
+    /*
+     * The app is always dark, but native controls (select dropdown
+     * popups, date pickers, scrollbars) don't read our CSS variables —
+     * they follow the browser's own light/dark UI rendering, which
+     * defaults to light. This tells the browser to render them dark too,
+     * so dropdown options aren't light text on a light popup.
+     */
+    color-scheme: dark;
   }
 }

@@ -4,7 +4,6 @@ import "./globals.css";
 import { Sidebar } from "@/components/sidebar";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { currentRole } from "@/lib/review/role";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,11 +29,11 @@ export const metadata: Metadata = {
  * The one piece of persistent chrome in the app — there was none before S12.
  * A left sidebar replaces the old top bar now that there are enough
  * destinations (Home, Eligibility, Document, Intake, Review, Risks, Audit
- * log) to need real navigation, not a single wrapping row.
+ * log) to need real navigation, not a single wrapping row. The role switcher
+ * used to live here too; it moved to `/intake` (`RolePicker`) so choosing who
+ * you are and seeing that person's modules happen in one place.
  */
-export default async function RootLayout({ children }: LayoutProps<"/">) {
-  const role = await currentRole();
-
+export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
@@ -43,7 +42,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       <body className="h-full min-h-full">
         <TooltipProvider>
           <SidebarProvider>
-            <Sidebar role={role} />
+            <Sidebar />
             <SidebarInset>{children}</SidebarInset>
           </SidebarProvider>
         </TooltipProvider>

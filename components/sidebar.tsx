@@ -15,7 +15,6 @@ import {
 import {
   Sidebar as SidebarPrimitive,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -26,8 +25,6 @@ import {
   SidebarRail,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { RoleSwitcher } from '@/components/role-switcher';
-import type { Role } from '@/lib/review/types';
 
 interface NavItem {
   href: string;
@@ -62,7 +59,7 @@ const NAV_GROUPS: { label: string; items: NavItem[] }[] = [
  * for free. Active state is exact-path, since Review/Risks/Audit log are
  * siblings under /review, not a hierarchy.
  */
-export function Sidebar({ role }: { role: Role }) {
+export function Sidebar() {
   const pathname = usePathname();
 
   return (
@@ -103,9 +100,6 @@ export function Sidebar({ role }: { role: Role }) {
         ))}
       </SidebarContent>
 
-      <SidebarFooter className="group-data-[collapsible=icon]:hidden">
-        <RoleSwitcher current={role} />
-      </SidebarFooter>
       <SidebarRail />
     </SidebarPrimitive>
   );

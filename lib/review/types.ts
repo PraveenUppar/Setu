@@ -1,7 +1,7 @@
 /**
  * S12 — shared review-workflow types.
  *
- * Deliberately pure (no `node:fs`, no `next/headers`): `role-switcher.tsx` is
+ * Deliberately pure (no `node:fs`, no `next/headers`): `role-picker.tsx` is
  * a client component and needs `Role`/`ROLES`/`ROLE_LABELS` without dragging
  * in server-only code, the same reason `lib/modules/types.ts` keeps `Field`
  * (server-only: a Zod schema and two functions) separate from `FieldView`
