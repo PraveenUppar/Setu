@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { riskArchetypes, selectRisks } from '@/lib/risk';
 import { readDismissal } from '@/lib/store/risk-dismissal-store';
 import { loadIssuer } from '@/lib/issuer';
@@ -47,29 +46,29 @@ export default function RiskReviewPage() {
   const excludedCount = cards.filter((c) => c.dismissed).length;
 
   return (
-    <div className="min-h-full bg-zinc-100 dark:bg-zinc-950">
-      <header className="border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
-        <div className="mx-auto max-w-4xl px-8 py-6">
-          <p className="text-xs font-medium uppercase tracking-widest text-zinc-500">Risk review</p>
-          <h1 className="mt-1 text-2xl font-semibold tracking-tight">Auto-flagged risks for {facts.company.name}</h1>
-          <p className="mt-2 text-sm text-zinc-500">
-            {risks.length} archetype{risks.length === 1 ? '' : 's'} fired against the current facts, {excludedCount} excluded from the
-            printed document. <Link href="/document" className="underline decoration-dotted underline-offset-2">Back to the document</Link>.
-          </p>
-        </div>
-      </header>
+    <div className="mx-auto max-w-4xl px-8 py-12">
+      <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+        Risk review
+      </p>
+      <h1 className="font-heading mt-2 text-2xl font-semibold tracking-tight">
+        {facts.company.name}
+      </h1>
+      <p className="mt-1 text-sm text-muted-foreground">
+        {risks.length} archetype{risks.length === 1 ? '' : 's'} fired against the current facts
+        {excludedCount > 0 && `, ${excludedCount} excluded from the printed document`}.
+      </p>
 
-      <main className="mx-auto max-w-4xl space-y-4 px-8 py-10">
+      <div className="mt-8">
         {cards.length === 0 ? (
-          <p className="text-sm text-zinc-500">No archetype fires against the current facts.</p>
+          <p className="text-sm text-muted-foreground">No archetype fires against the current facts.</p>
         ) : (
-          <ul className="divide-y divide-zinc-200 rounded-lg border border-zinc-200 bg-white px-6 dark:divide-zinc-800 dark:border-zinc-800 dark:bg-zinc-900">
-            {cards.map((risk) => (
-              <RiskDismissalCard key={risk.id} risk={risk} />
+          <ul className="divide-y divide-border rounded-lg border border-border bg-card px-5 shadow-sm">
+            {cards.map((risk, i) => (
+              <RiskDismissalCard key={risk.id} risk={risk} index={i} />
             ))}
           </ul>
         )}
-      </main>
+      </div>
     </div>
   );
 }

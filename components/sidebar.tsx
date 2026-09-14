@@ -42,14 +42,14 @@ const NAV_GROUPS: { label: string; items: NavItem[] }[] = [
       { href: '/intake', label: 'Intake', icon: ClipboardList },
       { href: '/document/gaps', label: 'Gap Report', icon: ClipboardX },
       { href: '/document', label: 'Document', icon: FileText },
-      { href: '/export', label: 'Export', icon: Download },
+      { href: '/review/risks', label: 'Risks', icon: AlertTriangle },
     ],
   },
   {
     label: 'Review',
     items: [
       { href: '/review', label: 'Review', icon: ListChecks },
-      { href: '/review/risks', label: 'Risks', icon: AlertTriangle },
+      { href: '/export', label: 'Export', icon: Download },
       // Audit log deliberately dropped from navigation (not deleted — still
       // a real route at /review/audit, still logging every action). It only
       // pays for itself with more than one real reviewer; for a solo demo
