@@ -1,18 +1,7 @@
 'use client';
 
 import { useState, useTransition } from 'react';
-import {
-  Factory,
-  PieChart,
-  Scale,
-  User,
-  TrendingUp,
-  Rocket,
-  CircleHelp,
-  EyeOff,
-  RotateCcw,
-  type LucideIcon,
-} from 'lucide-react';
+import { CircleHelp, EyeOff, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { setRiskDismissal } from '@/app/review/risks/actions';
 import type { RiskCategory } from '@/lib/risk';
@@ -32,15 +21,6 @@ export interface RiskDismissalCardData {
   storedReason: string;
   dismissedAt: string | null;
 }
-
-const CATEGORY_ICONS: Record<RiskCategory, LucideIcon> = {
-  business: Factory,
-  financial: PieChart,
-  legal: Scale,
-  promoter: User,
-  industry: TrendingUp,
-  offer: Rocket,
-};
 
 /**
  * D59 — "why this was flagged": corpus grounding, source module(s) and
@@ -97,7 +77,6 @@ export function RiskDismissalCard({ risk, index }: { risk: RiskDismissalCardData
   const [error, setError] = useState<string | null>(null);
   const [excluding, setExcluding] = useState(false);
   const [pending, startTransition] = useTransition();
-  const Icon = CATEGORY_ICONS[risk.category];
 
   const act = (dismissed: boolean) => {
     setError(null);
@@ -111,10 +90,6 @@ export function RiskDismissalCard({ risk, index }: { risk: RiskDismissalCardData
   return (
     <li className={`py-4 ${risk.dismissed ? 'opacity-70' : ''}`}>
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-        <span className="inline-flex items-center gap-1 rounded-md bg-muted px-2 py-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-          <Icon className="h-3.5 w-3.5" />
-          {risk.category}
-        </span>
         <span className="font-medium text-foreground">
           {index + 1}. {risk.title}
         </span>
