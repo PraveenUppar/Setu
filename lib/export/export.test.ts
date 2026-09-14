@@ -123,6 +123,24 @@ describe('the PDF print', () => {
     await expect(docxToPdf(Buffer.from('not a docx'))).rejects.toBeInstanceOf(PdfUnavailableError);
   });
 
+  it('refuses plainly on a serverless host with no LibreOffice on PATH (e.g. Vercel), not with a raw spawn error', async () => {
+    // On non-Windows, findSoffice() cannot verify PATH without running it, so
+    // it optimistically returns the bare command name 'soffice' and lets the
+    // spawn fail — the normal case on Vercel, which has no LibreOffice at
+    // all. That failure (ENOENT) must surface as the same clean
+    // PdfUnavailableError as the "not configured" case above, not as
+    // "PDF conversion failed: spawn soffice ENOENT".
+    delete process.env.SETU_SOFFICE;
+    const originalPlatform = process.platform;
+    Object.defineProperty(process, 'platform', { value: 'linux' });
+    try {
+      expect(findSoffice()).toBe('soffice');
+      await expect(docxToPdf(Buffer.from('not a docx'))).rejects.toBeInstanceOf(PdfUnavailableError);
+    } finally {
+      Object.defineProperty(process, 'platform', { value: originalPlatform });
+    }
+  });
+
   it.runIf(findSoffice() !== null && process.env.SETU_SOFFICE === undefined)(
     'prints the DOCX to a PDF where LibreOffice is installed',
     async () => {

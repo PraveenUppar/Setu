@@ -2,6 +2,8 @@
 
 **SME IPO Draft Prospectus Builder** — takes an SME issuer from zero to a substantially complete, structurally correct **draft prospectus**, flags every gap and inconsistency with a clause citation, and hands it to a merchant banker for review and certification.
 
+Live Demo: https://setu-mu-three.vercel.app/
+
 ## How it works
 
 1. **Check eligibility** — `/eligibility`, a free six-step SEBI/exchange pre-check. No account, nothing saved, a cited verdict in minutes.

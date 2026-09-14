@@ -50,11 +50,23 @@ export async function docxToPdf(docx: Buffer, basename = 'document'): Promise<Bu
     // A private profile directory keeps a running desktop LibreOffice from
     // swallowing the request, and lets two conversions run at once.
     const profile = `file:///${join(dir, 'profile').replace(/\\/g, '/')}`;
-    await run(
-      soffice,
-      ['--headless', `-env:UserInstallation=${profile}`, '--convert-to', 'pdf', '--outdir', dir, input],
-      { timeout: 120_000, windowsHide: true },
-    );
+    try {
+      await run(
+        soffice,
+        ['--headless', `-env:UserInstallation=${profile}`, '--convert-to', 'pdf', '--outdir', dir, input],
+        { timeout: 120_000, windowsHide: true },
+      );
+    } catch (err) {
+      // On non-Windows, `findSoffice` cannot verify PATH without running it
+      // (see above), so it optimistically returns 'soffice' and lets the
+      // spawn itself fail. A missing binary — the normal case on a
+      // serverless host like Vercel, which has no LibreOffice at all — comes
+      // back as ENOENT here and must surface as the same clean
+      // "not installed" message `findSoffice() === null` already produces,
+      // not as a raw spawn error.
+      if ((err as NodeJS.ErrnoException).code === 'ENOENT') throw new PdfUnavailableError();
+      throw err;
+    }
     return await readFile(join(dir, `${basename}.pdf`));
   } finally {
     await rm(dir, { recursive: true, force: true });
