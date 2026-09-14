@@ -1,6 +1,8 @@
 'use client';
 
 import { useTransition } from 'react';
+import { ShieldCheck, ShieldAlert } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { certifyDocument, revokeDocumentCertification } from '@/app/review/actions';
 import { ROLE_LABELS, type Role } from '@/lib/review/types';
 import { formatTimestamp } from '@/lib/review/timestamp';
@@ -31,39 +33,32 @@ export function CertificationBanner({ data }: { data: CertificationBannerData })
   return (
     <div
       className={`flex flex-wrap items-center justify-between gap-3 rounded-lg border p-4 ${
-        data.certified
-          ? 'border-emerald-300 bg-emerald-50 dark:border-emerald-800 dark:bg-emerald-950/40'
-          : 'border-amber-300 bg-amber-50 dark:border-amber-800 dark:bg-amber-950/40'
+        data.certified ? 'border-emerald-500/30 bg-emerald-500/5' : 'border-amber-500/30 bg-amber-500/5'
       }`}
     >
-      <div className="text-sm">
+      <div className="flex items-start gap-2.5 text-sm">
         {data.certified ? (
-          <>
-            <span className="font-medium text-emerald-800 dark:text-emerald-300">Certified</span>
-            <span className="text-zinc-600 dark:text-zinc-400">
-              {' '}
-              by {ROLE_LABELS[data.certifiedBy!]} on {formatTimestamp(data.certifiedAt!)}. The draft
-              notice is off on every export.
-            </span>
-          </>
+          <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" />
         ) : (
-          <>
-            <span className="font-medium text-amber-800 dark:text-amber-300">Not certified</span>
-            <span className="text-zinc-600 dark:text-zinc-400">
-              {' '}
-              — every export prints &ldquo;UNSIGNED DRAFT — NOT FOR FILING&rdquo; until certified.
-            </span>
-          </>
+          <ShieldAlert className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
         )}
+        <p>
+          {data.certified ? (
+            <>
+              <span className="font-medium text-emerald-500">Certified</span>
+              <span className="text-muted-foreground">
+                {' '}
+                by {ROLE_LABELS[data.certifiedBy!]} on {formatTimestamp(data.certifiedAt!)}
+              </span>
+            </>
+          ) : (
+            <span className="font-medium text-amber-500">Not certified</span>
+          )}
+        </p>
       </div>
-      <button
-        type="button"
-        disabled={pending}
-        onClick={act}
-        className="shrink-0 rounded border border-zinc-300 bg-white px-3 py-1.5 text-sm hover:bg-zinc-50 disabled:opacity-60 dark:border-zinc-700 dark:bg-zinc-900 dark:hover:bg-zinc-800"
-      >
+      <Button type="button" variant="outline" size="sm" disabled={pending} onClick={act}>
         {data.certified ? 'Revoke certification' : 'Certify document'}
-      </button>
+      </Button>
     </div>
   );
 }

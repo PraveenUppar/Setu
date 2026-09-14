@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useTransition } from 'react';
+import { ChevronUp, ChevronDown, Trash2, CircleHelp, Plus } from 'lucide-react';
 import { saveField } from '@/app/intake/actions';
 import { formatCell, parseCell, type RepeaterColumn } from '@/lib/modules/repeater-spec';
 import { applyPaste, blankRow, parsePaste } from '@/lib/modules/paste';
@@ -48,8 +49,8 @@ export interface RepeaterProps {
 }
 
 const cellClass =
-  'w-full rounded border border-transparent bg-transparent px-2 py-1 text-sm outline-none ' +
-  'hover:border-zinc-200 focus:border-zinc-400 dark:hover:border-zinc-700 dark:focus:border-zinc-500';
+  'w-full rounded border border-transparent bg-transparent px-2 py-1 text-sm outline-none transition-colors ' +
+  'hover:border-border focus:border-ring focus:ring-2 focus:ring-ring/30';
 
 export function Repeater({
   moduleId,
@@ -141,43 +142,43 @@ export function Repeater({
     }));
 
   return (
-    <div className="border-b border-zinc-100 py-4 dark:border-zinc-800">
+    <div className="border-b border-border py-4 last:border-0">
       <div className="flex items-baseline justify-between gap-4">
-        <label className="text-sm font-medium">{label}</label>
-        <span className="shrink-0 text-xs text-zinc-400">
+        <label className="text-sm font-medium text-foreground">{label}</label>
+        <span className="shrink-0 text-xs text-muted-foreground">
           {state === 'saving' && 'Saving...'}
           {state === 'saved' && 'Saved'}
         </span>
       </div>
 
-      <p className="mt-1 text-xs text-zinc-500">
+      <p className="mt-1 text-xs text-muted-foreground">
         Paste straight from a spreadsheet into the first cell of the last row.
       </p>
 
       {none && (
         <p className="mt-2 text-sm">
-          <span className="rounded bg-zinc-900 px-3 py-1 text-white dark:bg-zinc-100 dark:text-zinc-900">
+          <span className="rounded-md bg-primary px-3 py-1 font-medium text-primary-foreground">
             None
           </span>
-          <span className="ml-2 text-xs text-zinc-500">Add a row below to change this.</span>
+          <span className="ml-2 text-xs text-muted-foreground">Add a row below to change this.</span>
         </p>
       )}
 
       <div className="mt-3 overflow-x-auto">
         <table className="w-full border-collapse text-sm">
           <thead>
-            <tr className="border-y border-zinc-200 bg-zinc-50 text-left dark:border-zinc-700 dark:bg-zinc-900">
+            <tr className="border-y border-border bg-muted/40 text-left">
               {columns.map((c) => (
-                <th key={c.key} className="px-2 py-1.5 text-xs font-medium" style={{ width: c.width }}>
+                <th key={c.key} className="px-2 py-1.5 text-xs font-medium text-muted-foreground" style={{ width: c.width }}>
                   {c.label}
                 </th>
               ))}
-              <th className="w-20 px-2 py-1.5" />
+              <th className="w-24 px-2 py-1.5" />
             </tr>
           </thead>
           <tbody>
             {rows.map((row, i) => (
-              <tr key={i} className="border-b border-zinc-100 dark:border-zinc-800">
+              <tr key={i} className="border-b border-border">
                 {columns.map((c, ci) => (
                   <td key={c.key} className="px-1 py-0.5">
                     {c.type === 'select' || c.type === 'boolean' ? (
@@ -238,17 +239,19 @@ export function Repeater({
                     type="button"
                     aria-label="Move up"
                     onClick={() => move(i, i - 1)}
-                    className="px-1 text-xs text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200"
+                    className="rounded p-1 text-muted-foreground hover:bg-muted hover:text-foreground disabled:pointer-events-none disabled:opacity-30"
+                    disabled={i === 0}
                   >
-                    up
+                    <ChevronUp className="h-3.5 w-3.5" />
                   </button>
                   <button
                     type="button"
                     aria-label="Move down"
                     onClick={() => move(i, i + 1)}
-                    className="px-1 text-xs text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200"
+                    className="rounded p-1 text-muted-foreground hover:bg-muted hover:text-foreground disabled:pointer-events-none disabled:opacity-30"
+                    disabled={i === rows.length - 1}
                   >
-                    down
+                    <ChevronDown className="h-3.5 w-3.5" />
                   </button>
                   <button
                     type="button"
@@ -261,9 +264,9 @@ export function Repeater({
                       if (remaining.length === 0) commitNone();
                       else commit(remaining);
                     }}
-                    className="px-1 text-xs text-zinc-400 hover:text-red-600"
+                    className="rounded p-1 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
                   >
-                    remove
+                    <Trash2 className="h-3.5 w-3.5" />
                   </button>
                 </td>
               </tr>
@@ -271,11 +274,11 @@ export function Repeater({
           </tbody>
           {totals.length > 0 && (
             <tfoot>
-              <tr className="border-t border-zinc-300 dark:border-zinc-700">
+              <tr className="border-t-2 border-border">
                 {columns.map((c) => {
                   const t = totals.find((x) => x.key === c.key);
                   return (
-                    <td key={c.key} className="px-2 py-1.5 text-right text-sm font-medium tabular-nums">
+                    <td key={c.key} className="px-2 py-1.5 text-right text-sm font-semibold tabular-nums">
                       {t ? t.value.toLocaleString('en-IN') : ''}
                     </td>
                   );
@@ -291,15 +294,16 @@ export function Repeater({
         <button
           type="button"
           onClick={() => setRows([...rows, blankRow(columns)])}
-          className="text-xs text-zinc-600 underline decoration-dotted underline-offset-2 dark:text-zinc-400"
+          className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
         >
+          <Plus className="h-3.5 w-3.5" />
           Add a row
         </button>
         {!none && (
           <button
             type="button"
             onClick={commitNone}
-            className="text-xs text-zinc-500 underline decoration-dotted underline-offset-2"
+            className="text-xs text-muted-foreground underline decoration-dotted underline-offset-2 hover:text-foreground"
           >
             None / no entries
           </button>
@@ -307,14 +311,15 @@ export function Repeater({
         <button
           type="button"
           onClick={() => setShowHelp((s) => !s)}
-          className="text-xs text-zinc-500 underline decoration-dotted underline-offset-2"
+          className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
         >
+          <CircleHelp className="h-3.5 w-3.5" />
           {showHelp ? 'Hide' : 'Why we ask'}
         </button>
       </div>
 
       {showHelp && (
-        <div className="mt-2 rounded border-l-2 border-zinc-300 bg-zinc-50 py-2 pl-3 pr-2 text-xs leading-relaxed text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-400">
+        <div className="mt-2 rounded-md border-l-2 border-border bg-muted/40 py-2 pl-3 pr-2 text-xs leading-relaxed text-muted-foreground">
           {helpText}
         </div>
       )}

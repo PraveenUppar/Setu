@@ -4,8 +4,19 @@ import type { FactPath, ProvenanceMap } from '../facts/provenance';
 import type { FactBase } from '../facts/schema';
 import { riskArchetypes, selectRisks } from '../risk';
 import { readNarrative } from '../store/narrative-store';
-import { collectPlaceholders, type DocumentNode, type Placeholder, type Run } from './nodes';
+import { collectPlaceholders, type DocumentNode, type Placeholder } from './nodes';
 import { renderTemplate } from './template';
+import {
+  flattenSections,
+  gapAnchorKeys,
+  runKey,
+  type RenderedSection,
+  type SectionRef,
+} from './section-view';
+
+// Re-exported so every existing server-side caller keeps working unchanged —
+// see section-view.ts for why these moved out of this file.
+export { flattenSections, gapAnchorKeys, runKey, type RenderedSection, type SectionRef };
 
 /**
  * A section is DATA, not code (MM2). One engine renders the registry.
@@ -371,20 +382,6 @@ export function renderSection(spec: SectionSpec, ctx: RenderContext): DocumentNo
  * section boundary is what makes the gap list navigable rather than a list of
  * complaints about a document the reader then has to search by hand.
  */
-export interface SectionRef {
-  id: string;
-  title: string;
-  group: string;
-  /** The numbered subsection from the section map this belongs to. */
-  partOf: string;
-  /** DOM id now, DOCX bookmark later. */
-  anchor: string;
-}
-
-export interface RenderedSection extends SectionRef {
-  nodes: DocumentNode[];
-}
-
 /** Render an ordered set of sections, keeping the section boundaries. */
 export function renderSections(specs: SectionSpec[], ctx: RenderContext): RenderedSection[] {
   return specs
@@ -409,10 +406,6 @@ export function renderSections(specs: SectionSpec[], ctx: RenderContext): Render
 /** Render an ordered set of sections into one document. */
 export function renderDocument(specs: SectionSpec[], ctx: RenderContext): DocumentNode[] {
   return flattenSections(renderSections(specs, ctx));
-}
-
-export function flattenSections(sections: RenderedSection[]): DocumentNode[] {
-  return sections.flatMap((section) => section.nodes);
 }
 
 /** A placeholder together with every section that renders it. */
@@ -449,43 +442,4 @@ export function collectGaps(sections: RenderedSection[]): Gap[] {
     }
   }
   return [...byPath.values()];
-}
-
-/**
- * Address of a single run within a rendered document: section, node, then the
- * list item where there is one, then the run.
- *
- * The renderer and `gapAnchorKeys` must agree on this exactly, which is why
- * neither builds the string itself.
- */
-export const runKey = (...parts: number[]): string => parts.join('.');
-
-/**
- * Which run carries each gap's anchor: the FIRST occurrence of that fact path
- * in the document.
- *
- * A gap repeated in nine places must still have exactly one id, or the
- * document emits duplicate DOM ids and the browser jumps to whichever it
- * happens to find first.
- */
-export function gapAnchorKeys(sections: RenderedSection[]): Map<string, string> {
-  const anchored = new Map<string, string>();
-  const seen = new Set<string>();
-
-  const scan = (runs: Run[], prefix: number[]) => {
-    runs.forEach((run, r) => {
-      const path = run.placeholder?.factPath;
-      if (!path || seen.has(path)) return;
-      seen.add(path);
-      anchored.set(runKey(...prefix, r), path);
-    });
-  };
-
-  sections.forEach((section, s) =>
-    section.nodes.forEach((node, n) => {
-      if (node.type === 'paragraph') scan(node.runs, [s, n]);
-      else if (node.type === 'list') node.items.forEach((item, i) => scan(item, [s, n, i]));
-    }),
-  );
-  return anchored;
 }

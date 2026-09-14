@@ -7,9 +7,10 @@ import {
   ClipboardCheck,
   FileText,
   ClipboardList,
+  ClipboardX,
+  Download,
   ListChecks,
   AlertTriangle,
-  ScrollText,
   type LucideIcon,
 } from 'lucide-react';
 import {
@@ -39,7 +40,9 @@ const NAV_GROUPS: { label: string; items: NavItem[] }[] = [
       { href: '/', label: 'Home', icon: Home },
       { href: '/eligibility', label: 'Eligibility', icon: ClipboardCheck },
       { href: '/intake', label: 'Intake', icon: ClipboardList },
+      { href: '/document/gaps', label: 'Gap Report', icon: ClipboardX },
       { href: '/document', label: 'Document', icon: FileText },
+      { href: '/export', label: 'Export', icon: Download },
     ],
   },
   {
@@ -47,7 +50,10 @@ const NAV_GROUPS: { label: string; items: NavItem[] }[] = [
     items: [
       { href: '/review', label: 'Review', icon: ListChecks },
       { href: '/review/risks', label: 'Risks', icon: AlertTriangle },
-      { href: '/review/audit', label: 'Audit log', icon: ScrollText },
+      // Audit log deliberately dropped from navigation (not deleted — still
+      // a real route at /review/audit, still logging every action). It only
+      // pays for itself with more than one real reviewer; for a solo demo
+      // it's just watching your own role-switches get recorded.
     ],
   },
 ];
@@ -56,8 +62,8 @@ const NAV_GROUPS: { label: string; items: NavItem[] }[] = [
  * The persistent left navigation, built on shadcn's Sidebar primitive
  * (`components/ui/sidebar.tsx`) rather than plain divs — real collapse-to-
  * icon, a mobile drawer, and a Cmd/Ctrl+B shortcut come from that primitive
- * for free. Active state is exact-path, since Review/Risks/Audit log are
- * siblings under /review, not a hierarchy.
+ * for free. Active state is exact-path, since Review and Risks are siblings
+ * under /review, not a hierarchy.
  */
 export function Sidebar() {
   const pathname = usePathname();

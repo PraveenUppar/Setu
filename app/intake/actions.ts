@@ -1,10 +1,10 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { writeFacts } from '@/lib/store/fact-store';
+import { writeFacts, loadWholeFactBase, resetFactBase, readFactBase } from '@/lib/store/fact-store';
 import { findModule } from '@/lib/modules';
 import { fieldStatus } from '@/lib/modules/types';
-import { readFactBase } from '@/lib/store/fact-store';
+import { vardhman } from '@/lib/seed/vardhman';
 
 /**
  * Per-field autosave.
@@ -48,7 +48,33 @@ export async function saveField(
    * a consistency check the issuer has to go looking for is not live.
    */
   revalidatePath('/intake', 'layout');
-  revalidatePath('/document');
+  revalidatePath('/document', 'layout');
 
   return { ok: status.issues.length === 0, issues: status.issues, version: written.version };
+}
+
+/**
+ * "Load demo data" — fills every module with the Vardhman demo issuer's
+ * answers in one write, for a demo that shows the tool rather than someone
+ * typing into it live. A normal write (see `loadWholeFactBase`): append-only,
+ * so nothing already saved is lost, and every field stays editable exactly
+ * as if a person had typed each one.
+ */
+export async function loadDemoData(): Promise<{ ok: boolean; version: number }> {
+  const written = loadWholeFactBase(vardhman, 'demo');
+  revalidatePath('/intake', 'layout');
+  revalidatePath('/document', 'layout');
+  return { ok: true, version: written.version };
+}
+
+/**
+ * "Reset" — clears every module back to unanswered, symmetric with "Load
+ * demo data". Nothing is deleted: this appends a new empty version, so the
+ * data just cleared is still on disk under its old version number.
+ */
+export async function resetIntakeData(): Promise<{ ok: boolean; version: number }> {
+  const written = resetFactBase('reset');
+  revalidatePath('/intake', 'layout');
+  revalidatePath('/document', 'layout');
+  return { ok: true, version: written.version };
 }

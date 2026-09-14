@@ -137,6 +137,45 @@ export function seedIfEmpty(facts: PartialFactBase, by = 'seed'): FactBaseVersio
 }
 
 /**
+ * Load a whole fact base on demand, regardless of what is already stored —
+ * the "Load demo data" button's write path. Unlike `seedIfEmpty`, this is
+ * meant to be pressed more than once (before each demo), so it does not
+ * check the current version first. Still append-only: this is a normal
+ * write, so every version already on disk survives underneath it.
+ */
+export function loadWholeFactBase(facts: PartialFactBase, by: string): FactBaseVersion {
+  return writeFacts(flatten(facts), by);
+}
+
+/**
+ * Reset to empty — the "Reset" button's write path, symmetric with
+ * `loadWholeFactBase`. Appends a new version with no facts at all, rather
+ * than touching what is already on disk: every prior version, demo data
+ * included, is still there under it and still reachable by version number.
+ * `writeFacts` can't do this directly (it only ever diffs and merges onto
+ * what is already stored, never clears a path), so this builds the empty
+ * version the same way `writeFacts` builds a normal one.
+ */
+export function resetFactBase(by: string): FactBaseVersion {
+  ensure();
+  const previous = readFactBase();
+  if (previous.version === 0) return previous;
+
+  const next: FactBaseVersion = {
+    version: previous.version + 1,
+    savedAt: new Date().toISOString(),
+    savedBy: by,
+    changed: Object.keys(previous.facts),
+    facts: {},
+    provenance: {},
+  };
+
+  writeFileSync(join(versionsDir(), `${next.version}.json`), JSON.stringify(next, null, 2));
+  writeFileSync(currentFile(), JSON.stringify(next, null, 2));
+  return next;
+}
+
+/**
  * Flatten a nested fact object to the top-level domain paths.
  *
  * Deliberately shallow: domains are written whole when seeding, and

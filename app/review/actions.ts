@@ -81,7 +81,7 @@ export async function certifyDocument(): Promise<{ ok: boolean }> {
   certify(actor);
   appendAudit({ actor, action: 'certify', detail: 'Draft notice lifted on all exports' });
   revalidatePath('/review');
-  revalidatePath('/document');
+  revalidatePath('/export');
   return { ok: true };
 }
 
@@ -90,6 +90,6 @@ export async function revokeDocumentCertification(): Promise<{ ok: boolean }> {
   revokeCertification(actor);
   appendAudit({ actor, action: 'revoke-certification', detail: 'Draft notice restored on all exports' });
   revalidatePath('/review');
-  revalidatePath('/document');
+  revalidatePath('/export');
   return { ok: true };
 }

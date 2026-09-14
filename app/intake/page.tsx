@@ -1,22 +1,13 @@
 import Link from 'next/link';
-import {
-  Building2,
-  Coins,
-  Users,
-  UserCog,
-  Factory,
-  PieChart,
-  Scale,
-  ShieldCheck,
-  Rocket,
-  Network,
-  type LucideIcon,
-} from 'lucide-react';
+import { Building2 } from 'lucide-react';
 import { allProgress, moduleRegistry } from '@/lib/modules';
 import { readFactBase } from '@/lib/store/fact-store';
 import { currentRole } from '@/lib/review/role';
 import { ROLE_LABELS, ROLES, type Role } from '@/lib/review/types';
 import { RolePicker } from '@/components/role-picker';
+import { MODULE_ICONS } from '@/components/module-icons';
+import { LoadDemoDataButton } from '@/components/load-demo-data-button';
+import { ResetDataButton } from '@/components/reset-data-button';
 
 /**
  * The module list — the issuer's home page during intake.
@@ -28,19 +19,6 @@ import { RolePicker } from '@/components/role-picker';
  */
 
 export const dynamic = 'force-dynamic';
-
-const MODULE_ICONS: Record<string, LucideIcon> = {
-  M1: Building2,
-  M2: Coins,
-  M3: Users,
-  M4: UserCog,
-  M5: Factory,
-  M6: PieChart,
-  M7: Scale,
-  M8: ShieldCheck,
-  M9: Rocket,
-  M10: Network,
-};
 
 function hoursMinutes(total: number): string {
   const h = Math.floor(total / 60);
@@ -75,14 +53,22 @@ export default async function IntakePage() {
 
   return (
     <div className="mx-auto max-w-3xl px-8 py-12">
-      <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-        Intake
-      </p>
-      <h1 className="font-heading mt-2 text-2xl font-semibold tracking-tight">
-        {typeof facts.company?.name === 'string' && facts.company.name
-          ? facts.company.name
-          : 'Pending company details'}
-      </h1>
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+            Intake
+          </p>
+          <h1 className="font-heading mt-2 text-2xl font-semibold tracking-tight">
+            {typeof facts.company?.name === 'string' && facts.company.name
+              ? facts.company.name
+              : 'Pending company details'}
+          </h1>
+        </div>
+        <div className="flex shrink-0 gap-2">
+          <ResetDataButton />
+          <LoadDemoDataButton />
+        </div>
+      </div>
 
       {/* The one number that matters most, made hard to miss. */}
       <div className="mt-6 rounded-lg border border-border bg-card p-5">

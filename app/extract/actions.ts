@@ -97,7 +97,7 @@ export async function confirmExtraction(
   }));
 
   revalidatePath('/intake', 'layout');
-  revalidatePath('/document');
+  revalidatePath('/document', 'layout');
 
   return { version: written.version, written: Object.keys(updates) };
 }

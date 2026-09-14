@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useTransition } from 'react';
+import { CircleHelp, AlertTriangle } from 'lucide-react';
 import { saveField } from '@/app/intake/actions';
 import type { FieldView } from '@/lib/modules/types';
 import { Repeater } from './repeater';
@@ -21,32 +22,33 @@ import { Repeater } from './repeater';
 type Saved = 'idle' | 'saving' | 'saved' | 'error';
 
 const inputClass =
-  'mt-1 w-full rounded border border-zinc-300 bg-white px-3 py-2 text-sm outline-none ' +
-  'focus:border-zinc-500 dark:border-zinc-700 dark:bg-zinc-900';
+  'mt-1.5 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs outline-none ' +
+  'transition-colors focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30';
 
 function Why({ field }: { field: FieldView }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="mt-1">
+    <div className="mt-1.5">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="text-xs text-zinc-500 underline decoration-dotted underline-offset-2 hover:text-zinc-800 dark:hover:text-zinc-200"
+        className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
       >
+        <CircleHelp className="h-3.5 w-3.5" />
         {open ? 'Hide' : 'Why we ask'}
       </button>
       {open && (
-        <div className="mt-2 rounded border-l-2 border-zinc-300 bg-zinc-50 py-2 pl-3 pr-2 text-xs leading-relaxed text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-400">
+        <div className="mt-2 rounded-md border-l-2 border-border bg-muted/40 py-2 pl-3 pr-2 text-xs leading-relaxed text-muted-foreground">
           <p>{field.helpText}</p>
           {field.clause && (
             <p className="mt-2">
-              <span className="text-zinc-400">Requirement: </span>
+              <span className="text-muted-foreground/70">Requirement: </span>
               {field.clause}
             </p>
           )}
           {field.feedsInto.length > 0 && (
             <p className="mt-2">
-              <span className="text-zinc-400">Where this appears: </span>
+              <span className="text-muted-foreground/70">Where this appears: </span>
               {field.feedsInto.join(', ')}
             </p>
           )}
@@ -68,16 +70,16 @@ function Input({
   switch (field.type) {
     case 'boolean':
       return (
-        <div className="mt-2 flex gap-1">
+        <div className="mt-2 inline-flex gap-1 rounded-md border border-border bg-muted/40 p-0.5">
           {[true, false].map((v) => (
             <button
               key={String(v)}
               type="button"
               onClick={() => onChange(v)}
-              className={`rounded px-3 py-1 text-sm ${
+              className={`rounded px-3 py-1 text-sm font-medium transition-colors ${
                 value === v
-                  ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900'
-                  : 'bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400'
+                  ? 'bg-primary text-primary-foreground shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
               }`}
             >
               {v ? 'Yes' : 'No'}
@@ -134,7 +136,7 @@ function Input({
               onChange(field.type === 'currency' ? raw.replace(/[,\s]/g, '') : Number(raw));
             }}
           />
-          {field.suffix && <span className="shrink-0 text-xs text-zinc-500">{field.suffix}</span>}
+          {field.suffix && <span className="shrink-0 text-xs text-muted-foreground">{field.suffix}</span>}
         </div>
       );
 
@@ -168,13 +170,13 @@ function FieldRow({ field, moduleId }: { field: FieldView; moduleId: string }) {
   };
 
   return (
-    <div className="border-b border-zinc-100 py-4 dark:border-zinc-800">
+    <div className="border-b border-border py-4 last:border-0">
       <div className="flex items-baseline justify-between gap-4">
-        <label className="text-sm font-medium">{field.label}</label>
-        <span className="shrink-0 text-xs text-zinc-400">
+        <label className="text-sm font-medium text-foreground">{field.label}</label>
+        <span className="shrink-0 text-xs text-muted-foreground">
           {state === 'saving' && 'Saving...'}
           {state === 'saved' && 'Saved'}
-          {state === 'error' && <span className="text-amber-600">Saved, needs attention</span>}
+          {state === 'error' && <span className="text-amber-500">Saved, needs attention</span>}
         </span>
       </div>
 
@@ -190,13 +192,13 @@ function FieldRow({ field, moduleId }: { field: FieldView; moduleId: string }) {
       */}
       {value === null ? (
         <div className="mt-2 flex items-center gap-3">
-          <span className="rounded bg-zinc-900 px-3 py-1 text-sm text-white dark:bg-zinc-100 dark:text-zinc-900">
+          <span className="rounded-md bg-primary px-3 py-1 text-sm font-medium text-primary-foreground">
             None
           </span>
           <button
             type="button"
             onClick={() => setValue(undefined)}
-            className="text-xs text-zinc-500 underline decoration-dotted underline-offset-2"
+            className="text-xs text-muted-foreground underline decoration-dotted underline-offset-2 hover:text-foreground"
           >
             Enter details instead
           </button>
@@ -210,7 +212,7 @@ function FieldRow({ field, moduleId }: { field: FieldView; moduleId: string }) {
             <button
               type="button"
               onClick={() => commit(null)}
-              className="mt-2 text-xs text-zinc-500 underline decoration-dotted underline-offset-2"
+              className="mt-2 text-xs text-muted-foreground underline decoration-dotted underline-offset-2 hover:text-foreground"
             >
               None / not applicable
             </button>
@@ -219,9 +221,10 @@ function FieldRow({ field, moduleId }: { field: FieldView; moduleId: string }) {
       )}
 
       {issues.length > 0 && (
-        <ul className="mt-2 space-y-0.5">
+        <ul className="mt-2 space-y-1">
           {issues.map((i) => (
-            <li key={i} className="text-xs text-amber-700 dark:text-amber-500">
+            <li key={i} className="flex items-start gap-1.5 text-xs text-amber-500">
+              <AlertTriangle className="mt-0.5 h-3 w-3 shrink-0" />
               {i}
             </li>
           ))}
